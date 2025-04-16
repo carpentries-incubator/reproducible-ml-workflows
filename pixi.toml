@@ -13,6 +13,11 @@ Rscript install_dependencies.R
 [tasks.start]
 depends-on = ["install-requirements"]
 
+[tasks.build]
+cmd = """
+Rscript build.R
+"""
+
 [dependencies]
 git = ">=2.49.0,<3"
 r = ">=4.4,<4.5"
