@@ -17,3 +17,4 @@ depends-on = ["install-requirements"]
 git = ">=2.49.0,<3"
 r = ">=4.4,<4.5"
 pandoc = ">=3.6.4,<4"
+cxx-compiler = ">=1.9.0,<2"
