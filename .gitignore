@@ -49,3 +49,7 @@ docs/
 # translation temp files
 po/*~
 
+
+# pixi environments
+.pixi
+*.egg-info
