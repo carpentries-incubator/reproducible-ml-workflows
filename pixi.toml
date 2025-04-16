@@ -5,6 +5,15 @@ name = "reproducible-ml-workflows"
 platforms = ["linux-64"]
 version = "0.1.0"
 
-[tasks]
+[tasks.install-requirements]
+cmd = """
+Rscript install_dependencies.R
+"""
+
+[tasks.start]
+depends-on = ["install-requirements"]
 
 [dependencies]
+git = ">=2.49.0,<3"
+r = ">=4.4,<4.5"
+pandoc = ">=3.6.4,<4"
