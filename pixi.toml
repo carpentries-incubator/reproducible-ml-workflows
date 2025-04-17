@@ -10,9 +10,6 @@ cmd = """
 Rscript install_dependencies.R
 """
 
-[tasks.start]
-depends-on = ["install-requirements"]
-
 [tasks.check]
 description = "Validate the structure of the input files"
 cmd = """
@@ -30,6 +27,10 @@ description = "Serve the lesson"
 cmd = """
 Rscript -e "sandpaper::serve()"
 """
+
+[tasks.start]
+description = "Install R dependencies and serve site"
+depends-on = ["install-requirements", "serve"]
 
 [dependencies]
 git = ">=2.49.0,<3"
