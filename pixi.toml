@@ -13,9 +13,22 @@ Rscript install_dependencies.R
 [tasks.start]
 depends-on = ["install-requirements"]
 
-[tasks.build]
+[tasks.check]
+description = "Validate the structure of the input files"
 cmd = """
-Rscript build.R
+Rscript -e "sandpaper::check_lesson()"
+"""
+
+[tasks.build]
+description = "build and validate lesson"
+cmd = """
+Rscript -e "sandpaper::build_lesson()"
+"""
+
+[tasks.serve]
+description = "Serve the lesson"
+cmd = """
+Rscript -e "sandpaper::serve()"
 """
 
 [dependencies]
