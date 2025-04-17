@@ -8,7 +8,7 @@
 # lc: Library Carpentry
 # cp: Carpentries (to use for instructor training for instance)
 # incubator: The Carpentries Incubator
-#
+# 
 # This option supports custom types so lessons can be branded
 # and themed with your own logo and alt-text (see `carpentry_description`)
 # See https://carpentries.github.io/sandpaper-docs/editing.html#adding-a-custom-logo
@@ -17,31 +17,30 @@ carpentry: 'incubator'
 # Alt-text description of the lesson.
 carpentry_description: 'Lesson Description'
 
-# c.f. https://carpentries.github.io/sandpaper-docs/introduction.html
 # Overall title for pages.
-title: 'Reproducible Machine Learning Workflows for Scientists'
+title: 'Lesson Title' # FIXME
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: 2025-03-16
+created: ~ # FIXME
 
 # Comma-separated list of keywords for the lesson
-keywords: 'software, lesson, The Carpentries, machine learning, CUDA, hardware acceleration, reproducible'
+keywords: 'software, data, lesson, The Carpentries' # FIXME
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'pre-alpha'
+life_cycle: 'pre-alpha' # FIXME
 
 # License of the lesson
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/carpentries-incubator/reproducible-ml-workflows'
+source: 'https://github.com/carpentries/workbench-template-md' # FIXME
 
 # Default branch of your lesson
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'matthew.feickert@cern.ch'
+contact: 'team@carpentries.org' # FIXME
 
 # Navigation ------------------------------------------------
 #
@@ -66,17 +65,17 @@ contact: 'matthew.feickert@cern.ch'
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes:
+episodes: 
 - introduction.md
 
 # Information for Learners
-learners:
+learners: 
 
 # Information for Instructors
-instructors:
+instructors: 
 
 # Learner Profiles
-profiles:
+profiles: 
 
 # Customisation ---------------------------------------------
 #
