@@ -28,17 +28,6 @@ complete the initial configuration of a new lesson repository built from this te
    If no `gh-pages` branch is available, check _Actions_ to see if the first
    website build workflows are still running.
    The branch should become available when those have completed.
-1. **Annotate the repository** with site URL and topic tags:
-   navigate back to the repository landing page and
-   click on the gear wheel/cog icon (similar to ⚙️)
-   at the top-right of the _About_ box.
-   Check the "Use your GitHub Pages website" option,
-   and [add some keywords and other annotations to describe your lesson](https://cdh.carpentries.org/the-carpentries-incubator.html#topic-tags)
-   in the _Topics_ field.
-   At minimum, these should include:
-   - `lesson`
-   - the life cycle of the lesson (e.g. `pre-alpha`)
-   - the human language the lesson is written in (e.g. `deutsch`)
 1. **Adjust the
    `CITATION.cff`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, and `LICENSE.md` files**
    as appropriate for your project.
