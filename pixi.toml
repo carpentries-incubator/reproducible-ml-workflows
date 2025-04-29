@@ -57,9 +57,4 @@ r-commonmark = ">=1.9.5,<2"
 r-assertthat = ">=0.2.1,<0.3"
 r-promises = ">=1.3.2,<2"
 r-servr = ">=0.32,<0.33"
-
-[target.linux-64.dependencies]
-r-xslt = ">=1.5.1,<2"
-
-[target.win-64.dependencies]
 r-xslt = ">=1.5.1,<2"
