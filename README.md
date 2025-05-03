@@ -1,6 +1,7 @@
-# The Carpentries Workbench Template Markdown Lesson
+# Reproducible Machine Learning Workflows for Scientists
 
-This lesson is a template lesson that uses [The Carpentries Workbench][workbench].
+> [!TIP]
+> This lesson uses [The Carpentries Workbench][workbench].
 
 ## Using the lesson
 
