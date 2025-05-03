@@ -5,11 +5,6 @@ name = "reproducible-ml-workflows"
 platforms = ["linux-64", "osx-arm64", "win-64"]
 version = "0.1.0"
 
-[tasks.install-requirements]
-cmd = """
-Rscript install_dependencies.R
-"""
-
 [tasks.check]
 description = "Validate the structure of the input files"
 cmd = """
@@ -29,8 +24,8 @@ Rscript -e "sandpaper::serve()"
 """
 
 [tasks.start]
-description = "Install R dependencies and serve site"
-depends-on = ["install-requirements", "serve"]
+description = "Serve site"
+depends-on = ["serve"]
 
 [dependencies]
 git = ">=2.49.0,<3"
