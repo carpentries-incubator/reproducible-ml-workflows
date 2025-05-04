@@ -128,7 +128,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-memoise-2.0.1-r44hc72bb7e_3.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-mime-0.13-r44h2b5f3a1_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-openssl-2.3.2-r44he8289e2_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-pegboard-0.7.8-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-pegboard-0.7.9-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-pillar-1.10.2-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-pkgconfig-2.0.3-r44hc72bb7e_4.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-pkgdown-2.1.2-r44hc72bb7e_0.conda
@@ -314,7 +314,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-memoise-2.0.1-r44hc72bb7e_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-mime-0.13-r44h570997c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-openssl-2.3.2-r44h3814a5a_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-pegboard-0.7.8-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-pegboard-0.7.9-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-pillar-1.10.2-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-pkgconfig-2.0.3-r44hc72bb7e_4.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-pkgdown-2.1.2-r44hc72bb7e_0.conda
@@ -477,7 +477,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-memoise-2.0.1-r44hc72bb7e_3.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-mime-0.13-r44h11b023d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-openssl-2.3.2-r44haf0e47c_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-pegboard-0.7.8-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-pegboard-0.7.9-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-pillar-1.10.2-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-pkgconfig-2.0.3-r44hc72bb7e_4.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-pkgdown-2.1.2-r44hc72bb7e_0.conda
@@ -4238,9 +4238,9 @@ packages:
   license_family: MIT
   size: 2486560
   timestamp: 1739372414204
-- conda: https://conda.anaconda.org/conda-forge/noarch/r-pegboard-0.7.8-r44ha770c72_0.conda
-  sha256: b153226a8adfdfff7f718bda35896afdd0e9b9bd7660465672179f1174c7a89d
-  md5: 526fda0b6c10deeb0adae93790a9134c
+- conda: https://conda.anaconda.org/conda-forge/noarch/r-pegboard-0.7.9-r44ha770c72_0.conda
+  sha256: 707e89355cfc95ea7feab43a486a2aa2558893ae50a86aaa299786e01aa0cf1c
+  md5: 0d59cc3b0e8607308167a456429d9f53
   depends:
   - r-base >=4.4,<4.5.0a0
   - r-commonmark
@@ -4254,8 +4254,8 @@ packages:
   - r-yaml
   license: MIT
   license_family: MIT
-  size: 685968
-  timestamp: 1746304238566
+  size: 685992
+  timestamp: 1746304838085
 - conda: https://conda.anaconda.org/conda-forge/noarch/r-pillar-1.10.2-r44hc72bb7e_0.conda
   sha256: 34928833727310c5f4dcd0451a8b3dd1a18908c0e02412bd792608020f68c81a
   md5: 990526aedf87cc49d999c9009b595c9f
