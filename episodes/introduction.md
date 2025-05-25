@@ -1,39 +1,42 @@
 ---
-title: "Using Markdown"
+title: "Computational Reproducibility"
 teaching: 10
 exercises: 2
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
+::: questions
 
-- How do you write a lesson using Markdown and `{sandpaper}`?
+* What does it mean to be "reproducible"?
+* How is "reproducibility" different than "reuse"?
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+:::
 
-::::::::::::::::::::::::::::::::::::: objectives
+::: objectives
 
-- Explain how to use markdown with The Carpentries Workbench
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+* Understand the concepts of reproducibility and reuse
+* Be able to describe what is needed for a computational environment to be reproducible.
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+:::
 
 ## Introduction
 
-This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown](https://pandoc.org/MANUAL.html) for static files and
-[R Markdown][r-markdown] for dynamic files that can render code into output. 
-Please refer to the [Introduction to The Carpentries 
-Workbench](https://carpentries.github.io/sandpaper-docs/) for full documentation.
+Modern scientific analyses are complex software and logistical workflows that may span multiple software environments and require heterogenous software and computing infrastructure.
+Scientific researchers need to keep track of all of this to be able to do their research, and to ensure the validity of their work, which can be difficult.
+Scientific software enables all of this work to happen, but software isn't a static resource &mdash; software is continually developed, revised, and released, which can introduce large breaking changes or subtle computational differences in outputs and results.
+Having the software you're using change without you intending it from day-to-day, run-to-run, or on different machines is problematic when trying to do high quality research and can cause software bugs, errors in scientific results, and make findings unreproducible.
+All of these things are not desirable!
 
-What you need to know is that there are three sections required for a valid
-Carpentries lesson:
+::: callout
 
- 1. `questions` are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` are the learning objectives for an episode displayed with
-    the questions.
- 3. `keypoints` are displayed at the end of the episode to reinforce the
-    objectives.
+When discussing "software" in this lesson we will primarily be meaning open source software that is openly developed.
+However, there are situations in which software might (for good reason) be:
+
+* Closed development with open source release artifacts
+* Closed development and closed source with public binary distributions
+* Closed development and closed source with proprietary licenses
+
+:::
+
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -42,73 +45,31 @@ associated with the lessons. They appear in the "Instructor View"
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::: challenge 
+:::: challenge
 
-## Challenge 1: Can you do it?
+## What are other challenges to reproducible research?
 
-What is the output of this command?
+:::: solution
 
-```r
-paste("This", "new", "lesson", "looks", "good")
-```
+There are many! Here are some you might have thought of:
 
-:::::::::::::::::::::::: solution 
+* (Not having) Access to data
+* Unreproducible builds of software that isn't packaged and distributed on public package indexes
+* Analysis code not being under version control
+* Not having any environment definition configuration files
 
-## Output
- 
-```output
-[1] "This new lesson looks good"
-```
+What did you come up with?
 
-:::::::::::::::::::::::::::::::::
+::::
+::::
 
-
-## Challenge 2: how do you nest solutions within challenge blocks?
-
-:::::::::::::::::::::::: solution 
-
-You can add a line with at least three colons and a `solution` tag.
-
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Figures
-
-You can use standard markdown for static figures with the following syntax:
-
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
-
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
-
-::::::::::::::::::::::::::::::::::::: callout
-
-Callout sections can highlight information.
-
-They are sometimes used to emphasise particularly important points
-but are also used in some lessons to present "asides": 
-content that is not central to the narrative of the lesson,
-e.g. by providing the answer to a commonly-asked question.
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-## Math
-
-One of our episodes contains $\LaTeX$ equations when describing how to create
-dynamic reports with {knitr}, so we now use mathjax to describe this:
-
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
-
-Cool, right?
-
-::::::::::::::::::::::::::::::::::::: keypoints 
+::: keypoints
 
 - Use `.md` files for episodes when you want static content
 - Use `.Rmd` files for episodes when you need to generate output
 - Run `sandpaper::check_lesson()` to identify any issues with your lesson
 - Run `sandpaper::build_lesson()` to preview your lesson locally
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+:::
 
 [r-markdown]: https://rmarkdown.rstudio.com/
