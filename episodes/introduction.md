@@ -64,7 +64,7 @@ What did you come up with?
 :::
 :::
 
-## Computational Reproducibility
+## Computational reproducibility
 
 "Reproducible" research can mean many things and is a multipronged problem.
 This lesson will focus primarily on computational reproducibility.
