@@ -124,16 +124,30 @@ However, just because a software environment is fully reproducible does not mean
 Reuse allows for the tools and components of the scientific workflow to be composable tools that can interoperate together to
 create a workflow.
 The steps of the workflow might exist in radically different computational environments and require different software, or different versions of the same software tools.
-Given these demands, reproducible computational software environments are a first step toward full reusable scientific workflows.
+Given these demands, reproducible computational software environments are a first step toward fully reusable scientific workflows.
 
 This lesson will focus on computational reproducibility of hardware accelerated scientific workflows (e.g. machine learning).
 Scientifically reusable analysis workflows are a more extensive topic, but this lesson will link to references on the topic.
 
+::: challenge
+
+## What are challenges to your own research practices to making them reproducible and reusable?
+
+::: solution
+
+## Possible answers
+
+What did you come up with?
+
+:::
+:::
+
 ::: keypoints
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+* Modern scientific research is complex and requires software environments.
+* Computational reproducibility helps to enable reproducible science, but is not sufficient by itself.
+* Reproducible computational software environments that use hardware acceleration require additional information.
+* New technologies make all of these processes easier.
+* Reproducible computational software environments are a first step toward fully reusable scientific workflows but are not sufficient by themselves.
 
 :::
