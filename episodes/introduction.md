@@ -137,6 +137,10 @@ Scientifically reusable analysis workflows are a more extensive topic, but this 
 
 ## Possible answers
 
+* Technical expertise in reproducibility technologies
+* Time to learn new tools
+* Balancing reproducibility concerns with using tools the entire research team can understand
+
 What did you come up with?
 
 :::
