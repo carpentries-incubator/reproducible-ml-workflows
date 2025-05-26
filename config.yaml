@@ -68,6 +68,7 @@ contact: 'matthew.feickert@cern.ch'
 # Order of episodes in your lesson
 episodes:
 - introduction.md
+- pixi_intro.md
 
 # Information for Learners
 learners:
