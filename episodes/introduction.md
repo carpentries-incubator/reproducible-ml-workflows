@@ -1,7 +1,7 @@
 ---
 title: "Computational Reproducibility"
 teaching: 10
-exercises: 2
+exercises: 5
 ---
 
 ::: questions
@@ -37,19 +37,19 @@ However, there are situations in which software might (for good reason) be:
 
 :::
 
+::: instructor
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+Ask the participants to discuss the question in small groups of 2 to 4 people at their table for 3 minutes and then to share their group's thoughts.
 
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
+:::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::: challenge
+::: challenge
 
 ## What are other challenges to reproducible research?
 
-:::: solution
+::: solution
+
+## Possible answers
 
 There are many! Here are some you might have thought of:
 
@@ -60,8 +60,13 @@ There are many! Here are some you might have thought of:
 
 What did you come up with?
 
-::::
-::::
+:::
+:::
+
+## Computational Reproducibility
+
+"Reproducible" research can mean many things and is a multipronged problem.
+This lesson will focus primarily on computational reproducibility.
 
 ::: keypoints
 
