@@ -110,6 +110,8 @@ What did you come up with?
 ::: solution
 
 Not necessarily.
+Even though the computational software environment is identical there are things that can change between runs of software that could slightly change numerical results (e.g. random number generation seeds, file read order, machine entropy).
+This isn't necessarily a problem, and in general one should be more concerned with getting answers that make sense within application uncertainties than matching down to machine precision.
 
 What are additional reasons you thought of?
 
