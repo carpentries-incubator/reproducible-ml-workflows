@@ -344,12 +344,95 @@ jupyterlab = ">=4.4.3,<5"
 :::
 :::
 
+So far the Pixi project has only had one environment defined in it.
+We can make the [project multi-environment](https://pixi.sh/latest/workspace/multi_environment/) by first defining a new ["feature"][feature table] which provides all the fields necessary to define _part_ of an environment to extend the `default` environment.
+We can create a new `feature` named `dev` and then create an `environment` also named `dev` which uses the `dev` feature to extend the default environment
+
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "example"
+platforms = ["linux-64", "osx-arm64"]
+version = "0.1.0"
+
+[tasks.lab]
+description = "Launch JupyterLab"
+cmd = "jupyter lab"
+
+[dependencies]
+python = ">=3.13.3,<3.14"
+numpy = ">=2.2.6,<3"
+notebook = ">=7.4.3,<8"
+jupyterlab = ">=4.4.3,<5"
+
+[feature.dev.dependencies]
+
+[environments]
+dev = ["dev"]
+```
+
+::: callout
+
+The `pixi workspace` CLI can also be used to add existing `featues` to environments
+
+```bash
+pixi workspace environment add --feature dev dev
+```
+
+:::
+
+We can now add `pre-commit` to the `dev` feature's `dependencies` and have it be accessible in the `dev` environment.
+
+```bash
+pixi add --feature dev pre-commit
+```
+```output
+✔ Added pre-commit >=4.2.0,<5
+Added these only for feature: dev
+```
+
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "example"
+platforms = ["linux-64", "osx-arm64"]
+version = "0.1.0"
+
+[tasks.lab]
+description = "Launch JupyterLab"
+cmd = "jupyter lab"
+
+[dependencies]
+python = ">=3.13.3,<3.14"
+numpy = ">=2.2.6,<3"
+notebook = ">=7.4.3,<8"
+jupyterlab = ">=4.4.3,<5"
+
+[feature.dev.dependencies]
+pre-commit = ">=4.2.0,<5"
+
+[environments]
+dev = ["dev"]
+```
+
+This now allows us to specify the environment we want tasks to run in with the `--environment` flag
+
+```bash
+pixi run --environment dev pre-commit --help
+```
+```bash
+pixi shell --environment dev
+```
+
 ::: keypoints
 
-* Pixi
+* Pixi uses a project based workflow and a declarative project manifest file to define project operations.
+* Pixi automatically creates or updates a hash level lock file anytime the project manifest or dependencies are mutated.
+* Pixi allows for multi-platform and multi-environment projects to be defined in a single project manifest and be fully described in a single lock file.
 
 :::
 
 [workspace table]: https://pixi.sh/latest/reference/pixi_manifest/#the-workspace-table
 [task table]: https://pixi.sh/latest/reference/pixi_manifest/#the-tasks-table
 [dependencies table]: https://pixi.sh/latest/reference/pixi_manifest/#the-dependencies-tables
+[feature table]: https://pixi.sh/latest/reference/pixi_manifest/#the-feature-table
