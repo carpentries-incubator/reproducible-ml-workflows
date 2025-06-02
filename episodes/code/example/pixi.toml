@@ -1,0 +1,22 @@
+[workspace]
+authors = ["Matthew Feickert <matthew.feickert@cern.ch>"]
+channels = ["conda-forge"]
+name = "example"
+platforms = ["linux-64", "osx-arm64"]
+version = "0.1.0"
+
+[tasks.lab]
+description = "Launch JupyterLab"
+cmd = "jupyter lab"
+
+[dependencies]
+python = ">=3.13.3,<3.14"
+numpy = ">=2.2.6,<3"
+notebook = ">=7.4.3,<8"
+jupyterlab = ">=4.4.3,<5"
+
+[feature.dev.dependencies]
+pre-commit = ">=4.2.0,<5"
+
+[environments]
+dev = ["dev"]
