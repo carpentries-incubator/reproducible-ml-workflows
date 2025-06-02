@@ -63,6 +63,32 @@ This allows for much greater freedom of exploration and development without fear
 This can be mitigated for disk limited machines by cleaning environments not in use while keeping their lock files and cleaning the system cache periodically.
 * Each project needs to be set up by itself and does not reuse components of previous projects.
 
+## Pixi manifest files
+
+Every Pixi project begins with creating a manifest file.
+A manifest file is a declarative configuration file that list what the high level requirements of a project are.
+Pixi then takes those requirements and constraints and solves for the full dependency tree.
+
+Let's create our first Pixi project.
+First, to have a uniform directory tree experience, create a directory called `pixi-lesson` under your home directory on your machine and navigate to it.
+
+```bash
+mkdir -p ~/pixi-lesson
+cd ~/pixi-lesson
+```
+
+Then use `pixi init` to create a new project directory and initialize a Pixi manifest with your machine's configuration.
+
+```bash
+pixi init example
+```
+
+```output
+Created ~/pixi-lesson/example/pixi.toml
+```
+
+Navigate to the `example` directory and check the directory structure
+
 ::: keypoints
 
 * Pixi
