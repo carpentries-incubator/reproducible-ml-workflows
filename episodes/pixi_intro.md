@@ -84,10 +84,40 @@ pixi init example
 ```
 
 ```output
-Created ~/pixi-lesson/example/pixi.toml
+Created /home/<username>/pixi-lesson/example/pixi.toml
 ```
 
 Navigate to the `example` directory and check the directory structure
+
+```bash
+cd example
+ls -a
+```
+
+```output
+.  ..  .gitattributes  .gitignore  pixi.toml
+```
+
+We see that Pixi  has setup Git configuration files for the project as well as a Pixi manifest `pixi.toml` file.
+Checking the default manifest file
+
+```bash
+cat pixi.toml
+```
+
+```output
+[workspace]
+authors = ["Your Name <your email from your global Git config>"]
+channels = ["conda-forge"]
+name = "example"
+# This will be whatever your machine's platform is
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+```
 
 ::: keypoints
 
