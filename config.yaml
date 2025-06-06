@@ -69,6 +69,7 @@ contact: 'matthew.feickert@cern.ch'
 episodes:
 - introduction.md
 - pixi_intro.md
+- backwards_compatibility.md
 
 # Information for Learners
 learners:
