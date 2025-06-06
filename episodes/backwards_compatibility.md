@@ -86,7 +86,7 @@ So if you are on a `linux-64` machine and didn't specify an environment name, yo
 
 ::: caution
 
-Conda spec files only supports conda packages and do not support Python packages or source packages.
+Conda spec files only support conda packages and do not support Python packages or source packages.
 
 :::
 
@@ -160,7 +160,14 @@ https://conda.anaconda.org/conda-forge/osx-arm64/libgfortran5-14.2.0-h2c44a93_10
 :::
 :::
 
-## Creating conda environment from the exports
+::: caution
+
+While conda spec files meet our criteria for computational reproducibility, they are essentially package list snapshots and lack the metadata to provide robust dependency graph inspection and targeted updates.
+They can be a useful tool, but are not robust lock file formats like those from Pixi and [conda-lock](https://conda.github.io/conda-lock/).
+
+:::
+
+## Creating conda environments from the exports
 
 To create a conda environment from the exported `environment.yaml` conda environment definition file, you use the normal conda environment creation command
 
