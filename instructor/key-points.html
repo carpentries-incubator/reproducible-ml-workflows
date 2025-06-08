@@ -268,7 +268,19 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="backwards_compatibility.html">3. Backwards compatibility with conda</a>
+        <a href="cuda_conda_pacakges.html">3. Conda packages and CUDA</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="backwards_compatibility.html">4. Backwards compatibility with conda</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -355,6 +367,21 @@ the project manifest or dependencies are mutated.</li>
 <li>Pixi allows for multi-platform and multi-environment projects to be
 defined in a single project manifest and be fully described in a single
 lock file.</li>
+</ul></section><section id="cuda_conda_pacakges"><h2 class="section-heading"><a href="cuda_conda_pacakges.html">Conda packages and CUDA</a></h2>
+<hr class="half-width">
+<ul>
+<li>Conda packages are specially named <code>.zip</code> files that
+contain files and symbolic links structured in a directory tree.</li>
+<li>The <code>cuda-version</code> metapackage can be used to specify
+constrains on the versions of the <code>__cuda</code> virtual package
+and <code>cudatoolkit</code>.</li>
+<li>Pixi can specify a minimum required CUDA version with the
+<code>[system-requirements]</code> table.</li>
+<li>NVIDIA’s open source team and the conda-forge community support the
+CUDA conda packages on conda-forge.</li>
+<li>The <a href="https://github.com/conda-forge/cuda-feedstock/tree/main/recipe" class="external-link"><code>cuda</code>
+metapackage</a> is the primary place to go for user documetnation on the
+CUDA conda packages.</li>
 </ul></section><section id="backwards_compatibility"><h2 class="section-heading"><a href="backwards_compatibility.html">Backwards compatibility with conda</a></h2>
 <hr class="half-width">
 <ul>
@@ -411,8 +438,8 @@ with conda that Pixi solved.</li>
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/key-points.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/key-points.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-06-06",
-  "datePublished": "2025-06-06"
+  "dateModified": "2025-06-08",
+  "datePublished": "2025-06-08"
 }
 
   </script><script>

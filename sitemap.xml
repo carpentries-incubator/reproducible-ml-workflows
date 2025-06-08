@@ -16,6 +16,9 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/backwards_compatibility.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/cuda_conda_pacakges.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/images.html</loc>
   </url>
   <url>
@@ -35,6 +38,9 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/backwards_compatibility.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/cuda_conda_pacakges.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/images.html</loc>

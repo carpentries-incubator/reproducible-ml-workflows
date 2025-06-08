@@ -268,7 +268,19 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="backwards_compatibility.html">3. Backwards compatibility with conda</a>
+        <a href="cuda_conda_pacakges.html">3. Conda packages and CUDA</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="backwards_compatibility.html">4. Backwards compatibility with conda</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -410,7 +422,7 @@ distributions</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Ask the participants to discuss the question in small groups of 2 to
 4 people at their table for 3 minutes and then to share their group’s
@@ -435,7 +447,7 @@ thoughts.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Possible answers </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>There are many! Here are some you might have thought of:</p>
 <ul>
@@ -500,7 +512,7 @@ problems.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Possible answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Here are some you might have thought of:</p>
 <ul>
@@ -533,7 +545,7 @@ the analysis is done match the “development” machine’s environment</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Not necessarily. Even though the computational software environment
 is identical there are things that can change between runs of software
@@ -583,7 +595,7 @@ will link to references on the topic.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Possible answers </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <ul>
 <li>Technical expertise in reproducibility technologies</li>
@@ -991,7 +1003,7 @@ directory.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Let’s start at the command line and add the additional dependencies
 with <code>pixi add</code></p>
@@ -1085,7 +1097,7 @@ and <code>osx-arm64</code> platforms.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Using the <a href="https://pixi.sh/latest/reference/cli/pixi/workspace/" class="external-link"><code>pixi workspace</code>
 CLI API</a>, one can add the platforms with</p>
@@ -1247,9 +1259,820 @@ lock file.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</section></section><section id="aio-cuda_conda_pacakges"><p>Content from <a href="cuda_conda_pacakges.html">Conda packages and CUDA</a></p>
+<hr>
+<p>Last updated on 2025-06-08 |
+
+        <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/cuda_conda_pacakges.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>What is a conda package?</li>
+<li>What is CUDA?</li>
+<li>How can I use CUDA enabled conda packages?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Learn about conda package structure</li>
+<li>Understand how CUDA can be used with conda packages</li>
+<li>Create a hardware accelerated environment</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section><h2 class="section-heading" id="conda-packages">Conda packages<a class="anchor" aria-label="anchor" href="#conda-packages"></a>
+</h2>
+<hr class="half-width">
+<p>In the last episode we learned that Pixi can control conda packages,
+but what <em>is</em> a conda package? <a href="https://docs.conda.io/projects/conda/en/stable/user-guide/concepts/packages.html" class="external-link">Conda
+packages</a> (<code>.conda</code> files) are language agnostic file
+archives that contain built code distributions. This is quite powerful,
+as it allows for arbitrary code to be built for any target platform and
+then packaged with its metadata. When a conda package is downloaded and
+then unpacked with a conda package management tool (e.g. Pixi, conda,
+mamba) the only thing that needs to be done to “install” that package is
+just copy the package’s file directory tree to the base of the
+environment’s directory tree. Package contents are also simple; they can
+only contain files and symbolic links.</p>
+<div class="section level3">
+<h3 id="exploring-package-structure">Exploring package structure<a class="anchor" aria-label="anchor" href="#exploring-package-structure"></a>
+</h3>
+<p>To better understand conda packages and the environment directory
+tree structure they exist in, let’s make a new Pixi project and look at
+the project environment directory tree structure.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">pixi</span> init ~/pixi-lesson/dir-structure</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="bu">cd</span> ~/pixi-lesson/dir-structure</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Created /home/&lt;username&gt;/pixi-lesson/dir-structure/pixi.toml</code></pre>
+</div>
+<p>To help visualize this on the command line we’ll use the
+<code>tree</code> program (Linux and macOS), which we’ll install as a
+global utility from conda-forge using <a href="https://pixi.sh/latest/global_tools/introduction/" class="external-link"><code>pixi global</code></a>.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">pixi</span> global install tree</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>└── tree: 2.2.1 (installed)
+    └─ exposes: tree</code></pre>
+</div>
+<p>Pixi has now installed <code>tree</code> for us in a custom
+environment under <code>~/.pixi/envs/tree/</code> and then exposed the
+<code>tree</code> command globally by placing <code>tree</code> on our
+shell’s <code>PATH</code> at <code>~/.pixi/bin/tree</code>. This now
+means that for any new terminal shell we open, <code>tree</code> will be
+available to use.</p>
+<p>At the moment our Pixi project manifest is empty</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"dir-structure"</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="kw">[dependencies]</span></span></code></pre>
+</div>
+<p>and so is our directory tree</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1ap</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="va">.</span><span class="op">/</span></span>
+<span><span class="va">..</span><span class="op">/</span></span>
+<span><span class="va">.gitattributes</span></span>
+<span><span class="va">.gitignore</span></span>
+<span><span class="va">pixi.toml</span></span></code></pre>
+</div>
+<p>Let’s add a dependency to our project to change that</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">pixi</span> add python</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added python &gt;=3.13.3,&lt;3.14</code></pre>
+</div>
+<p>which now gives us an update Pixi manifest</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"dir-structure"</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.3,&lt;3.14"</span></span></code></pre>
+</div>
+<p>and the start of a directory tree with the <code>.pixi/</code>
+directory</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1ap</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="va">.</span><span class="op">/</span></span>
+<span><span class="va">..</span><span class="op">/</span></span>
+<span><span class="va">.gitattributes</span></span>
+<span><span class="va">.gitignore</span></span>
+<span><span class="va">.pixi</span><span class="op">/</span></span>
+<span><span class="va">pixi.lock</span></span>
+<span><span class="va">pixi.toml</span></span></code></pre>
+</div>
+<p>Let’s now use <code>tree</code> to look at the directory structure of
+the Pixi project starting at the same directory where the
+<code>pixi.toml</code> manifest file is.</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-L</span> 3 .pixi/</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>.pixi/
+└── envs
+    └── default
+        ├── bin
+        ├── conda-meta
+        ├── include
+        ├── lib
+        ├── man
+        ├── share
+        ├── ssl
+        ├── x86_64-conda_cos6-linux-gnu
+        └── x86_64-conda-linux-gnu
+
+11 directories, 0 files</code></pre>
+</div>
+<p>We see that the <code>default</code> environment that Pixi created
+has the standard directory tree layout for operating systems following
+the <a href="https://refspecs.linuxfoundation.org/fhs.shtml" class="external-link">Filesystem
+Hierarchy Standard</a> (FHS) (e.g. Unix machines)</p>
+<ul>
+<li>
+<code>bin</code>: for binary executables</li>
+<li>
+<code>include</code>: for include files (e.g. header files in
+C/C++)</li>
+<li>
+<code>lib</code>: for binary libraries</li>
+<li>
+<code>share</code>: for files and data that other libraries or
+applications might need from the installed programs</li>
+</ul>
+<p>as well as some less common ones related to system administration</p>
+<ul>
+<li>
+<code>man:</code> for manual pages</li>
+<li>
+<code>sbin</code>: for system binaries</li>
+<li>
+<code>ssl</code>: for SSL (Secure Sockets Layer) certificates to
+provide secure encryption when connecting to websites</li>
+</ul>
+<p>as well as other directories that are specific to conda packages</p>
+<ul>
+<li>
+<code>conda-meta</code>: for metadata for all installed conda
+packages</li>
+<li>
+<code>x86_64-conda_cos6-linux-gnu</code> and
+<code>x86_64-conda-linux-gnu</code>: for platform specific tools (like
+linkers) — this will vary depending on your operating system</li>
+</ul>
+<p>How did this directory tree get here? It is a result of all the files
+that were in the conda packages we downloaded and installed as
+dependencies of Python.</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">pixi</span> list</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Package           Version    Build               Size       Kind   Source
+_libgcc_mutex     0.1        conda_forge         2.5 KiB    conda  https://conda.anaconda.org/conda-forge/
+_openmp_mutex     4.5        2_gnu               23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+bzip2             1.0.8      h4bc722e_7          246.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+ca-certificates   2025.4.26  hbd8a1cb_0          148.7 KiB  conda  https://conda.anaconda.org/conda-forge/
+ld_impl_linux-64  2.43       h712a8e2_4          655.5 KiB  conda  https://conda.anaconda.org/conda-forge/
+libexpat          2.7.0      h5888daf_0          72.7 KiB   conda  https://conda.anaconda.org/conda-forge/
+libffi            3.4.6      h2dba641_1          56.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libgcc            15.1.0     h767d61c_2          809.7 KiB  conda  https://conda.anaconda.org/conda-forge/
+libgcc-ng         15.1.0     h69a702a_2          33.8 KiB   conda  https://conda.anaconda.org/conda-forge/
+libgomp           15.1.0     h767d61c_2          442 KiB    conda  https://conda.anaconda.org/conda-forge/
+liblzma           5.8.1      hb9d3cd8_2          110.2 KiB  conda  https://conda.anaconda.org/conda-forge/
+libmpdec          4.0.0      hb9d3cd8_0          89 KiB     conda  https://conda.anaconda.org/conda-forge/
+libsqlite         3.50.1     hee588c1_0          898.3 KiB  conda  https://conda.anaconda.org/conda-forge/
+libuuid           2.38.1     h0b41bf4_0          32.8 KiB   conda  https://conda.anaconda.org/conda-forge/
+libzlib           1.3.1      hb9d3cd8_2          59.5 KiB   conda  https://conda.anaconda.org/conda-forge/
+ncurses           6.5        h2d0b736_3          870.7 KiB  conda  https://conda.anaconda.org/conda-forge/
+openssl           3.5.0      h7b32b05_1          3 MiB      conda  https://conda.anaconda.org/conda-forge/
+python            3.13.3     hf636f53_101_cp313  31.7 MiB   conda  https://conda.anaconda.org/conda-forge/
+python_abi        3.13       7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+readline          8.2        h8c095d6_2          275.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+tk                8.6.13     noxft_hd72426e_102  3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
+tzdata            2025b      h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
+</div>
+<p>We can download an individual conda package manually using
+<code>curl</code>. Let’s ensure you have <code>curl</code> first</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="ex">pixi</span> global install curl</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>└── curl: 8.14.1 (installed)
+    └─ exposes: curl</code></pre>
+</div>
+<p>and then use it to download the particular <a href="https://anaconda.org/conda-forge/python" class="external-link"><code>python</code> conda
+package</a> from where it is hosted on <a href="https://anaconda.org/conda-forge" class="external-link">conda-forge’s Anaconda.org
+organization</a></p>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sLO</span> https://anaconda.org/conda-forge/python/3.13.3/download/linux-64/python-3.13.3-hf636f53_101_cp313.conda</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.conda</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>python-3.13.3-hf636f53_101_cp313.conda</code></pre>
+</div>
+<p><code>.conda</code> is probably not a file extension that you’ve seen
+before, but you are probably very familiar with the actual archive
+compression format. <code>.conda</code> files are <code>.zip</code>
+files that have been renamed, but we can use the same utilities to
+interact with them as we would with <code>.zip</code> files.</p>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">unzip</span> python-3.13.3-hf636f53_101_cp313.conda <span class="at">-d</span> output</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Archive:  python-3.13.3-hf636f53_101_cp313.conda
+ extracting: output/metadata.json
+ extracting: output/pkg-python-3.13.3-hf636f53_101_cp313.tar.zst
+ extracting: output/info-python-3.13.3-hf636f53_101_cp313.tar.zst</code></pre>
+</div>
+<p>We see that the <code>.conda</code> archive contained package format
+metadata (<code>metadata.json</code>) as well as two other tar archives
+compressed with the Zstandard compression algorithm
+(<code>.tar.zst</code>). We can uncompress them manually with
+<code>tar</code></p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="bu">cd</span> output</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> pkg</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="fu">tar</span> <span class="at">--zstd</span> <span class="at">-xvf</span> pkg-python-3.13.3-hf636f53_101_cp313.tar.zst <span class="at">--directory</span> pkg</span></code></pre>
+</div>
+<p>and then look at the uncompressed directory tree with
+<code>tree</code></p>
+<div class="codewrapper sourceCode" id="cb24">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-L</span> 2 pkg</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>pkg
+├── bin
+│   ├── idle3 -&gt; idle3.13
+│   ├── idle3.13
+│   ├── pydoc -&gt; pydoc3.13
+│   ├── pydoc3 -&gt; pydoc3.13
+│   ├── pydoc3.13
+│   ├── python -&gt; python3.13
+│   ├── python3 -&gt; python3.13
+│   ├── python3.1 -&gt; python3.13
+│   ├── python3.13
+│   ├── python3.13-config
+│   └── python3-config -&gt; python3.13-config
+├── include
+│   └── python3.13
+├── info
+│   └── licenses
+├── lib
+│   ├── libpython3.13.so -&gt; libpython3.13.so.1.0
+│   ├── libpython3.13.so.1.0
+│   ├── libpython3.so
+│   ├── pkgconfig
+│   └── python3.13
+└── share
+    ├── man
+    └── python_compiler_compat</code></pre>
+</div>
+<p>So we can see that the directory structure of the conda package</p>
+<div class="codewrapper sourceCode" id="cb26">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1p</span> pkg/lib/</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>libpython3.13.so
+libpython3.13.so.1.0
+libpython3.so
+pkgconfig/
+python3.13/</code></pre>
+</div>
+<p>is reflected in the directory tree of the Pixi environment with the
+package installed</p>
+<div class="codewrapper sourceCode" id="cb28">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1a</span> .pixi/envs/default/lib/libpython<span class="pp">*</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="va">.pixi</span><span class="op">/</span><span class="va">envs</span><span class="op">/</span><span class="va">default</span><span class="op">/</span><span class="va">lib</span><span class="op">/</span><span class="va">libpython3.13.so</span></span>
+<span><span class="va">.pixi</span><span class="op">/</span><span class="va">envs</span><span class="op">/</span><span class="va">default</span><span class="op">/</span><span class="va">lib</span><span class="op">/</span><span class="va">libpython3.13.so.1.0</span></span>
+<span><span class="va">.pixi</span><span class="op">/</span><span class="va">envs</span><span class="op">/</span><span class="va">default</span><span class="op">/</span><span class="va">lib</span><span class="op">/</span><span class="va">libpython3.so</span></span></code></pre>
+</div>
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion</h3>
+<div class="callout-content">
+<p>Hopefully this seems straightforward and unmagical — because it is!
+Conda package structure is simple and easy to understand because it
+builds off of basic file system structures and doesn’t try to invent new
+systems. It is important to demystify what is happening with the
+directory tree structure though so that we keep in our minds that our
+tools are just manipulating files.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="cuda">CUDA<a class="anchor" aria-label="anchor" href="#cuda"></a>
+</h2>
+<hr class="half-width">
+<p>CUDA (Compute Unified Device Architecture) <a href="https://developer.nvidia.com/cuda-zone" class="external-link">is a parallel computing
+platform and programming model developed by NVIDIA for general computing
+on graphical processing units (GPUs)</a>. The CUDA ecosystem provides
+software developer software development kits (SDK) with APIs to CUDA
+that allow for software developers to write hardware accelerated
+programs with CUDA in various languages for NVIDIA GPUs. CUDA supports a
+number of languages including C, C++, Fortran, Python, and Julia. While
+there are other types of hardware acceleration development platforms, as
+of 2025 CUDA is the most abundant platform for scientific computing that
+uses GPUs and effectively the default choice for major machine learning
+libraries and applications.</p>
+<p>CUDA is closed source and proprietary to NVIDIA, which means that
+NVIDIA has historically limited the download access of the CUDA toolkits
+and drivers to registered NVIDIA developers (while keeping the software
+free (monetarily) to use). CUDA then required a <a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/" class="external-link">multi-step
+installation process</a> with manual steps and decisions based on the
+target platform and particular CUDA version. This meant that when CUDA
+enabled environments were setup on a particular machine they were
+powerful and optimized, but brittle to change and could easily be broken
+if system wide updates (like for security fixes) occurred. CUDA software
+environments were bespoke and not many scientists understood how to
+construct and curate them.</p>
+<div class="section level3">
+<h3 id="cuda-on-conda-forge">CUDA on conda-forge<a class="anchor" aria-label="anchor" href="#cuda-on-conda-forge"></a>
+</h3>
+<p>In <a href="https://github.com/conda-forge/conda-forge.github.io/issues/687" class="external-link">late
+2018</a> to better support the scientific developer community, NVIDIA
+started to release components of the CUDA toolkits on the <a href="https://anaconda.org/nvidia" class="external-link"><code>nvidia</code> conda
+channel</a>. This provided the first access to start to create conda
+environments where the versions of different CUDA tools could be
+directly specified and downloaded. However, all of this work was being
+done internally in NVIDIA and as it was on a separate channel it was
+less visible and it still required additional knowledge to work with. In
+<a href="https://youtu.be/WgKwlGgVzYE?si=hfyAo6qLma8hnJ-N" class="external-link">2023</a>,
+NVIDIA’s open source team began to move the release of CUDA conda
+packages from the <code>nvidia</code> channel to conda-forge, making it
+easier to discover and allowing for community support. With significant
+advancements in system driver specification support, CUDA 12 became the
+first version of CUDA to be released as conda packages through
+conda-forge and included all CUDA libraries from the <a href="https://github.com/conda-forge/cuda-nvcc-feedstock" class="external-link">CUDA compiler
+<code>nvcc</code></a> to the <a href="https://github.com/conda-forge/cuda-libraries-dev-feedstock" class="external-link">CUDA
+development libraries</a>. They also released <a href="https://github.com/conda-forge/cuda-feedstock/" class="external-link">CUDA
+metapackages</a> that allowed users to easily describe the version of
+CUDA they required (e.g. <code>cuda-version=12.5</code>) and the CUDA
+conda packages they wanted (e.g. <code>cuda</code>). This significantly
+improved the ability for researchers to easily create CUDA accelerated
+computing environments.</p>
+<p>This is all possible via use of the <code>__cuda</code> <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-virtual.html" class="external-link">virtual
+conda package</a>, which is determined automatically by conda package
+managers from the hardware information associated with the machine the
+package manager is installed on.</p>
+<p>With Pixi, a user can get this information with <a href="https://pixi.sh/latest/advanced/explain_info_command/" class="external-link"><code>pixi info</code></a>,
+which could have output that looks something like</p>
+<div class="codewrapper sourceCode" id="cb30">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="ex">pixi</span> info</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>System
+------------
+       Pixi version: 0.48.0
+           Platform: linux-64
+   Virtual packages: __unix=0=0
+                   : __linux=6.8.0=0
+                   : __glibc=2.35=0
+                   : __cuda=12.4=0
+                   : __archspec=1=skylake
+          Cache dir: /home/&lt;username&gt;/.cache/rattler/cache
+       Auth storage: /home/&lt;username&gt;/.rattler/credentials.json
+   Config locations: No config files found
+
+Global
+------------
+            Bin dir: /home/&lt;username&gt;/.pixi/bin
+    Environment dir: /home/&lt;username&gt;/.pixi/envs
+       Manifest dir: /home/&lt;username&gt;/.pixi/manifests/pixi-global.toml
+</code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="cuda-use-with-pixi">CUDA use with Pixi<a class="anchor" aria-label="anchor" href="#cuda-use-with-pixi"></a>
+</h3>
+<p>To be able to effectively use CUDA conda packages with Pixi, we make
+use of Pixi’s <a href="https://pixi.sh/latest/workspace/system_requirements/" class="external-link">system
+requirement workspace table</a>, which specifies the
+<strong>minimum</strong> system specifications needed to install and run
+a Pixi workspace’s environments.</p>
+<p>To do this for CUDA, we just add the minimum supported CUDA version
+(based on the host machine’s NVIDIA driver API) we want to support to
+the table.</p>
+<p>Example:</p>
+<div class="codewrapper sourceCode" id="cb32">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="kw">[system-requirements]</span></span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="dt">cuda</span> <span class="op">=</span> <span class="st">"12"</span>  <span class="co"># Replace "12" with the specific CUDA version you intend to use</span></span></code></pre>
+</div>
+<p>This ensures that packages depending on
+<code>__cuda &gt;= {version}</code> are resolved correctly.</p>
+<p>To demonstrate this a bit more explicitly, we can create a minimal
+project</p>
+<div class="codewrapper sourceCode" id="cb33">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="ex">pixi</span> init ~/pixi-lesson/cuda-example</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="bu">cd</span> ~/pixi-lesson/cuda-example</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Created /home/&lt;username&gt;/pixi-lesson/cuda-example/pixi.toml</code></pre>
+</div>
+<p>where we specify a <code>cuda</code> system requirement</p>
+<div class="codewrapper sourceCode" id="cb35">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="ex">pixi</span> workspace system-requirements add cuda 12</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb36">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"cuda-example"</span></span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a><span class="kw">[system-requirements]</span></span>
+<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a><span class="dt">cuda</span> <span class="op">=</span> <span class="st">"12"</span></span>
+<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a><span class="kw">[dependencies]</span></span></code></pre>
+</div>
+<p>and then install the <a href="https://github.com/conda-forge/cuda-version-feedstock/blob/main/recipe/README.md" class="external-link"><code>cuda-version</code>
+metapacakge</a></p>
+<div class="codewrapper sourceCode" id="cb37">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="ex">pixi</span> add <span class="st">"cuda-version 12.9.*"</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added cuda-version 12.9.*</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb39">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"cuda-example"</span></span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
+<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a><span class="kw">[system-requirements]</span></span>
+<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a><span class="dt">cuda</span> <span class="op">=</span> <span class="st">"12"</span></span>
+<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb39-11"><a href="#cb39-11" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="#cb39-12" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb39-13"><a href="#cb39-13" tabindex="-1"></a><span class="dt">cuda-version</span> <span class="op">=</span> <span class="st">"12.9.*"</span></span></code></pre>
+</div>
+<p>If we look at the metadata installed by the <code>cuda-version</code>
+package (the only thing it does)</p>
+<div class="codewrapper sourceCode" id="cb40">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="ex">$</span> cat .pixi/envs/default/conda-meta/cuda-version-<span class="pp">*</span>.json</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb41">
+<h3 class="code-label">JSON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode json" tabindex="0"><code class="sourceCode json"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>  <span class="dt">"build"</span><span class="fu">:</span> <span class="st">"h4f385c5_3"</span><span class="fu">,</span></span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>  <span class="dt">"build_number"</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>  <span class="dt">"constrains"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>    <span class="st">"cudatoolkit 12.9|12.9.*"</span><span class="ot">,</span></span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a>    <span class="st">"__cuda &gt;=12"</span></span>
+<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a>  <span class="dt">"depends"</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a>  <span class="dt">"license"</span><span class="fu">:</span> <span class="st">"LicenseRef-NVIDIA-End-User-License-Agreement"</span><span class="fu">,</span></span>
+<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a>  <span class="dt">"md5"</span><span class="fu">:</span> <span class="st">"b6d5d7f1c171cbd228ea06b556cfa859"</span><span class="fu">,</span></span>
+<span id="cb41-11"><a href="#cb41-11" tabindex="-1"></a>  <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"cuda-version"</span><span class="fu">,</span></span>
+<span id="cb41-12"><a href="#cb41-12" tabindex="-1"></a>  <span class="dt">"noarch"</span><span class="fu">:</span> <span class="st">"generic"</span><span class="fu">,</span></span>
+<span id="cb41-13"><a href="#cb41-13" tabindex="-1"></a>  <span class="dt">"sha256"</span><span class="fu">:</span> <span class="st">"5f5f428031933f117ff9f7fcc650e6ea1b3fef5936cf84aa24af79167513b656"</span><span class="fu">,</span></span>
+<span id="cb41-14"><a href="#cb41-14" tabindex="-1"></a>  <span class="dt">"size"</span><span class="fu">:</span> <span class="dv">21578</span><span class="fu">,</span></span>
+<span id="cb41-15"><a href="#cb41-15" tabindex="-1"></a>  <span class="dt">"subdir"</span><span class="fu">:</span> <span class="st">"noarch"</span><span class="fu">,</span></span>
+<span id="cb41-16"><a href="#cb41-16" tabindex="-1"></a>  <span class="dt">"timestamp"</span><span class="fu">:</span> <span class="dv">1746134436166</span><span class="fu">,</span></span>
+<span id="cb41-17"><a href="#cb41-17" tabindex="-1"></a>  <span class="dt">"version"</span><span class="fu">:</span> <span class="st">"12.9"</span><span class="fu">,</span></span>
+<span id="cb41-18"><a href="#cb41-18" tabindex="-1"></a>  <span class="dt">"fn"</span><span class="fu">:</span> <span class="st">"cuda-version-12.9-h4f385c5_3.conda"</span><span class="fu">,</span></span>
+<span id="cb41-19"><a href="#cb41-19" tabindex="-1"></a>  <span class="dt">"url"</span><span class="fu">:</span> <span class="st">"https://conda.anaconda.org/conda-forge/noarch/cuda-version-12.9-h4f385c5_3.conda"</span><span class="fu">,</span></span>
+<span id="cb41-20"><a href="#cb41-20" tabindex="-1"></a>  <span class="dt">"channel"</span><span class="fu">:</span> <span class="st">"https://conda.anaconda.org/conda-forge/"</span><span class="fu">,</span></span>
+<span id="cb41-21"><a href="#cb41-21" tabindex="-1"></a>  <span class="dt">"extracted_package_dir"</span><span class="fu">:</span> <span class="st">"/home/&lt;username&gt;/.cache/rattler/cache/pkgs/cuda-version-12.9-h4f385c5_3"</span><span class="fu">,</span></span>
+<span id="cb41-22"><a href="#cb41-22" tabindex="-1"></a>  <span class="dt">"files"</span><span class="fu">:</span> <span class="ot">[]</span><span class="fu">,</span></span>
+<span id="cb41-23"><a href="#cb41-23" tabindex="-1"></a>  <span class="dt">"paths_data"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb41-24"><a href="#cb41-24" tabindex="-1"></a>    <span class="dt">"paths_version"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb41-25"><a href="#cb41-25" tabindex="-1"></a>    <span class="dt">"paths"</span><span class="fu">:</span> <span class="ot">[]</span></span>
+<span id="cb41-26"><a href="#cb41-26" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb41-27"><a href="#cb41-27" tabindex="-1"></a>  <span class="dt">"link"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb41-28"><a href="#cb41-28" tabindex="-1"></a>    <span class="dt">"source"</span><span class="fu">:</span> <span class="st">"/home/&lt;username&gt;/.cache/rattler/cache/pkgs/cuda-version-12.9-h4f385c5_3"</span><span class="fu">,</span></span>
+<span id="cb41-29"><a href="#cb41-29" tabindex="-1"></a>    <span class="dt">"type"</span><span class="fu">:</span> <span class="dv">1</span></span>
+<span id="cb41-30"><a href="#cb41-30" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb41-31"><a href="#cb41-31" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
+</div>
+<p>we see that it now enforces constraints on the versions of
+<code>cudatoolkit</code> that can be installed as well as the required
+<code>__cuda</code> virtual package provided by the system</p>
+<div class="codewrapper sourceCode" id="cb42">
+<h3 class="code-label">JSON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode json" tabindex="0"><code class="sourceCode json"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>  <span class="dt">"constrains"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a>    <span class="st">"cudatoolkit 12.9|12.9.*"</span><span class="ot">,</span></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a>    <span class="st">"__cuda &gt;=12"</span></span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb42-7"><a href="#cb42-7" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb42-8"><a href="#cb42-8" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
+</div>
+<p>This now means that if we ask for any CUDA enbabled packages, we will
+get ones that are built to support <code>cudatoolkit</code>
+<code>v12.9.*</code></p>
+<div class="codewrapper sourceCode" id="cb43">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="ex">pixi</span> add cuda</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added cuda &gt;=12.9.1,&lt;13</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb45">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="ex">pixi</span> list cuda</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Package                      Version  Build       Size       Kind   Source
+cuda                         12.9.1   ha804496_0  26.7 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-cccl_linux-64           12.9.27  ha770c72_0  1.1 MiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-command-line-tools      12.9.1   ha770c72_0  20 KiB     conda  https://conda.anaconda.org/conda-forge/
+cuda-compiler                12.9.1   hbad6d8a_0  20.2 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-crt-dev_linux-64        12.9.86  ha770c72_1  92.2 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-crt-tools               12.9.86  ha770c72_1  28.2 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-cudart                  12.9.79  h5888daf_0  22.7 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-cudart-dev              12.9.79  h5888daf_0  23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-cudart-dev_linux-64     12.9.79  h3f2d84a_0  380 KiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-cudart-static           12.9.79  h5888daf_0  22.7 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-cudart-static_linux-64  12.9.79  h3f2d84a_0  1.1 MiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-cudart_linux-64         12.9.79  h3f2d84a_0  192.6 KiB  conda  https://conda.anaconda.org/conda-forge/
+cuda-cuobjdump               12.9.82  hbd13f7d_0  237.5 KiB  conda  https://conda.anaconda.org/conda-forge/
+cuda-cupti                   12.9.79  h9ab20c4_0  1.8 MiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-cupti-dev               12.9.79  h9ab20c4_0  4.4 MiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-cuxxfilt                12.9.82  hbd13f7d_0  211.4 KiB  conda  https://conda.anaconda.org/conda-forge/
+cuda-driver-dev              12.9.79  h5888daf_0  22.5 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-driver-dev_linux-64     12.9.79  h3f2d84a_0  36.8 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-gdb                     12.9.79  ha677faa_0  378.2 KiB  conda  https://conda.anaconda.org/conda-forge/
+cuda-libraries               12.9.1   ha770c72_0  20 KiB     conda  https://conda.anaconda.org/conda-forge/
+cuda-libraries-dev           12.9.1   ha770c72_0  20.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nsight                  12.9.79  h7938cbb_0  113.2 MiB  conda  https://conda.anaconda.org/conda-forge/
+cuda-nvcc                    12.9.86  hcdd1206_1  24.3 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvcc-dev_linux-64       12.9.86  he91c749_1  13.8 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvcc-impl               12.9.86  h85509e4_1  26.6 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvcc-tools              12.9.86  he02047a_1  26.2 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvcc_linux-64           12.9.86  he0b4e1d_1  26.2 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvdisasm                12.9.88  hbd13f7d_0  5.3 MiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-nvml-dev                12.9.79  hbd13f7d_0  139.1 KiB  conda  https://conda.anaconda.org/conda-forge/
+cuda-nvprof                  12.9.79  hcf8d014_0  2.5 MiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-nvprune                 12.9.82  hbd13f7d_0  69.3 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvrtc                   12.9.86  h5888daf_0  64.1 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvrtc-dev               12.9.86  h5888daf_0  35.7 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvtx                    12.9.79  h5888daf_0  28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvvm-dev_linux-64       12.9.86  ha770c72_1  26.3 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvvm-impl               12.9.86  he02047a_1  20.4 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvvm-tools              12.9.86  he02047a_1  23.1 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvvp                    12.9.79  hbd13f7d_0  104.3 MiB  conda  https://conda.anaconda.org/conda-forge/
+cuda-opencl                  12.9.19  h5888daf_0  30 KiB     conda  https://conda.anaconda.org/conda-forge/
+cuda-opencl-dev              12.9.19  h5888daf_0  95.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-profiler-api            12.9.79  h7938cbb_0  23 KiB     conda  https://conda.anaconda.org/conda-forge/
+cuda-runtime                 12.9.1   ha804496_0  19.9 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-sanitizer-api           12.9.79  hcf8d014_0  8.6 MiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-toolkit                 12.9.1   ha804496_0  20 KiB     conda  https://conda.anaconda.org/conda-forge/
+cuda-tools                   12.9.1   ha770c72_0  19.9 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-version                 12.9     h4f385c5_3  21.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-visual-tools            12.9.1   ha770c72_0  19.9 KiB   conda  https://conda.anaconda.org/conda-forge/</code></pre>
+</div>
+<p>To “prove” that this works, we can ask for the CUDA enabled version
+of PyTorch</p>
+<div class="codewrapper sourceCode" id="cb47">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="ex">pixi</span> add pytorch-gpu</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added pytorch-gpu &gt;=2.7.0,&lt;3</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb49">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a> <span class="ex">pixi</span> list torch</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Package      Version  Build                           Size       Kind   Source
+libtorch     2.7.0    cuda126_mkl_h99b69db_300        566.9 MiB  conda  https://conda.anaconda.org/conda-forge/
+pytorch      2.7.0    cuda126_mkl_py312_h30b5a27_300  27.8 MiB   conda  https://conda.anaconda.org/conda-forge/
+pytorch-gpu  2.7.0    cuda126_mkl_ha999a5f_300        46.1 KiB   conda  https://conda.anaconda.org/conda-forge/</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb51">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb51-3"><a href="#cb51-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"cuda-example"</span></span>
+<span id="cb51-4"><a href="#cb51-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
+<span id="cb51-5"><a href="#cb51-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb51-6"><a href="#cb51-6" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" tabindex="-1"></a><span class="kw">[system-requirements]</span></span>
+<span id="cb51-8"><a href="#cb51-8" tabindex="-1"></a><span class="dt">cuda</span> <span class="op">=</span> <span class="st">"12"</span></span>
+<span id="cb51-9"><a href="#cb51-9" tabindex="-1"></a></span>
+<span id="cb51-10"><a href="#cb51-10" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb51-11"><a href="#cb51-11" tabindex="-1"></a></span>
+<span id="cb51-12"><a href="#cb51-12" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb51-13"><a href="#cb51-13" tabindex="-1"></a><span class="dt">cuda-version</span> <span class="op">=</span> <span class="st">"12.9.*"</span></span>
+<span id="cb51-14"><a href="#cb51-14" tabindex="-1"></a><span class="dt">cuda</span> <span class="op">=</span> <span class="st">"&gt;=12.9.1,&lt;13"</span></span>
+<span id="cb51-15"><a href="#cb51-15" tabindex="-1"></a><span class="dt">pytorch-gpu</span> <span class="op">=</span> <span class="st">"&gt;=2.7.0,&lt;3"</span></span></code></pre>
+</div>
+<p>and check that it can see and find GPUs</p>
+<div class="codewrapper sourceCode" id="cb52">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="co"># torch_detect_GPU.py</span></span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> cuda</span>
+<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a></span>
+<span id="cb52-5"><a href="#cb52-5" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb52-6"><a href="#cb52-6" tabindex="-1"></a>    <span class="cf">if</span> torch.backends.cuda.is_built():</span>
+<span id="cb52-7"><a href="#cb52-7" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"PyTorch build CUDA version: </span><span class="sc">{</span>torch<span class="sc">.</span>version<span class="sc">.</span>cuda<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb52-8"><a href="#cb52-8" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"PyTorch build cuDNN version: </span><span class="sc">{</span>torch<span class="sc">.</span>backends<span class="sc">.</span>cudnn<span class="sc">.</span>version()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb52-9"><a href="#cb52-9" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"PyTorch build NCCL version: </span><span class="sc">{</span>torch<span class="sc">.</span>cuda<span class="sc">.</span>nccl<span class="sc">.</span>version()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb52-10"><a href="#cb52-10" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Number of GPUs found on system: </span><span class="sc">{</span>cuda<span class="sc">.</span>device_count()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb52-12"><a href="#cb52-12" tabindex="-1"></a></span>
+<span id="cb52-13"><a href="#cb52-13" tabindex="-1"></a>    <span class="cf">if</span> cuda.is_available():</span>
+<span id="cb52-14"><a href="#cb52-14" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Active GPU index: </span><span class="sc">{</span>cuda<span class="sc">.</span>current_device()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb52-15"><a href="#cb52-15" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Active GPU name: </span><span class="sc">{</span>cuda<span class="sc">.</span>get_device_name(cuda.current_device())<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb52-16"><a href="#cb52-16" tabindex="-1"></a>    <span class="cf">elif</span> torch.backends.mps.is_available():</span>
+<span id="cb52-17"><a href="#cb52-17" tabindex="-1"></a>        mps_device <span class="op">=</span> torch.device(<span class="st">"mps"</span>)</span>
+<span id="cb52-18"><a href="#cb52-18" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"PyTorch has active GPU: </span><span class="sc">{</span>mps_device<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb52-19"><a href="#cb52-19" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb52-20"><a href="#cb52-20" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"PyTorch has no active GPU"</span>)</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb53">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="ex">pixi</span> run python torch_detect_GPU.py</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>PyTorch build CUDA version: 12.6
+PyTorch build cuDNN version: 91001
+PyTorch build NCCL version: (2, 26, 5)
+
+Number of GPUs found on system: 1
+
+Active GPU index: 0
+Active GPU name: NVIDIA GeForce RTX 4060 Laptop GPU</code></pre>
+</div>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Key Points</h3>
+<div class="callout-content">
+<ul>
+<li>Conda packages are specially named <code>.zip</code> files that
+contain files and symbolic links structured in a directory tree.</li>
+<li>The <code>cuda-version</code> metapackage can be used to specify
+constrains on the versions of the <code>__cuda</code> virtual package
+and <code>cudatoolkit</code>.</li>
+<li>Pixi can specify a minimum required CUDA version with the
+<code>[system-requirements]</code> table.</li>
+<li>NVIDIA’s open source team and the conda-forge community support the
+CUDA conda packages on conda-forge.</li>
+<li>The <a href="https://github.com/conda-forge/cuda-feedstock/tree/main/recipe" class="external-link"><code>cuda</code>
+metapackage</a> is the primary place to go for user documetnation on the
+CUDA conda packages.</li>
+</ul>
+</div>
+</div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</div>
 </section></section><section id="aio-backwards_compatibility"><p>Content from <a href="backwards_compatibility.html">Backwards compatibility with conda</a></p>
 <hr>
-<p>Last updated on 2025-06-06 |
+<p>Last updated on 2025-06-08 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/backwards_compatibility.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 15 minutes</p>
@@ -1392,7 +2215,7 @@ environment name, your generated explicit spec file will be named
 <div class="callout-inner">
 <h3 class="callout-title">Caution</h3>
 <div class="callout-content">
-<p>Conda spec files only supports conda packages and do not support
+<p>Conda spec files only support conda packages and do not support
 Python packages or source packages.</p>
 </div>
 </div>
@@ -1484,7 +2307,22 @@ https://conda.anaconda.org/conda-forge/osx-arm64/libgfortran5-14.2.0-h2c44a93_10
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="creating-conda-environment-from-the-exports">Creating conda environment from the exports<a class="anchor" aria-label="anchor" href="#creating-conda-environment-from-the-exports"></a>
+<div id="caution2" class="callout caution">
+<div class="callout-square">
+<i class="callout-icon" data-feather="alert-triangle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Caution</h3>
+<div class="callout-content">
+<p>While conda spec files meet our criteria for computational
+reproducibility, they are essentially package list snapshots and lack
+the metadata to provide robust dependency graph inspection and targeted
+updates. They can be a useful tool, but are not robust lock file formats
+like those from Pixi and <a href="https://conda.github.io/conda-lock/" class="external-link">conda-lock</a>.</p>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="creating-conda-environments-from-the-exports">Creating conda environments from the exports<a class="anchor" aria-label="anchor" href="#creating-conda-environments-from-the-exports"></a>
 </h2>
 <hr class="half-width">
 <p>To create a conda environment from the exported
@@ -1513,7 +2351,7 @@ existing conda environment, use</p>
 conda environments and then use them, even to get the exact hash level
 locked environment from your Pixi workspace installed on another
 machine!</p>
-<div id="caution2" class="callout caution">
+<div id="caution3" class="callout caution">
 <div class="callout-square">
 <i class="callout-icon" data-feather="alert-triangle"></i>
 </div>
@@ -1602,8 +2440,8 @@ dominant conda package environment manager by numbers of users.<a href="#fnref1"
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/aio.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/aio.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-06-06",
-  "datePublished": "2025-06-06"
+  "dateModified": "2025-06-08",
+  "datePublished": "2025-06-08"
 }
 
   </script><script>
