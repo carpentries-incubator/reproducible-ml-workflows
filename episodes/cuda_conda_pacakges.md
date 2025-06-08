@@ -319,7 +319,54 @@ CUDA software environments were bespoke and not many scientists understood how t
 In [late 2018](https://github.com/conda-forge/conda-forge.github.io/issues/687) to better support the scientific developer community, NVIDIA started to release components of the CUDA toolkits on the [`nvidia` conda channel](https://anaconda.org/nvidia).
 This provided the first access to start to create conda environments where the versions of different CUDA tools could be directly specified and downloaded.
 However, all of this work was being done internally in NVIDIA and as it was on a separate channel it was less visible and it still required additional knowledge to work with.
-In [2023](https://youtu.be/WgKwlGgVzYE?si=hfyAo6qLma8hnJ-N), NVIDIA's open source team began to move CUDA conda package releasing from the `nvidia` channel to conda-forge, making it easier to discover and allowing for community support.
+In [2023](https://youtu.be/WgKwlGgVzYE?si=hfyAo6qLma8hnJ-N), NVIDIA's open source team began to move the release of CUDA conda packages from the `nvidia` channel to conda-forge, making it easier to discover and allowing for community support.
+With significant advancements in system driver specification support, CUDA 12 became the first version of CUDA to be released as conda packages through conda-forge and included all CUDA libraries from the [CUDA compiler `nvcc`](https://github.com/conda-forge/cuda-nvcc-feedstock) to the [CUDA development libraries](https://github.com/conda-forge/cuda-libraries-dev-feedstock).
+They also released [CUDA metapackages](https://github.com/conda-forge/cuda-feedstock/) that allowed users to easily describe the version of CUDA they required (e.g. `cuda-version=12.5`) and the CUDA conda packages they wanted (e.g. `cuda`).
+This significantly improved the ability for researchers to easily create CUDA accelerated computing environments.
+
+This is all possible via use of the `__cuda` [virtual conda package](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-virtual.html), which is determined automatically by conda package managers from the hardware information associated with the machine the package manager is installed on.
+
+With Pixi, a user can get this information with [`pixi info`](https://pixi.sh/latest/advanced/explain_info_command/), which could have output that looks something like
+
+```bash
+pixi info
+```
+```output
+System
+------------
+       Pixi version: 0.48.0
+           Platform: linux-64
+   Virtual packages: __unix=0=0
+                   : __linux=6.8.0=0
+                   : __glibc=2.35=0
+                   : __cuda=12.4=0
+                   : __archspec=1=skylake
+          Cache dir: /home/<username>/.cache/rattler/cache
+       Auth storage: /home/<username>/.rattler/credentials.json
+   Config locations: No config files found
+
+Global
+------------
+            Bin dir: /home/<username>/.pixi/bin
+    Environment dir: /home/<username>/.pixi/envs
+       Manifest dir: /home/<username>/.pixi/manifests/pixi-global.toml
+
+```
+
+### CUDA use with Pixi
+
+To be able to effectively use CUDA conda packages with Pixi, we make use of Pixi's [system requirement workspace table](https://pixi.sh/latest/workspace/system_requirements/), which specifies the **minimum**  system specifications needed to install and run a Pixi workspace's environments.
+
+To do this for CUDA, we just add the maximum supported CUDA version we want to support to the table.
+
+Example:
+
+```toml
+[system-requirements]
+cuda = "12.9"  # Replace "12.9" with the specific CUDA version you intend to use
+```
+
+This ensures that packages depending on `__cuda >= {version}` are resolved correctly.
 
 ::: keypoints
 
