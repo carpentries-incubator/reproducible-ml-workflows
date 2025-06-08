@@ -357,13 +357,13 @@ Global
 
 To be able to effectively use CUDA conda packages with Pixi, we make use of Pixi's [system requirement workspace table](https://pixi.sh/latest/workspace/system_requirements/), which specifies the **minimum**  system specifications needed to install and run a Pixi workspace's environments.
 
-To do this for CUDA, we just add the maximum supported CUDA version we want to support to the table.
+To do this for CUDA, we just add the minimum supported CUDA version (based on the host machine's NVIDIA driver API) we want to support to the table.
 
 Example:
 
 ```toml
 [system-requirements]
-cuda = "12.9"  # Replace "12.9" with the specific CUDA version you intend to use
+cuda = "12"  # Replace "12" with the specific CUDA version you intend to use
 ```
 
 This ensures that packages depending on `__cuda >= {version}` are resolved correctly.
@@ -381,7 +381,7 @@ cd ~/pixi-lesson/cuda-example
 where we specify a `cuda` system requirement
 
 ```bash
-pixi workspace system-requirements add cuda 12.9
+pixi workspace system-requirements add cuda 12
 ```
 
 ```toml
@@ -392,7 +392,7 @@ platforms = ["linux-64"]
 version = "0.1.0"
 
 [system-requirements]
-cuda = "12.9"
+cuda = "12"
 
 [tasks]
 
@@ -416,7 +416,7 @@ platforms = ["linux-64"]
 version = "0.1.0"
 
 [system-requirements]
-cuda = "12.9"
+cuda = "12"
 
 [tasks]
 
@@ -557,6 +557,24 @@ pytorch      2.7.0    cuda126_mkl_py312_h30b5a27_300  27.8 MiB   conda  https://
 pytorch-gpu  2.7.0    cuda126_mkl_ha999a5f_300        46.1 KiB   conda  https://conda.anaconda.org/conda-forge/
 ```
 
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "cuda-example"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[system-requirements]
+cuda = "12"
+
+[tasks]
+
+[dependencies]
+cuda-version = "12.9.*"
+cuda = ">=12.9.1,<13"
+pytorch-gpu = ">=2.7.0,<3"
+```
+
 and check that it can see and find GPUs
 
 ```python
@@ -598,6 +616,10 @@ Active GPU name: NVIDIA GeForce RTX 4060 Laptop GPU
 
 ::: keypoints
 
-* CUDA
+* Conda packages are specially named `.zip` files that contain files and symbolic links structured in a directory tree.
+* The `cuda-version` metapackage can be used to specify constrains on the versions of the `__cuda` virtual package and `cudatoolkit`.
+* Pixi can specify a minimum required CUDA version with the `[system-requirements]` table.
+* NVIDIA's open source team and the conda-forge community support the CUDA conda packages on conda-forge.
+* The [`cuda` metapackage](https://github.com/conda-forge/cuda-feedstock/tree/main/recipe) is the primary place to go for user documetnation on the CUDA conda packages.
 
 :::
