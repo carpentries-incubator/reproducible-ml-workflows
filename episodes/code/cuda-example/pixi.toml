@@ -1,0 +1,15 @@
+[workspace]
+channels = ["conda-forge"]
+name = "cuda-example"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+cuda-version = "12.9.*"
+cuda = ">=12.9.1,<13"
+pytorch-gpu = ">=2.7.0,<3"
+
+[system-requirements]
+cuda = "12.9"
