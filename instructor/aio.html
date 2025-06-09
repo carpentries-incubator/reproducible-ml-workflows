@@ -1003,7 +1003,7 @@ directory.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Let’s start at the command line and add the additional dependencies
 with <code>pixi add</code></p>
@@ -1097,7 +1097,7 @@ and <code>osx-arm64</code> platforms.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Using the <a href="https://pixi.sh/latest/reference/cli/pixi/workspace/" class="external-link"><code>pixi workspace</code>
 CLI API</a>, one can add the platforms with</p>
@@ -1658,6 +1658,44 @@ tools are just manipulating files.</p>
 </div>
 </div>
 </div>
+<div id="exploring-conda-forge" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="exploring-conda-forge" class="callout-inner">
+<h3 class="callout-title">Exploring conda-forge</h3>
+<div class="callout-content">
+<p>As of 2025 <a href="https://conda-forge.org/" class="external-link">conda-forge</a> has
+over 28,500 packages on it. Go to the conda-forge package list website
+(<a href="https://conda-forge.org/packages/" class="external-link uri">https://conda-forge.org/packages/</a>) and try to find three
+packages that you use in your research, and three packages from your
+scientific field that are more niche.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Some packages </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<p>Research packages:</p>
+<ul>
+<li><a href="https://github.com/conda-forge/jax-feedstock" class="external-link"><code>jax</code></a></li>
+<li><a href="https://github.com/conda-forge/boost-histogram-feedstock" class="external-link"><code>boost-histogram</code></a></li>
+<li><a href="https://github.com/conda-forge/awkward-feedstock" class="external-link"><code>awkward</code></a></li>
+</ul>
+<p>Niche particle physics packages:</p>
+<ul>
+<li><a href="https://github.com/conda-forge/siscone-feedstock" class="external-link"><code>siscone</code></a></li>
+<li><a href="https://github.com/conda-forge/iminuit-feedstock" class="external-link"><code>iminuit</code></a></li>
+<li><a href="https://github.com/conda-forge/stanhf-feedstock" class="external-link"><code>stanhf</code></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section><section><h2 class="section-heading" id="cuda">CUDA<a class="anchor" aria-label="anchor" href="#cuda"></a>
 </h2>
@@ -2186,6 +2224,264 @@ Number of GPUs found on system: 1
 Active GPU index: 0
 Active GPU name: NVIDIA GeForce RTX 4060 Laptop GPU</code></pre>
 </div>
+<div id="multi-environment-pixi-workspaces" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="multi-environment-pixi-workspaces" class="callout-inner">
+<h3 class="callout-title">Multi-environment Pixi workspaces</h3>
+<div class="callout-content">
+<p>Create a new Pixi workspace that:</p>
+<ul>
+<li>Contains an environment for <code>linux-64</code>,
+<code>osx-arm64</code>, and <code>win-64</code> that supports the CPU
+version of PyTorch</li>
+<li>Contains an environment for <code>linux-64</code> that supports the
+GPU version of PyTorch</li>
+<li>Supports CUDA <code>v12.9</code>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<p>Create a new workspace</p>
+<div class="codewrapper sourceCode" id="cb62">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a><span class="ex">pixi</span> init ~/pixi-lesson/cuda-exercise</span>
+<span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a><span class="bu">cd</span> ~/pixi-lesson/cuda-exercise</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Created /home/&lt;username&gt;/pixi-lesson/cuda-exercise/pixi.toml</code></pre>
+</div>
+<p>Add support for all the target platforms</p>
+<div class="codewrapper sourceCode" id="cb64">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="ex">pixi</span> workspace platform add linux-64 osx-arm64 win-64</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added linux-64
+✔ Added osx-arm64
+✔ Added win-64</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb66">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb66-2"><a href="#cb66-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb66-3"><a href="#cb66-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"cuda-exercise"</span></span>
+<span id="cb66-4"><a href="#cb66-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">]</span></span>
+<span id="cb66-5"><a href="#cb66-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb66-6"><a href="#cb66-6" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb66-8"><a href="#cb66-8" tabindex="-1"></a></span>
+<span id="cb66-9"><a href="#cb66-9" tabindex="-1"></a><span class="kw">[dependencies]</span></span></code></pre>
+</div>
+<p>Add <code>pytorch-cpu</code> to a <code>cpu</code> feature</p>
+<div class="codewrapper sourceCode" id="cb67">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a><span class="ex">pixi</span> add <span class="at">--feature</span> cpu pytorch-cpu</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added pytorch-cpu
+Added these only for feature: cpu</code></pre>
+</div>
+<p>and then create a <code>cpu</code> environment that contains the
+<code>cpu</code> feature</p>
+<div class="codewrapper sourceCode" id="cb69">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a><span class="ex">pixi</span> workspace environment add <span class="at">--feature</span> cpu cpu</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added environment cpu</code></pre>
+</div>
+<p>and then instantiate the <code>pytorch-cpu</code> package with a
+particular version and solve</p>
+<div class="codewrapper sourceCode" id="cb71">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb71-1"><a href="#cb71-1" tabindex="-1"></a><span class="ex">pixi</span> add <span class="at">--feature</span> cpu pytorch-cpu</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added pytorch-cpu &gt;=1.1.0,&lt;3
+Added these only for feature: cpu</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb73">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb73-1"><a href="#cb73-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb73-2"><a href="#cb73-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb73-3"><a href="#cb73-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"cuda-exercise"</span></span>
+<span id="cb73-4"><a href="#cb73-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">]</span></span>
+<span id="cb73-5"><a href="#cb73-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb73-6"><a href="#cb73-6" tabindex="-1"></a></span>
+<span id="cb73-7"><a href="#cb73-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb73-8"><a href="#cb73-8" tabindex="-1"></a></span>
+<span id="cb73-9"><a href="#cb73-9" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb73-10"><a href="#cb73-10" tabindex="-1"></a></span>
+<span id="cb73-11"><a href="#cb73-11" tabindex="-1"></a><span class="kw">[feature.cpu.dependencies]</span></span>
+<span id="cb73-12"><a href="#cb73-12" tabindex="-1"></a><span class="dt">pytorch-cpu</span> <span class="op">=</span> <span class="st">"&gt;=1.1.0,&lt;3"</span></span>
+<span id="cb73-13"><a href="#cb73-13" tabindex="-1"></a></span>
+<span id="cb73-14"><a href="#cb73-14" tabindex="-1"></a><span class="kw">[environments]</span></span>
+<span id="cb73-15"><a href="#cb73-15" tabindex="-1"></a><span class="dt">cpu</span> <span class="op">=</span> <span class="op">[</span><span class="st">"cpu"</span><span class="op">]</span></span></code></pre>
+</div>
+<p>Now, for the GPU environment, add CUDA system-requirements for
+<code>linux-64</code> for the <code>gpu</code> feature</p>
+<div class="codewrapper sourceCode" id="cb74">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a><span class="ex">pixi</span> workspace system-requirements add <span class="at">--feature</span> gpu cuda 12</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb75">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb75-1"><a href="#cb75-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb75-2"><a href="#cb75-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb75-3"><a href="#cb75-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"cuda-exercise"</span></span>
+<span id="cb75-4"><a href="#cb75-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">]</span></span>
+<span id="cb75-5"><a href="#cb75-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb75-6"><a href="#cb75-6" tabindex="-1"></a></span>
+<span id="cb75-7"><a href="#cb75-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb75-8"><a href="#cb75-8" tabindex="-1"></a></span>
+<span id="cb75-9"><a href="#cb75-9" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb75-10"><a href="#cb75-10" tabindex="-1"></a></span>
+<span id="cb75-11"><a href="#cb75-11" tabindex="-1"></a><span class="kw">[feature.cpu.dependencies]</span></span>
+<span id="cb75-12"><a href="#cb75-12" tabindex="-1"></a><span class="dt">pytorch-cpu</span> <span class="op">=</span> <span class="st">"&gt;=1.1.0,&lt;3"</span></span>
+<span id="cb75-13"><a href="#cb75-13" tabindex="-1"></a></span>
+<span id="cb75-14"><a href="#cb75-14" tabindex="-1"></a><span class="kw">[feature.gpu.system-requirements]</span></span>
+<span id="cb75-15"><a href="#cb75-15" tabindex="-1"></a><span class="dt">cuda</span> <span class="op">=</span> <span class="st">"12"</span></span>
+<span id="cb75-16"><a href="#cb75-16" tabindex="-1"></a></span>
+<span id="cb75-17"><a href="#cb75-17" tabindex="-1"></a><span class="kw">[environments]</span></span>
+<span id="cb75-18"><a href="#cb75-18" tabindex="-1"></a><span class="dt">cpu</span> <span class="op">=</span> <span class="op">[</span><span class="st">"cpu"</span><span class="op">]</span></span></code></pre>
+</div>
+<p>and create a <code>gpu</code> environment with the <code>gpu</code>
+feature</p>
+<div class="codewrapper sourceCode" id="cb76">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb76-1"><a href="#cb76-1" tabindex="-1"></a><span class="ex">pixi</span> workspace environment add <span class="at">--feature</span> gpu gpu</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added environment gpu</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb78">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb78-2"><a href="#cb78-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb78-3"><a href="#cb78-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"cuda-exercise"</span></span>
+<span id="cb78-4"><a href="#cb78-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">]</span></span>
+<span id="cb78-5"><a href="#cb78-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb78-6"><a href="#cb78-6" tabindex="-1"></a></span>
+<span id="cb78-7"><a href="#cb78-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb78-8"><a href="#cb78-8" tabindex="-1"></a></span>
+<span id="cb78-9"><a href="#cb78-9" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb78-10"><a href="#cb78-10" tabindex="-1"></a></span>
+<span id="cb78-11"><a href="#cb78-11" tabindex="-1"></a><span class="kw">[feature.cpu.dependencies]</span></span>
+<span id="cb78-12"><a href="#cb78-12" tabindex="-1"></a><span class="dt">pytorch-cpu</span> <span class="op">=</span> <span class="st">"&gt;=1.1.0,&lt;3"</span></span>
+<span id="cb78-13"><a href="#cb78-13" tabindex="-1"></a></span>
+<span id="cb78-14"><a href="#cb78-14" tabindex="-1"></a><span class="kw">[feature.gpu.system-requirements]</span></span>
+<span id="cb78-15"><a href="#cb78-15" tabindex="-1"></a><span class="dt">cuda</span> <span class="op">=</span> <span class="st">"12"</span></span>
+<span id="cb78-16"><a href="#cb78-16" tabindex="-1"></a></span>
+<span id="cb78-17"><a href="#cb78-17" tabindex="-1"></a><span class="kw">[environments]</span></span>
+<span id="cb78-18"><a href="#cb78-18" tabindex="-1"></a><span class="dt">cpu</span> <span class="op">=</span> <span class="op">[</span><span class="st">"cpu"</span><span class="op">]</span></span>
+<span id="cb78-19"><a href="#cb78-19" tabindex="-1"></a><span class="dt">gpu</span> <span class="op">=</span> <span class="op">[</span><span class="st">"gpu"</span><span class="op">]</span></span></code></pre>
+</div>
+<p>then add the <code>cuda-version</code> metapackage and the
+<code>pytorch-gpu</code> pacakge for <code>linux-64</code> to the
+<code>gpu</code> feature</p>
+<div class="codewrapper sourceCode" id="cb79">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb79-1"><a href="#cb79-1" tabindex="-1"></a><span class="ex">pixi</span> add <span class="at">--platform</span> linux-64 <span class="at">--feature</span> gpu <span class="st">'cuda-version 12.9.*'</span> pytorch-gpu</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added cuda-version 12.9.*
+✔ Added pytorch-gpu &gt;=2.7.0,&lt;3
+Added these only for platform(s): linux-64
+Added these only for feature: gpu</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb81">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb81-2"><a href="#cb81-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb81-3"><a href="#cb81-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"cuda-exercise"</span></span>
+<span id="cb81-4"><a href="#cb81-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">]</span></span>
+<span id="cb81-5"><a href="#cb81-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb81-6"><a href="#cb81-6" tabindex="-1"></a></span>
+<span id="cb81-7"><a href="#cb81-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb81-8"><a href="#cb81-8" tabindex="-1"></a></span>
+<span id="cb81-9"><a href="#cb81-9" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb81-10"><a href="#cb81-10" tabindex="-1"></a></span>
+<span id="cb81-11"><a href="#cb81-11" tabindex="-1"></a><span class="kw">[feature.cpu.dependencies]</span></span>
+<span id="cb81-12"><a href="#cb81-12" tabindex="-1"></a><span class="dt">pytorch-cpu</span> <span class="op">=</span> <span class="st">"&gt;=1.1.0,&lt;3"</span></span>
+<span id="cb81-13"><a href="#cb81-13" tabindex="-1"></a></span>
+<span id="cb81-14"><a href="#cb81-14" tabindex="-1"></a><span class="kw">[feature.gpu.system-requirements]</span></span>
+<span id="cb81-15"><a href="#cb81-15" tabindex="-1"></a><span class="dt">cuda</span> <span class="op">=</span> <span class="st">"12"</span></span>
+<span id="cb81-16"><a href="#cb81-16" tabindex="-1"></a></span>
+<span id="cb81-17"><a href="#cb81-17" tabindex="-1"></a><span class="kw">[feature.gpu.target.linux-64.dependencies]</span></span>
+<span id="cb81-18"><a href="#cb81-18" tabindex="-1"></a><span class="dt">cuda-version</span> <span class="op">=</span> <span class="st">"12.9.*"</span></span>
+<span id="cb81-19"><a href="#cb81-19" tabindex="-1"></a><span class="dt">pytorch-gpu</span> <span class="op">=</span> <span class="st">"&gt;=2.7.0,&lt;3"</span></span>
+<span id="cb81-20"><a href="#cb81-20" tabindex="-1"></a></span>
+<span id="cb81-21"><a href="#cb81-21" tabindex="-1"></a><span class="kw">[environments]</span></span>
+<span id="cb81-22"><a href="#cb81-22" tabindex="-1"></a><span class="dt">cpu</span> <span class="op">=</span> <span class="op">[</span><span class="st">"cpu"</span><span class="op">]</span></span>
+<span id="cb81-23"><a href="#cb81-23" tabindex="-1"></a><span class="dt">gpu</span> <span class="op">=</span> <span class="op">[</span><span class="st">"gpu"</span><span class="op">]</span></span></code></pre>
+</div>
+<p>One can check the environment differences</p>
+<div class="codewrapper sourceCode" id="cb82">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb82-1"><a href="#cb82-1" tabindex="-1"></a><span class="ex">pixi</span> list <span class="at">--environment</span> cpu</span>
+<span id="cb82-2"><a href="#cb82-2" tabindex="-1"></a><span class="ex">pixi</span> list <span class="at">--environment</span> gpu</span></code></pre>
+</div>
+<p>and activate shells with different environments loaded</p>
+<div class="codewrapper sourceCode" id="cb83">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb83-1"><a href="#cb83-1" tabindex="-1"></a><span class="ex">pixi</span> shell <span class="at">--environment</span> cpu</span></code></pre>
+</div>
+<p>So in 23 lines of TOML</p>
+<div class="codewrapper sourceCode" id="cb84">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb84-1"><a href="#cb84-1" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> pixi.toml</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>23 pixi.toml</code></pre>
+</div>
+<p>we created separate CPU and GPU computational environments that are
+now fully reproducible with the associated <code>pixi.lock</code>!</p>
+</div>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -2300,7 +2596,7 @@ used.</p>
   Possible answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2385,7 +2681,7 @@ Python packages or source packages.</p>
   Possible answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
