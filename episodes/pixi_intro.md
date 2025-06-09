@@ -70,10 +70,11 @@ A manifest file is a declarative configuration file that list what the high leve
 Pixi then takes those requirements and constraints and solves for the full dependency tree.
 
 Let's create our first Pixi project.
-First, to have a uniform directory tree experience, create a directory called `pixi-lesson` under your home directory on your machine and navigate to it.
+First, to have a uniform directory tree experience, clone the `pixi-lesson` GitHub repository (which you made as part of the setup) under your home directory on your machine and navigate to it.
 
 ```bash
-mkdir -p ~/pixi-lesson
+cd ~
+git clone git@github.com:<username>/pixi-lesson.git
 cd ~/pixi-lesson
 ```
 
@@ -91,11 +92,15 @@ Navigate to the `example` directory and check the directory structure
 
 ```bash
 cd example
-ls -a
+ls -1ap
 ```
 
 ```output
-.  ..  .gitattributes  .gitignore  pixi.toml
+./
+../
+.gitattributes
+.gitignore
+pixi.toml
 ```
 
 We see that Pixi  has setup Git configuration files for the project as well as a Pixi manifest `pixi.toml` file.
@@ -163,21 +168,27 @@ python = ">=3.13.3,<3.14"
 Further, we also now see that a `pixi.lock` lock file has been created in the project directory as well as a `.pixi/` directory.
 
 ```bash
-ls -a
+ls -1ap
 ```
 
 ```output
-.  ..  .gitattributes  .gitignore  .pixi  pixi.lock  pixi.toml
+./
+../
+.gitattributes
+.gitignore
+.pixi/
+pixi.lock
+pixi.toml
 ```
 
 The `.pixi/` directory contains the installed environments.
 We can see that at the moment there is just one environment named `default`
 
 ```bash
-ls .pixi/envs/
+ls -1p .pixi/envs/
 ```
 ```output
-default
+default/
 ```
 
 Inside the `.pixi/envs/default/` directory are all the libraries, header files, and executables that are needed by the environment.
