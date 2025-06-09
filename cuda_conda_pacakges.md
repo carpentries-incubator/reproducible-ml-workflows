@@ -399,6 +399,28 @@ cuda = "12"
 [dependencies]
 ```
 
+::: caution
+
+## `system-requirements` table can't be target specific
+
+As of [Pixi `v0.48.0`](https://github.com/prefix-dev/pixi/releases/tag/v0.48.0), [the `system-requirements` table can't be target specific](https://github.com/prefix-dev/pixi/issues/2714).
+To work around this, if you're on a platform that doesn't support the `system-requirements` it will ignore them without erroring unless they are required for the platform specific packages or actions you have.
+So, for example, you can have `osx-arm64` as a platform and a `system-requirements` of `cuda = "12"` defined
+
+```toml
+[workspace]
+...
+platforms = ["linux-64"]
+...
+
+[system-requirements]
+cuda = "12"
+```
+
+Pixi will ignore that requirement unless you try to use CUDA packages in `osx-arm64` environments.
+
+:::
+
 and then install the [`cuda-version` metapacakge](https://github.com/conda-forge/cuda-version-feedstock/blob/main/recipe/README.md)
 
 ```bash
@@ -476,17 +498,58 @@ we see that it now enforces constraints on the versions of `cudatoolkit` that ca
 }
 ```
 
+::: caution
+
+## Use the `feature` table to solve environment that your platform doesn't support
+
+CUDA is supported only by NVIDIA GPUs, which means that macOS operating system platforms (`osx-64`, `osx-arm64`) can't support it.
+Similarly, if you machine doesn't have an NVIDIA GPU, then the `__cuda` virtual package won't exist and installs of CUDA packages will fail.
+However, there's many situations in which you want to **solve and environment for a platform that you don't have** and we can do this for CUDA as well.
+
+If we make the Pixi workspace multiplatform
+
+```bash
+pixi workspace platform add linux-64 osx-arm64 win-64
+```
+```output
+✔ Added linux-64
+✔ Added osx-arm64
+✔ Added win-64
+```
+
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "cuda-example"
+platforms = ["linux-64", "osx-arm64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+```
+
+We can then use Pixi's [platform specific `target` tables](https://pixi.sh/latest/reference/pixi_manifest/#the-target-table) to add dependencies for an environment to only a specific platform.
+So, if we know that a dependency only exists for platform <platform> then we can have Pixi add it for only that platform with
+
+```bash
+pixi add --platform <platform> <dependency>
+```
+
+:::
+
 This now means that if we ask for any CUDA enbabled packages, we will get ones that are built to support `cudatoolkit` `v12.9.*`
 
 ```bash
-pixi add cuda
+pixi add --platform linux-64 cuda
 ```
 ```output
 ✔ Added cuda >=12.9.1,<13
+Added these only for platform(s): linux-64
 ```
 
 ```bash
-pixi list cuda
+pixi list --platform linux-64 cuda
 ```
 ```output
 Package                      Version  Build       Size       Kind   Source
@@ -542,13 +605,14 @@ cuda-visual-tools            12.9.1   ha770c72_0  19.9 KiB   conda  https://cond
 To "prove" that this works, we can ask for the CUDA enabled version of PyTorch
 
 ```bash
-pixi add pytorch-gpu
+pixi add --platform linux-64 pytorch-gpu
 ```
 ```output
 ✔ Added pytorch-gpu >=2.7.0,<3
+Added these only for platform(s): linux-64
 ```
 ```bash
- pixi list torch
+ pixi list --platform linux-64 torch
 ```
 ```output
 Package      Version  Build                           Size       Kind   Source
@@ -561,7 +625,7 @@ pytorch-gpu  2.7.0    cuda126_mkl_ha999a5f_300        46.1 KiB   conda  https://
 [workspace]
 channels = ["conda-forge"]
 name = "cuda-example"
-platforms = ["linux-64"]
+platforms = ["linux-64", "osx-arm64", "win-64"]
 version = "0.1.0"
 
 [system-requirements]
@@ -571,11 +635,56 @@ cuda = "12"
 
 [dependencies]
 cuda-version = "12.9.*"
+
+[target.linux-64.dependencies]
 cuda = ">=12.9.1,<13"
 pytorch-gpu = ">=2.7.0,<3"
 ```
 
-and check that it can see and find GPUs
+::: caution
+
+## Redundancy in example
+
+Note that we added the `cuda` package here for demonstraton purposes, but we didn't _need_ to as it would already be installed as a dependency of `pytorch-gpu`.
+
+```bash
+cat .pixi/envs/default/conda-meta/pytorch-gpu-*.json
+```
+```json
+{
+  "build": "cuda126_mkl_ha999a5f_300",
+  "build_number": 300,
+  "depends": [
+    "pytorch 2.7.0 cuda*_mkl*300"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "md5": "84ecafc34c6f8933c2c9b00204832e38",
+  "name": "pytorch-gpu",
+  "sha256": "e1162a51e77491abae15f6b651ba8f064870181d57d40f9168747652d0f70cb0",
+  "size": 47219,
+  "subdir": "linux-64",
+  "timestamp": 1746288556375,
+  "version": "2.7.0",
+  "fn": "pytorch-gpu-2.7.0-cuda126_mkl_ha999a5f_300.conda",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/pytorch-gpu-2.7.0-cuda126_mkl_ha999a5f_300.conda",
+  "channel": "https://conda.anaconda.org/conda-forge/",
+  "extracted_package_dir": "/home/<username>/.cache/rattler/cache/pkgs/pytorch-gpu-2.7.0-cuda126_mkl_ha999a5f_300",
+  "files": [],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/home/<username>/.cache/rattler/cache/pkgs/pytorch-gpu-2.7.0-cuda126_mkl_ha999a5f_300",
+    "type": 1
+  }
+}
+```
+
+:::
+
+and **if on the supported `linux-64` platform with a valid `__cuda` virtual pacakge** check that it can see and find GPUs
 
 ```python
 # torch_detect_GPU.py
@@ -619,6 +728,7 @@ Active GPU name: NVIDIA GeForce RTX 4060 Laptop GPU
 * Conda packages are specially named `.zip` files that contain files and symbolic links structured in a directory tree.
 * The `cuda-version` metapackage can be used to specify constrains on the versions of the `__cuda` virtual package and `cudatoolkit`.
 * Pixi can specify a minimum required CUDA version with the `[system-requirements]` table.
+* Pixi can solve environments for platforms that are not the system platform.
 * NVIDIA's open source team and the conda-forge community support the CUDA conda packages on conda-forge.
 * The [`cuda` metapackage](https://github.com/conda-forge/cuda-feedstock/tree/main/recipe) is the primary place to go for user documetnation on the CUDA conda packages.
 
