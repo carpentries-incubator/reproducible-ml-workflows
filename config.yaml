@@ -70,6 +70,7 @@ episodes:
 - introduction.md
 - pixi_intro.md
 - cuda_conda_pacakges.md
+- pixi_deployment.md
 - backwards_compatibility.md
 
 # Information for Learners

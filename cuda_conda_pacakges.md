@@ -78,7 +78,6 @@ ls -1ap
 .gitattributes
 .gitignore
 pixi.toml
-
 ```
 
 Let's add a dependency to our project to change that
