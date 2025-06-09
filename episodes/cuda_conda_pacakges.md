@@ -302,6 +302,32 @@ It is important to demystify what is happening with the directory tree structure
 
 :::
 
+::: challenge
+
+## Exploring conda-forge
+
+As of 2025 [conda-forge](https://conda-forge.org/) has over 28,500 packages on it.
+Go to the conda-forge package list website (https://conda-forge.org/packages/) and try to find three packages that you use in your research, and three packages from your scientific field that are more niche.
+
+::: solution
+
+## Some packages
+
+Research packages:
+
+* [`jax`](https://github.com/conda-forge/jax-feedstock)
+* [`boost-histogram`](https://github.com/conda-forge/boost-histogram-feedstock)
+* [`awkward`](https://github.com/conda-forge/awkward-feedstock)
+
+Niche particle physics packages:
+
+* [`siscone`](https://github.com/conda-forge/siscone-feedstock)
+* [`iminuit`](https://github.com/conda-forge/iminuit-feedstock)
+* [`stanhf`](https://github.com/conda-forge/stanhf-feedstock)
+
+:::
+:::
+
 ## CUDA
 
 CUDA (Compute Unified Device Architecture) [is a parallel computing platform and programming model developed by NVIDIA for general computing on graphical processing units (GPUs)](https://developer.nvidia.com/cuda-zone).
@@ -722,6 +748,221 @@ Number of GPUs found on system: 1
 Active GPU index: 0
 Active GPU name: NVIDIA GeForce RTX 4060 Laptop GPU
 ```
+
+::: challenge
+
+## Multi-environment Pixi workspaces
+
+Create a new Pixi workspace that:
+
+* Contains an environment for `linux-64`, `osx-arm64`, and `win-64` that supports the CPU version of PyTorch
+* Contains an environment for `linux-64` that supports the GPU version of PyTorch
+* Supports CUDA `v12.9`
+
+::: solution
+
+Create a new workspace
+
+```bash
+pixi init ~/pixi-lesson/cuda-exercise
+cd ~/pixi-lesson/cuda-exercise
+```
+```output
+✔ Created /home/<username>/pixi-lesson/cuda-exercise/pixi.toml
+```
+
+Add support for all the target platforms
+
+```bash
+pixi workspace platform add linux-64 osx-arm64 win-64
+```
+```output
+✔ Added linux-64
+✔ Added osx-arm64
+✔ Added win-64
+```
+
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "cuda-exercise"
+platforms = ["linux-64", "osx-arm64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+```
+
+Add `pytorch-cpu` to a `cpu` feature
+
+```bash
+pixi add --feature cpu pytorch-cpu
+```
+```output
+✔ Added pytorch-cpu
+Added these only for feature: cpu
+```
+
+and then create a `cpu` environment that contains the `cpu` feature
+
+```bash
+pixi workspace environment add --feature cpu cpu
+```
+```output
+✔ Added environment cpu
+```
+
+and then instantiate the `pytorch-cpu` package with a particular version and solve
+
+```bash
+pixi add --feature cpu pytorch-cpu
+```
+```output
+✔ Added pytorch-cpu >=1.1.0,<3
+Added these only for feature: cpu
+```
+
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "cuda-exercise"
+platforms = ["linux-64", "osx-arm64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+
+[feature.cpu.dependencies]
+pytorch-cpu = ">=1.1.0,<3"
+
+[environments]
+cpu = ["cpu"]
+```
+
+Now, for the GPU environment, add CUDA system-requirements for `linux-64` for the `gpu` feature
+
+```bash
+pixi workspace system-requirements add --feature gpu cuda 12
+```
+
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "cuda-exercise"
+platforms = ["linux-64", "osx-arm64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+
+[feature.cpu.dependencies]
+pytorch-cpu = ">=1.1.0,<3"
+
+[feature.gpu.system-requirements]
+cuda = "12"
+
+[environments]
+cpu = ["cpu"]
+```
+
+and create a `gpu` environment with the `gpu` feature
+
+```bash
+pixi workspace environment add --feature gpu gpu
+```
+```output
+✔ Added environment gpu
+```
+
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "cuda-exercise"
+platforms = ["linux-64", "osx-arm64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+
+[feature.cpu.dependencies]
+pytorch-cpu = ">=1.1.0,<3"
+
+[feature.gpu.system-requirements]
+cuda = "12"
+
+[environments]
+cpu = ["cpu"]
+gpu = ["gpu"]
+```
+
+then add the `cuda-version` metapackage and the `pytorch-gpu` pacakge for `linux-64` to the `gpu` feature
+
+```bash
+pixi add --platform linux-64 --feature gpu 'cuda-version 12.9.*' pytorch-gpu
+```
+```output
+✔ Added cuda-version 12.9.*
+✔ Added pytorch-gpu >=2.7.0,<3
+Added these only for platform(s): linux-64
+Added these only for feature: gpu
+```
+
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "cuda-exercise"
+platforms = ["linux-64", "osx-arm64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+
+[feature.cpu.dependencies]
+pytorch-cpu = ">=1.1.0,<3"
+
+[feature.gpu.system-requirements]
+cuda = "12"
+
+[feature.gpu.target.linux-64.dependencies]
+cuda-version = "12.9.*"
+pytorch-gpu = ">=2.7.0,<3"
+
+[environments]
+cpu = ["cpu"]
+gpu = ["gpu"]
+```
+
+One can check the environment differences
+
+```bash
+pixi list --environment cpu
+pixi list --environment gpu
+```
+
+and activate shells with different environments loaded
+
+```bash
+pixi shell --environment cpu
+```
+
+So in 23 lines of TOML
+
+```bash
+wc -l pixi.toml
+```
+```output
+23 pixi.toml
+```
+
+we created separate CPU and GPU computational environments that are now fully reproducible with the associated `pixi.lock`!
+
+:::
+:::
 
 ::: keypoints
 

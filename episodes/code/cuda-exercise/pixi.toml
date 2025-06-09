@@ -1,0 +1,23 @@
+[workspace]
+channels = ["conda-forge"]
+name = "cuda-exercise"
+platforms = ["linux-64", "osx-arm64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+
+[feature.cpu.dependencies]
+pytorch-cpu = ">=1.1.0,<3"
+
+[feature.gpu.system-requirements]
+cuda = "12"
+
+[feature.gpu.target.linux-64.dependencies]
+cuda-version = "12.9.*"
+pytorch-gpu = ">=2.7.0,<3"
+
+[environments]
+cpu = ["cpu"]
+gpu = ["gpu"]
