@@ -280,7 +280,19 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="backwards_compatibility.html">4. Backwards compatibility with conda</a>
+        <a href="pixi_deployment.html">4. Deploying Pixi environments to production</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="backwards_compatibility.html">5. Backwards compatibility with conda</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -384,6 +396,16 @@ CUDA conda packages on conda-forge.</li>
 <li>The <a href="https://github.com/conda-forge/cuda-feedstock/tree/main/recipe" class="external-link"><code>cuda</code>
 metapackage</a> is the primary place to go for user documetnation on the
 CUDA conda packages.</li>
+</ul></section><section id="pixi_deployment"><h2 class="section-heading"><a href="pixi_deployment.html">Deploying Pixi environments to production</a></h2>
+<hr class="half-width">
+<ul>
+<li>Pixi environments can be easily installed into Linux
+containers.</li>
+<li>As Pixi environments contain the entire software environment, the
+Linux container build script can simply install the Pixi
+environment.</li>
+<li>Using GitHub Actions workflows allows for the build process to
+happen automatically through CI/CD.</li>
 </ul></section><section id="backwards_compatibility"><h2 class="section-heading"><a href="backwards_compatibility.html">Backwards compatibility with conda</a></h2>
 <hr class="half-width">
 <ul>

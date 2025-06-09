@@ -237,7 +237,16 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="backwards_compatibility.html">4. Backwards compatibility with conda</a>
+        <a href="pixi_deployment.html">4. Deploying Pixi environments to production</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="backwards_compatibility.html">5. Backwards compatibility with conda</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -337,14 +346,25 @@ enabled conda packages?
 <span class="visually-hidden">Duration: </span>01h 48m
 </td>
 <td>
- 4. <a href="backwards_compatibility.html">Backwards compatibility with
+ 4. <a href="pixi_deployment.html">Deploying Pixi environments to
+production</a>
+</td>
+<td>
+How can Pixi environment be deployed to production compute
+facilities?<br>What tools can be used to achieve this?
+</td>
+</tr><tr><td>
+<span class="visually-hidden">Duration: </span>02h 33m
+</td>
+<td>
+ 5. <a href="backwards_compatibility.html">Backwards compatibility with
 conda</a>
 </td>
 <td>
 Can Pixi environments be backported to conda formats?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>02h 03m
+<span class="visually-hidden">Duration: </span>02h 48m
 </td>
 <td>
 Finish
@@ -361,7 +381,25 @@ any links that you are not going to use.
 <hr class="half-width"><p>All data used in this lesson will either be downloaded from a long
 term archive as part of the lesson, or will be provided by the
 learners.</p>
-</section><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
+</section><section><h2 class="section-heading" id="github-repository-setup">GitHub Repository Setup<a class="anchor" aria-label="anchor" href="#github-repository-setup"></a></h2>
+<hr class="half-width"><p>At the end of this lesson you will have created a personal GitHub
+repository that contains the information that you’ve learned. This gives
+you version controlled examples that you can take forward with you as
+references for your own projects.</p>
+<ol style="list-style-type: decimal"><li>Create a <a href="https://github.com/" class="external-link">GitHub account</a> if you
+don’t have one yet.</li>
+<li>Navigate to your GitHub profile (<a href="https://github.com/" class="external-link uri">https://github.com/</a><username>) and click the “+” icon in
+the upper right hand side to <a href="https://github.com/new" class="external-link">create a
+new repository</a>.</username></li>
+<li>Name the new repository “pixi-lesson”, make it public, and give it a
+README and an <a href="https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository" class="external-link">open
+source license</a> (e.g. MIT License).</li>
+<li>As GitHub requires two-factor authentication, it is highly
+recommended that you <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" class="external-link">generate
+an SSH key pair</a> specifically for GitHub, <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account" class="external-link">add
+the generated SSH key to your GitHub account</a>, and then use your SSH
+keys to connect with GitHub.</li>
+</ol></section><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
 <hr class="half-width"><p>This lesson will focus on using technology that allows for fully
 reproducible multi-platform software environments. <a href="https://pixi.sh/latest/" class="external-link">Pixi</a>, the technology that enables
 this, is the only tool that needs to be installed in advance of the
@@ -399,7 +437,7 @@ learning libraries.</p>
   Unix machines (Linux and macOS)
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <pre class="shell"><code>curl -fsSL https://pixi.sh/install.sh | sh</code></pre>
 <p>or</p>
@@ -444,7 +482,7 @@ learning libraries.</p>
   Windows
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>

@@ -118,11 +118,11 @@
   Reproducible Machine Learning Workflows for Scientists
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 15%" class="percentage">
-    15%
+<aside class="col-md-12 lesson-progress"><div style="width: 11%" class="percentage">
+    11%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 15%" aria-valuenow="15" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 11%" aria-valuenow="11" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -246,7 +246,16 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="backwards_compatibility.html">4. Backwards compatibility with conda</a>
+        <a href="pixi_deployment.html">4. Deploying Pixi environments to production</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="backwards_compatibility.html">5. Backwards compatibility with conda</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -310,7 +319,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Pixi</h1>
-        <p>Last updated on 2025-06-02 |
+        <p>Last updated on 2025-06-09 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi_intro.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -437,14 +446,15 @@ file is a declarative configuration file that list what the high level
 requirements of a project are. Pixi then takes those requirements and
 constraints and solves for the full dependency tree.</p>
 <p>Let’s create our first Pixi project. First, to have a uniform
-directory tree experience, create a directory called
-<code>pixi-lesson</code> under your home directory on your machine and
-navigate to it.</p>
+directory tree experience, clone the <code>pixi-lesson</code> GitHub
+repository (which you made as part of the setup) under your home
+directory on your machine and navigate to it.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/pixi-lesson</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="bu">cd</span> ~/pixi-lesson</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="bu">cd</span> ~</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">git</span> clone git@github.com:<span class="op">&lt;</span>username<span class="op">&gt;</span>/pixi-lesson.git</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="bu">cd</span> ~/pixi-lesson</span></code></pre>
 </div>
 <p>Then use <code>pixi init</code> to create a new project directory and
 initialize a Pixi manifest with your machine’s configuration.</p>
@@ -464,12 +474,16 @@ directory structure</p>
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="bu">cd</span> example</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-a</span></span></code></pre>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1ap</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>.  ..  .gitattributes  .gitignore  pixi.toml</code></pre>
+<pre class="output" tabindex="0"><code><span><span class="va">.</span><span class="op">/</span></span>
+<span><span class="va">..</span><span class="op">/</span></span>
+<span><span class="va">.gitattributes</span></span>
+<span><span class="va">.gitignore</span></span>
+<span><span class="va">pixi.toml</span></span></code></pre>
 </div>
 <p>We see that Pixi has setup Git configuration files for the project as
 well as a Pixi manifest <code>pixi.toml</code> file. Checking the
@@ -560,12 +574,18 @@ directory.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-a</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1ap</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>.  ..  .gitattributes  .gitignore  .pixi  pixi.lock  pixi.toml</code></pre>
+<pre class="output" tabindex="0"><code><span><span class="va">.</span><span class="op">/</span></span>
+<span><span class="va">..</span><span class="op">/</span></span>
+<span><span class="va">.gitattributes</span></span>
+<span><span class="va">.gitignore</span></span>
+<span><span class="va">.pixi</span><span class="op">/</span></span>
+<span><span class="va">pixi.lock</span></span>
+<span><span class="va">pixi.toml</span></span></code></pre>
 </div>
 <p>The <code>.pixi/</code> directory contains the installed
 environments. We can see that at the moment there is just one
@@ -573,12 +593,12 @@ environment named <code>default</code></p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">ls</span> .pixi/envs/</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1p</span> .pixi/envs/</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code><span><span class="va">default</span></span></code></pre>
+<pre class="output" tabindex="0"><code>default/</code></pre>
 </div>
 <p>Inside the <code>.pixi/envs/default/</code> directory are all the
 libraries, header files, and executables that are needed by the
@@ -978,7 +998,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi_intro.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi_intro.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-06-02",
+  "dateModified": "2025-06-09",
   "datePublished": "2025-06-09"
 }
 
