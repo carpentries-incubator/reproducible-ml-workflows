@@ -73,7 +73,7 @@ If you're not familiar with Linux containers, here are introductory resources:
 
 If you don't have a Linux container runtime on your machine don't worry &mdash; for the first part of this episode you can follow along reading and then we'll transition to automation.
 
-### Using Docker
+## Building Docker containers with Pixi environments
 
 Docker is a very common Linux container runtime technology and Linux container builder.
 We can use [`docker build`](https://docs.docker.com/build/) to build a Linux container from a `Dockerfile` instruction file.
@@ -106,6 +106,7 @@ ENTRYPOINT [ "/app/entrypoint.sh" ]
 ```
 
 Let's step through this to understand what's happening.
+`Dockerfile` (intentionally) look very shell script like, and so we can read most of it as if we were typing the commands directly into a shell (e.g. Bash).
 
 * The `Dockerfile` assumes it is being built from a version control repository where any code that it will need to execute later exists under the repository's `src/` directory and the Pixi workspace's `pixi.toml` manifest file and `pixi.lock` lock file exist at the top level of the repository.
 * The entire repository contents are [`COPY`](https://docs.docker.com/reference/dockerfile/#copy)ed from the container build context into the `/app` directory of the container build.
@@ -203,7 +204,7 @@ ENTRYPOINT [ "/app/entrypoint.sh" ]
 :::
 :::
 
-## Automation with GitHub Actions workflows
+### Automation with GitHub Actions workflows
 
 In the personal GitHub repository that we've been working in create a GitHub Actions workflow directory
 
@@ -307,6 +308,179 @@ jobs:
 ```
 
 This will build your Dockerfile in GitHub Actions CI into a [`linux/amd64` platform](https://docs.docker.com/build/building/multi-platform/) Docker container image and then deploy it to the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) (`ghcr`) associated with your repository.
+
+## Building Apptainer containers with Pixi environments
+
+Most HTC and HPC systems do not allow users to use Docker given security risks and instead use Apptainer.
+In most situations, Apptainer is able to automatically convert a Docker image, or other Open Container Initiative (OCI) container image format, to Apptainer's [Singularity Image Format](https://github.com/apptainer/sif) `.sif` container image format, and so no additional work is required.
+However, the overlay system of Apptainer is different from Docker, which means that the `ENTRYPOINT` of a Docker container image might not get correctly translated into an Apptainer `runscript` and `startscript`.
+In might be advantageous, depending on your situation, to instead write an [Apptainer `.def` definition file](https://apptainer.org/docs/user/main/definition_files.html), giving full control over the commands, and then build that `.def` file into an `.sif` Apptainer container image.
+
+We can build a very similar Apptainer container image definition file to the Dockerfile we wrote
+
+```
+Bootstrap: docker
+From: ghcr.io/prefix-dev/pixi:noble
+Stage: build
+
+%files
+./pixi.toml /app/
+./pixi.lock /app/
+./.gitignore /app/
+
+%post
+#!/bin/bash
+export CONDA_OVERRIDE_CUDA=12
+cd /app/
+pixi info
+pixi install --locked --environment prod
+echo "#!/bin/bash" > /app/entrypoint.sh && \
+pixi shell-hook --environment prod -s bash >> /app/entrypoint.sh && \
+echo 'exec "$@"' >> /app/entrypoint.sh
+
+
+Bootstrap: docker
+From: ghcr.io/prefix-dev/pixi:noble
+Stage: final
+
+%files from build
+/app/.pixi/envs/prod /app/.pixi/envs/prod
+/app/pixi.toml /app/pixi.toml
+/app/pixi.lock /app/pixi.lock
+/app/.gitignore /app/.gitignore
+# The ignore files are needed for 'pixi run' to work in the container
+/app/.pixi/.gitignore /app/.pixi/.gitignore
+/app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
+/app/entrypoint.sh /app/entrypoint.sh
+
+%files
+./src /app/src
+
+%post
+#!/bin/bash
+cd /app/
+pixi info
+chmod +x /app/entrypoint.sh
+
+%runscript
+#!/bin/bash
+/app/entrypoint.sh "$@"
+
+%startscript
+#!/bin/bash
+/app/entrypoint.sh "$@"
+
+%test
+#!/bin/bash -e
+. /app/entrypoint.sh
+pixi info
+pixi list
+```
+
+Let's break this down too.
+
+* The Apptainer definition file is broken out into specific [operation sections](https://apptainer.org/docs/user/main/definition_files.html#sections) prefixed by `%` (e.g. `files`, `post`).
+* The Apptainer definition file assumes it is being built from a version control repository where any code that it will need to execute later exists under the repository's `src/` directory and the Pixi workspace's `pixi.toml` manifest file and `pixi.lock` lock file exist at the top level of the repository.
+* The [`files` section](https://apptainer.org/docs/user/main/definition_files.html#files) allows for a mapping of what files should be copied from a build context (e.g. the local file system) to the container file system
+
+```singularity
+%files
+./pixi.toml /app/
+./pixi.lock /app/
+./.gitignore /app/
+````
+
+* The [`post` section](https://apptainer.org/docs/user/main/definition_files.html#post) runs commands listed in it as a shell script executed in a clean shell environment that does not have any pre-existing build environment context.
+It is not reasonable to expect that the container image build machine contains GPUs.
+To have Pixi still be able to install an environment that uses CUDA when there is no virtual package set the `__cuda` [override environment variable `CONDA_OVERRIDE_CUDA`](https://docs.conda.io/projects/conda/en/stable/user-guide/tasks/manage-virtual.html#overriding-detected-packages).
+
+```
+%post
+#!/bin/bash
+export CONDA_OVERRIDE_CUDA=12
+...
+```
+
+* The definition files uses a [multi-stage build](https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds) where it first installs the target environment `<environment>` and then creates an `entrypoint.sh` script script that will be used as a [`runscript`](https://apptainer.org/docs/user/main/definition_files.html#runscript) using [`pixi shell-hook`](https://pixi.sh/latest/reference/cli/pixi/shell-hook/) to automatically activate the environment when the container image is run.
+
+```
+...
+cd /app/
+pixi info
+pixi install --locked --environment prod
+echo "#!/bin/bash" > /app/entrypoint.sh && \
+pixi shell-hook --environment prod -s bash >> /app/entrypoint.sh && \
+echo 'exec "$@"' >> /app/entrypoint.sh
+```
+
+* The next stage of the build starts from a new container instance and then copies the installed environment and files **from** the `build` stage into the `final` container image.
+This can reduce the total size of the final container image if there were additional build tools that needed to get installed in the build phase that aren't required for runtime in production.
+
+```
+Bootstrap: docker
+From: ghcr.io/prefix-dev/pixi:noble
+Stage: final
+
+%files from build
+/app/.pixi/envs/prod /app/.pixi/envs/prod
+/app/pixi.toml /app/pixi.toml
+/app/pixi.lock /app/pixi.lock
+/app/.gitignore /app/.gitignore
+# The ignore files are needed for 'pixi run' to work in the container
+/app/.pixi/.gitignore /app/.pixi/.gitignore
+/app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
+/app/entrypoint.sh /app/entrypoint.sh
+```
+
+* By repeating the `files` section we can also copy in the source code
+
+```
+%files
+./src /app/src
+```
+
+* The `post` section then verifies that the Pixi workspace is valid and makes the `/app/entrypoint.sh` executable
+
+```
+%post
+#!/bin/bash
+cd /app/
+pixi info
+chmod +x /app/entrypoint.sh
+```
+
+* The [`runscript` section](https://apptainer.org/docs/user/main/definition_files.html#runscript) defines a shell script that will get executed when the container image is run (either via the [`apptainer run`](https://apptainer.org/docs/user/main/cli/apptainer_run.html) command or by [executing the container directly as a command](https://apptainer.org/docs/user/main/quick_start.html#runcontainer)).
+
+```
+%runscript
+#!/bin/bash
+/app/entrypoint.sh "$@"
+```
+
+* We also define a [`startscript` section](https://apptainer.org/docs/user/main/definition_files.html#startscript) that is the same as the `runscript`'s contents that is executed when the [`instance start`](https://apptainer.org/docs/user/main/cli/apptainer_instance_start.html) command is executed (which creates a container instances that starts running in the background).
+
+```
+%startscript
+#!/bin/bash
+/app/entrypoint.sh "$@"
+```
+
+* Finally, the [`test` section](https://apptainer.org/docs/user/main/definition_files.html#test) defines a script that will be executed in the built container at the end of the build process.
+This allows for validation of the container functionality before it is distributed.
+
+```
+%test
+#!/bin/bash -e
+. /app/entrypoint.sh
+pixi info
+pixi list
+```
+
+With this Apptainer defintion file the container image can then be built with `apptainer build`
+
+```bash
+apptainer build <container image name>.sif <definition file name>.def
+```
 
 ::: keypoints
 
