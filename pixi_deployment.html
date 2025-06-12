@@ -245,7 +245,8 @@
       <div class="accordion-body">
         <ul><li><a href="#deploying-pixi-environments">Deploying Pixi environments</a></li>
 <li><a href="#building-linux-containers-with-pixi-environments">Building Linux containers with Pixi environments</a></li>
-<li><a href="#automation-with-github-actions-workflows">Automation with GitHub Actions workflows</a></li>
+<li><a href="#building-docker-containers-with-pixi-environments">Building Docker containers with Pixi environments</a></li>
+<li><a href="#building-apptainer-containers-with-pixi-environments">Building Apptainer containers with Pixi environments</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -319,7 +320,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Deploying Pixi environments to production</h1>
-        <p>Last updated on 2025-06-09 |
+        <p>Last updated on 2025-06-12 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi_deployment.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -447,9 +448,8 @@ Carpentries Incubator</a> lesson</li>
 <p>If you don’t have a Linux container runtime on your machine don’t
 worry — for the first part of this episode you can follow along reading
 and then we’ll transition to automation.</p>
-<div class="section level3">
-<h3 id="using-docker">Using Docker<a class="anchor" aria-label="anchor" href="#using-docker"></a></h3>
-<p>Docker is a very common Linux container runtime technology and Linux
+</section><section><h2 class="section-heading" id="building-docker-containers-with-pixi-environments">Building Docker containers with Pixi environments<a class="anchor" aria-label="anchor" href="#building-docker-containers-with-pixi-environments"></a></h2>
+<hr class="half-width"><p>Docker is a very common Linux container runtime technology and Linux
 container builder. We can use <a href="https://docs.docker.com/build/" class="external-link"><code>docker build</code></a> to
 build a Linux container from a <code>Dockerfile</code> instruction file.
 Luckily, to install Pixi environments into Docker container images there
@@ -474,15 +474,19 @@ that needs to be used, and then can be reused across projects.</p>
 <span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.pixi/envs/&lt;environment&gt; /app/.pixi/envs/&lt;environment&gt;</span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/pixi.toml /app/pixi.toml</span>
 <span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/pixi.lock /app/pixi.lock</span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co"># Need the .gitignore if you want to use `pixi run` commands</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.gitignore /app/.pixi/.gitignore</span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> <span class="op">--chmod=0755</span> /app/entrypoint.sh /app/entrypoint.sh</span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="kw">COPY</span> ./src /app/src</span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="kw">EXPOSE</span> &lt;PORT&gt;</span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="kw">ENTRYPOINT</span> [ <span class="st">"/app/entrypoint.sh"</span> ]</span></code></pre>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co"># The ignore files are needed for 'pixi run' to work in the container</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.pixi/.gitignore /app/.pixi/.gitignore</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> <span class="op">--chmod=0755</span> /app/entrypoint.sh /app/entrypoint.sh</span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="kw">COPY</span> ./src /app/src</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="kw">EXPOSE</span> &lt;PORT&gt;</span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="kw">ENTRYPOINT</span> [ <span class="st">"/app/entrypoint.sh"</span> ]</span></code></pre>
 </div>
-<p>Let’s step through this to understand what’s happening.</p>
+<p>Let’s step through this to understand what’s happening.
+<code>Dockerfile</code> (intentionally) look very shell script like, and
+so we can read most of it as if we were typing the commands directly
+into a shell (e.g. Bash).</p>
 <ul><li>The <code>Dockerfile</code> assumes it is being built from a version
 control repository where any code that it will need to execute later
 exists under the repository’s <code>src/</code> directory and the Pixi
@@ -538,9 +542,10 @@ required for runtime in production.</li>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.pixi/envs/&lt;environment&gt; /app/.pixi/envs/&lt;environment&gt;</span>
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/pixi.toml /app/pixi.toml</span>
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/pixi.lock /app/pixi.lock</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co"># Need the .gitignore if you want to use `pixi run` commands</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.gitignore /app/.pixi/.gitignore</span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> <span class="op">--chmod=0755</span> /app/entrypoint.sh /app/entrypoint.sh</span></code></pre>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co"># The ignore files are needed for 'pixi run' to work in the container</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.pixi/.gitignore /app/.pixi/.gitignore</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> <span class="op">--chmod=0755</span> /app/entrypoint.sh /app/entrypoint.sh</span></code></pre>
 </div>
 <ul><li>The code from the repository is <a href="https://docs.docker.com/reference/dockerfile/#copy" class="external-link"><code>COPY</code></a>ed
 into the final container image as well</li>
@@ -605,20 +610,21 @@ workspace.</p>
 <span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.pixi/envs/gpu /app/.pixi/envs/gpu</span>
 <span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/pixi.toml /app/pixi.toml</span>
 <span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/pixi.lock /app/pixi.lock</span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co"># Need the .gitignore if you want to use `pixi run` commands</span></span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.gitignore /app/.pixi/.gitignore</span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> <span class="op">--chmod=0755</span> /app/entrypoint.sh /app/entrypoint.sh</span>
-<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a></span>
-<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="kw">EXPOSE</span> 8000</span>
-<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="kw">ENTRYPOINT</span> [ <span class="st">"/app/entrypoint.sh"</span> ]</span></code></pre>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co"># The ignore files are needed for 'pixi run' to work in the container</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.pixi/.gitignore /app/.pixi/.gitignore</span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore</span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=build</span> <span class="op">--chmod=0755</span> /app/entrypoint.sh /app/entrypoint.sh</span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="kw">EXPOSE</span> 8000</span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="kw">ENTRYPOINT</span> [ <span class="st">"/app/entrypoint.sh"</span> ]</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-</div>
-</section><section><h2 class="section-heading" id="automation-with-github-actions-workflows">Automation with GitHub Actions workflows<a class="anchor" aria-label="anchor" href="#automation-with-github-actions-workflows"></a></h2>
-<hr class="half-width"><p>In the personal GitHub repository that we’ve been working in create a
+<div class="section level3">
+<h3 id="automation-with-github-actions-workflows">Automation with GitHub Actions workflows<a class="anchor" aria-label="anchor" href="#automation-with-github-actions-workflows"></a></h3>
+<p>In the personal GitHub repository that we’ve been working in create a
 GitHub Actions workflow directory</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -725,6 +731,277 @@ GitHub Actions workflow directory</p>
 platform</a> Docker container image and then deploy it to the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry" class="external-link">GitHub
 Container Registry</a> (<code>ghcr</code>) associated with your
 repository.</p>
+</div>
+</section><section><h2 class="section-heading" id="building-apptainer-containers-with-pixi-environments">Building Apptainer containers with Pixi environments<a class="anchor" aria-label="anchor" href="#building-apptainer-containers-with-pixi-environments"></a></h2>
+<hr class="half-width"><p>Most HTC and HPC systems do not allow users to use Docker given
+security risks and instead use Apptainer. In most situations, Apptainer
+is able to automatically convert a Docker image, or other Open Container
+Initiative (OCI) container image format, to Apptainer’s <a href="https://github.com/apptainer/sif" class="external-link">Singularity Image Format</a>
+<code>.sif</code> container image format, and so no additional work is
+required. However, the overlay system of Apptainer is different from
+Docker, which means that the <code>ENTRYPOINT</code> of a Docker
+container image might not get correctly translated into an Apptainer
+<code>runscript</code> and <code>startscript</code>. In might be
+advantageous, depending on your situation, to instead write an <a href="https://apptainer.org/docs/user/main/definition_files.html" class="external-link">Apptainer
+<code>.def</code> definition file</a>, giving full control over the
+commands, and then build that <code>.def</code> file into an
+<code>.sif</code> Apptainer container image.</p>
+<p>We can build a very similar Apptainer container image definition file
+to the Dockerfile we wrote</p>
+<pre><code>Bootstrap: docker
+From: ghcr.io/prefix-dev/pixi:noble
+Stage: build
+
+%files
+./pixi.toml /app/
+./pixi.lock /app/
+./.gitignore /app/
+
+%post
+#!/bin/bash
+export CONDA_OVERRIDE_CUDA=12
+cd /app/
+pixi info
+pixi install --locked --environment prod
+echo "#!/bin/bash" &gt; /app/entrypoint.sh &amp;&amp; \
+pixi shell-hook --environment prod -s bash &gt;&gt; /app/entrypoint.sh &amp;&amp; \
+echo 'exec "$@"' &gt;&gt; /app/entrypoint.sh
+
+
+Bootstrap: docker
+From: ghcr.io/prefix-dev/pixi:noble
+Stage: final
+
+%files from build
+/app/.pixi/envs/prod /app/.pixi/envs/prod
+/app/pixi.toml /app/pixi.toml
+/app/pixi.lock /app/pixi.lock
+/app/.gitignore /app/.gitignore
+# The ignore files are needed for 'pixi run' to work in the container
+/app/.pixi/.gitignore /app/.pixi/.gitignore
+/app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
+/app/entrypoint.sh /app/entrypoint.sh
+
+%files
+./src /app/src
+
+%post
+#!/bin/bash
+cd /app/
+pixi info
+chmod +x /app/entrypoint.sh
+
+%runscript
+#!/bin/bash
+/app/entrypoint.sh "$@"
+
+%startscript
+#!/bin/bash
+/app/entrypoint.sh "$@"
+
+%test
+#!/bin/bash -e
+. /app/entrypoint.sh
+pixi info
+pixi list</code></pre>
+<p>Let’s break this down too.</p>
+<ul><li>The Apptainer definition file is broken out into specific <a href="https://apptainer.org/docs/user/main/definition_files.html#sections" class="external-link">operation
+sections</a> prefixed by <code>%</code> (e.g. <code>files</code>,
+<code>post</code>).</li>
+<li>The Apptainer definition file assumes it is being built from a
+version control repository where any code that it will need to execute
+later exists under the repository’s <code>src/</code> directory and the
+Pixi workspace’s <code>pixi.toml</code> manifest file and
+<code>pixi.lock</code> lock file exist at the top level of the
+repository.</li>
+<li>The <a href="https://apptainer.org/docs/user/main/definition_files.html#files" class="external-link"><code>files</code>
+section</a> allows for a mapping of what files should be copied from a
+build context (e.g. the local file system) to the container file
+system</li>
+</ul><pre class="singularity"><code>%files
+./pixi.toml /app/
+./pixi.lock /app/
+./.gitignore /app/</code></pre>
+<ul><li>The <a href="https://apptainer.org/docs/user/main/definition_files.html#post" class="external-link"><code>post</code>
+section</a> runs commands listed in it as a shell script executed in a
+clean shell environment that does not have any pre-existing build
+environment context. It is not reasonable to expect that the container
+image build machine contains GPUs. To have Pixi still be able to install
+an environment that uses CUDA when there is no virtual package set the
+<code>__cuda</code> <a href="https://docs.conda.io/projects/conda/en/stable/user-guide/tasks/manage-virtual.html#overriding-detected-packages" class="external-link">override
+environment variable <code>CONDA_OVERRIDE_CUDA</code></a>.</li>
+</ul><pre><code>%post
+#!/bin/bash
+export CONDA_OVERRIDE_CUDA=12
+...</code></pre>
+<ul><li>The definition files uses a <a href="https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds" class="external-link">multi-stage
+build</a> where it first installs the target environment
+<code>&lt;environment&gt;</code> and then creates an
+<code>entrypoint.sh</code> script script that will be used as a <a href="https://apptainer.org/docs/user/main/definition_files.html#runscript" class="external-link"><code>runscript</code></a>
+using <a href="https://pixi.sh/latest/reference/cli/pixi/shell-hook/" class="external-link"><code>pixi shell-hook</code></a>
+to automatically activate the environment when the container image is
+run.</li>
+</ul><pre><code>...
+cd /app/
+pixi info
+pixi install --locked --environment prod
+echo "#!/bin/bash" &gt; /app/entrypoint.sh &amp;&amp; \
+pixi shell-hook --environment prod -s bash &gt;&gt; /app/entrypoint.sh &amp;&amp; \
+echo 'exec "$@"' &gt;&gt; /app/entrypoint.sh</code></pre>
+<ul><li>The next stage of the build starts from a new container instance and
+then copies the installed environment and files <strong>from</strong>
+the <code>build</code> stage into the <code>final</code> container
+image. This can reduce the total size of the final container image if
+there were additional build tools that needed to get installed in the
+build phase that aren’t required for runtime in production.</li>
+</ul><pre><code>Bootstrap: docker
+From: ghcr.io/prefix-dev/pixi:noble
+Stage: final
+
+%files from build
+/app/.pixi/envs/prod /app/.pixi/envs/prod
+/app/pixi.toml /app/pixi.toml
+/app/pixi.lock /app/pixi.lock
+/app/.gitignore /app/.gitignore
+# The ignore files are needed for 'pixi run' to work in the container
+/app/.pixi/.gitignore /app/.pixi/.gitignore
+/app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
+/app/entrypoint.sh /app/entrypoint.sh</code></pre>
+<ul><li>By repeating the <code>files</code> section we can also copy in the
+source code</li>
+</ul><pre><code>%files
+./src /app/src</code></pre>
+<ul><li>The <code>post</code> section then verifies that the Pixi workspace
+is valid and makes the <code>/app/entrypoint.sh</code> executable</li>
+</ul><pre><code>%post
+#!/bin/bash
+cd /app/
+pixi info
+chmod +x /app/entrypoint.sh</code></pre>
+<ul><li>The <a href="https://apptainer.org/docs/user/main/definition_files.html#runscript" class="external-link"><code>runscript</code>
+section</a> defines a shell script that will get executed when the
+container image is run (either via the <a href="https://apptainer.org/docs/user/main/cli/apptainer_run.html" class="external-link"><code>apptainer run</code></a>
+command or by <a href="https://apptainer.org/docs/user/main/quick_start.html#runcontainer" class="external-link">executing
+the container directly as a command</a>).</li>
+</ul><pre><code>%runscript
+#!/bin/bash
+/app/entrypoint.sh "$@"</code></pre>
+<ul><li>We also define a <a href="https://apptainer.org/docs/user/main/definition_files.html#startscript" class="external-link"><code>startscript</code>
+section</a> that is the same as the <code>runscript</code>’s contents
+that is executed when the <a href="https://apptainer.org/docs/user/main/cli/apptainer_instance_start.html" class="external-link"><code>instance start</code></a>
+command is executed (which creates a container instances that starts
+running in the background).</li>
+</ul><pre><code>%startscript
+#!/bin/bash
+/app/entrypoint.sh "$@"</code></pre>
+<ul><li>Finally, the <a href="https://apptainer.org/docs/user/main/definition_files.html#test" class="external-link"><code>test</code>
+section</a> defines a script that will be executed in the built
+container at the end of the build process. This allows for validation of
+the container functionality before it is distributed.</li>
+</ul><pre><code>%test
+#!/bin/bash -e
+. /app/entrypoint.sh
+pixi info
+pixi list</code></pre>
+<p>With this Apptainer defintion file the container image can then be
+built with <code>apptainer build</code></p>
+<div class="codewrapper sourceCode" id="cb22">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="ex">apptainer</span> build <span class="op">&lt;</span>container image name<span class="op">&gt;</span>.sif <span class="op">&lt;</span>definition file name<span class="op">&gt;</span>.def</span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="automation-with-github-actions-workflows-1">Automation with GitHub Actions workflows<a class="anchor" aria-label="anchor" href="#automation-with-github-actions-workflows-1"></a></h3>
+<p>In the personal GitHub repository that we’ve been working in create a
+GitHub Actions workflow directory</p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .github/workflows</span></code></pre>
+</div>
+<p>and then add the following workflow file as
+<code>.github/workflows/apptainer.yaml</code></p>
+<div class="codewrapper sourceCode" id="cb24">
+<h3 class="code-label">YAML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode yaml" tabindex="0"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Apptainer Images</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> main</span></span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a><span class="at">    </span><span class="fu">tags</span><span class="kw">:</span></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'v*'</span></span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'examples/hello_pytorch/pixi.toml'</span></span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'examples/hello_pytorch/pixi.lock'</span></span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'examples/hello_pytorch/apptainer.def'</span></span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'examples/hello_pytorch/src/**'</span></span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
+<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'examples/hello_pytorch/pixi.toml'</span></span>
+<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'examples/hello_pytorch/pixi.lock'</span></span>
+<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'examples/hello_pytorch/apptainer.def'</span></span>
+<span id="cb24-19"><a href="#cb24-19" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'examples/hello_pytorch/src/**'</span></span>
+<span id="cb24-20"><a href="#cb24-20" tabindex="-1"></a><span class="at">  </span><span class="fu">release</span><span class="kw">:</span></span>
+<span id="cb24-21"><a href="#cb24-21" tabindex="-1"></a><span class="at">    </span><span class="fu">types</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">published</span><span class="kw">]</span></span>
+<span id="cb24-22"><a href="#cb24-22" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
+<span id="cb24-23"><a href="#cb24-23" tabindex="-1"></a></span>
+<span id="cb24-24"><a href="#cb24-24" tabindex="-1"></a><span class="fu">concurrency</span><span class="kw">:</span></span>
+<span id="cb24-25"><a href="#cb24-25" tabindex="-1"></a><span class="at">  </span><span class="fu">group</span><span class="kw">:</span><span class="at"> ${{ github.workflow }}-${{ github.ref }}</span></span>
+<span id="cb24-26"><a href="#cb24-26" tabindex="-1"></a><span class="at">  </span><span class="fu">cancel-in-progress</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb24-27"><a href="#cb24-27" tabindex="-1"></a></span>
+<span id="cb24-28"><a href="#cb24-28" tabindex="-1"></a><span class="fu">permissions</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span>
+<span id="cb24-29"><a href="#cb24-29" tabindex="-1"></a></span>
+<span id="cb24-30"><a href="#cb24-30" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb24-31"><a href="#cb24-31" tabindex="-1"></a><span class="at">  </span><span class="fu">docker</span><span class="kw">:</span></span>
+<span id="cb24-32"><a href="#cb24-32" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build and publish images</span></span>
+<span id="cb24-33"><a href="#cb24-33" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb24-34"><a href="#cb24-34" tabindex="-1"></a><span class="at">    </span><span class="fu">permissions</span><span class="kw">:</span></span>
+<span id="cb24-35"><a href="#cb24-35" tabindex="-1"></a><span class="at">      </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> read</span></span>
+<span id="cb24-36"><a href="#cb24-36" tabindex="-1"></a><span class="at">      </span><span class="fu">packages</span><span class="kw">:</span><span class="at"> write</span></span>
+<span id="cb24-37"><a href="#cb24-37" tabindex="-1"></a></span>
+<span id="cb24-38"><a href="#cb24-38" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb24-39"><a href="#cb24-39" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Free disk space</span></span>
+<span id="cb24-40"><a href="#cb24-40" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> AdityaGarg8/remove-unwanted-software@v5</span></span>
+<span id="cb24-41"><a href="#cb24-41" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb24-42"><a href="#cb24-42" tabindex="-1"></a><span class="at">          </span><span class="fu">remove-android</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
+<span id="cb24-43"><a href="#cb24-43" tabindex="-1"></a><span class="at">          </span><span class="fu">remove-dotnet</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
+<span id="cb24-44"><a href="#cb24-44" tabindex="-1"></a><span class="at">          </span><span class="fu">remove-haskell</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
+<span id="cb24-45"><a href="#cb24-45" tabindex="-1"></a></span>
+<span id="cb24-46"><a href="#cb24-46" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Checkout</span></span>
+<span id="cb24-47"><a href="#cb24-47" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb24-48"><a href="#cb24-48" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb24-49"><a href="#cb24-49" tabindex="-1"></a><span class="at">          </span><span class="fu">fetch-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
+<span id="cb24-50"><a href="#cb24-50" tabindex="-1"></a></span>
+<span id="cb24-51"><a href="#cb24-51" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install Apptainer</span></span>
+<span id="cb24-52"><a href="#cb24-52" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> eWaterCycle/setup-apptainer@v2</span></span>
+<span id="cb24-53"><a href="#cb24-53" tabindex="-1"></a></span>
+<span id="cb24-54"><a href="#cb24-54" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build container from definition file</span></span>
+<span id="cb24-55"><a href="#cb24-55" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./examples/hello_pytorch</span></span>
+<span id="cb24-56"><a href="#cb24-56" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer build pixi-docker-chtc.sif apptainer.def</span></span>
+<span id="cb24-57"><a href="#cb24-57" tabindex="-1"></a></span>
+<span id="cb24-58"><a href="#cb24-58" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test container</span></span>
+<span id="cb24-59"><a href="#cb24-59" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./examples/hello_pytorch</span></span>
+<span id="cb24-60"><a href="#cb24-60" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer test pixi-docker-chtc.sif</span></span>
+<span id="cb24-61"><a href="#cb24-61" tabindex="-1"></a></span>
+<span id="cb24-62"><a href="#cb24-62" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Login to GitHub Container Registry</span></span>
+<span id="cb24-63"><a href="#cb24-63" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
+<span id="cb24-64"><a href="#cb24-64" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3</span></span>
+<span id="cb24-65"><a href="#cb24-65" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb24-66"><a href="#cb24-66" tabindex="-1"></a><span class="at">          </span><span class="fu">registry</span><span class="kw">:</span><span class="at"> ghcr.io</span></span>
+<span id="cb24-67"><a href="#cb24-67" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ github.repository_owner }}</span></span>
+<span id="cb24-68"><a href="#cb24-68" tabindex="-1"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
+<span id="cb24-69"><a href="#cb24-69" tabindex="-1"></a></span>
+<span id="cb24-70"><a href="#cb24-70" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy built container</span></span>
+<span id="cb24-71"><a href="#cb24-71" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
+<span id="cb24-72"><a href="#cb24-72" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./examples/hello_pytorch</span></span>
+<span id="cb24-73"><a href="#cb24-73" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer push pixi-docker-chtc.sif oras://ghcr.io/${{ github.repository }}:hello-pytorch-noble-cuda-12.9-apptainer</span></span></code></pre>
+</div>
+<p>This will build your Apptainer definition file in GitHub Actions CI
+into a <code>.sif</code> container image and then deploy it to the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry" class="external-link">GitHub
+Container Registry</a> (<code>ghcr</code>) associated with your
+repository.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -746,6 +1023,7 @@ happen automatically through CI/CD.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
 </section><div class="footnotes footnotes-end-of-document">
 <hr><ol><li id="fn1"><p>Which is a valid and effective solution.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol></div>
@@ -810,8 +1088,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/pixi_deployment.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/pixi_deployment.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-06-09",
-  "datePublished": "2025-06-10"
+  "dateModified": "2025-06-12",
+  "datePublished": "2025-06-12"
 }
 
   </script><script>
