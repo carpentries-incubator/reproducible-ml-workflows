@@ -485,6 +485,94 @@ With this Apptainer defintion file the container image can then be built with `a
 apptainer build <container image name>.sif <definition file name>.def
 ```
 
+### Automation with GitHub Actions workflows
+
+In the personal GitHub repository that we've been working in create a GitHub Actions workflow directory
+
+```bash
+mkdir -p .github/workflows
+```
+
+and then add the following workflow file as `.github/workflows/apptainer.yaml`
+
+```yaml
+name: Apptainer Images
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+    paths:
+      - 'examples/hello_pytorch/pixi.toml'
+      - 'examples/hello_pytorch/pixi.lock'
+      - 'examples/hello_pytorch/apptainer.def'
+      - 'examples/hello_pytorch/src/**'
+  pull_request:
+    paths:
+      - 'examples/hello_pytorch/pixi.toml'
+      - 'examples/hello_pytorch/pixi.lock'
+      - 'examples/hello_pytorch/apptainer.def'
+      - 'examples/hello_pytorch/src/**'
+  release:
+    types: [published]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  docker:
+    name: Build and publish images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Free disk space
+        uses: AdityaGarg8/remove-unwanted-software@v5
+        with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Apptainer
+        uses: eWaterCycle/setup-apptainer@v2
+
+      - name: Build container from definition file
+        working-directory: ./examples/hello_pytorch
+        run: apptainer build pixi-docker-chtc.sif apptainer.def
+
+      - name: Test container
+        working-directory: ./examples/hello_pytorch
+        run: apptainer test pixi-docker-chtc.sif
+
+      - name: Login to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy built container
+        if: github.event_name != 'pull_request'
+        working-directory: ./examples/hello_pytorch
+        run: apptainer push pixi-docker-chtc.sif oras://ghcr.io/${{ github.repository }}:hello-pytorch-noble-cuda-12.9-apptainer
+```
+
+This will build your Apptainer definition file in GitHub Actions CI into a `.sif` container image and then deploy it to the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) (`ghcr`) associated with your repository.
+
 ::: keypoints
 
 * Pixi environments can be easily installed into Linux containers.
