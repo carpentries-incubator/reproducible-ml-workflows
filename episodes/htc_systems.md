@@ -17,14 +17,6 @@ exercises: 10
 
 :::
 
-::: callout
-
-## This episode will be on a remote system
-
-All the computation in this episode will take place on a remote system with an HTC workflow manager.
-
-:::
-
 ## High Throughput Computing (HTC)
 
 One of the most common forms of production computing is **high-throughput computing (HTC)**, where computational problems as distributed across multiple computing resources to parallelize computations and reduce total compute time.
@@ -441,6 +433,14 @@ crane ls ghcr.io/<your GitHub username>/pixi-lesson
 ```
 
 ## HTCondor
+
+::: callout
+
+## This episode will be on a remote system
+
+All the computation in the rest of this episode will take place on a remote system with an HTC workflow manager.
+
+:::
 
 To provide a very high level overview of HTCondor in this episode we'll focus on only a few of its many resources and capabilities.
 
