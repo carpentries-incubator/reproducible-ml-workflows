@@ -33,22 +33,9 @@ This is in contrast to **high-performance computing (HPC)** where there are comp
 
 Two of the most common HTC workflow management systems are [HTCondor](https://htcondor.org/) and [SLURM](https://slurm.schedmd.com/).
 
-## HTCondor
+## Setting up a problem
 
-To provide a very high level overview of HTCondor in this episode we'll focus on only a few of its many resources and capabilities.
-
-1. Writing HTCondor execution scripts to define what the HTCondor worker nodes will actually do.
-1. Writing [HTCondor submit description files](https://htcondor.readthedocs.io/en/latest/users-manual/submitting-a-job.html) to send our jobs to the HTCondor worker pool.
-1. Submitting those jobs with [`condor_submit`](https://htcondor.readthedocs.io/en/latest/man-pages/condor_submit.html) and monitoring them with [`condor_q`](https://htcondor.readthedocs.io/en/latest/man-pages/condor_q.html).
-
-::: caution
-
-## Connection between execution scripts and submit description files
-
-As HTCondor execution scripts are given as the `executable` field in HTCondor submit description files, they are tightly linked and can not be written fully independently.
-Though they are presented as separate steps above, you will in practice write these together.
-
-:::
+First let's create a computing problem to apply these compute systems to.
 
 Let's first create a new project in our Git repository
 
@@ -177,6 +164,18 @@ Let's start with the CUDA system requirements
 pixi workspace system-requirements add --feature gpu cuda 12
 ```
 
+::: caution
+
+## Override the `__cuda` virtual package
+
+Remember that if you're on a platform that doesn't support the `system-requirement` you'll need to override the checks to solve the environment.
+
+```bash
+export CONDA_OVERRIDE_CUDA=12
+```
+
+:::
+
 and create an environment from the feature
 
 ```bash
@@ -267,8 +266,64 @@ You can enter a shell environment first
 pixi shell --environment cpu
 python src/torch_MNIST.py --epochs 2 --save-model --data-dir data
 ```
+:::
+:::
+
+#### The Linux container
+
+Let's write a `Dockerfile` that installs the `gpu` environment into the container image when built.
+
+::: challenge
+
+## Write the Dockerfile
+
+Write a `Dockerfile` that will install the `gpu` environment and only the `gpu` environment into the container image.
+
+::: solution
+
+```dockerfile
+FROM ghcr.io/prefix-dev/pixi:noble AS build
+
+WORKDIR /app
+COPY . .
+ENV CONDA_OVERRIDE_CUDA=12
+RUN pixi install --locked --environment gpu
+RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
+    pixi shell-hook --environment gpu -s bash >> /app/entrypoint.sh && \
+    echo 'exec "$@"' >> /app/entrypoint.sh
+
+FROM ghcr.io/prefix-dev/pixi:noble AS production
+
+WORKDIR /app
+COPY --from=build /app/.pixi/envs/gpu /app/.pixi/envs/gpu
+COPY --from=build /app/pixi.toml /app/pixi.toml
+COPY --from=build /app/pixi.lock /app/pixi.lock
+# The ignore files are needed for 'pixi run' to work in the container
+COPY --from=build /app/.pixi/.gitignore /app/.pixi/.gitignore
+COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
+COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
+
+ENTRYPOINT [ "/app/entrypoint.sh" ]
+```
 
 :::
+
+:::
+
+## HTCondor
+
+To provide a very high level overview of HTCondor in this episode we'll focus on only a few of its many resources and capabilities.
+
+1. Writing HTCondor execution scripts to define what the HTCondor worker nodes will actually do.
+1. Writing [HTCondor submit description files](https://htcondor.readthedocs.io/en/latest/users-manual/submitting-a-job.html) to send our jobs to the HTCondor worker pool.
+1. Submitting those jobs with [`condor_submit`](https://htcondor.readthedocs.io/en/latest/man-pages/condor_submit.html) and monitoring them with [`condor_q`](https://htcondor.readthedocs.io/en/latest/man-pages/condor_q.html).
+
+::: caution
+
+## Connection between execution scripts and submit description files
+
+As HTCondor execution scripts are given as the `executable` field in HTCondor submit description files, they are tightly linked and can not be written fully independently.
+Though they are presented as separate steps above, you will in practice write these together.
 
 :::
 
