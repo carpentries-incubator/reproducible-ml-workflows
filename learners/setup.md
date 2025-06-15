@@ -13,8 +13,25 @@ This gives you version controlled examples that you can take forward with you as
 
 1. Create a [GitHub account](https://github.com/) if you don't have one yet.
 1. Navigate to your GitHub profile (https://github.com/<username>) and click the "+" icon in the upper right hand side to [create a new repository](https://github.com/new).
-1. Name the new repository "pixi-lesson", make it public, and give it a README and an [open source license](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) (e.g. MIT License).
+1. Name the new repository named `pixi-lesson`, make it public, and give it a README and an [open source license](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) (e.g. MIT License).
 1. As GitHub requires two-factor authentication, it is highly recommended that you [generate an SSH key pair](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) specifically for GitHub, [add the generated SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account), and then use your SSH keys to connect with GitHub.
+
+::: caution
+
+# What do I do if I don't have Git installed on my machine?
+
+Jump to the next section ("Software Setup") and install Pixi.
+Then, run this command (which we'll cover in the lesson) in your terminal
+
+```bash
+pixi global install git
+```
+
+and you'll have Git installed. :+1:
+
+You can of course install Git in other ways depending on your operating system, but this is straightforward and will work for everyone.
+
+:::
 
 ## Software Setup
 
@@ -39,13 +56,13 @@ macOS users and Windows and Linux users that don't have access to NVIDIA GPUs ca
 
 ### Unix machines (Linux and macOS)
 
-```shell
+```bash
 curl -fsSL https://pixi.sh/install.sh | sh
 ```
 
 or
 
-```shell
+```bash
 wget -qO- https://pixi.sh/install.sh | sh
 ```
 
@@ -72,7 +89,7 @@ eval "$(pixi completion --shell zsh)"
 
 Add the following to the end of `~/.config/fish/config.fish`:
 
-```shell
+```fish
 pixi completion --shell fish | source
 ```
 
@@ -107,3 +124,18 @@ Typically the path is `~\Documents\PowerShell\Microsoft.PowerShell_profile.ps1`.
 ```
 
 ::::::::::::::::::::::::
+
+## Docker (Optional)
+
+While not explicitly required for this lesson, if you would like to have a more full interactive experience with the material it is suggested that you install the Linux container runtime and tool [Docker](https://www.docker.com/).
+Install instructions for Docker can be found for your specific platform on [the Docker docs website](https://docs.docker.com/desktop/).
+
+::: callout
+
+If you're on Linux and would prefer to use [Apptainer](https://apptainer.org/) &mdash; if you don't know what that is don't worry &mdash; you can install that with
+
+```bash
+pixi global install apptainer
+```
+
+:::

@@ -52,8 +52,8 @@ channels:
 - conda-forge
 - nodefaults
 dependencies:
-- python >=3.13.3,<3.14
-- numpy >=2.2.6,<3
+- python >=3.13.5,<3.14
+- numpy >=2.3.0,<3
 - notebook >=7.4.3,<8
 - jupyterlab >=4.4.3,<5
 ```
