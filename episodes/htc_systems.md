@@ -229,7 +229,48 @@ gpu = ["gpu"]
 :::
 :::
 
-To validate that things are working with the CPU code, let's do a short training run for only 4 epochs in the `cpu` environment.
+To validate that things are working with the CPU code, let's do a short training run for only `2` epochs in the `cpu` environment.
+
+```bash
+pixi run --environment cpu python src/torch_MNIST.py --epochs 2 --save-model --data-dir data
+```
+```output
+100.0%
+100.0%
+100.0%
+100.0%
+Train Epoch: 1 [0/60000 (0%)]	Loss: 2.329474
+Train Epoch: 1 [640/60000 (1%)]	Loss: 1.425185
+Train Epoch: 1 [1280/60000 (2%)]	Loss: 0.826808
+Train Epoch: 1 [1920/60000 (3%)]	Loss: 0.556883
+Train Epoch: 1 [2560/60000 (4%)]	Loss: 0.483756
+...
+Train Epoch: 2 [57600/60000 (96%)]	Loss: 0.146226
+Train Epoch: 2 [58240/60000 (97%)]	Loss: 0.016065
+Train Epoch: 2 [58880/60000 (98%)]	Loss: 0.003342
+Train Epoch: 2 [59520/60000 (99%)]	Loss: 0.001542
+
+Test set: Average loss: 0.0351, Accuracy: 9874/10000 (99%)
+```
+
+::: challenge
+
+## Running multiple ways
+
+What's another way we could have run this other than with `pixi run`?
+
+::: solution
+
+You can enter a shell environment first
+
+```bash
+pixi shell --environment cpu
+python src/torch_MNIST.py --epochs 2 --save-model --data-dir data
+```
+
+:::
+
+:::
 
 ::: keypoints
 
