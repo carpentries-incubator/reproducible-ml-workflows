@@ -1,7 +1,7 @@
 ---
 title: "Using Pixi environments on HTC Systems"
-teaching: 40
-exercises: 10
+teaching: 60
+exercises: 30
 ---
 
 ::: questions
@@ -456,6 +456,106 @@ As HTCondor execution scripts are given as the `executable` field in HTCondor su
 Though they are presented as separate steps above, you will in practice write these together.
 
 :::
+
+### Write the HTCondor execution script
+
+Let's first start to write the execution script `mnist_gpu_docker.sh`, as we can think about how that relates to our code.
+
+* We'll be running in the `gpu` environment that we defined with Pixi and built into our Docker container image.
+* For security reasons the HTCondor worker nodes don't have full connection to all of the internet.
+So we'll need to transfer out input data and source code rather than download it on demand.
+* We'll need to activate the environment using the `/app/entrypoint.sh` script we built into the Docker container image.
+
+```bash
+#!/bin/bash
+
+# detailed logging to stderr
+set -x
+
+echo -e "# Hello CHTC from Job ${1} running on $(hostname)\n"
+echo -e "# GPUs assigned: ${CUDA_VISIBLE_DEVICES}\n"
+
+echo -e "# Activate Pixi environment\n"
+# The last line of the entrypoint.sh file is 'exec "$@"'. If this shell script
+# receives arguments, exec will interpret them as arguments to it, which is not
+# intended. To avoid this, strip the last line of entrypoint.sh and source that
+# instead.
+. <(sed '$d' /app/entrypoint.sh)
+
+echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
+nvidia-smi
+
+echo -e "\n# Check if PyTorch can detect the GPU:\n"
+python ./src/torch_detect_GPU.py
+
+echo -e "\n# Extract the training data:\n"
+if [ -f "MNIST_data.tar.gz" ]; then
+    tar -vxzf MNIST_data.tar.gz
+else
+    echo "The training data archive, MNIST_data.tar.gz, is not found."
+    echo "Please transfer it to the worker node in the HTCondor jobs submission file."
+    exit 1
+fi
+
+echo -e "\n# Check that the training code exists:\n"
+ls -1ap ./src/
+
+echo -e "\n# Train MNIST with PyTorch:\n"
+time python ./src/torch_MNIST.py --data-dir ./data --epochs 14 --save-model
+```
+
+### Write the HTCondor submit description file
+
+This is pretty standard boiler plate taken from the [HTCondor documentation](https://htcondor.readthedocs.io/en/latest/users-manual/submitting-a-job.html)
+
+```condor
+# mnist_gpu_docker.sub
+# Submit file to access the GPU via docker
+
+# Set the "universe" to 'container' to use Docker
+universe = container
+# the container images are cached, and so if a container image tag is
+# overwritten it will not be pulled again
+container_image = docker://ghcr.io/<github user name>/pixi-lesson:sha-<sha>
+
+# set the log, error and output files
+log = mnist_gpu_docker.log.txt
+error = mnist_gpu_docker.err.txt
+output = mnist_gpu_docker.out.txt
+
+# set the executable to run
+executable = mnist_gpu_docker.sh
+arguments = $(Process)
+
+# transfer training data files to the compute node
+transfer_input_files = MNIST_data.tar.gz,src
+
+# transfer the serialized trained model back
+transfer_output_files = mnist_cnn.pt
+
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+# We require a machine with a modern version of the CUDA driver
+Requirements = (Target.CUDADriverVersion >= 12.0)
+
+# We must request 1 CPU in addition to 1 GPU
+request_cpus = 1
+request_gpus = 1
+
+# select some memory and disk space
+request_memory = 2GB
+request_disk = 2GB
+
+# Opt in to using CHTC GPU Lab resources
++WantGPULab = true
+# Specify short job type to run more GPUs in parallel
+# Can also request "medium" or "long"
++GPUJobLength = "short"
+
+# Tell HTCondor to run 1 instances of our job:
+queue 1
+```
 
 ::: keypoints
 
