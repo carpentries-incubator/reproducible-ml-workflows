@@ -307,8 +307,138 @@ ENTRYPOINT [ "/app/entrypoint.sh" ]
 ```
 
 :::
+:::
+
+#### Building and deploying the container image
+
+Now let's add a GitHub Actions pipeline to build this Dockerfile and deploy it to a Linux container registry.
+
+::: challenge
+
+## Build and deploy Linux container image to registry
+
+Add a GitHub Actions pipeline that will build the Dockerfile and deploy it to GitHub Container Registry (`ghcr`).
+
+::: solution
+
+Create the GitHub Actions workflow directory tree
+
+```bash
+mkdir -p .github/workflows
+```
+
+and then write a YAML file at `.github/workflows/ci.yaml` that contains the following:
+
+```yaml
+name: Build and publish Docker images
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+    paths:
+      - 'htcondor/pixi.toml'
+      - 'htcondor/pixi.lock'
+      - 'htcondor/Dockerfile'
+      - 'htcondor/.dockerignore'
+  pull_request:
+    paths:
+      - 'htcondor/pixi.toml'
+      - 'htcondor/pixi.lock'
+      - 'htcondor/Dockerfile'
+      - 'htcondor/.dockerignore'
+  release:
+    types: [published]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  docker:
+    name: Build and publish images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ghcr.io/${{ github.repository }}
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=raw,value=hello-pytorch-noble-cuda-12.9
+            type=raw,value=latest
+            type=sha
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Test build
+        id: docker_build_test
+        uses: docker/build-push-action@v6
+        with:
+          context: htcondor
+          file: htcondor/Dockerfile
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          pull: true
+
+      - name: Deploy build
+        id: docker_build_deploy
+        uses: docker/build-push-action@v6
+        with:
+          context: htcondor
+          file: htcondor/Dockerfile
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          pull: true
+          push: ${{ github.event_name != 'pull_request' }}
+```
 
 :::
+:::
+
+To verify that things are visible to other computers, install the Linux container utility [`crane`](https://github.com/google/go-containerregistry/tree/main/cmd/crane)
+
+```bash
+pixi global install crane
+```
+```console
+└── crane: 0.20.5 (installed)
+    └─ exposes: crane
+```
+
+and then use [`crane ls`](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_ls.md) to list all of the container images in your container registry for the particular image
+
+```bash
+crane ls ghcr.io/<your GitHub username>/pixi-lesson
+```
 
 ## HTCondor
 
