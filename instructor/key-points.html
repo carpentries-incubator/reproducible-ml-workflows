@@ -268,7 +268,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="cuda_conda_pacakges.html">3. Conda packages and CUDA</a>
+        <a href="backwards_compatibility.html">3. Backwards compatibility with conda</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -280,7 +280,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="pixi_deployment.html">4. Deploying Pixi environments to production</a>
+        <a href="conda_pacakges.html">4. Conda packages</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -292,7 +292,19 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="backwards_compatibility.html">5. Backwards compatibility with conda</a>
+        <a href="cuda_conda_pacakges.html">5. CUDA conda packages</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="pixi_deployment.html">6. Deploying Pixi environments to production</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -379,11 +391,22 @@ the project manifest or dependencies are mutated.</li>
 <li>Pixi allows for multi-platform and multi-environment projects to be
 defined in a single project manifest and be fully described in a single
 lock file.</li>
-</ul></section><section id="cuda_conda_pacakges"><h2 class="section-heading"><a href="cuda_conda_pacakges.html">Conda packages and CUDA</a></h2>
+</ul></section><section id="backwards_compatibility"><h2 class="section-heading"><a href="backwards_compatibility.html">Backwards compatibility with conda</a></h2>
+<hr class="half-width">
+<ul>
+<li>If you need to use conda, you can export Pixi workspace environment
+to formats conda can use.</li>
+<li>Exporting conda explicit spec files from Pixi locked environments
+provides the ability to create the same hash level locked environment
+with conda that Pixi solved.</li>
+</ul></section><section id="conda_pacakges"><h2 class="section-heading"><a href="conda_pacakges.html">Conda packages</a></h2>
 <hr class="half-width">
 <ul>
 <li>Conda packages are specially named <code>.zip</code> files that
 contain files and symbolic links structured in a directory tree.</li>
+</ul></section><section id="cuda_conda_pacakges"><h2 class="section-heading"><a href="cuda_conda_pacakges.html">CUDA conda packages</a></h2>
+<hr class="half-width">
+<ul>
 <li>The <code>cuda-version</code> metapackage can be used to specify
 constrains on the versions of the <code>__cuda</code> virtual package
 and <code>cudatoolkit</code>.</li>
@@ -406,14 +429,6 @@ Linux container build script can simply install the Pixi
 environment.</li>
 <li>Using GitHub Actions workflows allows for the build process to
 happen automatically through CI/CD.</li>
-</ul></section><section id="backwards_compatibility"><h2 class="section-heading"><a href="backwards_compatibility.html">Backwards compatibility with conda</a></h2>
-<hr class="half-width">
-<ul>
-<li>If you need to use conda, you can export Pixi workspace environment
-to formats conda can use.</li>
-<li>Exporting conda explicit spec files from Pixi locked environments
-provides the ability to create the same hash level locked environment
-with conda that Pixi solved.</li>
 </ul></section>
 </div>
     </main>

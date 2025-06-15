@@ -210,6 +210,7 @@
         <ul><li><a href="#data-sets">Data Sets</a></li>
 <li><a href="#github-repository-setup">GitHub Repository Setup</a></li>
 <li><a href="#software-setup">Software Setup</a></li>
+<li><a href="#docker-optional">Docker (Optional)</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -237,7 +238,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="cuda_conda_pacakges.html">3. Conda packages and CUDA</a>
+        <a href="backwards_compatibility.html">3. Backwards compatibility with conda</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -246,7 +247,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="pixi_deployment.html">4. Deploying Pixi environments to production</a>
+        <a href="conda_pacakges.html">4. Conda packages</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -255,7 +256,16 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="backwards_compatibility.html">5. Backwards compatibility with conda</a>
+        <a href="cuda_conda_pacakges.html">5. CUDA conda packages</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="pixi_deployment.html">6. Deploying Pixi environments to production</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -334,15 +344,36 @@ don’t have one yet.</li>
 <li>Navigate to your GitHub profile (<a href="https://github.com/" class="external-link uri">https://github.com/</a><username>) and click the “+” icon in
 the upper right hand side to <a href="https://github.com/new" class="external-link">create a
 new repository</a>.</username></li>
-<li>Name the new repository “pixi-lesson”, make it public, and give it a
-README and an <a href="https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository" class="external-link">open
+<li>Name the new repository named <code>pixi-lesson</code>, make it
+public, and give it a README and an <a href="https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository" class="external-link">open
 source license</a> (e.g. MIT License).</li>
 <li>As GitHub requires two-factor authentication, it is highly
 recommended that you <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" class="external-link">generate
 an SSH key pair</a> specifically for GitHub, <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account" class="external-link">add
 the generated SSH key to your GitHub account</a>, and then use your SSH
 keys to connect with GitHub.</li>
-</ol></section><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
+</ol><div id="what-do-i-do-if-i-dont-have-git-installed-on-my-machine" class="callout caution">
+<div class="callout-square">
+<i class="callout-icon" data-feather="alert-triangle"></i>
+</div>
+<div id="what-do-i-do-if-i-dont-have-git-installed-on-my-machine" class="callout-inner">
+<h3 class="callout-title">What do I do if I don’t have Git installed on my machine?</h3>
+<div class="callout-content">
+<p>Jump to the next section (“Software Setup”) and install Pixi. Then,
+run this command (which we’ll cover in the lesson) in your terminal</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">pixi</span> global install git</span></code></pre>
+</div>
+<p>and you’ll have Git installed. <span class="emoji" data-emoji="+1">👍</span></p>
+<p>You can of course install Git in other ways depending on your
+operating system, but this is straightforward and will work for
+everyone.</p>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
 <hr class="half-width"><p>This lesson will focus on using technology that allows for fully
 reproducible multi-platform software environments. <a href="https://pixi.sh/latest/" class="external-link">Pixi</a>, the technology that enables
 this, is the only tool that needs to be installed in advance of the
@@ -382,35 +413,43 @@ learning libraries.</p>
 </button>
 <div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
-<pre class="shell"><code>curl -fsSL https://pixi.sh/install.sh | sh</code></pre>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre>
+</div>
 <p>or</p>
-<pre class="shell"><code>wget -qO- https://pixi.sh/install.sh | sh</code></pre>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-qO-</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre>
+</div>
 <div class="section level4">
 <h4 id="autocompletions">Autocompletions<a class="anchor" aria-label="anchor" href="#autocompletions"></a></h4>
 <div class="section level5">
 <h5 id="bash">Bash<a class="anchor" aria-label="anchor" href="#bash"></a></h5>
 <p>Add the following to the end of <code>~/.bashrc</code>:</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="bu">eval</span> <span class="st">"</span><span class="va">$(</span><span class="ex">pixi</span> completion <span class="at">--shell</span> bash<span class="va">)</span><span class="st">"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="bu">eval</span> <span class="st">"</span><span class="va">$(</span><span class="ex">pixi</span> completion <span class="at">--shell</span> bash<span class="va">)</span><span class="st">"</span></span></code></pre>
 </div>
 </div>
 <div class="section level5">
 <h5 id="zsh">Zsh<a class="anchor" aria-label="anchor" href="#zsh"></a></h5>
 <p>Add the following to the end of <code>~/.zshrc</code>:</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">ZSH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode zsh" tabindex="0"><code class="sourceCode zsh"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="bu">autoload</span> <span class="at">-Uz</span> compinit <span class="kw">&amp;&amp;</span> <span class="ex">compinit</span>  <span class="co"># redundant with Oh My Zsh</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="bu">eval</span> <span class="st">"</span><span class="va">$(</span><span class="ex">pixi</span> completion <span class="at">--shell</span> zsh<span class="va">)</span><span class="st">"</span></span></code></pre>
+<pre class="sourceCode zsh" tabindex="0"><code class="sourceCode zsh"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="bu">autoload</span> <span class="at">-Uz</span> compinit <span class="kw">&amp;&amp;</span> <span class="ex">compinit</span>  <span class="co"># redundant with Oh My Zsh</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="bu">eval</span> <span class="st">"</span><span class="va">$(</span><span class="ex">pixi</span> completion <span class="at">--shell</span> zsh<span class="va">)</span><span class="st">"</span></span></code></pre>
 </div>
 </div>
 <div class="section level5">
 <h5 id="fish">Fish<a class="anchor" aria-label="anchor" href="#fish"></a></h5>
 <p>Add the following to the end of
 <code>~/.config/fish/config.fish</code>:</p>
-<pre class="shell"><code>pixi completion --shell fish | source</code></pre>
+<pre class="fish"><code>pixi completion --shell fish | source</code></pre>
 </div>
 </div>
 </div>
@@ -427,20 +466,20 @@ learning libraries.</p>
 </button>
 <div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>powershell <span class="op">-</span>ExecutionPolicy ByPass <span class="op">-</span>c <span class="st">"irm -useb https://pixi.sh/install.ps1 | iex"</span></span></code></pre>
+<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>powershell <span class="op">-</span>ExecutionPolicy ByPass <span class="op">-</span>c <span class="st">"irm -useb https://pixi.sh/install.ps1 | iex"</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="autocompletions-1">Autocompletions<a class="anchor" aria-label="anchor" href="#autocompletions-1"></a></h4>
 <div class="section level5">
 <h5 id="bash-available-through-windows-terminal">Bash (available through Windows Terminal)<a class="anchor" aria-label="anchor" href="#bash-available-through-windows-terminal"></a></h5>
 <p>Add the following to the end of <code>~/.bashrc</code>:</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="bu">eval</span> <span class="st">"</span><span class="va">$(</span><span class="ex">pixi</span> completion <span class="at">--shell</span> bash<span class="va">)</span><span class="st">"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="bu">eval</span> <span class="st">"</span><span class="va">$(</span><span class="ex">pixi</span> completion <span class="at">--shell</span> bash<span class="va">)</span><span class="st">"</span></span></code></pre>
 </div>
 </div>
 <div class="section level5">
@@ -450,13 +489,35 @@ learning libraries.</p>
 location of this file by querying the <code>$PROFILE</code> variable in
 PowerShell. Typically the path is
 <code>~\Documents\PowerShell\Microsoft.PowerShell_profile.ps1</code>.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="op">(&amp;</span> pixi completion <span class="op">--</span>shell powershell<span class="op">)</span> <span class="op">|</span> <span class="fu">Out-String</span> <span class="op">|</span> <span class="fu">Invoke-Expression</span></span></code></pre>
+<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="op">(&amp;</span> pixi completion <span class="op">--</span>shell powershell<span class="op">)</span> <span class="op">|</span> <span class="fu">Out-String</span> <span class="op">|</span> <span class="fu">Invoke-Expression</span></span></code></pre>
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="docker-optional">Docker (Optional)<a class="anchor" aria-label="anchor" href="#docker-optional"></a></h2>
+<hr class="half-width"><p>While not explicitly required for this lesson, if you would like to
+have a more full interactive experience with the material it is
+suggested that you install the Linux container runtime and tool <a href="https://www.docker.com/" class="external-link">Docker</a>. Install instructions for
+Docker can be found for your specific platform on <a href="https://docs.docker.com/desktop/" class="external-link">the Docker docs website</a>.</p>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>If you’re on Linux and would prefer to use <a href="https://apptainer.org/" class="external-link">Apptainer</a> — if you don’t know what
+that is don’t worry — you can install that with</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">pixi</span> global install apptainer</span></code></pre>
 </div>
 </div>
 </div>
