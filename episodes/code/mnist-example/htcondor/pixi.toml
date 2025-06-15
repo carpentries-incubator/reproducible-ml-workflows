@@ -1,0 +1,26 @@
+[workspace]
+authors = ["Matthew Feickert <matthew.feickert@cern.ch>"]
+channels = ["conda-forge"]
+name = "htcondor"
+platforms = ["linux-64", "osx-arm64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = ">=3.13.5,<3.14"
+
+[feature.cpu.dependencies]
+pytorch-cpu = ">=2.7.0,<3"
+torchvision = ">=0.22.0,<0.23"
+
+[feature.gpu.system-requirements]
+cuda = "12"
+
+[feature.gpu.target.linux-64.dependencies]
+pytorch-gpu = ">=2.7.0,<3"
+torchvision = ">=0.22.0,<0.23"
+
+[environments]
+cpu = ["cpu"]
+gpu = ["gpu"]
