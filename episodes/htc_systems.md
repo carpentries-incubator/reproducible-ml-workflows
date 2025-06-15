@@ -85,7 +85,151 @@ mv torch_MNIST.py src/
 
 #### The Pixi environment
 
-Now let's think about what we'd like to do with this code.
+Now let's think about what we need to use this code.
+Looking at the imports of `src/torch_MNIST.py` we can see that `torch` and `torchvision` are the only imported libraries that aren't part of the Python standard library, so we will need to depend on PyTorch and `torchvision`.
+We also know that we'd like to use CUDA accelerated code, so that we'll need CUDA libraries and versions of PyTorch that support CUDA.
+
+::: challenge
+
+## Create the environment
+
+Create a Pixi workspace that:
+
+* Has PyTorch and `torchvision` in it.
+* Has the ability to support CUDA v12.
+* Has an environment that has the CPU version of PyTorch and `torchvision` that can be installed on `linux-64`, `osx-arm64`, and `win-64`.
+* Has an environment that has the GPU version of PyTorch and `torchvision`.
+
+::: solution
+
+This is just expanding the exercises from the CUDA conda packages episode.
+
+Let's first add all the platforms we want to work with to the workspace
+
+```bash
+pixi workspace platform add linux-64 osx-arm64 win-64
+```
+```output
+✔ Added linux-64
+✔ Added osx-arm64
+✔ Added win-64
+```
+
+We know that in both environment we'll want to use Python, and so we can install that in the `default` environment and have it be used in both the `cpu` and `gpu` environment.
+
+```bash
+pixi add python
+```
+```output
+✔ Added python >=3.13.5,<3.14
+```
+
+Let's now add the CPU requirements to a feature named `cpu`
+
+```bash
+pixi add --feature cpu pytorch-cpu torchvision
+```
+```output
+✔ Added pytorch-cpu
+✔ Added torchvision
+Added these only for feature: cpu
+```
+
+and then create an environment named `cpu` with that feature
+
+```bash
+pixi workspace environment add --feature cpu cpu
+```
+```output
+✔ Added environment cpu
+```
+
+and insatiate it with particular versions
+
+```bash
+pixi upgrade --feature cpu
+```
+
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "htcondor"
+platforms = ["linux-64", "osx-arm64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = ">=3.13.5,<3.14"
+
+[feature.cpu.dependencies]
+pytorch-cpu = ">=2.7.0,<3"
+torchvision = ">=0.22.0,<0.23"
+
+[environments]
+cpu = ["cpu"]
+```
+
+Now let's add the GPU environment and dependencies.
+Let's start with the CUDA system requirements
+
+```bash
+pixi workspace system-requirements add --feature gpu cuda 12
+```
+
+and create an environment from the feature
+
+```bash
+pixi workspace environment add --feature gpu gpu
+```
+```output
+✔ Added environment gpu
+```
+
+and then add the GPU dependencies for the target platform of `linux-64` (where we'll run in production).
+
+```bash
+pixi add --platform linux-64 --feature gpu pytorch-gpu torchvision
+```
+```output
+✔ Added pytorch-gpu >=2.7.0,<3
+✔ Added torchvision >=0.22.0,<0.23
+Added these only for platform(s): linux-64
+Added these only for feature: gpu
+```
+
+```toml
+[workspace]
+channels = ["conda-forge"]
+name = "htcondor"
+platforms = ["linux-64", "osx-arm64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = ">=3.13.5,<3.14"
+
+[feature.cpu.dependencies]
+pytorch-cpu = ">=2.7.0,<3"
+torchvision = ">=0.22.0,<0.23"
+
+[feature.gpu.system-requirements]
+cuda = "12"
+
+[feature.gpu.target.linux-64.dependencies]
+pytorch-gpu = ">=2.7.0,<3"
+torchvision = ">=0.22.0,<0.23"
+
+[environments]
+cpu = ["cpu"]
+gpu = ["gpu"]
+```
+
+:::
+:::
+
+To validate that things are working with the CPU code, let's do a short training run for only 4 epochs in the `cpu` environment.
 
 ::: keypoints
 
