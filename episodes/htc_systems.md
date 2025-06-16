@@ -715,6 +715,13 @@ mfeickert ID: 2127879   6/15 19:13      _      1      _      1 2127879.0
 
 ```
 
+When the job finishes we see that HTCondor has returned to us the following files:
+
+* `mnist_gpu_docker.log.txt`: the HTCondor log file for the job
+* `mnist_gpu_docker.out.txt`: the stdout of all actions executed in the job
+* `mnist_gpu_docker.err.txt`: the stderr of all actions executed in the job
+* `mnist_cnn.pt`: the [serialized trained PyTorch model](https://docs.pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-model-for-inference)
+
 ::: keypoints
 
 * You can use containerized Pixi environments with HTC systems to be able to run CUDA accelerated code that you defined.
