@@ -651,6 +651,25 @@ pytorch-gpu  2.7.0    cuda126_mkl_ha999a5f_300        46.1 KiB  conda  https://c
 ```
 
 ```bash
+pixi list cuda
+```
+```output
+Environment: gpu
+Package               Version  Build       Size       Kind   Source
+cuda-crt-tools        12.9.86  ha770c72_1  28.2 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-cudart           12.9.79  h5888daf_0  22.7 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-cudart_linux-64  12.9.79  h3f2d84a_0  192.6 KiB  conda  https://conda.anaconda.org/conda-forge/
+cuda-cuobjdump        12.9.82  hbd13f7d_0  237.5 KiB  conda  https://conda.anaconda.org/conda-forge/
+cuda-cupti            12.9.79  h9ab20c4_0  1.8 MiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-nvcc-tools       12.9.86  he02047a_1  26.2 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvdisasm         12.9.88  hbd13f7d_0  5.3 MiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-nvrtc            12.9.86  h5888daf_0  64.1 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvtx             12.9.79  h5888daf_0  28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvvm-tools       12.9.86  he02047a_1  23.1 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-version          12.9     h4f385c5_3  21.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+```
+
+```bash
 nvidia-smi
 ```
 ```output
