@@ -73,6 +73,7 @@ episodes:
 - conda_pacakges.md
 - cuda_conda_pacakges.md
 - pixi_deployment.md
+- htc_systems.md
 
 # Information for Learners
 learners:
