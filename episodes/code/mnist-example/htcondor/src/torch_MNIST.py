@@ -153,7 +153,7 @@ def main():
     parser.add_argument(
         "--data-dir",
         default=Path.cwd() / "data",
-        help="For Saving the current Model",
+        help="Path to the directory with the MNIST training data (default: current directory/data)",
     )
     args = parser.parse_args()
     args.data_dir = Path(args.data_dir).resolve()
@@ -180,7 +180,9 @@ def main():
     transform = transforms.Compose(
         [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
     )
-    dataset1 = datasets.MNIST(args.data_dir, train=True, download=True, transform=transform)
+    dataset1 = datasets.MNIST(
+        args.data_dir, train=True, download=True, transform=transform
+    )
     dataset2 = datasets.MNIST(args.data_dir, train=False, transform=transform)
     train_loader = torch.utils.data.DataLoader(dataset1, **train_kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)
