@@ -240,3 +240,5 @@ jobs:
         pixi workspace environment add --feature gpu gpu
         pixi add --platform linux-64 --feature gpu pytorch-gpu torchvision
         cat pixi.toml
+        pixi list --environment cpu
+        pixi list --environment gpu
