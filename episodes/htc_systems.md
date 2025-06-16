@@ -557,6 +557,164 @@ request_disk = 2GB
 queue 1
 ```
 
+### Write the submission script
+
+To make it easy for us, we can write a small job submission script `submit.sh` that will prepare the data for us and submit the submit description file to HTCondor for us with [`condor_submit`](https://htcondor.readthedocs.io/en/latest/man-pages/condor_submit.html).
+
+```bash
+#!/bin/bash
+
+# Download the training data locally to transfer to the worker node
+if [ ! -f "MNIST_data.tar.gz" ]; then
+    # c.f. https://github.com/CHTC/templates-GPUs/blob/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz
+    curl -sLO https://raw.githubusercontent.com/CHTC/templates-GPUs/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz
+fi
+
+# Ensure existing models are backed up
+if [ -f "mnist_cnn.pt" ]; then
+    mv mnist_cnn.pt mnist_cnn_"$(date '+%Y-%m-%d-%H-%M')".pt.bak
+fi
+
+condor_submit mnist_gpu_docker.sub
+```
+
+### Submitting the job
+
+Before we actually submit code to run, we can submit an interactive job from the HTCondor system's login nodes to check that things work as expected.
+
+```bash
+#!/bin/bash
+
+# Download the training data locally to transfer to the worker node
+if [ ! -f "MNIST_data.tar.gz" ]; then
+    # c.f. https://github.com/CHTC/templates-GPUs/blob/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz
+    curl -sLO https://raw.githubusercontent.com/CHTC/templates-GPUs/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz
+fi
+
+# Ensure existing models are backed up
+if [ -f "mnist_cnn.pt" ]; then
+    mv mnist_cnn.pt mnist_cnn_"$(date '+%Y-%m-%d-%H-%M')".pt.bak
+fi
+
+condor_submit -interactive mnist_gpu_docker.sub
+```
+
+Submitting the job for the first time will take a bit as it needs to pull down the container image, so be patient.
+The container image will be cached in the future and so this will be faster.
+
+```bash
+bash interact.sh
+```
+```output
+Submitting job(s).
+1 job(s) submitted to cluster 2127828.
+Waiting for job to start...
+...
+Welcome to interactive3_1@vetsigian0001.chtc.wisc.edu!
+Your condor job is running with pid(s) 2368233.
+groups: cannot find name for group ID 24433
+groups: cannot find name for group ID 40092
+I have no name!@vetsigian0001:/var/lib/condor/execute/slot3/dir_2367762$
+```
+
+We can now activate our environment manually and look around
+
+```bash
+. /app/entrypoint.sh
+```
+```output
+(htcondor:gpu) I have no name!@vetsigian0001:/var/lib/condor/execute/slot3/dir_2367762$
+```
+
+```bash
+command -v python
+```
+```output
+/app/.pixi/envs/gpu/bin/python
+```
+
+```bash
+python --version
+```
+```output
+Python 3.13.5
+```
+
+```bash
+pixi list pytorch
+```
+```output
+Environment: gpu
+Package      Version  Build                           Size      Kind   Source
+pytorch      2.7.0    cuda126_mkl_py313_he20fe19_300  27.8 MiB  conda  https://conda.anaconda.org/conda-forge/
+pytorch-gpu  2.7.0    cuda126_mkl_ha999a5f_300        46.1 KiB  conda  https://conda.anaconda.org/conda-forge/
+```
+
+```bash
+nvidia-smi
+```
+```output
+Mon Jun 16 00:07:33 2025
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B2:00.0 Off |                  N/A |
+| 29%   26C    P8             23W /  250W |       3MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+```
+
+We can interactively run our code as well
+
+```bash
+tar -vxzf MNIST_data.tar.gz
+time python ./src/torch_MNIST.py --data-dir ./data --epochs 2 --save-model
+```
+
+To return to the login node we just `exit` the interactive session
+
+```bash
+exit
+```
+
+Now to submit our job normally, we run the `submit.sh` script
+
+```bash
+bash submit.sh
+```
+```output
+Submitting job(s).
+1 job(s) submitted to cluster 2127879.
+```
+
+and its submission and state can be monitored with [`condor_q`](https://htcondor.readthedocs.io/en/latest/man-pages/condor_q.html).
+
+```bash
+condor_q
+```
+```output
+
+
+-- Schedd: ap2001.chtc.wisc.edu : <128.105.68.112:9618?... @ 06/15/25 19:16:17
+OWNER     BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+mfeickert ID: 2127879   6/15 19:13      _      1      _      1 2127879.0
+
+1 jobs; 0 completed, 0 removed, 0 idle, 1 running, 0 held, 0 suspended
+
+```
+
 ::: keypoints
 
 * You can use containerized Pixi environments with HTC systems to be able to run CUDA accelerated code that you defined.
