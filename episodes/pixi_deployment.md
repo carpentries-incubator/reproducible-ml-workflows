@@ -259,12 +259,14 @@ on:
       - 'cuda-exercise/pixi.lock'
       - 'cuda-exercise/Dockerfile'
       - 'cuda-exercise/.dockerignore'
+      - 'cuda-exercise/app/**'
   pull_request:
     paths:
       - 'cuda-exercise/pixi.toml'
       - 'cuda-exercise/pixi.lock'
       - 'cuda-exercise/Dockerfile'
       - 'cuda-exercise/.dockerignore'
+      - 'cuda-exercise/app/**'
   release:
     types: [published]
   workflow_dispatch:
@@ -541,13 +543,13 @@ on:
       - 'cuda-exercise/pixi.toml'
       - 'cuda-exercise/pixi.lock'
       - 'cuda-exercise/apptainer.def'
-      - 'cuda-exercise/src/**'
+      - 'cuda-exercise/app/**'
   pull_request:
     paths:
       - 'cuda-exercise/pixi.toml'
       - 'cuda-exercise/pixi.lock'
       - 'cuda-exercise/apptainer.def'
-      - 'cuda-exercise/src/**'
+      - 'cuda-exercise/app/**'
   release:
     types: [published]
   workflow_dispatch:
