@@ -79,6 +79,18 @@ Docker is a very common Linux container runtime technology and Linux container b
 We can use [`docker build`](https://docs.docker.com/build/) to build a Linux container from a `Dockerfile` instruction file.
 Luckily, to install Pixi environments into Docker container images there is **effectively only one `Dockerfile` recipe** that needs to be used, and then can be reused across projects.
 
+::: callout
+
+## Moving files
+
+To use it later, move `torch_detect_GPU.py` from the end of the CUDA conda packages episode to `./app/torch_detect_GPU.py`.
+
+```bash
+mv torch_detect_GPU.py app/
+```
+
+:::
+
 ```dockerfile
 FROM ghcr.io/prefix-dev/pixi:noble AS build
 

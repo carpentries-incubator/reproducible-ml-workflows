@@ -19,5 +19,7 @@ COPY --from=build /app/.pixi/.gitignore /app/.pixi/.gitignore
 COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
 COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
 
+COPY ./app /app/src
+
 EXPOSE 8000
 ENTRYPOINT [ "/app/entrypoint.sh" ]

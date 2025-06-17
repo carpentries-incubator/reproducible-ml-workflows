@@ -33,7 +33,7 @@ Stage: final
 /app/entrypoint.sh /app/entrypoint.sh
 
 %files
-./src /app/src
+./app /app/src
 
 %post
 #!/bin/bash
