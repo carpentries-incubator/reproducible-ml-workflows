@@ -371,7 +371,7 @@ This is sometimes the easiest thing to do, but we can also use the `pixi` CLI.
 pixi task add lab "jupyter lab" --description "Launch JupyterLab"
 ```
 ```output
-✔ Added task `lab`: jupyter lab, description = "Launch JupyterLab
+✔ Added task `lab`: jupyter lab, description = "Launch JupyterLab"
 ```
 
 The resulting `pixi.toml` manifest is
