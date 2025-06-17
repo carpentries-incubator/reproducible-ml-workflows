@@ -397,6 +397,10 @@ pixi list
 
 Let's break this down too.
 
+::: spoiler
+
+## Apptainer walkthrough
+
 * The Apptainer definition file is broken out into specific [operation sections](https://apptainer.org/docs/user/main/definition_files.html#sections) prefixed by `%` (e.g. `files`, `post`).
 * The Apptainer definition file assumes it is being built from a version control repository where any code that it will need to execute later exists under the repository's `src/` directory and the Pixi workspace's `pixi.toml` manifest file and `pixi.lock` lock file exist at the top level of the repository.
 * The [`files` section](https://apptainer.org/docs/user/main/definition_files.html#files) allows for a mapping of what files should be copied from a build context (e.g. the local file system) to the container file system
@@ -493,6 +497,8 @@ This allows for validation of the container functionality before it is distribut
 pixi info
 pixi list
 ```
+
+:::
 
 With this Apptainer defintion file the container image can then be built with `apptainer build`
 
