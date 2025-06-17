@@ -1,5 +1,5 @@
 ---
-title: "Deploying Pixi environments to production"
+title: "Deploying Pixi environments with Linux containers"
 teaching: 30
 exercises: 15
 ---
@@ -79,6 +79,18 @@ Docker is a very common Linux container runtime technology and Linux container b
 We can use [`docker build`](https://docs.docker.com/build/) to build a Linux container from a `Dockerfile` instruction file.
 Luckily, to install Pixi environments into Docker container images there is **effectively only one `Dockerfile` recipe** that needs to be used, and then can be reused across projects.
 
+::: callout
+
+## Moving files
+
+To use it later, move `torch_detect_GPU.py` from the end of the CUDA conda packages episode to `./app/torch_detect_GPU.py`.
+
+```bash
+mv torch_detect_GPU.py app/
+```
+
+:::
+
 ```dockerfile
 FROM ghcr.io/prefix-dev/pixi:noble AS build
 
@@ -100,14 +112,18 @@ COPY --from=build /app/pixi.lock /app/pixi.lock
 COPY --from=build /app/.pixi/.gitignore /app/.pixi/.gitignore
 COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
 COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
-COPY ./src /app/src
+COPY ./app /app/src
 
 EXPOSE <PORT>
 ENTRYPOINT [ "/app/entrypoint.sh" ]
 ```
 
+::: spoiler
+
+## Dockerfile walkthrough
+
 Let's step through this to understand what's happening.
-`Dockerfile` (intentionally) look very shell script like, and so we can read most of it as if we were typing the commands directly into a shell (e.g. Bash).
+`Dockerfile`s (intentionally) look very shell script like, and so we can read most of it as if we were typing the commands directly into a shell (e.g. Bash).
 
 * The `Dockerfile` assumes it is being built from a version control repository where any code that it will need to execute later exists under the repository's `src/` directory and the Pixi workspace's `pixi.toml` manifest file and `pixi.lock` lock file exist at the top level of the repository.
 * The entire repository contents are [`COPY`](https://docs.docker.com/reference/dockerfile/#copy)ed from the container build context into the `/app` directory of the container build.
@@ -149,11 +165,21 @@ COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
 COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
 ```
 
-* The code from the repository is [`COPY`](https://docs.docker.com/reference/dockerfile/#copy)ed into the final container image as well
+* Code that is specific to application purposes (e.g. environment diagnostics) from the repository is [`COPY`](https://docs.docker.com/reference/dockerfile/#copy)ed into the final container image as well
 
 ```dockerfile
-COPY ./src /app/src
+COPY ./app /app/src
 ```
+
+::: caution
+
+## Knowing what code to copy
+
+Generally you do **not** want to containerize your development source code, as you'd like to be able to quickly iterate on it and have it be transferred into a Linux container to be evaluated.
+
+You **do** want to containerize your development source code if you'd like to archive it as an executable into the future.
+
+:::
 
 * Any ports that need to be exposed for i/o are exposed
 
@@ -167,6 +193,8 @@ EXPOSE <PORT>
 ```dockerfile
 ENTRYPOINT [ "/app/entrypoint.sh" ]
 ```
+
+:::
 
 With this `Dockerfile` the container image can then be built with [`docker build`](https://docs.docker.com/reference/cli/docker/buildx/build/).
 
@@ -231,12 +259,14 @@ on:
       - 'cuda-exercise/pixi.lock'
       - 'cuda-exercise/Dockerfile'
       - 'cuda-exercise/.dockerignore'
+      - 'cuda-exercise/app/**'
   pull_request:
     paths:
       - 'cuda-exercise/pixi.toml'
       - 'cuda-exercise/pixi.lock'
       - 'cuda-exercise/Dockerfile'
       - 'cuda-exercise/.dockerignore'
+      - 'cuda-exercise/app/**'
   release:
     types: [published]
   workflow_dispatch:
@@ -271,8 +301,7 @@ jobs:
           tags: |
             type=raw,value=noble-cuda-12.9
             type=raw,value=latest
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
+            type=sha
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -357,7 +386,7 @@ Stage: final
 /app/entrypoint.sh /app/entrypoint.sh
 
 %files
-./src /app/src
+./app /app/src
 
 %post
 #!/bin/bash
@@ -381,6 +410,10 @@ pixi list
 ```
 
 Let's break this down too.
+
+::: spoiler
+
+## Apptainer walkthrough
 
 * The Apptainer definition file is broken out into specific [operation sections](https://apptainer.org/docs/user/main/definition_files.html#sections) prefixed by `%` (e.g. `files`, `post`).
 * The Apptainer definition file assumes it is being built from a version control repository where any code that it will need to execute later exists under the repository's `src/` directory and the Pixi workspace's `pixi.toml` manifest file and `pixi.lock` lock file exist at the top level of the repository.
@@ -439,7 +472,7 @@ Stage: final
 
 ```
 %files
-./src /app/src
+./app /app/src
 ```
 
 * The `post` section then verifies that the Pixi workspace is valid and makes the `/app/entrypoint.sh` executable
@@ -479,6 +512,8 @@ pixi info
 pixi list
 ```
 
+:::
+
 With this Apptainer defintion file the container image can then be built with `apptainer build`
 
 ```bash
@@ -505,16 +540,16 @@ on:
     tags:
       - 'v*'
     paths:
-      - 'examples/hello_pytorch/pixi.toml'
-      - 'examples/hello_pytorch/pixi.lock'
-      - 'examples/hello_pytorch/apptainer.def'
-      - 'examples/hello_pytorch/src/**'
+      - 'cuda-exercise/pixi.toml'
+      - 'cuda-exercise/pixi.lock'
+      - 'cuda-exercise/apptainer.def'
+      - 'cuda-exercise/app/**'
   pull_request:
     paths:
-      - 'examples/hello_pytorch/pixi.toml'
-      - 'examples/hello_pytorch/pixi.lock'
-      - 'examples/hello_pytorch/apptainer.def'
-      - 'examples/hello_pytorch/src/**'
+      - 'cuda-exercise/pixi.toml'
+      - 'cuda-exercise/pixi.lock'
+      - 'cuda-exercise/apptainer.def'
+      - 'cuda-exercise/app/**'
   release:
     types: [published]
   workflow_dispatch:
