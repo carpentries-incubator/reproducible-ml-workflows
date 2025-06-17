@@ -287,8 +287,7 @@ jobs:
           tags: |
             type=raw,value=noble-cuda-12.9
             type=raw,value=latest
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
+            type=sha
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
