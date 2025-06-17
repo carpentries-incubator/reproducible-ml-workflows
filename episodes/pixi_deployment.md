@@ -1,5 +1,5 @@
 ---
-title: "Deploying Pixi environments to production"
+title: "Deploying Pixi environments with Linux containers"
 teaching: 30
 exercises: 15
 ---
