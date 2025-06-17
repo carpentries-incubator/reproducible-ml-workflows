@@ -372,7 +372,7 @@ Stage: final
 /app/entrypoint.sh /app/entrypoint.sh
 
 %files
-./src /app/src
+./app /app/src
 
 %post
 #!/bin/bash
@@ -454,7 +454,7 @@ Stage: final
 
 ```
 %files
-./src /app/src
+./app /app/src
 ```
 
 * The `post` section then verifies that the Pixi workspace is valid and makes the `/app/entrypoint.sh` executable
@@ -520,16 +520,16 @@ on:
     tags:
       - 'v*'
     paths:
-      - 'examples/hello_pytorch/pixi.toml'
-      - 'examples/hello_pytorch/pixi.lock'
-      - 'examples/hello_pytorch/apptainer.def'
-      - 'examples/hello_pytorch/src/**'
+      - 'cuda-exercise/pixi.toml'
+      - 'cuda-exercise/pixi.lock'
+      - 'cuda-exercise/apptainer.def'
+      - 'cuda-exercise/src/**'
   pull_request:
     paths:
-      - 'examples/hello_pytorch/pixi.toml'
-      - 'examples/hello_pytorch/pixi.lock'
-      - 'examples/hello_pytorch/apptainer.def'
-      - 'examples/hello_pytorch/src/**'
+      - 'cuda-exercise/pixi.toml'
+      - 'cuda-exercise/pixi.lock'
+      - 'cuda-exercise/apptainer.def'
+      - 'cuda-exercise/src/**'
   release:
     types: [published]
   workflow_dispatch:
