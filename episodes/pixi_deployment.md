@@ -100,14 +100,18 @@ COPY --from=build /app/pixi.lock /app/pixi.lock
 COPY --from=build /app/.pixi/.gitignore /app/.pixi/.gitignore
 COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
 COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
-COPY ./src /app/src
+COPY ./app /app/src
 
 EXPOSE <PORT>
 ENTRYPOINT [ "/app/entrypoint.sh" ]
 ```
 
+::: spoiler
+
+## Dockerfile walkthrough
+
 Let's step through this to understand what's happening.
-`Dockerfile` (intentionally) look very shell script like, and so we can read most of it as if we were typing the commands directly into a shell (e.g. Bash).
+`Dockerfile`s (intentionally) look very shell script like, and so we can read most of it as if we were typing the commands directly into a shell (e.g. Bash).
 
 * The `Dockerfile` assumes it is being built from a version control repository where any code that it will need to execute later exists under the repository's `src/` directory and the Pixi workspace's `pixi.toml` manifest file and `pixi.lock` lock file exist at the top level of the repository.
 * The entire repository contents are [`COPY`](https://docs.docker.com/reference/dockerfile/#copy)ed from the container build context into the `/app` directory of the container build.
@@ -149,11 +153,21 @@ COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
 COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
 ```
 
-* The code from the repository is [`COPY`](https://docs.docker.com/reference/dockerfile/#copy)ed into the final container image as well
+* Code that is specific to application purposes (e.g. environment diagnostics) from the repository is [`COPY`](https://docs.docker.com/reference/dockerfile/#copy)ed into the final container image as well
 
 ```dockerfile
-COPY ./src /app/src
+COPY ./app /app/src
 ```
+
+::: caution
+
+## Knowing what code to copy
+
+Generally you do **not** want to containerize your development source code, as you'd like to be able to quickly iterate on it and have it be transferred into a Linux container to be evaluated.
+
+You **do** want to containerize your development source code if you'd like to archive it as an executable into the future.
+
+:::
 
 * Any ports that need to be exposed for i/o are exposed
 
@@ -167,6 +181,8 @@ EXPOSE <PORT>
 ```dockerfile
 ENTRYPOINT [ "/app/entrypoint.sh" ]
 ```
+
+:::
 
 With this `Dockerfile` the container image can then be built with [`docker build`](https://docs.docker.com/reference/cli/docker/buildx/build/).
 
