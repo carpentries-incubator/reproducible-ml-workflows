@@ -52,7 +52,7 @@ Note that this lesson focuses specifically on the use of hardware acceleration l
 macOS users and Windows and Linux users that don't have access to NVIDIA GPUs can still follow this lesson, but may run into situations where they are not able to execute examples that use the hardware accelerated versions of machine learning libraries.
 :::
 
-:::::::::::::::: spoiler
+::: spoiler
 
 ### Unix machines (Linux and macOS)
 
@@ -93,9 +93,9 @@ Add the following to the end of `~/.config/fish/config.fish`:
 pixi completion --shell fish | source
 ```
 
-::::::::::::::::::::::::
+:::
 
-:::::::::::::::: spoiler
+::: spoiler
 
 ### Windows
 
@@ -123,7 +123,7 @@ Typically the path is `~\Documents\PowerShell\Microsoft.PowerShell_profile.ps1`.
 (& pixi completion --shell powershell) | Out-String | Invoke-Expression
 ```
 
-::::::::::::::::::::::::
+:::
 
 ## Docker (Optional)
 
@@ -139,3 +139,36 @@ pixi global install apptainer
 ```
 
 :::
+
+## OSPool
+
+For components of this lesson that involve High-Throughput Computing we'll use the [Open Science Pool (OSPool)](https://osg-htc.org/services/ospool/), as it is accessible to any researcher affiliated with a United States academic institution.
+(The 2025 version of this lesson is being taught in-person in the United States and so this is meant to ease infrastructure requirements, not to discriminate against people outside of the U.S. academic system.)
+
+### [Request an OSPool account](https://portal.osg-htc.org/documentation/overview/account_setup/registration-and-login/#apply-for-ospool-access)
+
+The first step is to [request an OSPool account through the Open Science Grid (OSG) Portal](https://portal.osg-htc.org/application).
+
+### Register for an Access Point
+
+Once you have an OSPool account **and** have been contacted by a Research Computing Facilitator, [submit a request for an OSPool access point](https://portal.osg-htc.org/documentation/overview/account_setup/registration-and-login/#register-for-an-access-point).
+Follow the instructions you are given and then verify your account by connecting to the access point and **also** add an SSH key pair for authentication.
+
+### Verify your project
+
+OSPool uses projects to track compute resources across users.
+To see a list of all projects associated with your user account run
+
+```bash
+grep $USER /etc/condor/UserToProjectMap.txt
+```
+
+To set a project to associate job resource use with, add the following to your job submission files:
+
+```
++ProjectName="<a project name from your list>"
+```
+
+### Verify that you can submit jobs to the OSPoon using HTCondor
+
+Follow the [OSPool documentation example](https://portal.osg-htc.org/documentation/htc_workloads/workload_planning/htcondor_job_submission/#overview-submit-jobs-to-the-ospool-using-htcondor).
