@@ -606,10 +606,50 @@ that is don’t worry — you can install that with</p>
 </div>
 </div>
 </div>
+</section><section><h2 class="section-heading" id="ospool">OSPool<a class="anchor" aria-label="anchor" href="#ospool"></a></h2>
+<hr class="half-width"><p>For components of this lesson that involve High-Throughput Computing
+we’ll use the <a href="https://osg-htc.org/services/ospool/" class="external-link">Open
+Science Pool (OSPool)</a>, as it is accessible to any researcher
+affiliated with a United States academic institution. (The 2025 version
+of this lesson is being taught in-person in the United States and so
+this is meant to ease infrastructure requirements, not to discriminate
+against people outside of the U.S. academic system.)</p>
+<div class="section level3">
+<h3 id="request-an-ospool-account"><a href="https://portal.osg-htc.org/documentation/overview/account_setup/registration-and-login/#apply-for-ospool-access" class="external-link">Request
+an OSPool account</a><a class="anchor" aria-label="anchor" href="#request-an-ospool-account"></a></h3>
+<p>The first step is to <a href="https://portal.osg-htc.org/application" class="external-link">request an OSPool account
+through the Open Science Grid (OSG) Portal</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="register-for-an-access-point">Register for an Access Point<a class="anchor" aria-label="anchor" href="#register-for-an-access-point"></a></h3>
+<p>Once you have an OSPool account <strong>and</strong> have been
+contacted by a Research Computing Facilitator, <a href="https://portal.osg-htc.org/documentation/overview/account_setup/registration-and-login/#register-for-an-access-point" class="external-link">submit
+a request for an OSPool access point</a>. Follow the instructions you
+are given and then verify your account by connecting to the access point
+and <strong>also</strong> add an SSH key pair for authentication.</p>
+</div>
+<div class="section level3">
+<h3 id="verify-your-project">Verify your project<a class="anchor" aria-label="anchor" href="#verify-your-project"></a></h3>
+<p>OSPool uses projects to track compute resources across users. To see
+a list of all projects associated with your user account run</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">grep</span> <span class="va">$USER</span> /etc/condor/UserToProjectMap.txt</span></code></pre>
+</div>
+<p>To set a project to associate job resource use with, add the
+following to your job submission files:</p>
+<pre><code><span><span class="op">+</span><span class="va">ProjectName</span><span class="op">=</span><span class="st">"&lt;a project name from your list&gt;"</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="verify-that-you-can-submit-jobs-to-the-ospoon-using-htcondor">Verify that you can submit jobs to the OSPoon using HTCondor<a class="anchor" aria-label="anchor" href="#verify-that-you-can-submit-jobs-to-the-ospoon-using-htcondor"></a></h3>
+<p>Follow the <a href="https://portal.osg-htc.org/documentation/htc_workloads/workload_planning/htcondor_job_submission/#overview-submit-jobs-to-the-ospool-using-htcondor" class="external-link">OSPool
+documentation example</a>.</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
 </section></section></main><nav class="bottom-pagination mx-md-4" aria-label="Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link float-end" href="../instructor/introduction.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
@@ -659,8 +699,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/index.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/index.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-06-17",
-  "datePublished": "2025-06-17"
+  "dateModified": "2025-06-23",
+  "datePublished": "2025-06-23"
 }
 
   </script><script>
