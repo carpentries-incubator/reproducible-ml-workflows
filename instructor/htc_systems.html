@@ -337,7 +337,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Using Pixi environments on HTC Systems</h1>
-        <p>Last updated on 2025-06-16 |
+        <p>Last updated on 2025-06-24 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/htc_systems.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -465,7 +465,7 @@ libraries and versions of PyTorch that support CUDA.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>This is just expanding the exercises from the CUDA conda packages
 episode.</p>
@@ -679,7 +679,7 @@ Test set: Average loss: 0.0351, Accuracy: 9874/10000 (99%)</code></pre>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can enter a shell environment first</p>
 <div class="codewrapper sourceCode" id="cb23">
@@ -715,7 +715,7 @@ into the container image.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -769,7 +769,7 @@ deploy it to GitHub Container Registry (<code>ghcr</code>).</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>Create the GitHub Actions workflow directory tree</p>
 <div class="codewrapper sourceCode" id="cb25">
@@ -1018,6 +1018,8 @@ when_to_transfer_output = ON_EXIT
 
 # We require a machine with a modern version of the CUDA driver
 Requirements = (Target.CUDADriverVersion &gt;= 12.0)
+# Don't use CentOS7 to ensure pseudoterminal support for interactive jobs
+requirements = (OpSysMajorVer &gt; 7)
 
 # We must request 1 CPU in addition to 1 GPU
 request_cpus = 1
@@ -1334,8 +1336,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/htc_systems.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/htc_systems.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-06-16",
-  "datePublished": "2025-06-23"
+  "dateModified": "2025-06-24",
+  "datePublished": "2025-06-24"
 }
 
   </script><script>
