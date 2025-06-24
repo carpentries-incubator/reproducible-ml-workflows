@@ -538,6 +538,8 @@ when_to_transfer_output = ON_EXIT
 
 # We require a machine with a modern version of the CUDA driver
 Requirements = (Target.CUDADriverVersion >= 12.0)
+# Don't use CentOS7 to ensure pseudoterminal support for interactive jobs
+requirements = (OpSysMajorVer > 7)
 
 # We must request 1 CPU in addition to 1 GPU
 request_cpus = 1
