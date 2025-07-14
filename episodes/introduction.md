@@ -13,7 +13,7 @@ exercises: 8
 
 ::: objectives
 
-* Describe "reproducibility" and "reuse" as they relate to research computing
+* Describe the terms "reproducibility" and "reuse" as they relate to research computing
 * Describe what is needed for a computational environment to be reproducible.
 
 :::
