@@ -22,19 +22,19 @@ exercises: 15
 
 ## Pixi
 
-As described in the previous section on computational reproducibility, to have reproducible software environments we need tools that can take high level human writeable environment configuration files and produce machine readable hash level lock files that exactly specify every piece of software that exists in an environment.
+As described in the previous section on computational reproducibility, to have reproducible software environments we need tools that can take high level human writeable environment configuration files and produce machine-readable, hash-level lock files that exactly specify every piece of software that exists in an environment.
 
-[Pixi](https://www.pixi.sh/) a cross-platform package and environment manager that can handle complex development workflows.
+[Pixi](https://www.pixi.sh/) is a cross-platform package and environment manager that can handle complex development workflows.
 Importantly, Pixi automatically and non-optionally will produce or update a lock file for the software environments defined by the user whenever any actions mutate the environment.
 Pixi is written in Rust, and leverages the language's speed and technologies to solve environments fast.
 
-Pixi addresses the concept of computational reproducibility by focusing on a set of main features
+Pixi addresses the concept of computational reproducibility by focusing on a set of main features:
 
 1. **Virtual environment management**: Pixi can create environments that contain conda packages and Python packages and use or switch between environments easily.
 1. **Package management**: Pixi enables the user to install, update, and remove packages from these environments through the `pixi` command line.
 1. **Task management**: Pixi has a task runner system built-in, which allows for tasks with custom logic and dependencies on other tasks to be created.
 
-combined with robust behaviors
+It also combines the main features with the following robust behaviors:
 
 1. **Automatic lock files**: Any changes to a Pixi workspace that can mutate the environments defined in it will automatically and non-optionally result in the Pixi lock file for the workspace being updated.
 This ensures that any and every state of a Pixi project is trivially computationally reproducible.
