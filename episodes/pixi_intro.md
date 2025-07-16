@@ -14,9 +14,9 @@ exercises: 15
 
 ::: objectives
 
-* Learn Pixi's workflow design
-* Understand the relationship between a Pixi manifest and a lock file
-* Understand how to create a multi-platform and multi-environment Pixi workspace
+* Outline Pixi's workflow design
+* Summarize the relationship between a Pixi manifest and a lock file
+* Create a multi-platform and multi-environment Pixi workspace
 
 :::
 
