@@ -125,7 +125,7 @@ Typically the path is `~\Documents\PowerShell\Microsoft.PowerShell_profile.ps1`.
 
 :::
 
-## Docker (Optional)
+## Docker (optional)
 
 While not explicitly required for this lesson, if you would like to have a more full interactive experience with the material it is suggested that you install the Linux container runtime and tool [Docker](https://www.docker.com/).
 Install instructions for Docker can be found for your specific platform on [the Docker docs website](https://docs.docker.com/desktop/).
@@ -140,14 +140,16 @@ pixi global install apptainer
 
 :::
 
-## OSPool
+## OSPool (optional)
 
-For components of this lesson that involve High-Throughput Computing we'll use the [Open Science Pool (OSPool)](https://osg-htc.org/services/ospool/), as it is accessible to any researcher affiliated with a United States academic institution.
+For components of this lesson that involve High-Throughput Computing we'll use the [Open Science Pool (OSPool)](https://osg-htc.org/services/ospool/), as it is accessible to any researcher affiliated with an established project at a United States-based academic, government, or non-profit institution (via an OSG-Operated Access Point).
+
 (The 2025 version of this lesson is being taught in-person in the United States and so this is meant to ease infrastructure requirements, not to discriminate against people outside of the U.S. academic system.)
 
 ### [Request an OSPool account](https://portal.osg-htc.org/documentation/overview/account_setup/registration-and-login/#apply-for-ospool-access)
 
 The first step is to [request an OSPool account through the Open Science Grid (OSG) Portal](https://portal.osg-htc.org/application).
+All applications are reviewed by a Research Computing Facilitator, so only request an account if you plan to use it for research purposes beyond this lesson.
 
 ### Register for an Access Point
 
@@ -169,6 +171,6 @@ To set a project to associate job resource use with, add the following to your j
 +ProjectName="<a project name from your list>"
 ```
 
-### Verify that you can submit jobs to the OSPoon using HTCondor
+### Verify that you can submit jobs to the OSPool using HTCondor
 
 Follow the [OSPool documentation example](https://portal.osg-htc.org/documentation/htc_workloads/workload_planning/htcondor_job_submission/#overview-submit-jobs-to-the-ospool-using-htcondor).
