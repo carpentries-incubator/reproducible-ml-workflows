@@ -337,7 +337,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Reproducible Research</h1>
-        <p>Last updated on 2025-05-26 |
+        <p>Last updated on 2025-08-07 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -365,9 +365,10 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>Understand the concepts of reproducibility and reuse</li>
-<li>Be able to describe what is needed for a computational environment
-to be reproducible.</li>
+<ul><li>Describe the terms “reproducibility” and “reuse” as they relate to
+research computing.</li>
+<li>Describe what is needed for a computational environment to be
+reproducible.</li>
 </ul></div>
 </div>
 </div>
@@ -377,17 +378,16 @@ to be reproducible.</li>
 <hr class="half-width"><p>Modern scientific analyses are complex software and logistical
 workflows that may span multiple software environments and require
 heterogenous software and computing infrastructure. Scientific
-researchers need to keep track of all of this to be able to do their
-research, and to ensure the validity of their work, which can be
-difficult. Scientific software enables all of this work to happen, but
-software isn’t a static resource — software is continually developed,
-revised, and released, which can introduce large breaking changes or
-subtle computational differences in outputs and results. Having the
-software you’re using change without you intending it from day-to-day,
-run-to-run, or on different machines is problematic when trying to do
-high quality research and can cause software bugs, errors in scientific
-results, and make findings unreproducible. All of these things are not
-desirable!</p>
+researchers need to use these tools to be able to do their research, and
+to ensure the validity of their work, which can be difficult. Scientific
+software enables all of this work to happen, but software isn’t a static
+resource — software is continually developed, revised, and released,
+which can introduce breaking changes or subtle computational differences
+in outputs and results. Having the software you’re using change without
+you intending it from day-to-day, run-to-run, or on different machines
+is problematic when trying to do high quality research. These changes
+can cause software bugs, errors in scientific results, and make findings
+unreproducible. All of these things are not desirable!</p>
 <div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -405,15 +405,23 @@ distributions</li>
 </ul></div>
 </div>
 </div>
-
-<div id="what-are-other-challenges-to-reproducible-research" class="callout challenge">
+<div id="challenges-to-reproducible-research" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="what-are-other-challenges-to-reproducible-research" class="callout-inner">
-<h3 class="callout-title">What are other challenges to reproducible research?</h3>
+<div id="challenges-to-reproducible-research" class="callout-inner">
+<h3 class="callout-title">Challenges to reproducible research?</h3>
 <div class="callout-content">
-
+<p>Take 3 minutes to discuss the following questions in small
+groups.</p>
+<p><strong>What are other challenges to doing reproducible
+research?</strong></p>
+<p>Think about all aspects of research computing — data, hardware, and
+software — from collecting and cleaning the data through analysis and
+visualization to publishing your methods and results?</p>
+<p>Have you even inherited a project from a previous contributor? Or
+gone back to a previous project more than couple months later and
+struggled to get back into it? What issues did you come across?</p>
 </div>
 </div>
 </div>
@@ -422,7 +430,7 @@ distributions</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Possible answers </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>There are many! Here are some you might have thought of:</p>
 <ul><li>(Not having) Access to data</li>
@@ -432,8 +440,7 @@ indexes</li>
 distributed on public package indexes</li>
 <li>Analysis code not being under version control</li>
 <li>Not having any environment definition configuration files</li>
-</ul><p>What did you come up with?</p>
-</div>
+</ul></div>
 </div>
 </div>
 </div>
@@ -444,34 +451,29 @@ reproducibility. Like all forms of reproducibility, there are multiple
 “levels” of reproducibility. For this lesson we will focus on “full”
 reproducibility, meaning that reproducible software environments
 will:</p>
-<ul><li>Be defined through high level user configuration files.</li>
-<li>Have machine produced hash level lock files with a full definition
-of all software in the environment.</li>
-<li>Specify target computer platforms for all environments solved.</li>
-<li>Have the resolution and “solving” of a platform’s environments be
-machine agnostic.</li>
-<li>Have the software packages defined in the environments exist on
-immutable public package indexes.</li>
+<ul><li>Be defined through user readable and writable configuration
+files.</li>
+<li>Have machine produced “lock files” with a full definition of all
+software in the environment.</li>
+<li>Specify the target computer platforms (operating system and
+architecture) for all environments solved.</li>
+<li>Have the resolution of a platform’s environments be machine agnostic
+(e.g. macOS platform machines can solve environments for Linux
+platforms).</li>
+<li>Have the software packages defined in the environments be published
+on immutable public package indexes.</li>
 </ul><div class="section level3">
 <h3 id="hardware-accelerated-environments">Hardware accelerated environments<a class="anchor" aria-label="anchor" href="#hardware-accelerated-environments"></a></h3>
-<p>Software the involves hardware acceleration on computing resources
-like GPUs requires additional information to be provided for full
-computational reproducibility. In addition to the computer platform,
-information about the hardware acceleration device, its supported
-drivers, and compatible hardware accelerated versions of the software in
-the environment (GPU enabled builds) are required. Traditionally this
-has been very difficult to do, but multiple recent technological
-advancements (made possible by social agreements and collaborations) in
-the scientific open source world now provide solutions to these
-problems.</p>
-<div id="what-are-possible-challenges-of-reproducible-hardware-accelerated-environments" class="callout challenge">
+<div id="challenges-with-reproducible-hardware-accelerated-environments" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="what-are-possible-challenges-of-reproducible-hardware-accelerated-environments" class="callout-inner">
-<h3 class="callout-title">What are possible challenges of reproducible hardware accelerated environments?</h3>
+<div id="challenges-with-reproducible-hardware-accelerated-environments" class="callout-inner">
+<h3 class="callout-title">Challenges with reproducible hardware accelerated environments</h3>
 <div class="callout-content">
-
+<p>What are possible challenges of reproducible hardware accelerated
+environments? If you have used GPUs for a machine learning application,
+what challenges have you run into with running your code?</p>
 </div>
 </div>
 </div>
@@ -480,7 +482,7 @@ problems.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Possible answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Here are some you might have thought of:</p>
 <ul><li>Installing hardware acceleration drivers and libraries on the
@@ -490,19 +492,30 @@ machine with the GPU</li>
 multiple computing platforms</li>
 <li>Having the “deployment” machine’s resources and environment where
 the analysis is done match the “development” machine’s environment</li>
-</ul><p>What did you come up with?</p>
+</ul></div>
 </div>
 </div>
 </div>
-</div>
-<div id="does-computational-reproducibility-mean-that-the-exact-same-numeric-results-should-be-achieved-every-time" class="callout challenge">
+<p>Software that involves hardware acceleration on computing resources
+like GPUs requires additional information to be provided for full
+computational reproducibility. In addition to the computer platform,
+information about the hardware acceleration device, its supported
+drivers, and compatible hardware accelerated versions of the software in
+the environment (GPU enabled builds) are required. Traditionally this
+has been very difficult to do, but multiple recent technological
+advancements (made possible by social agreements and collaborations) in
+the scientific open source world now provide solutions to these
+problems.</p>
+<div id="what-is-computational-reproducibility" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="does-computational-reproducibility-mean-that-the-exact-same-numeric-results-should-be-achieved-every-time" class="callout-inner">
-<h3 class="callout-title">Does computational reproducibility mean that the exact same numeric results should be achieved every time?</h3>
+<div id="what-is-computational-reproducibility" class="callout-inner">
+<h3 class="callout-title">What is computational reproducibility?</h3>
 <div class="callout-content">
-
+<p>Do you think “computational reproducibility” means that the exact
+same numeric results should be achieved every time? Discuss with your
+table.</p>
 </div>
 </div>
 </div>
@@ -511,7 +524,7 @@ the analysis is done match the “development” machine’s environment</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Not necessarily. Even though the computational software environment
 is identical there are things that can change between runs of software
@@ -520,7 +533,7 @@ generation seeds, file read order, machine entropy). This isn’t
 necessarily a problem, and in general one should be more concerned with
 getting answers that make sense within application uncertainties than
 matching down to machine precision.</p>
-<p>What are additional reasons you thought of?</p>
+<p>Did your the individuals in your group agree?</p>
 </div>
 </div>
 </div>
@@ -531,26 +544,31 @@ matching down to machine precision.</p>
 scientific research more beneficial to us. For the purposes of a single
 analysis this should be the primary goal. However, just because a
 software environment is fully reproducible does not mean that the
-research is automatically reusable. Reuse allows for the tools and
-components of the scientific workflow to be composable tools that can
-interoperate together to create a workflow. The steps of the workflow
-might exist in radically different computational environments and
-require different software, or different versions of the same software
-tools. Given these demands, reproducible computational software
-environments are a first step toward fully reusable scientific
-workflows.</p>
+research is automatically reusable. Imagine an analysis that has been
+fully documented but with use assumptions (e.g. the data used,
+configuration options) hard-coded into the software. The analysis can be
+reproduced, but needs to be refactored for different analysis
+choices.</p>
+<p><strong>Reuse</strong> allows for the tools and components of the
+scientific workflow to be composable tools that can interoperate
+together to create a workflow. The steps of the workflow might exist in
+radically different computational environments and require different
+software, or different versions of the same software tools. Given these
+demands, reproducible computational software environments are a first
+step towards fully reusable scientific workflows.</p>
 <p>This lesson will focus on computational reproducibility of hardware
 accelerated scientific workflows (e.g. machine learning). Scientifically
 reusable analysis workflows are a more extensive topic, but this lesson
 will link to references on the topic.</p>
-<div id="what-are-challenges-to-your-own-research-practices-to-making-them-reproducible-and-reusable" class="callout challenge">
+<div id="the-challenges-of-creating-reproducible-and-reusable-workflows" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="what-are-challenges-to-your-own-research-practices-to-making-them-reproducible-and-reusable" class="callout-inner">
-<h3 class="callout-title">What are challenges to your own research practices to making them reproducible and reusable?</h3>
+<div id="the-challenges-of-creating-reproducible-and-reusable-workflows" class="callout-inner">
+<h3 class="callout-title">The challenges of creating reproducible and reusable workflows</h3>
 <div class="callout-content">
-
+<p>What personal challenges have you encountered to making your own
+research practices reproducible and reusable?</p>
 </div>
 </div>
 </div>
@@ -559,17 +577,20 @@ will link to references on the topic.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Possible answers </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <ul><li>Technical expertise in reproducibility technologies</li>
 <li>Time to learn new tools</li>
 <li>Balancing reproducibility concerns with using tools the entire
 research team can understand</li>
-</ul><p>What did you come up with?</p>
+</ul></div>
 </div>
 </div>
 </div>
-</div>
+<p>In addition to the computational issues that arise while creating
+reproducible and reusable workflows, it takes time and effort to design
+analyses with these in mind. This lesson aims to teach you tools that
+will make creating reproducible and reusable workflows easier.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -579,14 +600,13 @@ research team can understand</li>
 <div class="callout-content">
 <ul><li>Modern scientific research is complex and requires software
 environments.</li>
-<li>Computational reproducibility helps to enable reproducible science,
-but is not sufficient by itself.</li>
+<li>Computational reproducibility helps to enable reproducible
+science.</li>
 <li>Reproducible computational software environments that use hardware
 acceleration require additional information.</li>
 <li>New technologies make all of these processes easier.</li>
 <li>Reproducible computational software environments are a first step
-toward fully reusable scientific workflows but are not sufficient by
-themselves.</li>
+toward fully reusable scientific workflows.</li>
 </ul></div>
 </div>
 </div>
@@ -652,8 +672,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/introduction.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/introduction.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-05-26",
-  "datePublished": "2025-08-05"
+  "dateModified": "2025-08-07",
+  "datePublished": "2025-08-07"
 }
 
   </script><script>
