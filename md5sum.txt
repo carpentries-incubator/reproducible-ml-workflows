@@ -14,5 +14,5 @@
 "episodes/htc_systems.md" "83288ad83fe2530d22f26bcf6ee7fbfa" "site/built/htc_systems.md" "2025-06-24"
 "instructors/instructor-notes.md" "cae72b6712578d74a49fea7513099f8c" "site/built/instructor-notes.md" "2025-04-16"
 "learners/reference.md" "0402f697eb91156c4139e6167163f25f" "site/built/reference.md" "2025-05-26"
-"learners/setup.md" "af3d68c0ae6f2383ca050b33f706095c" "site/built/setup.md" "2025-06-23"
+"learners/setup.md" "529e4de30c6e7c1f5cfc9a05bc9995a9" "site/built/setup.md" "2025-08-07"
 "profiles/learner-profiles.md" "60b93493cf1da06dfd63255d73854461" "site/built/learner-profiles.md" "2025-04-16"

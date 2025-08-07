@@ -210,8 +210,8 @@
         <ul><li><a href="#data-sets">Data Sets</a></li>
 <li><a href="#github-repository-setup">GitHub Repository Setup</a></li>
 <li><a href="#software-setup">Software Setup</a></li>
-<li><a href="#docker-optional">Docker (Optional)</a></li>
-<li><a href="#ospool">OSPool</a></li>
+<li><a href="#docker-optional">Docker (optional)</a></li>
+<li><a href="#ospool-optional">OSPool (optional)</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -510,7 +510,7 @@ PowerShell. Typically the path is
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="docker-optional">Docker (Optional)<a class="anchor" aria-label="anchor" href="#docker-optional"></a></h2>
+</section><section><h2 class="section-heading" id="docker-optional">Docker (optional)<a class="anchor" aria-label="anchor" href="#docker-optional"></a></h2>
 <hr class="half-width"><p>While not explicitly required for this lesson, if you would like to
 have a more full interactive experience with the material it is
 suggested that you install the Linux container runtime and tool <a href="https://www.docker.com/" class="external-link">Docker</a>. Install instructions for
@@ -532,19 +532,24 @@ that is don’t worry — you can install that with</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="ospool">OSPool<a class="anchor" aria-label="anchor" href="#ospool"></a></h2>
+</section><section><h2 class="section-heading" id="ospool-optional">OSPool (optional)<a class="anchor" aria-label="anchor" href="#ospool-optional"></a></h2>
 <hr class="half-width"><p>For components of this lesson that involve High-Throughput Computing
 we’ll use the <a href="https://osg-htc.org/services/ospool/" class="external-link">Open
 Science Pool (OSPool)</a>, as it is accessible to any researcher
-affiliated with a United States academic institution. (The 2025 version
-of this lesson is being taught in-person in the United States and so
-this is meant to ease infrastructure requirements, not to discriminate
-against people outside of the U.S. academic system.)</p>
+affiliated with an established project at a United States-based
+academic, government, or non-profit institution (via an OSG-Operated
+Access Point).</p>
+<p>(The 2025 version of this lesson is being taught in-person in the
+United States and so this is meant to ease infrastructure requirements,
+not to discriminate against people outside of the U.S. academic
+system.)</p>
 <div class="section level3">
 <h3 id="request-an-ospool-account"><a href="https://portal.osg-htc.org/documentation/overview/account_setup/registration-and-login/#apply-for-ospool-access" class="external-link">Request
 an OSPool account</a><a class="anchor" aria-label="anchor" href="#request-an-ospool-account"></a></h3>
 <p>The first step is to <a href="https://portal.osg-htc.org/application" class="external-link">request an OSPool account
-through the Open Science Grid (OSG) Portal</a>.</p>
+through the Open Science Grid (OSG) Portal</a>. All applications are
+reviewed by a Research Computing Facilitator, so only request an account
+if you plan to use it for research purposes beyond this lesson.</p>
 </div>
 <div class="section level3">
 <h3 id="register-for-an-access-point">Register for an Access Point<a class="anchor" aria-label="anchor" href="#register-for-an-access-point"></a></h3>
@@ -568,7 +573,7 @@ following to your job submission files:</p>
 <pre><code><span><span class="op">+</span><span class="va">ProjectName</span><span class="op">=</span><span class="st">"&lt;a project name from your list&gt;"</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="verify-that-you-can-submit-jobs-to-the-ospoon-using-htcondor">Verify that you can submit jobs to the OSPoon using HTCondor<a class="anchor" aria-label="anchor" href="#verify-that-you-can-submit-jobs-to-the-ospoon-using-htcondor"></a></h3>
+<h3 id="verify-that-you-can-submit-jobs-to-the-ospool-using-htcondor">Verify that you can submit jobs to the OSPool using HTCondor<a class="anchor" aria-label="anchor" href="#verify-that-you-can-submit-jobs-to-the-ospool-using-htcondor"></a></h3>
 <p>Follow the <a href="https://portal.osg-htc.org/documentation/htc_workloads/workload_planning/htcondor_job_submission/#overview-submit-jobs-to-the-ospool-using-htcondor" class="external-link">OSPool
 documentation example</a>.</p>
 <!--
