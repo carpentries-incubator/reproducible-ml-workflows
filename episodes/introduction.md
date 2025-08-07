@@ -131,11 +131,10 @@ Did your the individuals in your group agree?
 Aiming for computational reproducibility is the first step to making scientific research more beneficial to us.
 For the purposes of a single analysis this should be the primary goal.
 However, just because a software environment is fully reproducible does not mean that the research is automatically reusable.
-Imagine a software analyis fully documented but with the data file names hard-coded in.
-The whole analysis can be reproduced but needs to be refactored to use other data.
+Imagine an analysis that has been fully documented but with use assumptions (e.g. the data used, configuration options) hard-coded into the software.
+The analysis can be reproduced, but needs to be refactored for different analysis choices.
 
-**Reuse** allows for the tools and components of the scientific workflow to be composable tools that can interoperate together to
-create a workflow.
+**Reuse** allows for the tools and components of the scientific workflow to be composable tools that can interoperate together to create a workflow.
 The steps of the workflow might exist in radically different computational environments and require different software, or different versions of the same software tools.
 Given these demands, reproducible computational software environments are the next step toward fully reusable scientific workflows.
 
