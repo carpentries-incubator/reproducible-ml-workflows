@@ -42,10 +42,11 @@ However, there are situations in which software might (for good reason) be:
 
 ## Challenges to reproducible research?
 
-Take 3 min to discuss the following questions in small groups.
+Take 3 minutes to discuss the following questions in small groups.
 
 **What are other challenges to doing reproducible research?**
-Think about all aspects of research computing - data, hardware, software - from collecting and cleaning the data through analysis and visualization to publishing your methods and results?
+
+Think about all aspects of research computing &mdash; data, hardware, and software &mdash; from collecting and cleaning the data through analysis and visualization to publishing your methods and results?
 
 Have you even inherited a project from a previous contributor?
 Or gone back to a previous project more than couple months later and struggled to get back into it?
