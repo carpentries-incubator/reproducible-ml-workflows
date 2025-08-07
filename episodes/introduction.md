@@ -22,7 +22,7 @@ exercises: 8
 
 Modern scientific analyses are complex software and logistical workflows that may span multiple software environments and require heterogenous software and computing infrastructure.
 Scientific researchers need to use these tools to be able to do their research, and to ensure the validity of their work, which can be difficult.
-Scientific software enables all of this work to happen, but software isn't a static resource &mdash; software is continually developed, revised, and released, which can introduce  breaking changes or subtle computational differences in outputs and results.
+Scientific software enables all of this work to happen, but software isn't a static resource &mdash; software is continually developed, revised, and released, which can introduce breaking changes or subtle computational differences in outputs and results.
 Having the software you're using change without you intending it from day-to-day, run-to-run, or on different machines is problematic when trying to do high quality research.
 These changes can cause software bugs, errors in scientific results, and make findings unreproducible.
 All of these things are not desirable!
