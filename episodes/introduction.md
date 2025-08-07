@@ -143,7 +143,7 @@ Scientifically reusable analysis workflows are a more extensive topic, but this 
 
 ::: challenge
 
-## The challenges of creating reproducible and reuseble worflos
+## The challenges of creating reproducible and reusable workflows
 
 What personal challenges have you encountered to making your own research practices reproducible and reusable?
 
