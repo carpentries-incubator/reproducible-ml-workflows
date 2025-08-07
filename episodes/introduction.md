@@ -136,7 +136,7 @@ The analysis can be reproduced, but needs to be refactored for different analysi
 
 **Reuse** allows for the tools and components of the scientific workflow to be composable tools that can interoperate together to create a workflow.
 The steps of the workflow might exist in radically different computational environments and require different software, or different versions of the same software tools.
-Given these demands, reproducible computational software environments are a step towards fully reusable scientific workflows.
+Given these demands, reproducible computational software environments are a first step towards fully reusable scientific workflows.
 
 This lesson will focus on computational reproducibility of hardware accelerated scientific workflows (e.g. machine learning).
 Scientifically reusable analysis workflows are a more extensive topic, but this lesson will link to references on the topic.
@@ -158,7 +158,7 @@ What personal challenges have you encountered to making your own research practi
 :::
 :::
 
-In addition to the computational issue that arise with creating reproduicble and reusable workflows, it takes time and effort to design analyses with these in mind.
+In addition to the computational issues that arise while creating reproducible and reusable workflows, it takes time and effort to design analyses with these in mind.
 This lesson aims to teach you tools that will make creating reproducible and reusable workflows easier.
 
 ::: keypoints
