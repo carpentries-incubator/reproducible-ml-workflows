@@ -87,7 +87,7 @@ For this lesson we will focus on "full" reproducibility, meaning that reproducib
 ## Challenges with reproducible hardware accelerated environments
 
 What are possible challenges of reproducible hardware accelerated environments?
-If you are using GPUs for a machine learing application, what challenges have you run into with running your code?
+If you have used GPUs for a machine learning application, what challenges have you run into with running your code?
 
 ::: solution
 
