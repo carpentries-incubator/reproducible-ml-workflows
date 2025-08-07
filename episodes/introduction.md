@@ -74,9 +74,10 @@ This lesson will focus primarily on computational reproducibility.
 Like all forms of reproducibility, there are multiple "levels" of reproducibility.
 For this lesson we will focus on "full" reproducibility, meaning that reproducible software environments will:
 
-* Be defined through user readable configuration files.
-* Have machine produced files, called lock files, with a full definition of all software in the environment.
-* Have the environment prepared for any computer platform, be machine agnostic.
+* Be defined through user readable and writable configuration files.
+* Have machine produced "lock files" with a full definition of all software in the environment.
+* Specify the target computer platforms (operating system and architecture) for all environments solved.
+* Have the resolution of a platform's environments be machine agnostic (e.g. macOS platform machines can solve environments for Linux platforms).
 * Have the software packages defined in the environments be published on immutable public package indexes.
 
 ### Hardware accelerated environments
