@@ -110,9 +110,10 @@ Traditionally this has been very difficult to do, but multiple recent technologi
 
 ::: challenge
 
-##  What is computataional reproduciblity?
+##  What is computational reproducibility?
 
-Do you think "computational reproducibility" means that the exact same numeric results should be achieved every time? Discuss with your table.
+Do you think "computational reproducibility" means that the exact same numeric results should be achieved every time?
+Discuss with your table.
 
 ::: solution
 
