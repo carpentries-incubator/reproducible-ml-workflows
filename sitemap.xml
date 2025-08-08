@@ -13,13 +13,25 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/aio.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/backwards-compatibility.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/backwards_compatibility.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/conda-pacakges.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/conda_pacakges.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/cuda-conda-pacakges.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/cuda_conda_pacakges.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/htc-systems.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/htc_systems.html</loc>
@@ -43,13 +55,25 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/aio.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/backwards-compatibility.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/backwards_compatibility.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/conda-pacakges.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/conda_pacakges.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/cuda-conda-pacakges.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/cuda_conda_pacakges.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/htc-systems.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/htc_systems.html</loc>
@@ -68,6 +92,12 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/key-points.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-deployment.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-intro.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi_deployment.html</loc>
@@ -89,6 +119,12 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/key-points.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/pixi-deployment.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/pixi-intro.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/pixi_deployment.html</loc>
