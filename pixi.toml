@@ -30,4 +30,4 @@ depends-on = ["serve"]
 [dependencies]
 git = ">=2.49.0,<3"
 r-varnish = ">=1.0.6,<2"
-r-sandpaper = ">=0.16.12,<0.17"
+r-sandpaper = ">=0.17.0,<0.18"

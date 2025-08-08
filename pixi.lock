@@ -117,6 +117,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-highr-0.11-r44hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-htmltools-0.5.8.1-r44ha18555a_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-httpuv-1.6.15-r44ha18555a_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-httr-1.4.7-r44hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-httr2-1.2.1-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-ini-0.3.1-r44hc72bb7e_1006.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-jquerylib-0.1.4-r44hc72bb7e_3.conda
@@ -148,10 +149,11 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rmarkdown-2.29-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rprojroot-2.1.0-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rstudioapi-0.17.1-r44hc72bb7e_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.16.12-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.0-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-sass-0.4.10-r44h93ab643_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-servr-0.32-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-stringi-1.8.7-r44h3c328a7_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-stringr-1.5.1-r44h785f33e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-sys-3.4.3-r44h2b5f3a1_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-systemfonts-1.2.3-r44h74f4acd_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-textshaping-1.0.1-r44h16f7c1a_0.conda
@@ -303,6 +305,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-highr-0.11-r44hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-htmltools-0.5.8.1-r44hd76f289_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-httpuv-1.6.15-r44hd76f289_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-httr-1.4.7-r44hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-httr2-1.2.1-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-ini-0.3.1-r44hc72bb7e_1006.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-jquerylib-0.1.4-r44hc72bb7e_3.conda
@@ -334,10 +337,11 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rmarkdown-2.29-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rprojroot-2.1.0-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rstudioapi-0.17.1-r44hc72bb7e_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.16.12-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.0-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-sass-0.4.10-r44h31118f2_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-servr-0.32-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-stringi-1.8.7-r44h4f22b37_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-stringr-1.5.1-r44h785f33e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-sys-3.4.3-r44h0d9a900_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-systemfonts-1.2.3-r44h9a29dc2_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-textshaping-1.0.1-r44h0784d17_0.conda
@@ -466,6 +470,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-highr-0.11-r44hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-htmltools-0.5.8.1-r44h8ae3a7c_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-httpuv-1.6.15-r44h8ae3a7c_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-httr-1.4.7-r44hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-httr2-1.2.1-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-ini-0.3.1-r44hc72bb7e_1006.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-jquerylib-0.1.4-r44hc72bb7e_3.conda
@@ -497,10 +502,11 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rmarkdown-2.29-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rprojroot-2.1.0-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rstudioapi-0.17.1-r44hc72bb7e_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.16.12-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.0-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-sass-0.4.10-r44h8ae3a7c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-servr-0.32-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-stringi-1.8.7-r44h8ae3a7c_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-stringr-1.5.1-r44h785f33e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-sys-3.4.3-r44h11b023d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-systemfonts-1.2.3-r44h295cb35_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-textshaping-1.0.1-r44h649cef6_0.conda
@@ -4015,6 +4021,20 @@ packages:
   license_family: GPL3
   size: 507252
   timestamp: 1721155978798
+- conda: https://conda.anaconda.org/conda-forge/noarch/r-httr-1.4.7-r44hc72bb7e_1.conda
+  sha256: 0e54f7fe64e51776068322078f339e81503feddce17f16c791faad5a5680b1ee
+  md5: 9dd48155c67d87a2adc68ddb7c3ab508
+  depends:
+  - r-base >=4.4,<4.5.0a0
+  - r-curl >=0.9.1
+  - r-jsonlite
+  - r-mime
+  - r-openssl >=0.8
+  - r-r6
+  license: MIT
+  license_family: MIT
+  size: 474056
+  timestamp: 1721475958264
 - conda: https://conda.anaconda.org/conda-forge/noarch/r-httr2-1.2.1-r44hc72bb7e_0.conda
   sha256: 95a696f69c60743b705b6044e03f197c4a8fe16e0a576a7fe5cf86c5594bb169
   md5: 44f7c9b3563348fe4f7c2ca7a15daf2f
@@ -4785,9 +4805,9 @@ packages:
   license_family: MIT
   size: 317657
   timestamp: 1729642827981
-- conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.16.12-r44ha770c72_0.conda
-  sha256: 73cbffcf35c60b2ba265a9a61101d6b42d632bcdbf10b67afd386674859c4b8e
-  md5: 83b4ed90399cd4112b4f2937f7f93742
+- conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.0-r44ha770c72_0.conda
+  sha256: 782b4987cfe4ee28d74f0acb225d1edd58c0308d1474d3bbbae19d4238a8ed1a
+  md5: 0e7a41ca4e304445d259e7f7fd0a716a
   depends:
   - r-assertthat
   - r-base >=4.4,<4.5.0a0
@@ -4799,6 +4819,7 @@ packages:
   - r-gert >=1.0.1
   - r-gh
   - r-glue
+  - r-httr
   - r-knitr >=1.33
   - r-pegboard >=0.7.0
   - r-pkgdown >=1.6.0
@@ -4809,14 +4830,16 @@ packages:
   - r-rprojroot
   - r-rstudioapi
   - r-servr
+  - r-stringr
   - r-usethis >=2.0.0
   - r-whisker
   - r-withr
+  - r-xfun
   - r-yaml
   license: MIT
   license_family: MIT
-  size: 795594
-  timestamp: 1746556867864
+  size: 813911
+  timestamp: 1754610299306
 - conda: https://conda.anaconda.org/conda-forge/linux-64/r-sass-0.4.10-r44h93ab643_0.conda
   sha256: 7ff35d5f09861541e5bb6c689fd2faafbba8c2bd557bbda19125ee6e1924f395
   md5: e59b4e17905fde21fbe2dc5682b0e37c
@@ -4922,6 +4945,22 @@ packages:
   license_family: OTHER
   size: 11308169
   timestamp: 1743093902427
+- conda: https://conda.anaconda.org/conda-forge/noarch/r-stringr-1.5.1-r44h785f33e_1.conda
+  sha256: d87b46303cd584747ccb442eebd90fd7139f6ad1e0115899f1d5eac4cd0c3b7f
+  md5: f1fdeed70529cb6e74277d758b5304fd
+  depends:
+  - r-base >=4.4,<4.5.0a0
+  - r-cli
+  - r-glue >=1.6.1
+  - r-lifecycle >=1.0.3
+  - r-magrittr
+  - r-rlang >=1.0.0
+  - r-stringi >=1.5.3
+  - r-vctrs
+  license: MIT
+  license_family: MIT
+  size: 299976
+  timestamp: 1721222775462
 - conda: https://conda.anaconda.org/conda-forge/linux-64/r-sys-3.4.3-r44h2b5f3a1_0.conda
   sha256: ddf8a3b02f5bfafce7c6fc28a3b0e8568159be3199996820fa311c60c3fb5ed5
   md5: 7771befc8f294d762f12a48dffa1650a
