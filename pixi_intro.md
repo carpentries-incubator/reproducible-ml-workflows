@@ -376,7 +376,7 @@ pixi task add lab "jupyter lab" --description "Launch JupyterLab"
 
 The resulting `pixi.toml` manifest is
 
-:::: tab
+:::: group-tab
 
 ### Manually edited
 
@@ -444,7 +444,7 @@ Add a task called `start` that depends-on the `lab` task.
 
 ::: solution
 
-:::: tab
+:::: group-tab
 
 ### Manually edited
 

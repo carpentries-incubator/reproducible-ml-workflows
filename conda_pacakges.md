@@ -234,7 +234,7 @@ as well as other directories that are specific to conda packages
 How did this directory tree get here?
 It is a result of all the files that were in the conda packages we downloaded and installed as dependencies of Python.
 
-::: tab
+::: group-tab
 
 ### Linux
 
@@ -320,8 +320,7 @@ vc14_runtime     14.42.34438   hfd919c2_26         733.1 KiB  conda  https://con
 We can download an individual conda package manually using a tool like `curl`.
 Let's download the particular [`python` conda package](https://anaconda.org/conda-forge/python) from where it is hosted on [conda-forge's Anaconda.org organization](https://anaconda.org/conda-forge)
 
-<!-- Can't use group-tab as broken by https://github.com/carpentries/sandpaper/issues/656 -->
-::: tab
+::: group-tab
 
 ### Linux
 
@@ -357,7 +356,7 @@ python-3.13.3-h261c0b1_101_cp313.conda
 `.conda` is probably not a file extension that you've seen before, but you are probably very familiar with the actual archive compression format.
 `.conda` files are `.zip` files that have been renamed, but we can use the same utilities to interact with them as we would with `.zip` files.
 
-::: tab
+::: group-tab
 
 ### Linux
 
@@ -410,7 +409,7 @@ tar --zstd -xvf pkg-python-*.tar.zst --directory pkg
 
 and then look at the uncompressed directory tree with `tree`
 
-::: tab
+::: group-tab
 
 ### Linux
 
@@ -487,7 +486,7 @@ ls -d 2 pkg\
 
 So we can see that the directory structure of the conda package
 
-::: tab
+::: group-tab
 
 ### Linux
 
@@ -540,7 +539,7 @@ pythonw.pdb
 
 is reflected in the directory tree of the Pixi environment with the package installed
 
-::: tab
+::: group-tab
 
 ### Linux
 
