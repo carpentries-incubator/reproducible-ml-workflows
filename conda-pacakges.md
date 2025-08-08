@@ -610,6 +610,19 @@ Niche particle physics packages:
 :::
 :::
 
+::: checklist
+
+## Further conda package references
+
+[Wolf Vollprecht](https://github.com/wolfv) of prefix.dev GmbH has written blog posts on topics covered in this section that provide an excellent overview and summary.
+You are highly encouraged to read them!
+
+* [What is a Conda package, actually?](https://prefix.dev/blog/what-is-a-conda-package) (2025-06-11)
+* [Virtual Packages in the Conda ecosystem](https://prefix.dev/blog/virtual-packages-in-the-conda-ecosystem) (2025-06-18)
+* [What linking means when installing a Conda package](https://prefix.dev/blog/what-linking-means-when-installing-a-conda-package) (2025-07-17)
+
+:::
+
 ::: keypoints
 
 * Conda packages are specially named `.zip` files that contain files and symbolic links structured in a directory tree.

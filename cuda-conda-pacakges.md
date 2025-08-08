@@ -654,6 +654,16 @@ we created separate CPU and GPU computational environments that are now fully re
 :::
 :::
 
+::: checklist
+
+## Further CUDA and GPU references
+
+If you would also like a useful summary of different things related to CUDA, check out Modal's summary website of CUDA focused GPU concepts.
+
+* [GPU Glossary](https://modal.com/gpu-glossary), by Modal
+
+:::
+
 ::: keypoints
 
 * The `cuda-version` metapackage can be used to specify constrains on the versions of the `__cuda` virtual package and `cudatoolkit`.
