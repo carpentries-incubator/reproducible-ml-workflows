@@ -68,12 +68,12 @@ contact: 'matthew.feickert@cern.ch'
 # Order of episodes in your lesson
 episodes:
 - introduction.md
-- pixi_intro.md
-- backwards_compatibility.md
-- conda_pacakges.md
-- cuda_conda_pacakges.md
-- pixi_deployment.md
-- htc_systems.md
+- pixi-intro.md
+- backwards-compatibility.md
+- conda-pacakges.md
+- cuda-conda-pacakges.md
+- pixi-deployment.md
+- htc-systems.md
 
 # Information for Learners
 learners:
