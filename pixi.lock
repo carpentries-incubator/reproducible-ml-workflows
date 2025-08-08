@@ -149,7 +149,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rmarkdown-2.29-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rprojroot-2.1.0-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rstudioapi-0.17.1-r44hc72bb7e_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.0-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.1-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-sass-0.4.10-r44h93ab643_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-servr-0.32-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-stringi-1.8.7-r44h3c328a7_0.conda
@@ -162,7 +162,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-tinytex-0.57-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-usethis-3.1.0-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-utf8-1.2.6-r44h2b5f3a1_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-varnish-1.0.6-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-varnish-1.0.7-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-vctrs-0.6.5-r44h0d4f4ea_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-whisker-0.4.1-r44hc72bb7e_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-withr-3.0.2-r44hc72bb7e_0.conda
@@ -337,7 +337,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rmarkdown-2.29-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rprojroot-2.1.0-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rstudioapi-0.17.1-r44hc72bb7e_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.0-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.1-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-sass-0.4.10-r44h31118f2_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-servr-0.32-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-stringi-1.8.7-r44h4f22b37_0.conda
@@ -350,7 +350,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-tinytex-0.57-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-usethis-3.1.0-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-utf8-1.2.6-r44h570997c_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-varnish-1.0.6-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-varnish-1.0.7-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-vctrs-0.6.5-r44hd76f289_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-whisker-0.4.1-r44hc72bb7e_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-withr-3.0.2-r44hc72bb7e_0.conda
@@ -502,7 +502,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rmarkdown-2.29-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rprojroot-2.1.0-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rstudioapi-0.17.1-r44hc72bb7e_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.0-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.1-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-sass-0.4.10-r44h8ae3a7c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-servr-0.32-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-stringi-1.8.7-r44h8ae3a7c_0.conda
@@ -515,7 +515,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-tinytex-0.57-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-usethis-3.1.0-r44hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-utf8-1.2.6-r44h11b023d_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-varnish-1.0.6-r44ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-varnish-1.0.7-r44ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-vctrs-0.6.5-r44h8ae3a7c_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-whisker-0.4.1-r44hc72bb7e_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-withr-3.0.2-r44hc72bb7e_0.conda
@@ -4805,9 +4805,9 @@ packages:
   license_family: MIT
   size: 317657
   timestamp: 1729642827981
-- conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.0-r44ha770c72_0.conda
-  sha256: 782b4987cfe4ee28d74f0acb225d1edd58c0308d1474d3bbbae19d4238a8ed1a
-  md5: 0e7a41ca4e304445d259e7f7fd0a716a
+- conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.1-r44ha770c72_0.conda
+  sha256: d877e6ed09d3a54999169e3f9aa441a13438becffcde944fb98a4723181aed2e
+  md5: 9cebe51060c0a3d7147de4c28d8c2160
   depends:
   - r-assertthat
   - r-base >=4.4,<4.5.0a0
@@ -4838,8 +4838,8 @@ packages:
   - r-yaml
   license: MIT
   license_family: MIT
-  size: 813911
-  timestamp: 1754610299306
+  size: 813404
+  timestamp: 1754674330798
 - conda: https://conda.anaconda.org/conda-forge/linux-64/r-sass-0.4.10-r44h93ab643_0.conda
   sha256: 7ff35d5f09861541e5bb6c689fd2faafbba8c2bd557bbda19125ee6e1924f395
   md5: e59b4e17905fde21fbe2dc5682b0e37c
@@ -5251,15 +5251,15 @@ packages:
   license_family: APACHE
   size: 147310
   timestamp: 1749429382195
-- conda: https://conda.anaconda.org/conda-forge/noarch/r-varnish-1.0.6-r44ha770c72_0.conda
-  sha256: 0c3877b42ca8f8a31a3adbaba57dcad766e5c40db26e83f64a0839387c5e1a97
-  md5: 63b4a25cc97059ec0df710d638ac51fe
+- conda: https://conda.anaconda.org/conda-forge/noarch/r-varnish-1.0.7-r44ha770c72_0.conda
+  sha256: e0534c21095e8127af9ca393b2af53fba28bd06b4c93ec619d49877a5444dfde
+  md5: 27757c35fe02e91615b6d02664d0a99b
   depends:
   - r-base >=4.4,<4.5.0a0
   license: MIT
   license_family: MIT
-  size: 4617905
-  timestamp: 1746564108952
+  size: 4711072
+  timestamp: 1754656481514
 - conda: https://conda.anaconda.org/conda-forge/linux-64/r-vctrs-0.6.5-r44h0d4f4ea_1.conda
   sha256: af5c43eee1893b2baf363404a0132bba812d127a096f2d823f1b61f30287e4e7
   md5: 399bc7872bdb40b5531d887858253e76
