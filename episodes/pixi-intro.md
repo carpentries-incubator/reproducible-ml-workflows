@@ -742,7 +742,7 @@ pixi run --environment dev pre-commit --help
 pixi shell --environment dev
 ```
 
-::: caution
+::: callout
 
 The `pixi workspace` CLI can also be used to add existing features to environments, but a feature needs to be defined before it can be added to the manifest
 
