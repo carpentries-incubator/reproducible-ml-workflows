@@ -160,7 +160,7 @@ pixi add python
 ```
 
 ```output
-✔ Added python >=3.13.3,<3.14
+✔ Added python >=3.13.5,<3.14
 ```
 
 What happened?
@@ -181,7 +181,7 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-python = ">=3.13.3,<3.14"
+python = ">=3.13.5,<3.14"
 ```
 
 Further, we also now see that a `pixi.lock` lock file has been created in the project directory as well as a `.pixi/` directory.
