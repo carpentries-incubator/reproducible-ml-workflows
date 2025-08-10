@@ -589,7 +589,7 @@ start  Start exploring the Pixi project
 
 :::
 
-Here we used `pixi run` to execute tasks in the workspace's environments without ever explicitly activating the environment.
+Here we used [`pixi run`](https://pixi.sh/latest/reference/cli/pixi/run/) to execute tasks in the workspace's environments without ever explicitly activating the environment.
 This is a different behavior compared to tools like conda of Python virtual environments, where the assumption is that you have activated an environment before using it.
 With Pixi we can do the equivalent with [`pixi shell`](https://pixi.sh/latest/reference/cli/pixi/shell/), which starts a subshell in the current working directory with the Pixi environment activated.
 
@@ -604,7 +604,7 @@ You can now directly run commands that use the environment.
 python
 ```
 ```output
-Python 3.13.5 | packaged by conda-forge | (main, Jun 13 2025, 01:14:40) [GCC 13.3.0] on linux
+Python 3.13.5 | packaged by conda-forge | (main, Jun 16 2025, 08:27:50) [GCC 13.3.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
