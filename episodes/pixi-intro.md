@@ -412,7 +412,7 @@ vcomp14          14.44.35208   h818238b_31         111.3 KiB  conda  https://con
 
 ## Extending the manifest
 
-Let's extend this manifest to add the Python library `numpy` and the Jupyter tools `notebook` and `jupyterlab` as dependencies and add a task called `lab` that will launch Jupyter Lab in the current working directory.
+Let's extend this manifest to add the Python library `numpy` and the Jupyter tools `notebook` and `jupyterlab` as dependencies and add a [task](https://pixi.sh/latest/workspace/advanced_tasks/) called `lab` that will launch Jupyter Lab in the current working directory.
 
 Hint: Look at the Pixi manifest table structure to think how a `task` might be added.
 It is fine to read the docs too!
@@ -454,9 +454,9 @@ cmd = "jupyter lab"
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 ```
 
 ### `pixi task` CLI
@@ -473,9 +473,9 @@ lab = { cmd = "jupyter lab", description = "Launch JupyterLab" }
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 ```
 
 ::::
