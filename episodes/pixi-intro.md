@@ -70,12 +70,12 @@ A manifest file is a declarative configuration file that list what the high leve
 Pixi then takes those requirements and constraints and solves for the full dependency tree.
 
 Let's create our first Pixi project.
-First, to have a uniform directory tree experience, clone the `pixi-lesson` GitHub repository (which you made as part of the setup) under your home directory on your machine and navigate to it.
+First, to have a uniform directory tree experience, clone the `pixi-cuda-lesson` GitHub repository (which you made as part of the setup) under your home directory on your machine and navigate to it.
 
 ```bash
 cd ~
-git clone git@github.com:<username>/pixi-lesson.git
-cd ~/pixi-lesson
+git clone git@github.com:<username>/pixi-cuda-lesson.git
+cd ~/pixi-cuda-lesson
 ```
 
 Then use `pixi init` to create a new project directory and initialize a Pixi manifest with your machine's configuration.
@@ -85,7 +85,7 @@ pixi init example
 ```
 
 ```output
-Created /home/<username>/pixi-lesson/example/pixi.toml
+Created /home/<username>/pixi-cuda-lesson/example/pixi.toml
 ```
 
 Navigate to the `example` directory and check the directory structure
@@ -253,7 +253,7 @@ We can even test that now by deleting the installed environment fully with [`pix
 pixi clean
 ```
 ```output
-  removed /home/<username>/pixi-lesson/example/.pixi/envs
+  removed /home/<username>/pixi-cuda-lesson/example/.pixi/envs
 ```
 ```bash
  pixi install

@@ -32,11 +32,11 @@ First let's create a computing problem to apply these compute systems to.
 Let's first create a new project in our Git repository
 
 ```bash
-pixi init ~/pixi-lesson/htcondor
-cd ~/pixi-lesson/htcondor
+pixi init ~/pixi-cuda-lesson/htcondor
+cd ~/pixi-cuda-lesson/htcondor
 ```
 ```output
-✔ Created ~/<username>/pixi-lesson/htcondor/pixi.toml
+✔ Created ~/<username>/pixi-cuda-lesson/htcondor/pixi.toml
 ```
 
 ### Training a PyTorch model on the MNIST dataset
@@ -429,7 +429,7 @@ pixi global install crane
 and then use [`crane ls`](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_ls.md) to list all of the container images in your container registry for the particular image
 
 ```bash
-crane ls ghcr.io/<your GitHub username>/pixi-lesson
+crane ls ghcr.io/<your GitHub username>/pixi-cuda-lesson
 ```
 
 ## HTCondor
@@ -516,7 +516,7 @@ This is pretty standard boiler plate taken from the [HTCondor documentation](htt
 universe = container
 # the container images are cached, and so if a container image tag is
 # overwritten it will not be pulled again
-container_image = docker://ghcr.io/<github user name>/pixi-lesson:sha-<sha>
+container_image = docker://ghcr.io/<github user name>/pixi-cuda-lesson:sha-<sha>
 
 # set the log, error and output files
 log = mnist_gpu_docker.log.txt

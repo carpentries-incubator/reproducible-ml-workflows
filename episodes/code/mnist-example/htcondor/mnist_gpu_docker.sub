@@ -5,7 +5,7 @@
 universe = container
 # the container images are cached, and so if a container image tag is
 # overwritten it will not be pulled again
-container_image = docker://ghcr.io/<github user name>/pixi-lesson:sha-<sha>
+container_image = docker://ghcr.io/<github user name>/pixi-cuda-lesson:sha-<sha>
 
 # set the log, error and output files
 log = mnist_gpu_docker.log.txt

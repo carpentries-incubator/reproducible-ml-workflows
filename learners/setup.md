@@ -13,7 +13,7 @@ This gives you version controlled examples that you can take forward with you as
 
 1. Create a [GitHub account](https://github.com/) if you don't have one yet.
 1. Navigate to your GitHub profile (https://github.com/<username>) and click the "+" icon in the upper right hand side to [create a new repository](https://github.com/new).
-1. Name the new repository named `pixi-lesson`, make it public, and give it a README and an [open source license](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) (e.g. MIT License).
+1. Name the new repository named `pixi-cuda-lesson`, make it public, and give it a README and an [open source license](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) (e.g. MIT License).
 1. As GitHub requires two-factor authentication, it is highly recommended that you [generate an SSH key pair](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) specifically for GitHub, [add the generated SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account), and then use your SSH keys to connect with GitHub.
 
 ::: caution
