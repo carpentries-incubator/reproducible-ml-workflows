@@ -29,11 +29,11 @@ Package contents are also simple; they can only contain files and symbolic links
 To better understand conda packages and the environment directory tree structure they exist in, let's make a new Pixi project and look at the project environment directory tree structure.
 
 ```bash
-pixi init ~/pixi-lesson/dir-structure
-cd ~/pixi-lesson/dir-structure
+pixi init ~/pixi-cuda-lesson/dir-structure
+cd ~/pixi-cuda-lesson/dir-structure
 ```
 ```output
-✔ Created /home/<username>/pixi-lesson/dir-structure/pixi.toml
+✔ Created /home/<username>/pixi-cuda-lesson/dir-structure/pixi.toml
 ```
 
 To help visualize this on the command line we'll use the `tree` program (Linux and macOS), which we'll install as a global utility from conda-forge using [`pixi global`](https://pixi.sh/latest/global_tools/introduction/).

@@ -87,11 +87,11 @@ This ensures that packages depending on `__cuda >= {version}` are resolved corre
 To demonstrate this a bit more explicitly, we can create a minimal project
 
 ```bash
-pixi init ~/pixi-lesson/cuda-example
-cd ~/pixi-lesson/cuda-example
+pixi init ~/pixi-cuda-lesson/cuda-example
+cd ~/pixi-cuda-lesson/cuda-example
 ```
 ```output
-✔ Created /home/<username>/pixi-lesson/cuda-example/pixi.toml
+✔ Created /home/<username>/pixi-cuda-lesson/cuda-example/pixi.toml
 ```
 
 where we specify a `cuda` system requirement
@@ -454,11 +454,11 @@ Create a new Pixi workspace that:
 Create a new workspace
 
 ```bash
-pixi init ~/pixi-lesson/cuda-exercise
-cd ~/pixi-lesson/cuda-exercise
+pixi init ~/pixi-cuda-lesson/cuda-exercise
+cd ~/pixi-cuda-lesson/cuda-exercise
 ```
 ```output
-✔ Created /home/<username>/pixi-lesson/cuda-exercise/pixi.toml
+✔ Created /home/<username>/pixi-cuda-lesson/cuda-exercise/pixi.toml
 ```
 
 Add support for all the target platforms
