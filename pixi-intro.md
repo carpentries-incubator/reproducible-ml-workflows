@@ -160,7 +160,7 @@ pixi add python
 ```
 
 ```output
-✔ Added python >=3.13.3,<3.14
+✔ Added python >=3.13.5,<3.14
 ```
 
 What happened?
@@ -181,7 +181,7 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-python = ">=3.13.3,<3.14"
+python = ">=3.13.5,<3.14"
 ```
 
 Further, we also now see that a `pixi.lock` lock file has been created in the project directory as well as a `.pixi/` directory.
@@ -245,8 +245,67 @@ default
 
 Inside the `.pixi/envs/default/` directory are all the libraries, header files, and executables that are needed by the environment.
 
-The `pixi.lock` lock file contains YAML that defines all requested conda package dependencies in the manifest, as well as their dependencies, at the exact versions that were solved for.
-It provides their full URLs on the conda package index to download from as well as digest information for the exact package to ensure that it is exactly specified and that version, and **only** that version, will be downloaded and installed in the future.
+The `pixi.lock` lock file is a YAML file that contains two definition groups: `environments` and `packages`.
+The `environments` group lists every environment in the workspace for every platform with a complete listing of all packages in the environment.
+The `packages` group lists a full definition of every package that appears in the `environments` lists, including the package's URL on the conda package index and digests (e.g. sha256, md5).
+
+Here's an example of what the `environments` and `packages` groups look like in the `pixi.toml` file we created for a `linux-64` platform machine.
+
+```
+version: 6
+environments:
+  default:
+    channels:
+    - url: https://conda.anaconda.org/conda-forge/
+    packages:
+      linux-64:
+
+...
+
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.13.5-hec9711d_102_cp313.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/python_abi-3.13-8_cp313.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/readline-8.2-h8c095d6_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.13-noxft_hd72426e_102.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2025b-h78e105d_0.conda
+...
+
+packages:
+
+...
+
+- conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.13.5-hec9711d_102_cp313.conda
+  build_number: 102
+  sha256: c2cdcc98ea3cbf78240624e4077e164dc9d5588eefb044b4097c3df54d24d504
+  md5: 89e07d92cf50743886f41638d58c4328
+  depends:
+  - __glibc >=2.17,<3.0.a0
+  - bzip2 >=1.0.8,<2.0a0
+  - ld_impl_linux-64 >=2.36.1
+  - libexpat >=2.7.0,<3.0a0
+  - libffi >=3.4.6,<3.5.0a0
+  - libgcc >=13
+  - liblzma >=5.8.1,<6.0a0
+  - libmpdec >=4.0.0,<5.0a0
+  - libsqlite >=3.50.1,<4.0a0
+  - libuuid >=2.38.1,<3.0a0
+  - libzlib >=1.3.1,<2.0a0
+  - ncurses >=6.5,<7.0a0
+  - openssl >=3.5.0,<4.0a0
+  - python_abi 3.13.* *_cp313
+  - readline >=8.2,<9.0a0
+  - tk >=8.6.13,<8.7.0a0
+  - tzdata
+  license: Python-2.0
+  size: 33273132
+  timestamp: 1750064035176
+  python_site_packages_path: lib/python3.13/site-packages
+
+...
+```
+
+These groups provide a full description of every package described in the Pixi workspace and its dependencies and constraints on other packages.
+This means that for each package specified, that version, and **only** that version, will be downloaded and installed in the future.
+
 We can even test that now by deleting the installed environment fully with [`pixi clean`](https://pixi.sh/latest/reference/cli/pixi/clean/) and then getting it back (bit for bit) in a few seconds with [`pixi install`](https://pixi.sh/latest/reference/cli/pixi/install/).
 
 ```bash
@@ -273,28 +332,28 @@ pixi list
 ```
 ```output
 Package           Version    Build               Size       Kind   Source
-_libgcc_mutex     0.1        conda_forge         2.5 KiB    conda  https://conda.anaconda.org/conda-forge/
-_openmp_mutex     4.5        2_gnu               23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-bzip2             1.0.8      h4bc722e_7          246.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-ca-certificates   2025.4.26  hbd8a1cb_0          148.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-ld_impl_linux-64  2.43       h1423503_5          654.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat          2.7.0      h5888daf_0          72.7 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi            3.4.6      h2dba641_1          56.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgcc            15.1.0     h767d61c_2          809.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-libgcc-ng         15.1.0     h69a702a_2          33.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgomp           15.1.0     h767d61c_2          442 KiB    conda  https://conda.anaconda.org/conda-forge/
-liblzma           5.8.1      hb9d3cd8_2          110.2 KiB  conda  https://conda.anaconda.org/conda-forge/
-libmpdec          4.0.0      hb9d3cd8_0          89 KiB     conda  https://conda.anaconda.org/conda-forge/
-libsqlite         3.50.1     hee588c1_0          898.3 KiB  conda  https://conda.anaconda.org/conda-forge/
-libuuid           2.38.1     h0b41bf4_0          32.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-libzlib           1.3.1      hb9d3cd8_2          59.5 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses           6.5        h2d0b736_3          870.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl           3.5.0      h7b32b05_1          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-python            3.13.5     hf636f53_101_cp313  31.7 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi        3.13       7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline          8.2        h8c095d6_2          275.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk                8.6.13     noxft_hd72426e_102  3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
-tzdata            2025b      h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
+_libgcc_mutex     0.1       conda_forge         2.5 KiB    conda  https://conda.anaconda.org/conda-forge/
+_openmp_mutex     4.5       2_gnu               23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+bzip2             1.0.8     h4bc722e_7          246.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+ca-certificates   2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+ld_impl_linux-64  2.44      h1423503_1          660.2 KiB  conda  https://conda.anaconda.org/conda-forge/
+libexpat          2.7.1     hecca717_0          73.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libffi            3.4.6     h2dba641_1          56.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libgcc            15.1.0    h767d61c_4          804.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+libgcc-ng         15.1.0    h69a702a_4          28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
+libgomp           15.1.0    h767d61c_4          436.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+liblzma           5.8.1     hb9d3cd8_2          110.2 KiB  conda  https://conda.anaconda.org/conda-forge/
+libmpdec          4.0.0     hb9d3cd8_0          89 KiB     conda  https://conda.anaconda.org/conda-forge/
+libsqlite         3.50.4    h0c1763c_0          910.7 KiB  conda  https://conda.anaconda.org/conda-forge/
+libuuid           2.38.1    h0b41bf4_0          32.8 KiB   conda  https://conda.anaconda.org/conda-forge/
+libzlib           1.3.1     hb9d3cd8_2          59.5 KiB   conda  https://conda.anaconda.org/conda-forge/
+ncurses           6.5       h2d0b736_3          870.7 KiB  conda  https://conda.anaconda.org/conda-forge/
+openssl           3.5.2     h26f9b46_0          3 MiB      conda  https://conda.anaconda.org/conda-forge/
+python            3.13.5    hec9711d_102_cp313  31.7 MiB   conda  https://conda.anaconda.org/conda-forge/
+python_abi        3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+readline          8.2       h8c095d6_2          275.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+tk                8.6.13    noxft_hd72426e_102  3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
+tzdata            2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
 ```
 
 ### macOS
@@ -303,22 +362,23 @@ tzdata            2025b      h78e105d_0          120.1 KiB  conda  https://conda
 pixi list
 ```
 ```output
-Package          Version    Build               Size       Kind   Source
-bzip2            1.0.8      h99b78c6_7          120 KiB    conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.4.26  hbd8a1cb_0          148.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.0      h286801f_0          64.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi           3.4.6      h1da3d7d_1          38.9 KiB   conda  https://conda.anaconda.org/conda-forge/
-liblzma          5.8.1      h39f12f2_2          90.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libmpdec         4.0.0      h5505292_0          70.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.1     h3f77e49_0          880.1 KiB  conda  https://conda.anaconda.org/conda-forge/
-libzlib          1.3.1      h8359307_2          45.3 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses          6.5        h5e97a16_3          778.3 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.0      h81ee809_1          2.9 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5     h81fe080_101_cp313  12.3 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13       7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline         8.2        h1d1bf99_2          246.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk               8.6.13     h892fb3f_2          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-tzdata           2025b      h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
+Package          Version   Build               Size       Kind   Source
+bzip2            1.0.8     h99b78c6_7          120 KiB    conda  https://conda.anaconda.org/conda-forge/
+ca-certificates  2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+icu              75.1      hfee45f7_0          11.3 MiB   conda  https://conda.anaconda.org/conda-forge/
+libexpat         2.7.1     hec049ff_0          64.4 KiB   conda  https://conda.anaconda.org/conda-forge/
+libffi           3.4.6     h1da3d7d_1          38.9 KiB   conda  https://conda.anaconda.org/conda-forge/
+liblzma          5.8.1     h39f12f2_2          90.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libmpdec         4.0.0     h5505292_0          70.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libsqlite        3.50.4    h4237e3c_0          881.5 KiB  conda  https://conda.anaconda.org/conda-forge/
+libzlib          1.3.1     h8359307_2          45.3 KiB   conda  https://conda.anaconda.org/conda-forge/
+ncurses          6.5       h5e97a16_3          778.3 KiB  conda  https://conda.anaconda.org/conda-forge/
+openssl          3.5.2     he92f556_0          2.9 MiB    conda  https://conda.anaconda.org/conda-forge/
+python           3.13.5    hf3f3da0_102_cp313  12.3 MiB   conda  https://conda.anaconda.org/conda-forge/
+python_abi       3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+readline         8.2       h1d1bf99_2          246.4 KiB  conda  https://conda.anaconda.org/conda-forge/
+tk               8.6.13    h892fb3f_2          3 MiB      conda  https://conda.anaconda.org/conda-forge/
+tzdata           2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
 ```
 
 ### Windows
@@ -329,21 +389,22 @@ pixi list
 ```output
 Package          Version       Build               Size       Kind   Source
 bzip2            1.0.8         h2466b09_7          53.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.4.26     h4c7d964_0          149.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.0         he0c23c2_0          137.6 KiB  conda  https://conda.anaconda.org/conda-forge/
+ca-certificates  2025.8.3      h4c7d964_0          150.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+libexpat         2.7.1         hac47afa_0          138 KiB    conda  https://conda.anaconda.org/conda-forge/
 libffi           3.4.6         h537db12_1          43.9 KiB   conda  https://conda.anaconda.org/conda-forge/
 liblzma          5.8.1         h2466b09_2          102.5 KiB  conda  https://conda.anaconda.org/conda-forge/
 libmpdec         4.0.0         h2466b09_0          86.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.1        h67fdade_0          1 MiB      conda  https://conda.anaconda.org/conda-forge/
+libsqlite        3.50.4        hf5d6505_0          1.2 MiB    conda  https://conda.anaconda.org/conda-forge/
 libzlib          1.3.1         h2466b09_2          54.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.0         ha4e3fda_1          8.6 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5        h261c0b1_101_cp313  16.1 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13          7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+openssl          3.5.2         h725018a_0          8.8 MiB    conda  https://conda.anaconda.org/conda-forge/
+python           3.13.5        h7de537c_102_cp313  16 MiB     conda  https://conda.anaconda.org/conda-forge/
+python_abi       3.13          8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
 tk               8.6.13        h2c6b04d_2          3.3 MiB    conda  https://conda.anaconda.org/conda-forge/
 tzdata           2025b         h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
 ucrt             10.0.22621.0  h57928b3_1          546.6 KiB  conda  https://conda.anaconda.org/conda-forge/
-vc               14.3          h2b53caa_26         17.5 KiB   conda  https://conda.anaconda.org/conda-forge/
-vc14_runtime     14.42.34438   hfd919c2_26         733.1 KiB  conda  https://conda.anaconda.org/conda-forge/
+vc               14.3          h41ae7f8_31         17.8 KiB   conda  https://conda.anaconda.org/conda-forge/
+vc14_runtime     14.44.35208   h818238b_31         666.4 KiB  conda  https://conda.anaconda.org/conda-forge/
+vcomp14          14.44.35208   h818238b_31         111.3 KiB  conda  https://conda.anaconda.org/conda-forge/
 ```
 :::
 
@@ -351,7 +412,7 @@ vc14_runtime     14.42.34438   hfd919c2_26         733.1 KiB  conda  https://con
 
 ## Extending the manifest
 
-Let's extend this manifest to add the Python library `numpy` and the Jupyter tools `notebook` and `jupyterlab` as dependencies and add a task called `lab` that will launch Jupyter Lab in the current working directory.
+Let's extend this manifest to add the Python library `numpy` and the Jupyter tools `notebook` and `jupyterlab` as dependencies and add a [task](https://pixi.sh/latest/workspace/advanced_tasks/) called `lab` that will launch Jupyter Lab in the current working directory.
 
 Hint: Look at the Pixi manifest table structure to think how a `task` might be added.
 It is fine to read the docs too!
@@ -393,9 +454,9 @@ cmd = "jupyter lab"
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 ```
 
 ### `pixi task` CLI
@@ -412,9 +473,9 @@ lab = { cmd = "jupyter lab", description = "Launch JupyterLab" }
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 ```
 
 ::::
@@ -429,20 +490,34 @@ pixi run lab
 
 and we see that Jupyter Lab launches!
 
+![](fig/pixi-intro/jupyter-lab-view.png){
+alt='The view of the Jupyter Lab interface in a web browser.'
+width='100%'
+}
+
 ::: challenge
 
 ## Adding the canonical Pixi `start` task
 
-For Pixi projects, it is canonical to have a `start` task so that for any Pixi project a user can run
+For Pixi projects, it is canonical to have a `start` task so that for any Pixi project a user can navigate to the top level directory of a project run
 
 ```bash
 pixi run start
 ```
 
 and begin to explore the project.
-Add a task called `start` that depends-on the `lab` task.
+Add a task called `start` that [depends-on](https://pixi.sh/latest/workspace/advanced_tasks/#depends-on) the `lab` task.
 
 ::: solution
+
+Using the command line, we use the same `pixi task` syntax as before, but now with the `--depends-on` option
+
+```bash
+pixi task add --depends-on lab --description "Start exploring the Pixi project" start ''
+```
+```output
+✔ Added task `start`: , depends-on = 'lab', description = "Start exploring the Pixi project"
+```
 
 :::: group-tab
 
@@ -465,9 +540,9 @@ depends-on = ["lab"]
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 ```
 
 ### `pixi task` CLI
@@ -485,9 +560,9 @@ start = { depends-on = [{ task = "lab" }], description = "Start exploring the Pi
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 ```
 ::::
 
@@ -514,7 +589,7 @@ start  Start exploring the Pixi project
 
 :::
 
-Here we used `pixi run` to execute tasks in the workspace's environments without ever explicitly activating the environment.
+Here we used [`pixi run`](https://pixi.sh/latest/reference/cli/pixi/run/) to execute tasks in the workspace's environments without ever explicitly activating the environment.
 This is a different behavior compared to tools like conda of Python virtual environments, where the assumption is that you have activated an environment before using it.
 With Pixi we can do the equivalent with [`pixi shell`](https://pixi.sh/latest/reference/cli/pixi/shell/), which starts a subshell in the current working directory with the Pixi environment activated.
 
@@ -529,7 +604,7 @@ You can now directly run commands that use the environment.
 python
 ```
 ```output
-Python 3.13.5 | packaged by conda-forge | (main, Jun 13 2025, 01:14:40) [GCC 13.3.0] on linux
+Python 3.13.5 | packaged by conda-forge | (main, Jun 16 2025, 08:27:50) [GCC 13.3.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
@@ -582,9 +657,9 @@ depends-on = ["lab"]
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 ```
 :::
 :::
@@ -647,12 +722,12 @@ depends-on = ["lab"]
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 
 [feature.dev.dependencies]
-pre-commit = ">=4.2.0,<5"
+pre-commit = ">=4.3.0,<5"
 
 [environments]
 dev = ["dev"]
@@ -667,9 +742,9 @@ pixi run --environment dev pre-commit --help
 pixi shell --environment dev
 ```
 
-::: caution
+::: callout
 
-The `pixi workspace` CLI can also be used to add existing `featues` to environments, but a feature needs to be defined before it can be added to the manifest
+The `pixi workspace` CLI can also be used to add existing features to environments, but a feature needs to be defined before it can be added to the manifest
 
 ```bash
 pixi add --feature dev pre-commit
