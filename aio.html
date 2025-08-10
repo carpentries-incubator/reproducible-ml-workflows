@@ -948,7 +948,7 @@ CLI API</a>.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>✔ Added python &gt;=3.13.3,&lt;3.14</code></pre>
+<pre class="output" tabindex="0"><code>✔ Added python &gt;=3.13.5,&lt;3.14</code></pre>
 </div>
 <p>What happened? We saw that <code>python</code> got added, and we can
 see that the <code>pixi.toml</code> manifest now contains
@@ -971,7 +971,7 @@ see that the <code>pixi.toml</code> manifest now contains
 <span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="kw">[tasks]</span></span>
 <span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a></span>
 <span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.3,&lt;3.14"</span></span></code></pre>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span></code></pre>
 </div>
 <p>Further, we also now see that a <code>pixi.lock</code> lock file has
 been created in the project directory as well as a <code>.pixi/</code>
@@ -1072,29 +1072,88 @@ environment named <code>default</code></p>
 <p>Inside the <code>.pixi/envs/default/</code> directory are all the
 libraries, header files, and executables that are needed by the
 environment.</p>
-<p>The <code>pixi.lock</code> lock file contains YAML that defines all
-requested conda package dependencies in the manifest, as well as their
-dependencies, at the exact versions that were solved for. It provides
-their full URLs on the conda package index to download from as well as
-digest information for the exact package to ensure that it is exactly
-specified and that version, and <strong>only</strong> that version, will
-be downloaded and installed in the future. We can even test that now by
-deleting the installed environment fully with <a href="https://pixi.sh/latest/reference/cli/pixi/clean/" class="external-link"><code>pixi clean</code></a>
+<p>The <code>pixi.lock</code> lock file is a YAML file that contains two
+definition groups: <code>environments</code> and <code>packages</code>.
+The <code>environments</code> group lists every environment in the
+workspace for every platform with a complete listing of all packages in
+the environment. The <code>packages</code> group lists a full definition
+of every package that appears in the <code>environments</code> lists,
+including the package’s URL on the conda package index and digests
+(e.g. sha256, md5).</p>
+<p>Here’s an example of what the <code>environments</code> and
+<code>packages</code> groups look like in the <code>pixi.toml</code>
+file we created for a <code>linux-64</code> platform machine.</p>
+<pre><code>version: 6
+environments:
+  default:
+    channels:
+    - url: https://conda.anaconda.org/conda-forge/
+    packages:
+      linux-64:
+
+...
+
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.13.5-hec9711d_102_cp313.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/python_abi-3.13-8_cp313.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/readline-8.2-h8c095d6_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.13-noxft_hd72426e_102.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2025b-h78e105d_0.conda
+...
+
+packages:
+
+...
+
+- conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.13.5-hec9711d_102_cp313.conda
+  build_number: 102
+  sha256: c2cdcc98ea3cbf78240624e4077e164dc9d5588eefb044b4097c3df54d24d504
+  md5: 89e07d92cf50743886f41638d58c4328
+  depends:
+  - __glibc &gt;=2.17,&lt;3.0.a0
+  - bzip2 &gt;=1.0.8,&lt;2.0a0
+  - ld_impl_linux-64 &gt;=2.36.1
+  - libexpat &gt;=2.7.0,&lt;3.0a0
+  - libffi &gt;=3.4.6,&lt;3.5.0a0
+  - libgcc &gt;=13
+  - liblzma &gt;=5.8.1,&lt;6.0a0
+  - libmpdec &gt;=4.0.0,&lt;5.0a0
+  - libsqlite &gt;=3.50.1,&lt;4.0a0
+  - libuuid &gt;=2.38.1,&lt;3.0a0
+  - libzlib &gt;=1.3.1,&lt;2.0a0
+  - ncurses &gt;=6.5,&lt;7.0a0
+  - openssl &gt;=3.5.0,&lt;4.0a0
+  - python_abi 3.13.* *_cp313
+  - readline &gt;=8.2,&lt;9.0a0
+  - tk &gt;=8.6.13,&lt;8.7.0a0
+  - tzdata
+  license: Python-2.0
+  size: 33273132
+  timestamp: 1750064035176
+  python_site_packages_path: lib/python3.13/site-packages
+
+...</code></pre>
+<p>These groups provide a full description of every package described in
+the Pixi workspace and its dependencies and constraints on other
+packages. This means that for each package specified, that version, and
+<strong>only</strong> that version, will be downloaded and installed in
+the future.</p>
+<p>We can even test that now by deleting the installed environment fully
+with <a href="https://pixi.sh/latest/reference/cli/pixi/clean/" class="external-link"><code>pixi clean</code></a>
 and then getting it back (bit for bit) in a few seconds with <a href="https://pixi.sh/latest/reference/cli/pixi/install/" class="external-link"><code>pixi install</code></a>.</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="ex">pixi</span> clean</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="ex">pixi</span> clean</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  removed /home/&lt;username&gt;/pixi-cuda-lesson/example/.pixi/envs</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a> <span class="ex">pixi</span> install</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a> <span class="ex">pixi</span> install</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1123,92 +1182,94 @@ available for us to use with <a href="https://pixi.sh/latest/reference/cli/pixi/
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
 <div id="nav-tabpanel-1-1" class="tab-pane show active" aria-labelledby="nav-tab-1-1" role="tabpanel">
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="ex">pixi</span> list</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="ex">pixi</span> list</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>Package           Version    Build               Size       Kind   Source
-_libgcc_mutex     0.1        conda_forge         2.5 KiB    conda  https://conda.anaconda.org/conda-forge/
-_openmp_mutex     4.5        2_gnu               23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-bzip2             1.0.8      h4bc722e_7          246.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-ca-certificates   2025.4.26  hbd8a1cb_0          148.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-ld_impl_linux-64  2.43       h1423503_5          654.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat          2.7.0      h5888daf_0          72.7 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi            3.4.6      h2dba641_1          56.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgcc            15.1.0     h767d61c_2          809.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-libgcc-ng         15.1.0     h69a702a_2          33.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgomp           15.1.0     h767d61c_2          442 KiB    conda  https://conda.anaconda.org/conda-forge/
-liblzma           5.8.1      hb9d3cd8_2          110.2 KiB  conda  https://conda.anaconda.org/conda-forge/
-libmpdec          4.0.0      hb9d3cd8_0          89 KiB     conda  https://conda.anaconda.org/conda-forge/
-libsqlite         3.50.1     hee588c1_0          898.3 KiB  conda  https://conda.anaconda.org/conda-forge/
-libuuid           2.38.1     h0b41bf4_0          32.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-libzlib           1.3.1      hb9d3cd8_2          59.5 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses           6.5        h2d0b736_3          870.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl           3.5.0      h7b32b05_1          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-python            3.13.5     hf636f53_101_cp313  31.7 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi        3.13       7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline          8.2        h8c095d6_2          275.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk                8.6.13     noxft_hd72426e_102  3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
-tzdata            2025b      h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
+_libgcc_mutex     0.1       conda_forge         2.5 KiB    conda  https://conda.anaconda.org/conda-forge/
+_openmp_mutex     4.5       2_gnu               23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+bzip2             1.0.8     h4bc722e_7          246.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+ca-certificates   2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+ld_impl_linux-64  2.44      h1423503_1          660.2 KiB  conda  https://conda.anaconda.org/conda-forge/
+libexpat          2.7.1     hecca717_0          73.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libffi            3.4.6     h2dba641_1          56.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libgcc            15.1.0    h767d61c_4          804.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+libgcc-ng         15.1.0    h69a702a_4          28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
+libgomp           15.1.0    h767d61c_4          436.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+liblzma           5.8.1     hb9d3cd8_2          110.2 KiB  conda  https://conda.anaconda.org/conda-forge/
+libmpdec          4.0.0     hb9d3cd8_0          89 KiB     conda  https://conda.anaconda.org/conda-forge/
+libsqlite         3.50.4    h0c1763c_0          910.7 KiB  conda  https://conda.anaconda.org/conda-forge/
+libuuid           2.38.1    h0b41bf4_0          32.8 KiB   conda  https://conda.anaconda.org/conda-forge/
+libzlib           1.3.1     hb9d3cd8_2          59.5 KiB   conda  https://conda.anaconda.org/conda-forge/
+ncurses           6.5       h2d0b736_3          870.7 KiB  conda  https://conda.anaconda.org/conda-forge/
+openssl           3.5.2     h26f9b46_0          3 MiB      conda  https://conda.anaconda.org/conda-forge/
+python            3.13.5    hec9711d_102_cp313  31.7 MiB   conda  https://conda.anaconda.org/conda-forge/
+python_abi        3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+readline          8.2       h8c095d6_2          275.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+tk                8.6.13    noxft_hd72426e_102  3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
+tzdata            2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
 </div>
 </div>
 <div id="nav-tabpanel-1-2" class="tab-pane" aria-labelledby="nav-tab-1-2" role="tabpanel">
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="ex">pixi</span> list</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="ex">pixi</span> list</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Package          Version    Build               Size       Kind   Source
-bzip2            1.0.8      h99b78c6_7          120 KiB    conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.4.26  hbd8a1cb_0          148.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.0      h286801f_0          64.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi           3.4.6      h1da3d7d_1          38.9 KiB   conda  https://conda.anaconda.org/conda-forge/
-liblzma          5.8.1      h39f12f2_2          90.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libmpdec         4.0.0      h5505292_0          70.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.1     h3f77e49_0          880.1 KiB  conda  https://conda.anaconda.org/conda-forge/
-libzlib          1.3.1      h8359307_2          45.3 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses          6.5        h5e97a16_3          778.3 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.0      h81ee809_1          2.9 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5     h81fe080_101_cp313  12.3 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13       7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline         8.2        h1d1bf99_2          246.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk               8.6.13     h892fb3f_2          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-tzdata           2025b      h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
+<pre class="output" tabindex="0"><code>Package          Version   Build               Size       Kind   Source
+bzip2            1.0.8     h99b78c6_7          120 KiB    conda  https://conda.anaconda.org/conda-forge/
+ca-certificates  2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+icu              75.1      hfee45f7_0          11.3 MiB   conda  https://conda.anaconda.org/conda-forge/
+libexpat         2.7.1     hec049ff_0          64.4 KiB   conda  https://conda.anaconda.org/conda-forge/
+libffi           3.4.6     h1da3d7d_1          38.9 KiB   conda  https://conda.anaconda.org/conda-forge/
+liblzma          5.8.1     h39f12f2_2          90.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libmpdec         4.0.0     h5505292_0          70.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libsqlite        3.50.4    h4237e3c_0          881.5 KiB  conda  https://conda.anaconda.org/conda-forge/
+libzlib          1.3.1     h8359307_2          45.3 KiB   conda  https://conda.anaconda.org/conda-forge/
+ncurses          6.5       h5e97a16_3          778.3 KiB  conda  https://conda.anaconda.org/conda-forge/
+openssl          3.5.2     he92f556_0          2.9 MiB    conda  https://conda.anaconda.org/conda-forge/
+python           3.13.5    hf3f3da0_102_cp313  12.3 MiB   conda  https://conda.anaconda.org/conda-forge/
+python_abi       3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+readline         8.2       h1d1bf99_2          246.4 KiB  conda  https://conda.anaconda.org/conda-forge/
+tk               8.6.13    h892fb3f_2          3 MiB      conda  https://conda.anaconda.org/conda-forge/
+tzdata           2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
 </div>
 </div>
 <div id="nav-tabpanel-1-3" class="tab-pane" aria-labelledby="nav-tab-1-3" role="tabpanel">
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="ex">pixi</span> list</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="ex">pixi</span> list</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>Package          Version       Build               Size       Kind   Source
 bzip2            1.0.8         h2466b09_7          53.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.4.26     h4c7d964_0          149.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.0         he0c23c2_0          137.6 KiB  conda  https://conda.anaconda.org/conda-forge/
+ca-certificates  2025.8.3      h4c7d964_0          150.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+libexpat         2.7.1         hac47afa_0          138 KiB    conda  https://conda.anaconda.org/conda-forge/
 libffi           3.4.6         h537db12_1          43.9 KiB   conda  https://conda.anaconda.org/conda-forge/
 liblzma          5.8.1         h2466b09_2          102.5 KiB  conda  https://conda.anaconda.org/conda-forge/
 libmpdec         4.0.0         h2466b09_0          86.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.1        h67fdade_0          1 MiB      conda  https://conda.anaconda.org/conda-forge/
+libsqlite        3.50.4        hf5d6505_0          1.2 MiB    conda  https://conda.anaconda.org/conda-forge/
 libzlib          1.3.1         h2466b09_2          54.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.0         ha4e3fda_1          8.6 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5        h261c0b1_101_cp313  16.1 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13          7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+openssl          3.5.2         h725018a_0          8.8 MiB    conda  https://conda.anaconda.org/conda-forge/
+python           3.13.5        h7de537c_102_cp313  16 MiB     conda  https://conda.anaconda.org/conda-forge/
+python_abi       3.13          8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
 tk               8.6.13        h2c6b04d_2          3.3 MiB    conda  https://conda.anaconda.org/conda-forge/
 tzdata           2025b         h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
 ucrt             10.0.22621.0  h57928b3_1          546.6 KiB  conda  https://conda.anaconda.org/conda-forge/
-vc               14.3          h2b53caa_26         17.5 KiB   conda  https://conda.anaconda.org/conda-forge/
-vc14_runtime     14.42.34438   hfd919c2_26         733.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
+vc               14.3          h41ae7f8_31         17.8 KiB   conda  https://conda.anaconda.org/conda-forge/
+vc14_runtime     14.44.35208   h818238b_31         666.4 KiB  conda  https://conda.anaconda.org/conda-forge/
+vcomp14          14.44.35208   h818238b_31         111.3 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
 </div>
 </div>
 </div>
@@ -1223,7 +1284,7 @@ vc14_runtime     14.42.34438   hfd919c2_26         733.1 KiB  conda  https://con
 <div class="callout-content">
 <p>Let’s extend this manifest to add the Python library
 <code>numpy</code> and the Jupyter tools <code>notebook</code> and
-<code>jupyterlab</code> as dependencies and add a task called
+<code>jupyterlab</code> as dependencies and add a <a href="https://pixi.sh/latest/workspace/advanced_tasks/" class="external-link">task</a> called
 <code>lab</code> that will launch Jupyter Lab in the current working
 directory.</p>
 <p>Hint: Look at the Pixi manifest table structure to think how a
@@ -1240,19 +1301,19 @@ directory.</p>
 <div class="accordion-body">
 <p>Let’s start at the command line and add the additional dependencies
 with <code>pixi add</code></p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="ex">pixi</span> add numpy notebook jupyterlab</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="ex">pixi</span> add numpy notebook jupyterlab</span></code></pre>
 </div>
 <p>We can manually edit the <code>pixi.toml</code> with a text editor to
 add a task named <code>lab</code> that when called executes
 <code>jupyter lab</code>. This is sometimes the easiest thing to do, but
 we can also use the <code>pixi</code> CLI.</p>
-<div class="codewrapper sourceCode" id="cb33">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="ex">pixi</span> task add lab <span class="st">"jupyter lab"</span> <span class="at">--description</span> <span class="st">"Launch JupyterLab"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="ex">pixi</span> task add lab <span class="st">"jupyter lab"</span> <span class="at">--description</span> <span class="st">"Launch JupyterLab"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1275,27 +1336,6 @@ we can also use the <code>pixi</code> CLI.</p>
 </div>
 </nav><div id="nav-tabContent-4" class="tab-content">
 <div id="nav-tabpanel-4-Manuallyedited" class="tab-pane show active" aria-labelledby="nav-tab-4-Manuallyedited" role="tabpanel">
-<div class="codewrapper sourceCode" id="cb35">
-<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
-<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
-<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"example"</span></span>
-<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
-<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
-<span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="#cb35-7" tabindex="-1"></a><span class="kw">[tasks.lab]</span></span>
-<span id="cb35-8"><a href="#cb35-8" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Launch JupyterLab"</span></span>
-<span id="cb35-9"><a href="#cb35-9" tabindex="-1"></a><span class="dt">cmd</span> <span class="op">=</span> <span class="st">"jupyter lab"</span></span>
-<span id="cb35-10"><a href="#cb35-10" tabindex="-1"></a></span>
-<span id="cb35-11"><a href="#cb35-11" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
-<span id="cb35-12"><a href="#cb35-12" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb35-13"><a href="#cb35-13" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.0,&lt;3"</span></span>
-<span id="cb35-14"><a href="#cb35-14" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.3,&lt;8"</span></span>
-<span id="cb35-15"><a href="#cb35-15" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.3,&lt;5"</span></span></code></pre>
-</div>
-</div>
-<div id="nav-tabpanel-4-pixitaskCLI" class="tab-pane" aria-labelledby="nav-tab-4-pixitaskCLI" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1305,14 +1345,35 @@ we can also use the <code>pixi</code> CLI.</p>
 <span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
 <span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
 <span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
-<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a><span class="dt">lab</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"jupyter lab"</span><span class="op">, </span><span class="dt">description</span><span class="op"> =</span> <span class="st">"Launch JupyterLab"</span><span class="op"> }</span></span>
-<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a></span>
-<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
-<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.0,&lt;3"</span></span>
-<span id="cb36-13"><a href="#cb36-13" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.3,&lt;8"</span></span>
-<span id="cb36-14"><a href="#cb36-14" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.3,&lt;5"</span></span></code></pre>
+<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a><span class="kw">[tasks.lab]</span></span>
+<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Launch JupyterLab"</span></span>
+<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a><span class="dt">cmd</span> <span class="op">=</span> <span class="st">"jupyter lab"</span></span>
+<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
+<span id="cb36-13"><a href="#cb36-13" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
+<span id="cb36-14"><a href="#cb36-14" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
+<span id="cb36-15"><a href="#cb36-15" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span></code></pre>
+</div>
+</div>
+<div id="nav-tabpanel-4-pixitaskCLI" class="tab-pane" aria-labelledby="nav-tab-4-pixitaskCLI" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb37">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"example"</span></span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
+<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb37-8"><a href="#cb37-8" tabindex="-1"></a><span class="dt">lab</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"jupyter lab"</span><span class="op">, </span><span class="dt">description</span><span class="op"> =</span> <span class="st">"Launch JupyterLab"</span><span class="op"> }</span></span>
+<span id="cb37-9"><a href="#cb37-9" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb37-11"><a href="#cb37-11" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
+<span id="cb37-12"><a href="#cb37-12" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
+<span id="cb37-13"><a href="#cb37-13" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
+<span id="cb37-14"><a href="#cb37-14" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1324,13 +1385,13 @@ we can also use the <code>pixi</code> CLI.</p>
 <p>With our new dependencies added to the project manifest and our
 <code>lab</code> task defined, let’s use all of them together by
 launching our task using <a href="https://pixi.sh/latest/reference/cli/pixi/run/" class="external-link"><code>pixi run</code></a></p>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="ex">pixi</span> run lab</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="ex">pixi</span> run lab</span></code></pre>
 </div>
 <p>and we see that Jupyter Lab launches!</p>
-<div id="adding-the-canonical-pixi-start-task" class="callout challenge">
+<figure><img src="fig/pixi-intro/jupyter-lab-view.png" style="width:100.0%" alt="The view of the Jupyter Lab interface in a web browser." class="figure mx-auto d-block"></figure><div id="adding-the-canonical-pixi-start-task" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -1340,14 +1401,16 @@ launching our task using <a href="https://pixi.sh/latest/reference/cli/pixi/run/
 task</h3>
 <div class="callout-content">
 <p>For Pixi projects, it is canonical to have a <code>start</code> task
-so that for any Pixi project a user can run</p>
-<div class="codewrapper sourceCode" id="cb38">
+so that for any Pixi project a user can navigate to the top level
+directory of a project run</p>
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="ex">pixi</span> run start</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="ex">pixi</span> run start</span></code></pre>
 </div>
 <p>and begin to explore the project. Add a task called
-<code>start</code> that depends-on the <code>lab</code> task.</p>
+<code>start</code> that <a href="https://pixi.sh/latest/workspace/advanced_tasks/#depends-on" class="external-link">depends-on</a>
+the <code>lab</code> task.</p>
 </div>
 </div>
 </div>
@@ -1358,6 +1421,18 @@ so that for any Pixi project a user can run</p>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
+<p>Using the command line, we use the same <code>pixi task</code> syntax
+as before, but now with the <code>--depends-on</code> option</p>
+<div class="codewrapper sourceCode" id="cb40">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="ex">pixi</span> task add <span class="at">--depends-on</span> lab <span class="at">--description</span> <span class="st">"Start exploring the Pixi project"</span> start <span class="st">''</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added task `start`: , depends-on = 'lab', description = "Start exploring the Pixi project"</code></pre>
+</div>
 <div class="tabs">
 <nav><div id="nav-tab-5" class="nav nav-tabs" role="tablist">
 <button class="nav-link active" id="nav-tab-5-Manuallyedited" name="Manuallyedited" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-5-Manuallyedited" type="button" role="tab" aria-controls="nav-tabpanel-5-Manuallyedited" aria-selected="true">
@@ -1373,49 +1448,49 @@ so that for any Pixi project a user can run</p>
 </div>
 </nav><div id="nav-tabContent-5" class="tab-content">
 <div id="nav-tabpanel-5-Manuallyedited" class="tab-pane show active" aria-labelledby="nav-tab-5-Manuallyedited" role="tabpanel">
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
-<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
-<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"example"</span></span>
-<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
-<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
-<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a></span>
-<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a><span class="kw">[tasks.lab]</span></span>
-<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Launch JupyterLab"</span></span>
-<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a><span class="dt">cmd</span> <span class="op">=</span> <span class="st">"jupyter lab"</span></span>
-<span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a></span>
-<span id="cb39-11"><a href="#cb39-11" tabindex="-1"></a><span class="kw">[tasks.start]</span></span>
-<span id="cb39-12"><a href="#cb39-12" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Start exploring the Pixi project"</span></span>
-<span id="cb39-13"><a href="#cb39-13" tabindex="-1"></a><span class="dt">depends-on</span> <span class="op">=</span> <span class="op">[</span><span class="st">"lab"</span><span class="op">]</span></span>
-<span id="cb39-14"><a href="#cb39-14" tabindex="-1"></a></span>
-<span id="cb39-15"><a href="#cb39-15" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
-<span id="cb39-16"><a href="#cb39-16" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb39-17"><a href="#cb39-17" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.0,&lt;3"</span></span>
-<span id="cb39-18"><a href="#cb39-18" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.3,&lt;8"</span></span>
-<span id="cb39-19"><a href="#cb39-19" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.3,&lt;5"</span></span></code></pre>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"example"</span></span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" tabindex="-1"></a><span class="kw">[tasks.lab]</span></span>
+<span id="cb42-8"><a href="#cb42-8" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Launch JupyterLab"</span></span>
+<span id="cb42-9"><a href="#cb42-9" tabindex="-1"></a><span class="dt">cmd</span> <span class="op">=</span> <span class="st">"jupyter lab"</span></span>
+<span id="cb42-10"><a href="#cb42-10" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="#cb42-11" tabindex="-1"></a><span class="kw">[tasks.start]</span></span>
+<span id="cb42-12"><a href="#cb42-12" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Start exploring the Pixi project"</span></span>
+<span id="cb42-13"><a href="#cb42-13" tabindex="-1"></a><span class="dt">depends-on</span> <span class="op">=</span> <span class="op">[</span><span class="st">"lab"</span><span class="op">]</span></span>
+<span id="cb42-14"><a href="#cb42-14" tabindex="-1"></a></span>
+<span id="cb42-15"><a href="#cb42-15" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb42-16"><a href="#cb42-16" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
+<span id="cb42-17"><a href="#cb42-17" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
+<span id="cb42-18"><a href="#cb42-18" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
+<span id="cb42-19"><a href="#cb42-19" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span></code></pre>
 </div>
 </div>
 <div id="nav-tabpanel-5-pixitaskCLI" class="tab-pane" aria-labelledby="nav-tab-5-pixitaskCLI" role="tabpanel">
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
-<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
-<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"example"</span></span>
-<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
-<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
-<span id="cb40-6"><a href="#cb40-6" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="#cb40-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
-<span id="cb40-8"><a href="#cb40-8" tabindex="-1"></a><span class="dt">lab</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"jupyter lab"</span><span class="op">, </span><span class="dt">description</span><span class="op"> =</span> <span class="st">"Launch JupyterLab"</span><span class="op"> }</span></span>
-<span id="cb40-9"><a href="#cb40-9" tabindex="-1"></a><span class="dt">start</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">depends-on</span><span class="op"> =</span> <span class="op">[{ </span><span class="dt">task</span><span class="op"> =</span> <span class="st">"lab"</span><span class="op"> }], </span><span class="dt">description</span><span class="op"> =</span> <span class="st">"Start exploring the Pixi project"</span><span class="op"> }</span></span>
-<span id="cb40-10"><a href="#cb40-10" tabindex="-1"></a></span>
-<span id="cb40-11"><a href="#cb40-11" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
-<span id="cb40-12"><a href="#cb40-12" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb40-13"><a href="#cb40-13" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.0,&lt;3"</span></span>
-<span id="cb40-14"><a href="#cb40-14" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.3,&lt;8"</span></span>
-<span id="cb40-15"><a href="#cb40-15" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.3,&lt;5"</span></span></code></pre>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"example"</span></span>
+<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">]</span></span>
+<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
+<span id="cb43-8"><a href="#cb43-8" tabindex="-1"></a><span class="dt">lab</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"jupyter lab"</span><span class="op">, </span><span class="dt">description</span><span class="op"> =</span> <span class="st">"Launch JupyterLab"</span><span class="op"> }</span></span>
+<span id="cb43-9"><a href="#cb43-9" tabindex="-1"></a><span class="dt">start</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">depends-on</span><span class="op"> =</span> <span class="op">[{ </span><span class="dt">task</span><span class="op"> =</span> <span class="st">"lab"</span><span class="op"> }], </span><span class="dt">description</span><span class="op"> =</span> <span class="st">"Start exploring the Pixi project"</span><span class="op"> }</span></span>
+<span id="cb43-10"><a href="#cb43-10" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="#cb43-11" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb43-12"><a href="#cb43-12" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
+<span id="cb43-13"><a href="#cb43-13" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
+<span id="cb43-14"><a href="#cb43-14" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
+<span id="cb43-15"><a href="#cb43-15" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1434,10 +1509,10 @@ so that for any Pixi project a user can run</p>
 <div class="callout-content">
 <p>A user can also run <code>pixi task list</code> to get a summary of
 the tasks that are available to them in the workspace.</p>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb44">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="ex">pixi</span> task list</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="ex">pixi</span> task list</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1452,41 +1527,41 @@ start  Start exploring the Pixi project</code></pre>
 </div>
 </div>
 </div>
-<p>Here we used <code>pixi run</code> to execute tasks in the
-workspace’s environments without ever explicitly activating the
-environment. This is a different behavior compared to tools like conda
-of Python virtual environments, where the assumption is that you have
-activated an environment before using it. With Pixi we can do the
-equivalent with <a href="https://pixi.sh/latest/reference/cli/pixi/shell/" class="external-link"><code>pixi shell</code></a>,
+<p>Here we used <a href="https://pixi.sh/latest/reference/cli/pixi/run/" class="external-link"><code>pixi run</code></a>
+to execute tasks in the workspace’s environments without ever explicitly
+activating the environment. This is a different behavior compared to
+tools like conda of Python virtual environments, where the assumption is
+that you have activated an environment before using it. With Pixi we can
+do the equivalent with <a href="https://pixi.sh/latest/reference/cli/pixi/shell/" class="external-link"><code>pixi shell</code></a>,
 which starts a subshell in the current working directory with the Pixi
 environment activated.</p>
-<div class="codewrapper sourceCode" id="cb43">
+<div class="codewrapper sourceCode" id="cb46">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="ex">pixi</span> shell</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="ex">pixi</span> shell</span></code></pre>
 </div>
 <p>Notice how your shell prompt now has <code>(example)</code> (the
 workspace name) preceding it, signaling to you that you’re in the
 activated environment. You can now directly run commands that use the
 environment.</p>
-<div class="codewrapper sourceCode" id="cb44">
+<div class="codewrapper sourceCode" id="cb47">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="ex">python</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="ex">python</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Python 3.13.5 | packaged by conda-forge | (main, Jun 13 2025, 01:14:40) [GCC 13.3.0] on linux
+<pre class="output" tabindex="0"><code>Python 3.13.5 | packaged by conda-forge | (main, Jun 16 2025, 08:27:50) [GCC 13.3.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 &gt;&gt;&gt;</code></pre>
 </div>
 <p>As we’re in a subshell, to exit the environment and move back to the
 shell that launched the subshell, just <code>exit</code> the shell.</p>
-<div class="codewrapper sourceCode" id="cb46">
+<div class="codewrapper sourceCode" id="cb49">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="bu">exit</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="bu">exit</span></span></code></pre>
 </div>
 <div id="multi-platform-projects" class="callout challenge">
 <div class="callout-square">
@@ -1511,10 +1586,10 @@ platforms.</p>
 <div class="accordion-body">
 <p>Using the <a href="https://pixi.sh/latest/reference/cli/pixi/workspace/" class="external-link"><code>pixi workspace</code>
 CLI API</a>, one can add the platforms with</p>
-<div class="codewrapper sourceCode" id="cb47">
+<div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="ex">pixi</span> workspace platform add linux-64 osx-arm64 win-64</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="ex">pixi</span> workspace platform add linux-64 osx-arm64 win-64</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1530,28 +1605,28 @@ lock file!</p>
 editor to add the desired platforms to the <code>platforms</code>
 list.</p>
 <p>The resulting <code>pixi.toml</code> manifest is</p>
-<div class="codewrapper sourceCode" id="cb49">
+<div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
-<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
-<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"example"</span></span>
-<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">]</span></span>
-<span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
-<span id="cb49-6"><a href="#cb49-6" tabindex="-1"></a></span>
-<span id="cb49-7"><a href="#cb49-7" tabindex="-1"></a><span class="kw">[tasks.lab]</span></span>
-<span id="cb49-8"><a href="#cb49-8" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Launch JupyterLab"</span></span>
-<span id="cb49-9"><a href="#cb49-9" tabindex="-1"></a><span class="dt">cmd</span> <span class="op">=</span> <span class="st">"jupyter lab"</span></span>
-<span id="cb49-10"><a href="#cb49-10" tabindex="-1"></a></span>
-<span id="cb49-11"><a href="#cb49-11" tabindex="-1"></a><span class="kw">[tasks.start]</span></span>
-<span id="cb49-12"><a href="#cb49-12" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Start exploring the Pixi project"</span></span>
-<span id="cb49-13"><a href="#cb49-13" tabindex="-1"></a><span class="dt">depends-on</span> <span class="op">=</span> <span class="op">[</span><span class="st">"lab"</span><span class="op">]</span></span>
-<span id="cb49-14"><a href="#cb49-14" tabindex="-1"></a></span>
-<span id="cb49-15"><a href="#cb49-15" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
-<span id="cb49-16"><a href="#cb49-16" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb49-17"><a href="#cb49-17" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.0,&lt;3"</span></span>
-<span id="cb49-18"><a href="#cb49-18" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.3,&lt;8"</span></span>
-<span id="cb49-19"><a href="#cb49-19" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.3,&lt;5"</span></span></code></pre>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"example"</span></span>
+<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">]</span></span>
+<span id="cb52-5"><a href="#cb52-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb52-6"><a href="#cb52-6" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="#cb52-7" tabindex="-1"></a><span class="kw">[tasks.lab]</span></span>
+<span id="cb52-8"><a href="#cb52-8" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Launch JupyterLab"</span></span>
+<span id="cb52-9"><a href="#cb52-9" tabindex="-1"></a><span class="dt">cmd</span> <span class="op">=</span> <span class="st">"jupyter lab"</span></span>
+<span id="cb52-10"><a href="#cb52-10" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" tabindex="-1"></a><span class="kw">[tasks.start]</span></span>
+<span id="cb52-12"><a href="#cb52-12" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Start exploring the Pixi project"</span></span>
+<span id="cb52-13"><a href="#cb52-13" tabindex="-1"></a><span class="dt">depends-on</span> <span class="op">=</span> <span class="op">[</span><span class="st">"lab"</span><span class="op">]</span></span>
+<span id="cb52-14"><a href="#cb52-14" tabindex="-1"></a></span>
+<span id="cb52-15"><a href="#cb52-15" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb52-16"><a href="#cb52-16" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
+<span id="cb52-17"><a href="#cb52-17" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
+<span id="cb52-18"><a href="#cb52-18" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
+<span id="cb52-19"><a href="#cb52-19" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1565,48 +1640,6 @@ environment to extend the <code>default</code> environment. We can
 create a new <code>feature</code> named <code>dev</code> and then create
 an <code>environment</code> also named <code>dev</code> which uses the
 <code>dev</code> feature to extend the default environment</p>
-<div class="codewrapper sourceCode" id="cb50">
-<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
-<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
-<span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"example"</span></span>
-<span id="cb50-4"><a href="#cb50-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">]</span></span>
-<span id="cb50-5"><a href="#cb50-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
-<span id="cb50-6"><a href="#cb50-6" tabindex="-1"></a></span>
-<span id="cb50-7"><a href="#cb50-7" tabindex="-1"></a><span class="kw">[tasks.lab]</span></span>
-<span id="cb50-8"><a href="#cb50-8" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Launch JupyterLab"</span></span>
-<span id="cb50-9"><a href="#cb50-9" tabindex="-1"></a><span class="dt">cmd</span> <span class="op">=</span> <span class="st">"jupyter lab"</span></span>
-<span id="cb50-10"><a href="#cb50-10" tabindex="-1"></a></span>
-<span id="cb50-11"><a href="#cb50-11" tabindex="-1"></a><span class="kw">[tasks.start]</span></span>
-<span id="cb50-12"><a href="#cb50-12" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Start exploring the Pixi project"</span></span>
-<span id="cb50-13"><a href="#cb50-13" tabindex="-1"></a><span class="dt">depends-on</span> <span class="op">=</span> <span class="op">[</span><span class="st">"lab"</span><span class="op">]</span></span>
-<span id="cb50-14"><a href="#cb50-14" tabindex="-1"></a></span>
-<span id="cb50-15"><a href="#cb50-15" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
-<span id="cb50-16"><a href="#cb50-16" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb50-17"><a href="#cb50-17" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.0,&lt;3"</span></span>
-<span id="cb50-18"><a href="#cb50-18" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.3,&lt;8"</span></span>
-<span id="cb50-19"><a href="#cb50-19" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.3,&lt;5"</span></span>
-<span id="cb50-20"><a href="#cb50-20" tabindex="-1"></a></span>
-<span id="cb50-21"><a href="#cb50-21" tabindex="-1"></a><span class="kw">[feature.dev.dependencies]</span></span>
-<span id="cb50-22"><a href="#cb50-22" tabindex="-1"></a></span>
-<span id="cb50-23"><a href="#cb50-23" tabindex="-1"></a><span class="kw">[environments]</span></span>
-<span id="cb50-24"><a href="#cb50-24" tabindex="-1"></a><span class="dt">dev</span> <span class="op">=</span> <span class="op">[</span><span class="st">"dev"</span><span class="op">]</span></span></code></pre>
-</div>
-<p>We can now add <code>pre-commit</code> to the <code>dev</code>
-feature’s <code>dependencies</code> and have it be accessible in the
-<code>dev</code> environment.</p>
-<div class="codewrapper sourceCode" id="cb51">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="ex">pixi</span> add <span class="at">--feature</span> dev pre-commit</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>✔ Added pre-commit &gt;=4.2.0,&lt;5
-Added these only for feature: dev</code></pre>
-</div>
 <div class="codewrapper sourceCode" id="cb53">
 <h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1631,39 +1664,81 @@ Added these only for feature: dev</code></pre>
 <span id="cb53-19"><a href="#cb53-19" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.3,&lt;5"</span></span>
 <span id="cb53-20"><a href="#cb53-20" tabindex="-1"></a></span>
 <span id="cb53-21"><a href="#cb53-21" tabindex="-1"></a><span class="kw">[feature.dev.dependencies]</span></span>
-<span id="cb53-22"><a href="#cb53-22" tabindex="-1"></a><span class="dt">pre-commit</span> <span class="op">=</span> <span class="st">"&gt;=4.2.0,&lt;5"</span></span>
-<span id="cb53-23"><a href="#cb53-23" tabindex="-1"></a></span>
-<span id="cb53-24"><a href="#cb53-24" tabindex="-1"></a><span class="kw">[environments]</span></span>
-<span id="cb53-25"><a href="#cb53-25" tabindex="-1"></a><span class="dt">dev</span> <span class="op">=</span> <span class="op">[</span><span class="st">"dev"</span><span class="op">]</span></span></code></pre>
+<span id="cb53-22"><a href="#cb53-22" tabindex="-1"></a></span>
+<span id="cb53-23"><a href="#cb53-23" tabindex="-1"></a><span class="kw">[environments]</span></span>
+<span id="cb53-24"><a href="#cb53-24" tabindex="-1"></a><span class="dt">dev</span> <span class="op">=</span> <span class="op">[</span><span class="st">"dev"</span><span class="op">]</span></span></code></pre>
 </div>
-<p>This now allows us to specify the environment we want tasks to run in
-with the <code>--environment</code> flag</p>
+<p>We can now add <code>pre-commit</code> to the <code>dev</code>
+feature’s <code>dependencies</code> and have it be accessible in the
+<code>dev</code> environment.</p>
 <div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="ex">pixi</span> run <span class="at">--environment</span> dev pre-commit <span class="at">--help</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="ex">pixi</span> add <span class="at">--feature</span> dev pre-commit</span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb55">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>✔ Added pre-commit &gt;=4.2.0,&lt;5
+Added these only for feature: dev</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb56">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="kw">[workspace]</span></span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"example"</span></span>
+<span id="cb56-4"><a href="#cb56-4" tabindex="-1"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">]</span></span>
+<span id="cb56-5"><a href="#cb56-5" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb56-6"><a href="#cb56-6" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" tabindex="-1"></a><span class="kw">[tasks.lab]</span></span>
+<span id="cb56-8"><a href="#cb56-8" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Launch JupyterLab"</span></span>
+<span id="cb56-9"><a href="#cb56-9" tabindex="-1"></a><span class="dt">cmd</span> <span class="op">=</span> <span class="st">"jupyter lab"</span></span>
+<span id="cb56-10"><a href="#cb56-10" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="#cb56-11" tabindex="-1"></a><span class="kw">[tasks.start]</span></span>
+<span id="cb56-12"><a href="#cb56-12" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Start exploring the Pixi project"</span></span>
+<span id="cb56-13"><a href="#cb56-13" tabindex="-1"></a><span class="dt">depends-on</span> <span class="op">=</span> <span class="op">[</span><span class="st">"lab"</span><span class="op">]</span></span>
+<span id="cb56-14"><a href="#cb56-14" tabindex="-1"></a></span>
+<span id="cb56-15"><a href="#cb56-15" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb56-16"><a href="#cb56-16" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
+<span id="cb56-17"><a href="#cb56-17" tabindex="-1"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
+<span id="cb56-18"><a href="#cb56-18" tabindex="-1"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
+<span id="cb56-19"><a href="#cb56-19" tabindex="-1"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span>
+<span id="cb56-20"><a href="#cb56-20" tabindex="-1"></a></span>
+<span id="cb56-21"><a href="#cb56-21" tabindex="-1"></a><span class="kw">[feature.dev.dependencies]</span></span>
+<span id="cb56-22"><a href="#cb56-22" tabindex="-1"></a><span class="dt">pre-commit</span> <span class="op">=</span> <span class="st">"&gt;=4.3.0,&lt;5"</span></span>
+<span id="cb56-23"><a href="#cb56-23" tabindex="-1"></a></span>
+<span id="cb56-24"><a href="#cb56-24" tabindex="-1"></a><span class="kw">[environments]</span></span>
+<span id="cb56-25"><a href="#cb56-25" tabindex="-1"></a><span class="dt">dev</span> <span class="op">=</span> <span class="op">[</span><span class="st">"dev"</span><span class="op">]</span></span></code></pre>
+</div>
+<p>This now allows us to specify the environment we want tasks to run in
+with the <code>--environment</code> flag</p>
+<div class="codewrapper sourceCode" id="cb57">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="ex">pixi</span> shell <span class="at">--environment</span> dev</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="ex">pixi</span> run <span class="at">--environment</span> dev pre-commit <span class="at">--help</span></span></code></pre>
 </div>
-<div id="caution1" class="callout caution">
+<div class="codewrapper sourceCode" id="cb58">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="ex">pixi</span> shell <span class="at">--environment</span> dev</span></code></pre>
+</div>
+<div id="callout2" class="callout">
 <div class="callout-square">
-<i class="callout-icon" data-feather="alert-triangle"></i>
+<i class="callout-icon" data-feather="bell"></i>
 </div>
-<span class="callout-header">Caution</span>
+<span class="callout-header">Callout</span>
 <div class="callout-inner">
 <div class="callout-content">
 <p>The <code>pixi workspace</code> CLI can also be used to add existing
-<code>featues</code> to environments, but a feature needs to be defined
-before it can be added to the manifest</p>
-<div class="codewrapper sourceCode" id="cb56">
+features to environments, but a feature needs to be defined before it
+can be added to the manifest</p>
+<div class="codewrapper sourceCode" id="cb59">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="ex">pixi</span> add <span class="at">--feature</span> dev pre-commit</span>
-<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a><span class="ex">pixi</span> workspace environment add <span class="at">--feature</span> dev dev</span>
-<span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a><span class="ex">pixi</span> upgrade <span class="at">--feature</span> dev pre-commit</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a><span class="ex">pixi</span> add <span class="at">--feature</span> dev pre-commit</span>
+<span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a><span class="ex">pixi</span> workspace environment add <span class="at">--feature</span> dev dev</span>
+<span id="cb59-3"><a href="#cb59-3" tabindex="-1"></a><span class="ex">pixi</span> upgrade <span class="at">--feature</span> dev pre-commit</span></code></pre>
 </div>
 </div>
 </div>
@@ -1677,10 +1752,10 @@ makes them available from any directory on their machine.</p>
 <p>As an example, we can install the <a href="https://github.com/sharkdp/bat" class="external-link"><code>bat</code></a> program — a
 <code>cat</code> clone with syntax highlighting and Git integration — as
 a global utility from conda-forge using <a href="https://pixi.sh/latest/global_tools/introduction/" class="external-link"><code>pixi global</code></a>.</p>
-<div class="codewrapper sourceCode" id="cb57">
+<div class="codewrapper sourceCode" id="cb60">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="ex">pixi</span> global install bat</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a><span class="ex">pixi</span> global install bat</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1697,15 +1772,15 @@ available to use.</p>
 <p>Using <code>pixi global</code> has also created a
 <code>~/.pixi/manifests/pixi-global.toml</code> file that tracks all of
 the software that is globally installed by Pixi</p>
-<div class="codewrapper sourceCode" id="cb59">
+<div class="codewrapper sourceCode" id="cb62">
 <h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="#cb59-3" tabindex="-1"></a><span class="kw">[envs.bat]</span></span>
-<span id="cb59-4"><a href="#cb59-4" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
-<span id="cb59-5"><a href="#cb59-5" tabindex="-1"></a><span class="dt">dependencies</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">bat</span><span class="op"> =</span> <span class="st">"*"</span><span class="op"> }</span></span>
-<span id="cb59-6"><a href="#cb59-6" tabindex="-1"></a><span class="dt">exposed</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">bat</span><span class="op"> =</span> <span class="st">"bat"</span><span class="op"> }</span></span></code></pre>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a><span class="kw">[envs.bat]</span></span>
+<span id="cb62-4"><a href="#cb62-4" tabindex="-1"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
+<span id="cb62-5"><a href="#cb62-5" tabindex="-1"></a><span class="dt">dependencies</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">bat</span><span class="op"> =</span> <span class="st">"*"</span><span class="op"> }</span></span>
+<span id="cb62-6"><a href="#cb62-6" tabindex="-1"></a><span class="dt">exposed</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">bat</span><span class="op"> =</span> <span class="st">"bat"</span><span class="op"> }</span></span></code></pre>
 </div>
 <p>As new software is added to the system with <code>pixi global</code>
 this global manifest is updated. If the global manifest is updated
@@ -3612,7 +3687,7 @@ GPU version of PyTorch</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Create a new workspace</p>
 <div class="codewrapper sourceCode" id="cb33">
