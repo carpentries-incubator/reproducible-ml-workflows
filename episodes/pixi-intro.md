@@ -490,6 +490,11 @@ pixi run lab
 
 and we see that Jupyter Lab launches!
 
+![](fig/pixi-intro/jupyter-lab-view.png){
+alt='The view of the Jupyter Lab interface in a web browser.'
+width='100%'
+}
+
 ::: challenge
 
 ## Adding the canonical Pixi `start` task
