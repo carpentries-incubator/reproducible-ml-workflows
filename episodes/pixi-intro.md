@@ -499,18 +499,27 @@ width='100%'
 
 ## Adding the canonical Pixi `start` task
 
-For Pixi projects, it is canonical to have a `start` task so that for any Pixi project a user can run
+For Pixi projects, it is canonical to have a `start` task so that for any Pixi project a user can navigate to the top level directory of a project run
 
 ```bash
 pixi run start
 ```
 
 and begin to explore the project.
-Add a task called `start` that depends-on the `lab` task.
+Add a task called `start` that [depends-on](https://pixi.sh/latest/workspace/advanced_tasks/#depends-on) the `lab` task.
 
 ::: solution
 
 :::: group-tab
+
+Using the command line, we use the same `pixi task` syntax as before, but now with the `--depends-on` option
+
+```bash
+pixi task add --depends-on lab --description "Start exploring the Pixi project" start ''
+```
+```output
+✔ Added task `start`: , depends-on = 'lab', description = "Start exploring the Pixi project"
+```
 
 ### Manually edited
 
@@ -531,9 +540,9 @@ depends-on = ["lab"]
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 ```
 
 ### `pixi task` CLI
@@ -551,9 +560,9 @@ start = { depends-on = [{ task = "lab" }], description = "Start exploring the Pi
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 ```
 ::::
 
