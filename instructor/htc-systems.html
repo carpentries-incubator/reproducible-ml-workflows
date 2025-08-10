@@ -337,7 +337,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Using Pixi environments on HTC Systems</h1>
-        <p>Last updated on 2025-08-08 |
+        <p>Last updated on 2025-08-10 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/htc-systems.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -392,13 +392,13 @@ to.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">pixi</span> init ~/pixi-lesson/htcondor</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="bu">cd</span> ~/pixi-lesson/htcondor</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">pixi</span> init ~/pixi-cuda-lesson/htcondor</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="bu">cd</span> ~/pixi-cuda-lesson/htcondor</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>✔ Created ~/&lt;username&gt;/pixi-lesson/htcondor/pixi.toml</code></pre>
+<pre class="output" tabindex="0"><code>✔ Created ~/&lt;username&gt;/pixi-cuda-lesson/htcondor/pixi.toml</code></pre>
 </div>
 <div class="section level3">
 <h3 id="training-a-pytorch-model-on-the-mnist-dataset">Training a PyTorch model on the MNIST dataset<a class="anchor" aria-label="anchor" href="#training-a-pytorch-model-on-the-mnist-dataset"></a></h3>
@@ -899,7 +899,7 @@ particular image</p>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="ex">crane</span> ls ghcr.io/<span class="op">&lt;</span>your GitHub username<span class="op">&gt;</span>/pixi-lesson</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="ex">crane</span> ls ghcr.io/<span class="op">&lt;</span>your GitHub username<span class="op">&gt;</span>/pixi-cuda-lesson</span></code></pre>
 </div>
 </div>
 </div>
@@ -1007,7 +1007,7 @@ documentation</a></p>
 universe = container
 # the container images are cached, and so if a container image tag is
 # overwritten it will not be pulled again
-container_image = docker://ghcr.io/&lt;github user name&gt;/pixi-lesson:sha-&lt;sha&gt;
+container_image = docker://ghcr.io/&lt;github user name&gt;/pixi-cuda-lesson:sha-&lt;sha&gt;
 
 # set the log, error and output files
 log = mnist_gpu_docker.log.txt
@@ -1347,8 +1347,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/htc-systems.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/htc-systems.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-08-08",
-  "datePublished": "2025-08-08"
+  "dateModified": "2025-08-10",
+  "datePublished": "2025-08-10"
 }
 
   </script><script>

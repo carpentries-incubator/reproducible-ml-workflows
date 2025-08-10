@@ -338,7 +338,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Pixi</h1>
-        <p>Last updated on 2025-08-08 |
+        <p>Last updated on 2025-08-10 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi-intro.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -464,15 +464,15 @@ file is a declarative configuration file that list what the high level
 requirements of a project are. Pixi then takes those requirements and
 constraints and solves for the full dependency tree.</p>
 <p>Let’s create our first Pixi project. First, to have a uniform
-directory tree experience, clone the <code>pixi-lesson</code> GitHub
-repository (which you made as part of the setup) under your home
+directory tree experience, clone the <code>pixi-cuda-lesson</code>
+GitHub repository (which you made as part of the setup) under your home
 directory on your machine and navigate to it.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="bu">cd</span> ~</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">git</span> clone git@github.com:<span class="op">&lt;</span>username<span class="op">&gt;</span>/pixi-lesson.git</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="bu">cd</span> ~/pixi-lesson</span></code></pre>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">git</span> clone git@github.com:<span class="op">&lt;</span>username<span class="op">&gt;</span>/pixi-cuda-lesson.git</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="bu">cd</span> ~/pixi-cuda-lesson</span></code></pre>
 </div>
 <p>Then use <code>pixi init</code> to create a new project directory and
 initialize a Pixi manifest with your machine’s configuration.</p>
@@ -484,7 +484,7 @@ initialize a Pixi manifest with your machine’s configuration.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Created /home/&lt;username&gt;/pixi-lesson/example/pixi.toml</code></pre>
+<pre class="output" tabindex="0"><code>Created /home/&lt;username&gt;/pixi-cuda-lesson/example/pixi.toml</code></pre>
 </div>
 <p>Navigate to the <code>example</code> directory and check the
 directory structure</p>
@@ -735,7 +735,7 @@ and then getting it back (bit for bit) in a few seconds with <a href="https://pi
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  removed /home/&lt;username&gt;/pixi-lesson/example/.pixi/envs</code></pre>
+<pre class="output" tabindex="0"><code>  removed /home/&lt;username&gt;/pixi-cuda-lesson/example/.pixi/envs</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -882,7 +882,7 @@ directory.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Let’s start at the command line and add the additional dependencies
 with <code>pixi add</code></p>
@@ -1002,7 +1002,7 @@ so that for any Pixi project a user can run</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="tabs">
 <nav><div id="nav-tab-5" class="nav nav-tabs" role="tablist">
@@ -1153,7 +1153,7 @@ platforms.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Using the <a href="https://pixi.sh/latest/reference/cli/pixi/workspace/" class="external-link"><code>pixi workspace</code>
 CLI API</a>, one can add the platforms with</p>
@@ -1437,8 +1437,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-intro.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-intro.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-08-08",
-  "datePublished": "2025-08-08"
+  "dateModified": "2025-08-10",
+  "datePublished": "2025-08-10"
 }
 
   </script><script>
