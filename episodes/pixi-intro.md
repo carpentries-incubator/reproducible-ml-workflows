@@ -786,6 +786,30 @@ As new software is added to the system with `pixi global` this global manifest i
 If the global manifest is updated manually, the next time `pixi global update` is run, the environments defined in the global manifest will be installed on the system.
 This means that by sharing a Pixi global manifest, a new machine can be provisioned with an entire suite of command line tools in seconds.
 
+::: callout
+
+## Version controlling our examples
+
+As part of this lesson, we are building up a Git repository of the examples that we move through.
+On a **new branch** in your repository, add and commit the files from the this episode.
+
+```bash
+git add pixi.* .git*
+git commit
+```
+
+Then push your branch to your remote on GitHub
+
+```bash
+git push -u origin HEAD
+```
+
+and make a pull request to merge your changes into your remote's default branch.
+
+We'll follow this pattern for every episode.
+
+:::
+
 ::: keypoints
 
 * Pixi uses a project based workflow and a declarative project manifest file to define project operations.
