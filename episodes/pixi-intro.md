@@ -510,8 +510,6 @@ Add a task called `start` that [depends-on](https://pixi.sh/latest/workspace/adv
 
 ::: solution
 
-:::: group-tab
-
 Using the command line, we use the same `pixi task` syntax as before, but now with the `--depends-on` option
 
 ```bash
@@ -520,6 +518,8 @@ pixi task add --depends-on lab --description "Start exploring the Pixi project" 
 ```output
 ✔ Added task `start`: , depends-on = 'lab', description = "Start exploring the Pixi project"
 ```
+
+:::: group-tab
 
 ### Manually edited
 
