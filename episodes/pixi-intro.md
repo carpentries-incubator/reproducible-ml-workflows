@@ -657,9 +657,9 @@ depends-on = ["lab"]
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 ```
 :::
 :::
@@ -722,12 +722,12 @@ depends-on = ["lab"]
 
 [dependencies]
 python = ">=3.13.5,<3.14"
-numpy = ">=2.3.0,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+numpy = ">=2.3.2,<3"
+notebook = ">=7.4.5,<8"
+jupyterlab = ">=4.4.5,<5"
 
 [feature.dev.dependencies]
-pre-commit = ">=4.2.0,<5"
+pre-commit = ">=4.3.0,<5"
 
 [environments]
 dev = ["dev"]
@@ -744,7 +744,7 @@ pixi shell --environment dev
 
 ::: caution
 
-The `pixi workspace` CLI can also be used to add existing `featues` to environments, but a feature needs to be defined before it can be added to the manifest
+The `pixi workspace` CLI can also be used to add existing features to environments, but a feature needs to be defined before it can be added to the manifest
 
 ```bash
 pixi add --feature dev pre-commit
