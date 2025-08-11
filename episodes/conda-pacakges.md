@@ -406,16 +406,16 @@ Archive:  python-3.13.5-hf3f3da0_102_cp313.conda
 ### Windows
 
 ```powershell
-Expand-Archive "python-3.13.3-h261c0b1_101_cp313.conda" "output"
+Expand-Archive "python-3.13.5-h7de537c_102_cp313.conda" "output"
 ```
 ```output
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
-d----           6/15/2025  4:57 PM                pkg
-d----           6/15/2025  4:57 PM                pkg
--a---            1/1/1980 12:00 AM         133799 info-python-3.13.3-h261c0b1_101_cp313.tar.zst
--a---           4/14/2025  8:38 PM             31 metadata.json
--a---            1/1/1980 12:00 AM       16480111 pkg-python-3.13.3-h261c0b1_101_cp313.tar.zst
+d----           8/11/2025  2:11 AM                pkg
+d----           8/11/2025  2:11 AM                pkg
+-a---            1/1/1980 12:00 AM         133451 info-python-3.13.5-h7de537c_102_cp313.tar.zst
+-a---           6/16/2025  8:25 AM             31 metadata.json
+-a---            1/1/1980 12:00 AM       16691645 pkg-python-3.13.5-h7de537c_102_cp313.tar.zst
 ```
 :::
 
