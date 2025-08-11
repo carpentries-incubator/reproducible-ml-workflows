@@ -111,10 +111,10 @@ Let's add a dependency to our project to change that
 pixi add python
 ```
 ```output
-✔ Added python >=3.13.3,<3.14
+✔ Added python >=3.13.5,<3.14
 ```
 
-which now gives us an update Pixi manifest
+which now gives us an updated Pixi manifest
 
 ```toml
 [workspace]
@@ -126,7 +126,7 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-python = ">=3.13.3,<3.14"
+python = ">=3.13.5,<3.14"
 ```
 
 and the start of a directory tree with the `.pixi/` directory
@@ -167,7 +167,7 @@ Let's now use `tree` to look at the directory structure of the Pixi project star
 
 ::: group-tab
 
-### Unix and Windows Terminal
+### Linux
 
 ```bash
 tree -L 3 .pixi/
@@ -183,13 +183,32 @@ tree -L 3 .pixi/
         ├── man
         ├── share
         ├── ssl
-        ├── x86_64-conda_cos6-linux-gnu
         └── x86_64-conda-linux-gnu
 
 11 directories, 0 files
 ```
 
-### Windows PowerShell
+### macOS
+
+```bash
+tree -L 3 .pixi/
+```
+```output
+.pixi/
+└── envs
+    └── default
+        ├── bin
+        ├── conda-meta
+        ├── include
+        ├── lib
+        ├── man
+        ├── share
+        └── ssl
+
+10 directories, 0 files
+```
+
+### Windows
 
 ```powershell
 ls -d 3 .pixi\
@@ -229,7 +248,7 @@ as well as some less common ones related to system administration
 as well as other directories that are specific to conda packages
 
 * `conda-meta`: for metadata for all installed conda packages
-* `x86_64-conda_cos6-linux-gnu` and `x86_64-conda-linux-gnu`: for platform specific tools (like linkers) &mdash; this will vary depending on your operating system
+* `x86_64-conda-linux-gnu`: for platform specific tools (like linkers) &mdash; this will vary depending on your operating system
 
 How did this directory tree get here?
 It is a result of all the files that were in the conda packages we downloaded and installed as dependencies of Python.
@@ -242,29 +261,29 @@ It is a result of all the files that were in the conda packages we downloaded an
 pixi list
 ```
 ```output
-Package           Version    Build               Size       Kind   Source
-_libgcc_mutex     0.1        conda_forge         2.5 KiB    conda  https://conda.anaconda.org/conda-forge/
-_openmp_mutex     4.5        2_gnu               23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-bzip2             1.0.8      h4bc722e_7          246.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-ca-certificates   2025.4.26  hbd8a1cb_0          148.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-ld_impl_linux-64  2.43       h1423503_5          654.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat          2.7.0      h5888daf_0          72.7 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi            3.4.6      h2dba641_1          56.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgcc            15.1.0     h767d61c_2          809.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-libgcc-ng         15.1.0     h69a702a_2          33.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgomp           15.1.0     h767d61c_2          442 KiB    conda  https://conda.anaconda.org/conda-forge/
-liblzma           5.8.1      hb9d3cd8_2          110.2 KiB  conda  https://conda.anaconda.org/conda-forge/
-libmpdec          4.0.0      hb9d3cd8_0          89 KiB     conda  https://conda.anaconda.org/conda-forge/
-libsqlite         3.50.1     hee588c1_0          898.3 KiB  conda  https://conda.anaconda.org/conda-forge/
-libuuid           2.38.1     h0b41bf4_0          32.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-libzlib           1.3.1      hb9d3cd8_2          59.5 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses           6.5        h2d0b736_3          870.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl           3.5.0      h7b32b05_1          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-python            3.13.5     hf636f53_101_cp313  31.7 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi        3.13       7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline          8.2        h8c095d6_2          275.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk                8.6.13     noxft_hd72426e_102  3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
-tzdata            2025b      h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
+Package           Version   Build               Size       Kind   Source
+_libgcc_mutex     0.1       conda_forge         2.5 KiB    conda  https://conda.anaconda.org/conda-forge/
+_openmp_mutex     4.5       2_gnu               23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+bzip2             1.0.8     h4bc722e_7          246.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+ca-certificates   2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+ld_impl_linux-64  2.44      h1423503_1          660.2 KiB  conda  https://conda.anaconda.org/conda-forge/
+libexpat          2.7.1     hecca717_0          73.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libffi            3.4.6     h2dba641_1          56.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libgcc            15.1.0    h767d61c_4          804.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+libgcc-ng         15.1.0    h69a702a_4          28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
+libgomp           15.1.0    h767d61c_4          436.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+liblzma           5.8.1     hb9d3cd8_2          110.2 KiB  conda  https://conda.anaconda.org/conda-forge/
+libmpdec          4.0.0     hb9d3cd8_0          89 KiB     conda  https://conda.anaconda.org/conda-forge/
+libsqlite         3.50.4    h0c1763c_0          910.7 KiB  conda  https://conda.anaconda.org/conda-forge/
+libuuid           2.38.1    h0b41bf4_0          32.8 KiB   conda  https://conda.anaconda.org/conda-forge/
+libzlib           1.3.1     hb9d3cd8_2          59.5 KiB   conda  https://conda.anaconda.org/conda-forge/
+ncurses           6.5       h2d0b736_3          870.7 KiB  conda  https://conda.anaconda.org/conda-forge/
+openssl           3.5.2     h26f9b46_0          3 MiB      conda  https://conda.anaconda.org/conda-forge/
+python            3.13.5    hec9711d_102_cp313  31.7 MiB   conda  https://conda.anaconda.org/conda-forge/
+python_abi        3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+readline          8.2       h8c095d6_2          275.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+tk                8.6.13    noxft_hd72426e_102  3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
+tzdata            2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
 ```
 
 ### macOS
@@ -273,22 +292,23 @@ tzdata            2025b      h78e105d_0          120.1 KiB  conda  https://conda
 pixi list
 ```
 ```output
-Package          Version    Build               Size       Kind   Source
-bzip2            1.0.8      h99b78c6_7          120 KiB    conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.6.15  hbd8a1cb_0          147.5 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.0      h286801f_0          64.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi           3.4.6      h1da3d7d_1          38.9 KiB   conda  https://conda.anaconda.org/conda-forge/
-liblzma          5.8.1      h39f12f2_2          90.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libmpdec         4.0.0      h5505292_0          70.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.1     h3f77e49_0          880.1 KiB  conda  https://conda.anaconda.org/conda-forge/
-libzlib          1.3.1      h8359307_2          45.3 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses          6.5        h5e97a16_3          778.3 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.0      h81ee809_1          2.9 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5     h81fe080_101_cp313  12.3 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13       7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline         8.2        h1d1bf99_2          246.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk               8.6.13     h892fb3f_2          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-tzdata           2025b      h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
+Package          Version   Build               Size       Kind   Source
+bzip2            1.0.8     h99b78c6_7          120 KiB    conda  https://conda.anaconda.org/conda-forge/
+ca-certificates  2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+icu              75.1      hfee45f7_0          11.3 MiB   conda  https://conda.anaconda.org/conda-forge/
+libexpat         2.7.1     hec049ff_0          64.4 KiB   conda  https://conda.anaconda.org/conda-forge/
+libffi           3.4.6     h1da3d7d_1          38.9 KiB   conda  https://conda.anaconda.org/conda-forge/
+liblzma          5.8.1     h39f12f2_2          90.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libmpdec         4.0.0     h5505292_0          70.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libsqlite        3.50.4    h4237e3c_0          881.5 KiB  conda  https://conda.anaconda.org/conda-forge/
+libzlib          1.3.1     h8359307_2          45.3 KiB   conda  https://conda.anaconda.org/conda-forge/
+ncurses          6.5       h5e97a16_3          778.3 KiB  conda  https://conda.anaconda.org/conda-forge/
+openssl          3.5.2     he92f556_0          2.9 MiB    conda  https://conda.anaconda.org/conda-forge/
+python           3.13.5    hf3f3da0_102_cp313  12.3 MiB   conda  https://conda.anaconda.org/conda-forge/
+python_abi       3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+readline         8.2       h1d1bf99_2          246.4 KiB  conda  https://conda.anaconda.org/conda-forge/
+tk               8.6.13    h892fb3f_2          3 MiB      conda  https://conda.anaconda.org/conda-forge/
+tzdata           2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
 ```
 
 ### Windows
@@ -299,21 +319,22 @@ pixi list
 ```output
 Package          Version       Build               Size       Kind   Source
 bzip2            1.0.8         h2466b09_7          53.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.4.26     h4c7d964_0          149.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.0         he0c23c2_0          137.6 KiB  conda  https://conda.anaconda.org/conda-forge/
+ca-certificates  2025.8.3      h4c7d964_0          150.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+libexpat         2.7.1         hac47afa_0          138 KiB    conda  https://conda.anaconda.org/conda-forge/
 libffi           3.4.6         h537db12_1          43.9 KiB   conda  https://conda.anaconda.org/conda-forge/
 liblzma          5.8.1         h2466b09_2          102.5 KiB  conda  https://conda.anaconda.org/conda-forge/
 libmpdec         4.0.0         h2466b09_0          86.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.1        h67fdade_0          1 MiB      conda  https://conda.anaconda.org/conda-forge/
+libsqlite        3.50.4        hf5d6505_0          1.2 MiB    conda  https://conda.anaconda.org/conda-forge/
 libzlib          1.3.1         h2466b09_2          54.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.0         ha4e3fda_1          8.6 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5        h261c0b1_101_cp313  16.1 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13          7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+openssl          3.5.2         h725018a_0          8.8 MiB    conda  https://conda.anaconda.org/conda-forge/
+python           3.13.5        h7de537c_102_cp313  16 MiB     conda  https://conda.anaconda.org/conda-forge/
+python_abi       3.13          8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
 tk               8.6.13        h2c6b04d_2          3.3 MiB    conda  https://conda.anaconda.org/conda-forge/
 tzdata           2025b         h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
 ucrt             10.0.22621.0  h57928b3_1          546.6 KiB  conda  https://conda.anaconda.org/conda-forge/
-vc               14.3          h2b53caa_26         17.5 KiB   conda  https://conda.anaconda.org/conda-forge/
-vc14_runtime     14.42.34438   hfd919c2_26         733.1 KiB  conda  https://conda.anaconda.org/conda-forge/
+vc               14.3          h41ae7f8_31         17.8 KiB   conda  https://conda.anaconda.org/conda-forge/
+vc14_runtime     14.44.35208   h818238b_31         666.4 KiB  conda  https://conda.anaconda.org/conda-forge/
+vcomp14          14.44.35208   h818238b_31         111.3 KiB  conda  https://conda.anaconda.org/conda-forge/
 ```
 :::
 
@@ -325,31 +346,31 @@ Let's download the particular [`python` conda package](https://anaconda.org/cond
 ### Linux
 
 ```bash
-curl -sLO https://anaconda.org/conda-forge/python/3.13.3/download/linux-64/python-3.13.3-hf636f53_101_cp313.conda
+curl -sLO https://anaconda.org/conda-forge/python/3.13.5/download/linux-64/python-3.13.5-hec9711d_102_cp313.conda
 ls *.conda
 ```
 ```output
-python-3.13.3-hf636f53_101_cp313.conda
+python-3.13.5-hec9711d_102_cp313.conda
 ```
 
 ### macOS
 
 ```bash
-curl -sLO https://anaconda.org/conda-forge/python/3.13.3/download/osx-arm64/python-3.13.3-h81fe080_101_cp313.conda
+curl -sLO https://anaconda.org/conda-forge/python/3.13.5/download/osx-arm64/python-3.13.5-hf3f3da0_102_cp313.conda
 ls *.conda
 ```
 ```output
-python-3.13.3-h81fe080_101_cp313.conda
+python-3.13.5-hf3f3da0_102_cp313.conda
 ```
 
 ### Windows
 
 ```powershell
-iwr -Uri "https://anaconda.org/conda-forge/python/3.13.3/download/win-64/python-3.13.3-h261c0b1_101_cp313.conda" -OutFile "python-3.13.3-h261c0b1_101_cp313.conda"
+iwr -Uri "https://anaconda.org/conda-forge/python/3.13.5/download/win-64/python-3.13.5-h7de537c_102_cp313.conda" -OutFile "python-3.13.5-h7de537c_102_cp313.conda"
 ls *.conda
 ```
 ```output
-python-3.13.3-h261c0b1_101_cp313.conda
+python-3.13.5-h7de537c_102_cp313.conda
 ```
 :::
 
@@ -361,40 +382,40 @@ python-3.13.3-h261c0b1_101_cp313.conda
 ### Linux
 
 ```bash
-unzip python-3.13.3-hf636f53_101_cp313.conda -d output
+unzip python-3.13.5-hec9711d_102_cp313.conda -d output
 ```
 ```output
-Archive:  python-3.13.3-hf636f53_101_cp313.conda
+Archive:  python-3.13.5-hec9711d_102_cp313.conda
  extracting: output/metadata.json
- extracting: output/pkg-python-3.13.3-hf636f53_101_cp313.tar.zst
- extracting: output/info-python-3.13.3-hf636f53_101_cp313.tar.zst
+ extracting: output/pkg-python-3.13.5-hec9711d_102_cp313.tar.zst
+ extracting: output/info-python-3.13.5-hec9711d_102_cp313.tar.zst
 ```
 
 ### macOS
 
 ```bash
-unzip python-3.13.3-h81fe080_101_cp313.conda -d output
+unzip python-3.13.5-hf3f3da0_102_cp313.conda -d output
 ```
 ```output
-Archive:  python-3.13.3-h81fe080_101_cp313.conda
+Archive:  python-3.13.5-hf3f3da0_102_cp313.conda
  extracting: output/metadata.json
- extracting: output/pkg-python-3.13.3-h81fe080_101_cp313.tar.zst
- extracting: output/info-python-3.13.3-h81fe080_101_cp313.tar.zst
+ extracting: output/pkg-python-3.13.5-hf3f3da0_102_cp313.tar.zst
+ extracting: output/info-python-3.13.5-hf3f3da0_102_cp313.tar.zst
 ```
 
 ### Windows
 
 ```powershell
-Expand-Archive "python-3.13.3-h261c0b1_101_cp313.conda" "output"
+Expand-Archive "python-3.13.5-h7de537c_102_cp313.conda" "output"
 ```
 ```output
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
-d----           6/15/2025  4:57 PM                pkg
-d----           6/15/2025  4:57 PM                pkg
--a---            1/1/1980 12:00 AM         133799 info-python-3.13.3-h261c0b1_101_cp313.tar.zst
--a---           4/14/2025  8:38 PM             31 metadata.json
--a---            1/1/1980 12:00 AM       16480111 pkg-python-3.13.3-h261c0b1_101_cp313.tar.zst
+d----           8/11/2025  2:11 AM                pkg
+d----           8/11/2025  2:11 AM                pkg
+-a---            1/1/1980 12:00 AM         133451 info-python-3.13.5-h7de537c_102_cp313.tar.zst
+-a---           6/16/2025  8:25 AM             31 metadata.json
+-a---            1/1/1980 12:00 AM       16691645 pkg-python-3.13.5-h7de537c_102_cp313.tar.zst
 ```
 :::
 
@@ -443,6 +464,8 @@ pkg
 └── share
     ├── man
     └── python_compiler_compat
+
+12 directories, 14 files
 ```
 
 ### macOS
@@ -453,27 +476,29 @@ tree -L 2 pkg
 ```output
 pkg
 ├── bin
-│   ├── idle3 -> idle3.13
-│   ├── idle3.13
-│   ├── pydoc -> pydoc3.13
-│   ├── pydoc3 -> pydoc3.13
-│   ├── pydoc3.13
-│   ├── python -> python3.13
-│   ├── python3 -> python3.13
-│   ├── python3-config -> python3.13-config
-│   ├── python3.1 -> python3.13
-│   ├── python3.13
-│   └── python3.13-config
+│   ├── idle3 -> idle3.13
+│   ├── idle3.13
+│   ├── pydoc -> pydoc3.13
+│   ├── pydoc3 -> pydoc3.13
+│   ├── pydoc3.13
+│   ├── python -> python3.13
+│   ├── python3 -> python3.13
+│   ├── python3.1 -> python3.13
+│   ├── python3.13
+│   ├── python3.13-config
+│   └── python3-config -> python3.13-config
 ├── include
-│   └── python3.13
+│   └── python3.13
 ├── info
-│   └── licenses
+│   └── licenses
 ├── lib
-│   ├── libpython3.13.dylib
-│   ├── pkgconfig
-│   └── python3.13
+│   ├── libpython3.13.dylib
+│   ├── pkgconfig
+│   └── python3.13
 └── share
     └── man
+
+11 directories, 12 files
 ```
 
 ### Windows
@@ -588,7 +613,7 @@ It is important to demystify what is happening with the directory tree structure
 
 ## Exploring conda-forge
 
-As of 2025 [conda-forge](https://conda-forge.org/) has over 28,500 packages on it.
+As of August 2025 [conda-forge](https://conda-forge.org/) has over 29,000 packages on it.
 Go to the conda-forge package list website (https://conda-forge.org/packages/) and try to find three packages that you use in your research, and three packages from your scientific field that are more niche.
 
 ::: solution
