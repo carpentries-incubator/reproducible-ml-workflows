@@ -557,6 +557,7 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
+python = ">=3.13.5,<3.14"
 
 [feature.cpu.dependencies]
 pytorch-cpu = ">=2.7.1,<3"
