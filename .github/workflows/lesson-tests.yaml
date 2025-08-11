@@ -260,7 +260,7 @@ jobs:
       with:
         run-install: false
 
-    - name: Run Pixi cuda-example episode
+    - name: Run Pixi mnist-example episode
       shell: pixi run bash -ex {0}
       run: |
         pixi init mnist-example
