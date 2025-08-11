@@ -50,12 +50,12 @@ pixi info
 ```output
 System
 ------------
-       Pixi version: 0.48.0
+       Pixi version: 0.50.2
            Platform: linux-64
    Virtual packages: __unix=0=0
                    : __linux=6.8.0=0
                    : __glibc=2.35=0
-                   : __cuda=12.4=0
+                   : __cuda=12.9=0
                    : __archspec=1=skylake
           Cache dir: /home/<username>/.cache/rattler/cache
        Auth storage: /home/<username>/.rattler/credentials.json
@@ -107,19 +107,19 @@ name = "cuda-example"
 platforms = ["linux-64"]
 version = "0.1.0"
 
-[system-requirements]
-cuda = "12"
-
 [tasks]
 
 [dependencies]
+
+[system-requirements]
+cuda = "12"
 ```
 
 ::: caution
 
 ## `system-requirements` table can't be target specific
 
-As of [Pixi `v0.48.0`](https://github.com/prefix-dev/pixi/releases/tag/v0.48.0), [the `system-requirements` table can't be target specific](https://github.com/prefix-dev/pixi/issues/2714).
+As of [Pixi `v0.50.2`](https://github.com/prefix-dev/pixi/releases/tag/v0.50.2), [the `system-requirements` table can't be target specific](https://github.com/prefix-dev/pixi/issues/2714).
 To work around this, if you're on a platform that doesn't support the `system-requirements` it will ignore them without erroring unless they are required for the platform specific packages or actions you have.
 So, for example, you can have `osx-arm64` as a platform and a `system-requirements` of `cuda = "12"` defined
 
@@ -153,19 +153,19 @@ name = "cuda-example"
 platforms = ["linux-64"]
 version = "0.1.0"
 
-[system-requirements]
-cuda = "12"
-
 [tasks]
 
 [dependencies]
 cuda-version = "12.9.*"
+
+[system-requirements]
+cuda = "12"
 ```
 
 If we look at the metadata installed by the `cuda-version` package (the only thing it does)
 
 ```bash
-$ cat .pixi/envs/default/conda-meta/cuda-version-*.json
+cat .pixi/envs/default/conda-meta/cuda-version-*.json
 ```
 ```json
 {
@@ -214,7 +214,7 @@ we see that it now enforces constraints on the versions of `cudatoolkit` that ca
 }
 ```
 
-::: caution
+::: callout
 
 ## Use the `feature` table to solve environment that your platform doesn't support
 
@@ -273,8 +273,8 @@ cuda                         12.9.1   ha804496_0  26.7 KiB   conda  https://cond
 cuda-cccl_linux-64           12.9.27  ha770c72_0  1.1 MiB    conda  https://conda.anaconda.org/conda-forge/
 cuda-command-line-tools      12.9.1   ha770c72_0  20 KiB     conda  https://conda.anaconda.org/conda-forge/
 cuda-compiler                12.9.1   hbad6d8a_0  20.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-crt-dev_linux-64        12.9.86  ha770c72_1  92.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-crt-tools               12.9.86  ha770c72_1  28.2 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-crt-dev_linux-64        12.9.86  ha770c72_2  92 KiB     conda  https://conda.anaconda.org/conda-forge/
+cuda-crt-tools               12.9.86  ha770c72_2  28.5 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-cudart                  12.9.79  h5888daf_0  22.7 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-cudart-dev              12.9.79  h5888daf_0  23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-cudart-dev_linux-64     12.9.79  h3f2d84a_0  380 KiB    conda  https://conda.anaconda.org/conda-forge/
@@ -292,9 +292,9 @@ cuda-libraries               12.9.1   ha770c72_0  20 KiB     conda  https://cond
 cuda-libraries-dev           12.9.1   ha770c72_0  20.1 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-nsight                  12.9.79  h7938cbb_0  113.2 MiB  conda  https://conda.anaconda.org/conda-forge/
 cuda-nvcc                    12.9.86  hcdd1206_1  24.3 KiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvcc-dev_linux-64       12.9.86  he91c749_1  13.8 MiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvcc-impl               12.9.86  h85509e4_1  26.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvcc-tools              12.9.86  he02047a_1  26.2 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvcc-dev_linux-64       12.9.86  he91c749_2  27.5 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvcc-impl               12.9.86  h85509e4_2  26.6 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvcc-tools              12.9.86  he02047a_2  26.1 MiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-nvcc_linux-64           12.9.86  he0b4e1d_1  26.2 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-nvdisasm                12.9.88  hbd13f7d_0  5.3 MiB    conda  https://conda.anaconda.org/conda-forge/
 cuda-nvml-dev                12.9.79  hbd13f7d_0  139.1 KiB  conda  https://conda.anaconda.org/conda-forge/
@@ -303,9 +303,9 @@ cuda-nvprune                 12.9.82  hbd13f7d_0  69.3 KiB   conda  https://cond
 cuda-nvrtc                   12.9.86  h5888daf_0  64.1 MiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-nvrtc-dev               12.9.86  h5888daf_0  35.7 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-nvtx                    12.9.79  h5888daf_0  28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvvm-dev_linux-64       12.9.86  ha770c72_1  26.3 KiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvvm-impl               12.9.86  he02047a_1  20.4 MiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvvm-tools              12.9.86  he02047a_1  23.1 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvvm-dev_linux-64       12.9.86  ha770c72_2  26.5 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvvm-impl               12.9.86  h4bc722e_2  20.4 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvvm-tools              12.9.86  h4bc722e_2  23.1 MiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-nvvp                    12.9.79  hbd13f7d_0  104.3 MiB  conda  https://conda.anaconda.org/conda-forge/
 cuda-opencl                  12.9.19  h5888daf_0  30 KiB     conda  https://conda.anaconda.org/conda-forge/
 cuda-opencl-dev              12.9.19  h5888daf_0  95.1 KiB   conda  https://conda.anaconda.org/conda-forge/
@@ -324,7 +324,7 @@ To "prove" that this works, we can ask for the CUDA enabled version of PyTorch
 pixi add --platform linux-64 pytorch-gpu
 ```
 ```output
-✔ Added pytorch-gpu >=2.7.0,<3
+✔ Added pytorch-gpu >=2.7.1,<3
 Added these only for platform(s): linux-64
 ```
 ```bash
@@ -332,9 +332,9 @@ pixi list --platform linux-64 torch
 ```
 ```output
 Package      Version  Build                           Size       Kind   Source
-libtorch     2.7.0    cuda126_mkl_h99b69db_300        566.9 MiB  conda  https://conda.anaconda.org/conda-forge/
-pytorch      2.7.0    cuda126_mkl_py312_h30b5a27_300  27.8 MiB   conda  https://conda.anaconda.org/conda-forge/
-pytorch-gpu  2.7.0    cuda126_mkl_ha999a5f_300        46.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libtorch     2.7.1    cuda129_mkl_h9562ed8_304        836.3 MiB  conda  https://conda.anaconda.org/conda-forge/
+pytorch      2.7.1    cuda129_mkl_py313_h1e53aa0_304  28.1 MiB   conda  https://conda.anaconda.org/conda-forge/
+pytorch-gpu  2.7.1    cuda129_mkl_h43a4b0b_304        46.9 KiB   conda  https://conda.anaconda.org/conda-forge/
 ```
 
 ```toml
@@ -344,17 +344,17 @@ name = "cuda-example"
 platforms = ["linux-64", "osx-arm64", "win-64"]
 version = "0.1.0"
 
-[system-requirements]
-cuda = "12"
-
 [tasks]
 
 [dependencies]
 cuda-version = "12.9.*"
 
+[system-requirements]
+cuda = "12"
+
 [target.linux-64.dependencies]
 cuda = ">=12.9.1,<13"
-pytorch-gpu = ">=2.7.0,<3"
+pytorch-gpu = ">=2.7.1,<3"
 ```
 
 ::: caution
@@ -368,31 +368,31 @@ cat .pixi/envs/default/conda-meta/pytorch-gpu-*.json
 ```
 ```json
 {
-  "build": "cuda126_mkl_ha999a5f_300",
-  "build_number": 300,
+  "build": "cuda129_mkl_h43a4b0b_304",
+  "build_number": 304,
   "depends": [
-    "pytorch 2.7.0 cuda*_mkl*300"
+    "pytorch 2.7.1 cuda*_mkl*304"
   ],
   "license": "BSD-3-Clause",
   "license_family": "BSD",
-  "md5": "84ecafc34c6f8933c2c9b00204832e38",
+  "md5": "e374ee50f7d5171d82320bced8165e85",
   "name": "pytorch-gpu",
-  "sha256": "e1162a51e77491abae15f6b651ba8f064870181d57d40f9168747652d0f70cb0",
-  "size": 47219,
+  "sha256": "af54e6535619f4e484d278d015df6ea67622e2194f78da2c0541958fc3d83d18",
+  "size": 48008,
   "subdir": "linux-64",
-  "timestamp": 1746288556375,
-  "version": "2.7.0",
-  "fn": "pytorch-gpu-2.7.0-cuda126_mkl_ha999a5f_300.conda",
-  "url": "https://conda.anaconda.org/conda-forge/linux-64/pytorch-gpu-2.7.0-cuda126_mkl_ha999a5f_300.conda",
+  "timestamp": 1753886159800,
+  "version": "2.7.1",
+  "fn": "pytorch-gpu-2.7.1-cuda129_mkl_h43a4b0b_304.conda",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/pytorch-gpu-2.7.1-cuda129_mkl_h43a4b0b_304.conda",
   "channel": "https://conda.anaconda.org/conda-forge/",
-  "extracted_package_dir": "/home/<username>/.cache/rattler/cache/pkgs/pytorch-gpu-2.7.0-cuda126_mkl_ha999a5f_300",
+  "extracted_package_dir": "/home/<username>/.cache/rattler/cache/pkgs/pytorch-gpu-2.7.1-cuda129_mkl_h43a4b0b_304",
   "files": [],
   "paths_data": {
     "paths_version": 1,
     "paths": []
   },
   "link": {
-    "source": "/home/<username>/.cache/rattler/cache/pkgs/pytorch-gpu-2.7.0-cuda126_mkl_ha999a5f_300",
+    "source": "/home/<username>/.cache/rattler/cache/pkgs/pytorch-gpu-2.7.1-cuda129_mkl_h43a4b0b_304",
     "type": 1
   }
 }
@@ -429,9 +429,9 @@ if __name__ == "__main__":
 pixi run python torch_detect_GPU.py
 ```
 ```output
-PyTorch build CUDA version: 12.6
-PyTorch build cuDNN version: 91001
-PyTorch build NCCL version: (2, 26, 5)
+PyTorch build CUDA version: 12.9
+PyTorch build cuDNN version: 91100
+PyTorch build NCCL version: (2, 27, 7)
 
 Number of GPUs found on system: 1
 
