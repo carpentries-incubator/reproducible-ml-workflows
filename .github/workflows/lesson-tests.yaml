@@ -241,8 +241,6 @@ jobs:
         pixi add --platform linux-64 --platform win-64 --feature gpu pytorch-gpu
         pixi list --environment cpu
         pixi list --environment gpu
-        pixi list --environment gpu torch
-        pixi list --environment gpu cuda
         cat pixi.toml
 
   episode-mnist-example:
