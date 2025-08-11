@@ -111,10 +111,10 @@ Let's add a dependency to our project to change that
 pixi add python
 ```
 ```output
-✔ Added python >=3.13.3,<3.14
+✔ Added python >=3.13.5,<3.14
 ```
 
-which now gives us an update Pixi manifest
+which now gives us an updated Pixi manifest
 
 ```toml
 [workspace]
@@ -126,7 +126,7 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-python = ">=3.13.3,<3.14"
+python = ">=3.13.5,<3.14"
 ```
 
 and the start of a directory tree with the `.pixi/` directory
@@ -167,7 +167,7 @@ Let's now use `tree` to look at the directory structure of the Pixi project star
 
 ::: group-tab
 
-### Unix and Windows Terminal
+### Linux
 
 ```bash
 tree -L 3 .pixi/
@@ -183,13 +183,32 @@ tree -L 3 .pixi/
         ├── man
         ├── share
         ├── ssl
-        ├── x86_64-conda_cos6-linux-gnu
         └── x86_64-conda-linux-gnu
 
 11 directories, 0 files
 ```
 
-### Windows PowerShell
+### macOS
+
+```bash
+tree -L 3 .pixi/
+```
+```output
+.pixi/
+└── envs
+    └── default
+        ├── bin
+        ├── conda-meta
+        ├── include
+        ├── lib
+        ├── man
+        ├── share
+        └── ssl
+
+10 directories, 0 files
+```
+
+### Windows
 
 ```powershell
 ls -d 3 .pixi\
@@ -229,7 +248,7 @@ as well as some less common ones related to system administration
 as well as other directories that are specific to conda packages
 
 * `conda-meta`: for metadata for all installed conda packages
-* `x86_64-conda_cos6-linux-gnu` and `x86_64-conda-linux-gnu`: for platform specific tools (like linkers) &mdash; this will vary depending on your operating system
+* `x86_64-conda-linux-gnu`: for platform specific tools (like linkers) &mdash; this will vary depending on your operating system
 
 How did this directory tree get here?
 It is a result of all the files that were in the conda packages we downloaded and installed as dependencies of Python.
