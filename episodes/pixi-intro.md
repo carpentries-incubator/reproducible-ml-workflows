@@ -806,7 +806,10 @@ git push -u origin HEAD
 
 and make a pull request to merge your changes into your remote's default branch.
 
-We'll follow this pattern for every episode.
+We'll follow this pattern for every episode:
+* Create a new feature branch
+* Add and commit work to a pull request as we go
+* Merge the pull request at the end
 
 :::
 
