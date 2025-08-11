@@ -103,7 +103,7 @@ jobs:
       with:
         run-install: false
 
-    - name: Run Pixi dir-structure episode ${{ matrix.os }}
+    - name: Run Pixi dir-structure episode ubuntu-latest
       if: ${{ matrix.os == 'ubuntu-latest' }}
       shell: pixi run bash -ex {0}
       run: |
@@ -116,7 +116,7 @@ jobs:
         tree -L 3 .pixi/
         pixi list
         pixi global install curl
-        curl -sLO https://anaconda.org/conda-forge/python/3.13.3/download/linux-64/python-3.13.3-hf636f53_101_cp313.conda
+        curl -sLO https://anaconda.org/conda-forge/python/3.13.5/download/linux-64/python-3.13.5-hec9711d_102_cp313.conda
         ls *.conda
         pixi global install unzip
         unzip python-*.conda -d output
@@ -129,7 +129,7 @@ jobs:
         cd ..
         ls -1a .pixi/envs/default/lib/libpython*
 
-    - name: Run Pixi dir-structure episode ${{ matrix.os }}
+    - name: Run Pixi dir-structure episode macos-latest
       if: ${{ matrix.os == 'macos-latest' }}
       shell: pixi run bash -ex {0}
       run: |
@@ -142,7 +142,7 @@ jobs:
         tree -L 3 .pixi/
         pixi list
         pixi global install curl
-        curl -sLO https://anaconda.org/conda-forge/python/3.13.3/download/osx-arm64/python-3.13.3-h81fe080_101_cp313.conda
+        curl -sLO https://anaconda.org/conda-forge/python/3.13.5/download/osx-arm64/python-3.13.5-hf3f3da0_102_cp313.conda
         ls *.conda
         # pixi global install unzip  # missing the zstd libs necessary but default macOS has it
         unzip python-*.conda -d output
@@ -155,7 +155,7 @@ jobs:
         cd ..
         ls -1a .pixi/envs/default/lib/libpython*
 
-    - name: Run Pixi dir-structure episode ${{ matrix.os }}
+    - name: Run Pixi dir-structure episode windows-latest
       if: ${{ matrix.os == 'windows-latest' }}
       shell: pwsh
       run: |
@@ -166,12 +166,12 @@ jobs:
         ls | fw -col 1
         ls -d 3 .pixi\
         pixi list
-        iwr -Uri "https://anaconda.org/conda-forge/python/3.13.3/download/win-64/python-3.13.3-h261c0b1_101_cp313.conda" -OutFile "python-3.13.3-h261c0b1_101_cp313.conda"
-        Expand-Archive "python-3.13.3-h261c0b1_101_cp313.conda" "output"
+        iwr -Uri "https://anaconda.org/conda-forge/python/3.13.5/download/win-64/python-3.13.5-h7de537c_102_cp313.conda" -OutFile "python-3.13.5-h7de537c_102_cp313.conda"
+        Expand-Archive "python-3.13.5-h7de537c_102_cp313.conda" "output"
         cd output
         mkdir pkg
         ls
-        tar --zstd -xvf pkg-python-3.13.3-h261c0b1_101_cp313.tar.zst --directory pkg
+        tar --zstd -xvf pkg-python-3.13.5-h7de537c_102_cp313.tar.zst --directory pkg
         ls -d 2 pkg\
         ls pkg | fw -col 1
         cd ..

@@ -346,31 +346,31 @@ Let's download the particular [`python` conda package](https://anaconda.org/cond
 ### Linux
 
 ```bash
-curl -sLO https://anaconda.org/conda-forge/python/3.13.3/download/linux-64/python-3.13.3-hf636f53_101_cp313.conda
+curl -sLO https://anaconda.org/conda-forge/python/3.13.5/download/linux-64/python-3.13.5-hec9711d_102_cp313.conda
 ls *.conda
 ```
 ```output
-python-3.13.3-hf636f53_101_cp313.conda
+python-3.13.5-hec9711d_102_cp313.conda
 ```
 
 ### macOS
 
 ```bash
-curl -sLO https://anaconda.org/conda-forge/python/3.13.3/download/osx-arm64/python-3.13.3-h81fe080_101_cp313.conda
+curl -sLO https://anaconda.org/conda-forge/python/3.13.5/download/osx-arm64/python-3.13.5-hf3f3da0_102_cp313.conda
 ls *.conda
 ```
 ```output
-python-3.13.3-h81fe080_101_cp313.conda
+python-3.13.5-hf3f3da0_102_cp313.conda
 ```
 
 ### Windows
 
 ```powershell
-iwr -Uri "https://anaconda.org/conda-forge/python/3.13.3/download/win-64/python-3.13.3-h261c0b1_101_cp313.conda" -OutFile "python-3.13.3-h261c0b1_101_cp313.conda"
+iwr -Uri "https://anaconda.org/conda-forge/python/3.13.5/download/win-64/python-3.13.5-h7de537c_102_cp313.conda" -OutFile "python-3.13.5-h7de537c_102_cp313.conda"
 ls *.conda
 ```
 ```output
-python-3.13.3-h261c0b1_101_cp313.conda
+python-3.13.5-h7de537c_102_cp313.conda
 ```
 :::
 
@@ -382,25 +382,25 @@ python-3.13.3-h261c0b1_101_cp313.conda
 ### Linux
 
 ```bash
-unzip python-3.13.3-hf636f53_101_cp313.conda -d output
+unzip python-3.13.5-hec9711d_102_cp313.conda -d output
 ```
 ```output
-Archive:  python-3.13.3-hf636f53_101_cp313.conda
+Archive:  python-3.13.5-hec9711d_102_cp313.conda
  extracting: output/metadata.json
- extracting: output/pkg-python-3.13.3-hf636f53_101_cp313.tar.zst
- extracting: output/info-python-3.13.3-hf636f53_101_cp313.tar.zst
+ extracting: output/pkg-python-3.13.5-hec9711d_102_cp313.tar.zst
+ extracting: output/info-python-3.13.5-hec9711d_102_cp313.tar.zst
 ```
 
 ### macOS
 
 ```bash
-unzip python-3.13.3-h81fe080_101_cp313.conda -d output
+unzip python-3.13.5-hf3f3da0_102_cp313.conda -d output
 ```
 ```output
-Archive:  python-3.13.3-h81fe080_101_cp313.conda
+Archive:  python-3.13.5-hf3f3da0_102_cp313.conda
  extracting: output/metadata.json
- extracting: output/pkg-python-3.13.3-h81fe080_101_cp313.tar.zst
- extracting: output/info-python-3.13.3-h81fe080_101_cp313.tar.zst
+ extracting: output/pkg-python-3.13.5-hf3f3da0_102_cp313.tar.zst
+ extracting: output/info-python-3.13.5-hf3f3da0_102_cp313.tar.zst
 ```
 
 ### Windows
@@ -464,6 +464,8 @@ pkg
 └── share
     ├── man
     └── python_compiler_compat
+
+12 directories, 14 files
 ```
 
 ### macOS
@@ -474,27 +476,29 @@ tree -L 2 pkg
 ```output
 pkg
 ├── bin
-│   ├── idle3 -> idle3.13
-│   ├── idle3.13
-│   ├── pydoc -> pydoc3.13
-│   ├── pydoc3 -> pydoc3.13
-│   ├── pydoc3.13
-│   ├── python -> python3.13
-│   ├── python3 -> python3.13
-│   ├── python3-config -> python3.13-config
-│   ├── python3.1 -> python3.13
-│   ├── python3.13
-│   └── python3.13-config
+│   ├── idle3 -> idle3.13
+│   ├── idle3.13
+│   ├── pydoc -> pydoc3.13
+│   ├── pydoc3 -> pydoc3.13
+│   ├── pydoc3.13
+│   ├── python -> python3.13
+│   ├── python3 -> python3.13
+│   ├── python3.1 -> python3.13
+│   ├── python3.13
+│   ├── python3.13-config
+│   └── python3-config -> python3.13-config
 ├── include
-│   └── python3.13
+│   └── python3.13
 ├── info
-│   └── licenses
+│   └── licenses
 ├── lib
-│   ├── libpython3.13.dylib
-│   ├── pkgconfig
-│   └── python3.13
+│   ├── libpython3.13.dylib
+│   ├── pkgconfig
+│   └── python3.13
 └── share
     └── man
+
+11 directories, 12 files
 ```
 
 ### Windows
