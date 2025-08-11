@@ -613,7 +613,7 @@ It is important to demystify what is happening with the directory tree structure
 
 ## Exploring conda-forge
 
-As of 2025 [conda-forge](https://conda-forge.org/) has over 28,500 packages on it.
+As of August 2025 [conda-forge](https://conda-forge.org/) has over 29,000 packages on it.
 Go to the conda-forge package list website (https://conda-forge.org/packages/) and try to find three packages that you use in your research, and three packages from your scientific field that are more niche.
 
 ::: solution
