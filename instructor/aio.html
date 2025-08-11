@@ -479,7 +479,7 @@ struggled to get back into it? What issues did you come across?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Possible answers </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>There are many! Here are some you might have thought of:</p>
 <ul>
@@ -540,7 +540,7 @@ what challenges have you run into with running your code?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Possible answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Here are some you might have thought of:</p>
 <ul>
@@ -585,7 +585,7 @@ table.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Not necessarily. Even though the computational software environment
 is identical there are things that can change between runs of software
@@ -642,7 +642,7 @@ research practices reproducible and reusable?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Possible answers </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <ul>
 <li>Technical expertise in reproducibility technologies</li>
@@ -685,7 +685,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-pixi-intro"><p>Content from <a href="pixi-intro.html">Introduction to Pixi</a></p>
 <hr>
-<p>Last updated on 2025-08-10 |
+<p>Last updated on 2025-08-11 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi-intro.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
@@ -1301,7 +1301,7 @@ directory.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Let’s start at the command line and add the additional dependencies
 with <code>pixi add</code></p>
@@ -1423,7 +1423,7 @@ the <code>lab</code> task.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Using the command line, we use the same <code>pixi task</code> syntax
 as before, but now with the <code>--depends-on</code> option</p>
@@ -1586,7 +1586,7 @@ platforms.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Using the <a href="https://pixi.sh/latest/reference/cli/pixi/workspace/" class="external-link"><code>pixi workspace</code>
 CLI API</a>, one can add the platforms with</p>
@@ -1793,6 +1793,37 @@ environments defined in the global manifest will be installed on the
 system. This means that by sharing a Pixi global manifest, a new machine
 can be provisioned with an entire suite of command line tools in
 seconds.</p>
+<div id="version-controlling-our-examples" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="version-controlling-our-examples" class="callout-inner">
+<h3 class="callout-title">Version controlling our examples</h3>
+<div class="callout-content">
+<p>As part of this lesson, we are building up a Git repository of the
+examples that we move through. On a <strong>new branch</strong> in your
+repository, add and commit the files from the this episode.</p>
+<div class="codewrapper sourceCode" id="cb63">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="fu">git</span> add pixi.<span class="pp">*</span> .git<span class="pp">*</span></span>
+<span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a><span class="fu">git</span> commit</span></code></pre>
+</div>
+<p>Then push your branch to your remote on GitHub</p>
+<div class="codewrapper sourceCode" id="cb64">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin HEAD</span></code></pre>
+</div>
+<p>and make a pull request to merge your changes into your remote’s
+default branch.</p>
+<p>We’ll follow this pattern for every episode: * Create a new feature
+branch * Add and commit work to a pull request as we go * Merge the pull
+request at the end</p>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1818,7 +1849,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-backwards-compatibility"><p>Content from <a href="backwards-compatibility.html">Backwards compatibility with conda</a></p>
 <hr>
-<p>Last updated on 2025-08-08 |
+<p>Last updated on 2025-08-11 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/backwards-compatibility.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 15 minutes</p>
@@ -1901,7 +1932,7 @@ to a conda environment</h3>
   Possible answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1917,9 +1948,9 @@ to a conda environment</h3>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="kw">-</span><span class="at"> nodefaults</span></span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">dependencies</span><span class="kw">:</span></span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="kw">-</span><span class="at"> python &gt;=3.13.5,&lt;3.14</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="kw">-</span><span class="at"> numpy &gt;=2.3.0,&lt;3</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="kw">-</span><span class="at"> notebook &gt;=7.4.3,&lt;8</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="kw">-</span><span class="at"> jupyterlab &gt;=4.4.3,&lt;5</span></span></code></pre>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="kw">-</span><span class="at"> numpy &gt;=2.3.2,&lt;3</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="kw">-</span><span class="at"> notebook &gt;=7.4.5,&lt;8</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="kw">-</span><span class="at"> jupyterlab &gt;=4.4.5,&lt;5</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1988,7 +2019,7 @@ lock files as a conda explicit spec file</h3>
   Possible answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2006,23 +2037,23 @@ lock files as a conda explicit spec file</h3>
 <pre class="output" tabindex="0"><code># Generated by `pixi workspace export`
 # platform: linux-64
 @EXPLICIT
-https://conda.anaconda.org/conda-forge/noarch/python_abi-3.13-7_cp313.conda#e84b44e6300f1703cb25d29120c5b1d8
-https://conda.anaconda.org/conda-forge/noarch/tzdata-2025b-h78e105d_0.conda#4222072737ccff51314b5ece9c7d6f5a
-https://conda.anaconda.org/conda-forge/linux-64/libgomp-15.1.0-h767d61c_2.conda#fbe7d535ff9d3a168c148e07358cd5b1
+https://conda.anaconda.org/conda-forge/linux-64/libgomp-15.1.0-h767d61c_4.conda#3baf8976c96134738bba224e9ef6b1e5
 https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2#d7c89558ba9fa0495403155b64376d81
 https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-2_gnu.tar.bz2#73aaf86a425cc6e73fcf236a5a46396d
-https://conda.anaconda.org/conda-forge/linux-64/libgcc-15.1.0-h767d61c_2.conda#ea8ac52380885ed41c1baa8f1d6d2b93
-https://conda.anaconda.org/conda-forge/linux-64/libzlib-1.3.1-hb9d3cd8_2.conda#edb0dca6bc32e4f4789199455a1dbeb8
-https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.13-noxft_hd72426e_102.conda#a0116df4f4ed05c303811a837d5b39d8
-https://conda.anaconda.org/conda-forge/linux-64/ncurses-6.5-h2d0b736_3.conda#47e340acb35de30501a76c7c799c41d7
-https://conda.anaconda.org/conda-forge/linux-64/readline-8.2-h8c095d6_2.conda#283b96675859b20a825f8fa30f311446
-https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2025.4.26-hbd8a1cb_0.conda#95db94f75ba080a22eb623590993167b
-https://conda.anaconda.org/conda-forge/linux-64/openssl-3.5.0-h7b32b05_1.conda#de356753cfdbffcde5bb1e86e3aa6cd0
-https://conda.anaconda.org/conda-forge/linux-64/libgcc-ng-15.1.0-h69a702a_2.conda#ddca86c7040dd0e73b2b69bd7833d225
+https://conda.anaconda.org/conda-forge/linux-64/libgcc-15.1.0-h767d61c_4.conda#f406dcbb2e7bef90d793e50e79a2882b
+https://conda.anaconda.org/conda-forge/linux-64/xorg-libxdmcp-1.1.5-hb9d3cd8_0.conda#8035c64cb77ed555e3f150b7b3972480
+https://conda.anaconda.org/conda-forge/linux-64/xorg-libxau-1.0.12-hb9d3cd8_0.conda#f6ebe2cb3f82ba6c057dde5d9debe4f7
+https://conda.anaconda.org/conda-forge/linux-64/pthread-stubs-0.4-hb9d3cd8_1002.conda#b3c17d95b5a10c6e64a21fa17573e70e
+https://conda.anaconda.org/conda-forge/linux-64/libxcb-1.17.0-h8a09558_0.conda#92ed62436b625154323d40d5f2f11dd7
+https://conda.anaconda.org/conda-forge/linux-64/xorg-libx11-1.8.12-h4f16b4b_0.conda#db038ce880f100acc74dba10302b5630
+https://conda.anaconda.org/conda-forge/linux-64/xorg-libice-1.1.2-hb9d3cd8_0.conda#fb901ff28063514abb6046c9ec2c4a45
+https://conda.anaconda.org/conda-forge/linux-64/libgcc-ng-15.1.0-h69a702a_4.conda#28771437ffcd9f3417c66012dc49a3be
 https://conda.anaconda.org/conda-forge/linux-64/libuuid-2.38.1-h0b41bf4_0.conda#40b61aab5c7ba9ff276c41cfffe6b80b
-https://conda.anaconda.org/conda-forge/linux-64/libsqlite-3.50.0-hee588c1_0.conda#71888e92098d0f8c41b09a671ad289bc
-https://conda.anaconda.org/conda-forge/linux-64/libmpdec-4.0.0-hb9d3cd8_0.conda#c7e925f37e3b40d893459e625f6a53f1
-https://conda.anaconda.org/conda-forge/linux-64/liblzma-5.8.1-hb9d3cd8_1.conda#a76fd702c93cd2dfd89eff30a5fd45a8</code></pre>
+https://conda.anaconda.org/conda-forge/linux-64/xorg-libsm-1.2.6-he73a12e_0.conda#1c74ff8c35dcadf952a16f752ca5aa49
+https://conda.anaconda.org/conda-forge/linux-64/xorg-libxt-1.3.1-hb9d3cd8_0.conda#279b0de5f6ba95457190a1c459a64e31
+https://conda.anaconda.org/conda-forge/noarch/tzdata-2025b-h78e105d_0.conda#4222072737ccff51314b5ece9c7d6f5a
+https://conda.anaconda.org/conda-forge/linux-64/libzlib-1.3.1-hb9d3cd8_2.conda#edb0dca6bc32e4f4789199455a1dbeb8
+https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.13-noxft_hd72426e_102.conda#a0116df4f4ed05c303811a837d5b39d8</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2035,23 +2066,23 @@ https://conda.anaconda.org/conda-forge/linux-64/liblzma-5.8.1-hb9d3cd8_1.conda#a
 <pre class="output" tabindex="0"><code># Generated by `pixi workspace export`
 # platform: osx-arm64
 @EXPLICIT
-https://conda.anaconda.org/conda-forge/noarch/python_abi-3.13-7_cp313.conda#e84b44e6300f1703cb25d29120c5b1d8
 https://conda.anaconda.org/conda-forge/noarch/tzdata-2025b-h78e105d_0.conda#4222072737ccff51314b5ece9c7d6f5a
 https://conda.anaconda.org/conda-forge/osx-arm64/libzlib-1.3.1-h8359307_2.conda#369964e85dc26bfe78f41399b366c435
 https://conda.anaconda.org/conda-forge/osx-arm64/tk-8.6.13-h892fb3f_2.conda#7362396c170252e7b7b0c8fb37fe9c78
+https://conda.anaconda.org/conda-forge/osx-arm64/tktable-2.10-h3c7de25_7.conda#7c2e2e25a80f1538b0dcee34026bec42
 https://conda.anaconda.org/conda-forge/osx-arm64/ncurses-6.5-h5e97a16_3.conda#068d497125e4bf8a66bf707254fff5ae
 https://conda.anaconda.org/conda-forge/osx-arm64/readline-8.2-h1d1bf99_2.conda#63ef3f6e6d6d5c589e64f11263dc5676
-https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2025.4.26-hbd8a1cb_0.conda#95db94f75ba080a22eb623590993167b
-https://conda.anaconda.org/conda-forge/osx-arm64/openssl-3.5.0-h81ee809_1.conda#5c7aef00ef60738a14e0e612cfc5bcde
-https://conda.anaconda.org/conda-forge/osx-arm64/libsqlite-3.50.0-h3f77e49_0.conda#cda0ec640bc4698d0813a8fb459aee58
-https://conda.anaconda.org/conda-forge/osx-arm64/libmpdec-4.0.0-h5505292_0.conda#85ccccb47823dd9f7a99d2c7f530342f
-https://conda.anaconda.org/conda-forge/osx-arm64/liblzma-5.8.1-h39f12f2_1.conda#4e8ef3d79c97c9021b34d682c24c2044
-https://conda.anaconda.org/conda-forge/osx-arm64/libffi-3.4.6-h1da3d7d_1.conda#c215a60c2935b517dcda8cad4705734d
-https://conda.anaconda.org/conda-forge/osx-arm64/libexpat-2.7.0-h286801f_0.conda#6934bbb74380e045741eb8637641a65b
 https://conda.anaconda.org/conda-forge/osx-arm64/bzip2-1.0.8-h99b78c6_7.conda#fc6948412dbbbe9a4c9ddbbcfe0a79ab
-https://conda.anaconda.org/conda-forge/osx-arm64/python-3.13.3-h81fe080_101_cp313.conda#b3240ae8c42a3230e0b7f831e1c72e9f
-https://conda.anaconda.org/conda-forge/osx-arm64/llvm-openmp-20.1.6-hdb05f8b_0.conda#7a3b28d59940a28e761e0a623241a832
-https://conda.anaconda.org/conda-forge/osx-arm64/libgfortran5-14.2.0-h2c44a93_105.conda#06f35a3b1479ec55036e1c9872f97f2c</code></pre>
+https://conda.anaconda.org/conda-forge/osx-arm64/pcre2-10.45-ha881caa_0.conda#a52385b93558d8e6bbaeec5d61a21cd7
+https://conda.anaconda.org/conda-forge/osx-arm64/libpng-1.6.50-h280e0eb_1.conda#4d0f5ce02033286551a32208a5519884
+https://conda.anaconda.org/conda-forge/osx-arm64/libiconv-1.18-hfe07756_1.conda#450e6bdc0c7d986acf7b8443dce87111
+https://conda.anaconda.org/conda-forge/osx-arm64/libintl-0.25.1-h493aca8_0.conda#5103f6a6b210a3912faf8d7db516918c
+https://conda.anaconda.org/conda-forge/osx-arm64/libffi-3.4.6-h1da3d7d_1.conda#c215a60c2935b517dcda8cad4705734d
+https://conda.anaconda.org/conda-forge/osx-arm64/libglib-2.84.3-h587fa63_0.conda#bb98995c244b6038892fd59a694a93ed
+https://conda.anaconda.org/conda-forge/osx-arm64/libfreetype6-2.13.3-h1d14073_1.conda#b163d446c55872ef60530231879908b9
+https://conda.anaconda.org/conda-forge/osx-arm64/libfreetype-2.13.3-hce30654_1.conda#d06282e08e55b752627a707d58779b8f
+https://conda.anaconda.org/conda-forge/osx-arm64/libexpat-2.7.1-hec049ff_0.conda#b1ca5f21335782f71a8bd69bdc093f67
+https://conda.anaconda.org/conda-forge/osx-arm64/libcxx-20.1.8-hf598326_1.conda#a69ef3239d3268ef8602c7a7823fd982</code></pre>
 </div>
 </div>
 </div>
@@ -2144,7 +2175,7 @@ dominant conda package environment manager by numbers of users.<a href="#fnref1"
 </ol>
 </div></section><section id="aio-conda-pacakges"><p>Content from <a href="conda-pacakges.html">Conda packages</a></p>
 <hr>
-<p>Last updated on 2025-08-10 |
+<p>Last updated on 2025-08-11 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/conda-pacakges.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
@@ -2224,7 +2255,7 @@ global utility from conda-forge using <a href="https://pixi.sh/latest/global_too
 </button>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
-<div id="nav-tabpanel-1-UnixandWindowsTerminal" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-1-UnixandWindowsTerminal">
+<div id="nav-tabpanel-1-UnixandWindowsTerminal" class="tab-pane show active" aria-labelledby="nav-tab-1-UnixandWindowsTerminal" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2237,7 +2268,7 @@ global utility from conda-forge using <a href="https://pixi.sh/latest/global_too
     └─ exposes: tree</code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-1-WindowsPowerShell" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-WindowsPowerShell">
+<div id="nav-tabpanel-1-WindowsPowerShell" class="tab-pane" aria-labelledby="nav-tab-1-WindowsPowerShell" role="tabpanel">
 <p>Windows <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" class="external-link">PowerShell
 already has a <code>tree</code></a> command, but is less powerful and
 configurable than the Unix <code>tree</code>. It provides no way to
@@ -2279,7 +2310,7 @@ limit the tree depth, so we’ll use other commands instead like</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-2" class="tab-content">
-<div id="nav-tabpanel-2-UnixandWindowsTerminal" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-2-UnixandWindowsTerminal">
+<div id="nav-tabpanel-2-UnixandWindowsTerminal" class="tab-pane show active" aria-labelledby="nav-tab-2-UnixandWindowsTerminal" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2295,7 +2326,7 @@ limit the tree depth, so we’ll use other commands instead like</p>
 <span><span class="va">pixi.toml</span></span></code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-2-WindowsPowerShell" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-2-WindowsPowerShell">
+<div id="nav-tabpanel-2-WindowsPowerShell" class="tab-pane" aria-labelledby="nav-tab-2-WindowsPowerShell" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2320,9 +2351,9 @@ limit the tree depth, so we’ll use other commands instead like</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>✔ Added python &gt;=3.13.3,&lt;3.14</code></pre>
+<pre class="output" tabindex="0"><code>✔ Added python &gt;=3.13.5,&lt;3.14</code></pre>
 </div>
-<p>which now gives us an update Pixi manifest</p>
+<p>which now gives us an updated Pixi manifest</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2335,7 +2366,7 @@ limit the tree depth, so we’ll use other commands instead like</p>
 <span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="kw">[tasks]</span></span>
 <span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a></span>
 <span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.3,&lt;3.14"</span></span></code></pre>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span></code></pre>
 </div>
 <p>and the start of a directory tree with the <code>.pixi/</code>
 directory</p>
@@ -2353,7 +2384,7 @@ directory</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-3" class="tab-content">
-<div id="nav-tabpanel-3-UnixandWindowsTerminal" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-3-UnixandWindowsTerminal">
+<div id="nav-tabpanel-3-UnixandWindowsTerminal" class="tab-pane show active" aria-labelledby="nav-tab-3-UnixandWindowsTerminal" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2371,7 +2402,7 @@ directory</p>
 <span><span class="va">pixi.toml</span></span></code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-3-WindowsPowerShell" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-3-WindowsPowerShell">
+<div id="nav-tabpanel-3-WindowsPowerShell" class="tab-pane" aria-labelledby="nav-tab-3-WindowsPowerShell" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2394,19 +2425,24 @@ the Pixi project starting at the same directory where the
 <code>pixi.toml</code> manifest file is.</p>
 <div class="tabs">
 <nav><div id="nav-tab-4" class="nav nav-tabs" role="tablist">
-<button class="nav-link active" id="nav-tab-4-UnixandWindowsTerminal" name="UnixandWindowsTerminal" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-4-UnixandWindowsTerminal" type="button" role="tab" aria-controls="nav-tabpanel-4-UnixandWindowsTerminal" aria-selected="true">
-  <h3 class="tab-header" id="nav-tab-heading-4-UnixandWindowsTerminal">
-  Unix and Windows Terminal
+<button class="nav-link active" id="nav-tab-4-Linux" name="Linux" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-4-Linux" type="button" role="tab" aria-controls="nav-tabpanel-4-Linux" aria-selected="true">
+  <h3 class="tab-header" id="nav-tab-heading-4-Linux">
+  Linux
   </h3>
 </button>
-<button class="nav-link" id="nav-tab-4-WindowsPowerShell" name="WindowsPowerShell" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-4-WindowsPowerShell" type="button" role="tab" aria-controls="nav-tabpanel-4-WindowsPowerShell" aria-selected="false">
-  <h3 class="tab-header" id="nav-tab-heading-4-WindowsPowerShell">
-  Windows PowerShell
+<button class="nav-link" id="nav-tab-4-macOS" name="macOS" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-4-macOS" type="button" role="tab" aria-controls="nav-tabpanel-4-macOS" aria-selected="false">
+  <h3 class="tab-header" id="nav-tab-heading-4-macOS">
+  macOS
+  </h3>
+</button>
+<button class="nav-link" id="nav-tab-4-Windows" name="Windows" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-4-Windows" type="button" role="tab" aria-controls="nav-tabpanel-4-Windows" aria-selected="false">
+  <h3 class="tab-header" id="nav-tab-heading-4-Windows">
+  Windows
   </h3>
 </button>
 </div>
 </nav><div id="nav-tabContent-4" class="tab-content">
-<div id="nav-tabpanel-4-UnixandWindowsTerminal" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-4-UnixandWindowsTerminal">
+<div id="nav-tabpanel-4-Linux" class="tab-pane show active" aria-labelledby="nav-tab-4-Linux" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2425,17 +2461,39 @@ the Pixi project starting at the same directory where the
         ├── man
         ├── share
         ├── ssl
-        ├── x86_64-conda_cos6-linux-gnu
         └── x86_64-conda-linux-gnu
 
 11 directories, 0 files</code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-4-WindowsPowerShell" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-4-WindowsPowerShell">
+<div id="nav-tabpanel-4-macOS" class="tab-pane" aria-labelledby="nav-tab-4-macOS" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb20">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-L</span> 3 .pixi/</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>.pixi/
+└── envs
+    └── default
+        ├── bin
+        ├── conda-meta
+        ├── include
+        ├── lib
+        ├── man
+        ├── share
+        └── ssl
+
+10 directories, 0 files</code></pre>
+</div>
+</div>
+<div id="nav-tabpanel-4-Windows" class="tab-pane" aria-labelledby="nav-tab-4-Windows" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">ls</span> <span class="op">-</span>d <span class="dv">3</span> <span class="op">.</span><span class="fu">pixi</span>\</span></code></pre>
+<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">ls</span> <span class="op">-</span>d <span class="dv">3</span> <span class="op">.</span><span class="fu">pixi</span>\</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2490,9 +2548,8 @@ provide secure encryption when connecting to websites</li>
 <code>conda-meta</code>: for metadata for all installed conda
 packages</li>
 <li>
-<code>x86_64-conda_cos6-linux-gnu</code> and
-<code>x86_64-conda-linux-gnu</code>: for platform specific tools (like
-linkers) — this will vary depending on your operating system</li>
+<code>x86_64-conda-linux-gnu</code>: for platform specific tools
+(like linkers) — this will vary depending on your operating system</li>
 </ul>
 <p>How did this directory tree get here? It is a result of all the files
 that were in the conda packages we downloaded and installed as
@@ -2516,41 +2573,7 @@ dependencies of Python.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-5" class="tab-content">
-<div id="nav-tabpanel-5-Linux" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-5-Linux">
-<div class="codewrapper sourceCode" id="cb22">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="ex">pixi</span> list</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>Package           Version    Build               Size       Kind   Source
-_libgcc_mutex     0.1        conda_forge         2.5 KiB    conda  https://conda.anaconda.org/conda-forge/
-_openmp_mutex     4.5        2_gnu               23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-bzip2             1.0.8      h4bc722e_7          246.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-ca-certificates   2025.4.26  hbd8a1cb_0          148.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-ld_impl_linux-64  2.43       h1423503_5          654.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat          2.7.0      h5888daf_0          72.7 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi            3.4.6      h2dba641_1          56.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgcc            15.1.0     h767d61c_2          809.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-libgcc-ng         15.1.0     h69a702a_2          33.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgomp           15.1.0     h767d61c_2          442 KiB    conda  https://conda.anaconda.org/conda-forge/
-liblzma           5.8.1      hb9d3cd8_2          110.2 KiB  conda  https://conda.anaconda.org/conda-forge/
-libmpdec          4.0.0      hb9d3cd8_0          89 KiB     conda  https://conda.anaconda.org/conda-forge/
-libsqlite         3.50.1     hee588c1_0          898.3 KiB  conda  https://conda.anaconda.org/conda-forge/
-libuuid           2.38.1     h0b41bf4_0          32.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-libzlib           1.3.1      hb9d3cd8_2          59.5 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses           6.5        h2d0b736_3          870.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl           3.5.0      h7b32b05_1          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-python            3.13.5     hf636f53_101_cp313  31.7 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi        3.13       7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline          8.2        h8c095d6_2          275.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk                8.6.13     noxft_hd72426e_102  3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
-tzdata            2025b      h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
-</div>
-</div>
-<div id="nav-tabpanel-5-macOS" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-5-macOS">
+<div id="nav-tabpanel-5-Linux" class="tab-pane show active" aria-labelledby="nav-tab-5-Linux" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2559,25 +2582,32 @@ tzdata            2025b      h78e105d_0          120.1 KiB  conda  https://conda
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Package          Version    Build               Size       Kind   Source
-bzip2            1.0.8      h99b78c6_7          120 KiB    conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.6.15  hbd8a1cb_0          147.5 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.0      h286801f_0          64.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi           3.4.6      h1da3d7d_1          38.9 KiB   conda  https://conda.anaconda.org/conda-forge/
-liblzma          5.8.1      h39f12f2_2          90.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libmpdec         4.0.0      h5505292_0          70.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.1     h3f77e49_0          880.1 KiB  conda  https://conda.anaconda.org/conda-forge/
-libzlib          1.3.1      h8359307_2          45.3 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses          6.5        h5e97a16_3          778.3 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.0      h81ee809_1          2.9 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5     h81fe080_101_cp313  12.3 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13       7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline         8.2        h1d1bf99_2          246.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk               8.6.13     h892fb3f_2          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-tzdata           2025b      h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
+<pre class="output" tabindex="0"><code>Package           Version   Build               Size       Kind   Source
+_libgcc_mutex     0.1       conda_forge         2.5 KiB    conda  https://conda.anaconda.org/conda-forge/
+_openmp_mutex     4.5       2_gnu               23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+bzip2             1.0.8     h4bc722e_7          246.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+ca-certificates   2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+ld_impl_linux-64  2.44      h1423503_1          660.2 KiB  conda  https://conda.anaconda.org/conda-forge/
+libexpat          2.7.1     hecca717_0          73.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libffi            3.4.6     h2dba641_1          56.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libgcc            15.1.0    h767d61c_4          804.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+libgcc-ng         15.1.0    h69a702a_4          28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
+libgomp           15.1.0    h767d61c_4          436.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+liblzma           5.8.1     hb9d3cd8_2          110.2 KiB  conda  https://conda.anaconda.org/conda-forge/
+libmpdec          4.0.0     hb9d3cd8_0          89 KiB     conda  https://conda.anaconda.org/conda-forge/
+libsqlite         3.50.4    h0c1763c_0          910.7 KiB  conda  https://conda.anaconda.org/conda-forge/
+libuuid           2.38.1    h0b41bf4_0          32.8 KiB   conda  https://conda.anaconda.org/conda-forge/
+libzlib           1.3.1     hb9d3cd8_2          59.5 KiB   conda  https://conda.anaconda.org/conda-forge/
+ncurses           6.5       h2d0b736_3          870.7 KiB  conda  https://conda.anaconda.org/conda-forge/
+openssl           3.5.2     h26f9b46_0          3 MiB      conda  https://conda.anaconda.org/conda-forge/
+python            3.13.5    hec9711d_102_cp313  31.7 MiB   conda  https://conda.anaconda.org/conda-forge/
+python_abi        3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+readline          8.2       h8c095d6_2          275.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+tk                8.6.13    noxft_hd72426e_102  3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
+tzdata            2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-5-Windows" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-5-Windows">
+<div id="nav-tabpanel-5-macOS" class="tab-pane" aria-labelledby="nav-tab-5-macOS" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2586,23 +2616,52 @@ tzdata           2025b      h78e105d_0          120.1 KiB  conda  https://conda.
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
+<pre class="output" tabindex="0"><code>Package          Version   Build               Size       Kind   Source
+bzip2            1.0.8     h99b78c6_7          120 KiB    conda  https://conda.anaconda.org/conda-forge/
+ca-certificates  2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
+icu              75.1      hfee45f7_0          11.3 MiB   conda  https://conda.anaconda.org/conda-forge/
+libexpat         2.7.1     hec049ff_0          64.4 KiB   conda  https://conda.anaconda.org/conda-forge/
+libffi           3.4.6     h1da3d7d_1          38.9 KiB   conda  https://conda.anaconda.org/conda-forge/
+liblzma          5.8.1     h39f12f2_2          90.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libmpdec         4.0.0     h5505292_0          70.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+libsqlite        3.50.4    h4237e3c_0          881.5 KiB  conda  https://conda.anaconda.org/conda-forge/
+libzlib          1.3.1     h8359307_2          45.3 KiB   conda  https://conda.anaconda.org/conda-forge/
+ncurses          6.5       h5e97a16_3          778.3 KiB  conda  https://conda.anaconda.org/conda-forge/
+openssl          3.5.2     he92f556_0          2.9 MiB    conda  https://conda.anaconda.org/conda-forge/
+python           3.13.5    hf3f3da0_102_cp313  12.3 MiB   conda  https://conda.anaconda.org/conda-forge/
+python_abi       3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+readline         8.2       h1d1bf99_2          246.4 KiB  conda  https://conda.anaconda.org/conda-forge/
+tk               8.6.13    h892fb3f_2          3 MiB      conda  https://conda.anaconda.org/conda-forge/
+tzdata           2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
+</div>
+</div>
+<div id="nav-tabpanel-5-Windows" class="tab-pane" aria-labelledby="nav-tab-5-Windows" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb28">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="ex">pixi</span> list</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
 <pre class="output" tabindex="0"><code>Package          Version       Build               Size       Kind   Source
 bzip2            1.0.8         h2466b09_7          53.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.4.26     h4c7d964_0          149.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.0         he0c23c2_0          137.6 KiB  conda  https://conda.anaconda.org/conda-forge/
+ca-certificates  2025.8.3      h4c7d964_0          150.9 KiB  conda  https://conda.anaconda.org/conda-forge/
+libexpat         2.7.1         hac47afa_0          138 KiB    conda  https://conda.anaconda.org/conda-forge/
 libffi           3.4.6         h537db12_1          43.9 KiB   conda  https://conda.anaconda.org/conda-forge/
 liblzma          5.8.1         h2466b09_2          102.5 KiB  conda  https://conda.anaconda.org/conda-forge/
 libmpdec         4.0.0         h2466b09_0          86.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.1        h67fdade_0          1 MiB      conda  https://conda.anaconda.org/conda-forge/
+libsqlite        3.50.4        hf5d6505_0          1.2 MiB    conda  https://conda.anaconda.org/conda-forge/
 libzlib          1.3.1         h2466b09_2          54.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.0         ha4e3fda_1          8.6 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5        h261c0b1_101_cp313  16.1 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13          7_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
+openssl          3.5.2         h725018a_0          8.8 MiB    conda  https://conda.anaconda.org/conda-forge/
+python           3.13.5        h7de537c_102_cp313  16 MiB     conda  https://conda.anaconda.org/conda-forge/
+python_abi       3.13          8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
 tk               8.6.13        h2c6b04d_2          3.3 MiB    conda  https://conda.anaconda.org/conda-forge/
 tzdata           2025b         h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
 ucrt             10.0.22621.0  h57928b3_1          546.6 KiB  conda  https://conda.anaconda.org/conda-forge/
-vc               14.3          h2b53caa_26         17.5 KiB   conda  https://conda.anaconda.org/conda-forge/
-vc14_runtime     14.42.34438   hfd919c2_26         733.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
+vc               14.3          h41ae7f8_31         17.8 KiB   conda  https://conda.anaconda.org/conda-forge/
+vc14_runtime     14.44.35208   h818238b_31         666.4 KiB  conda  https://conda.anaconda.org/conda-forge/
+vcomp14          14.44.35208   h818238b_31         111.3 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
 </div>
 </div>
 </div>
@@ -2630,43 +2689,43 @@ organization</a></p>
 </button>
 </div>
 </nav><div id="nav-tabContent-6" class="tab-content">
-<div id="nav-tabpanel-6-Linux" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-6-Linux">
-<div class="codewrapper sourceCode" id="cb28">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sLO</span> https://anaconda.org/conda-forge/python/3.13.3/download/linux-64/python-3.13.3-hf636f53_101_cp313.conda</span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.conda</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>python-3.13.3-hf636f53_101_cp313.conda</code></pre>
-</div>
-</div>
-<div id="nav-tabpanel-6-macOS" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-6-macOS">
+<div id="nav-tabpanel-6-Linux" class="tab-pane show active" aria-labelledby="nav-tab-6-Linux" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sLO</span> https://anaconda.org/conda-forge/python/3.13.3/download/osx-arm64/python-3.13.3-h81fe080_101_cp313.conda</span>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sLO</span> https://anaconda.org/conda-forge/python/3.13.5/download/linux-64/python-3.13.5-hec9711d_102_cp313.conda</span>
 <span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.conda</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>python-3.13.3-h81fe080_101_cp313.conda</code></pre>
+<pre class="output" tabindex="0"><code>python-3.13.5-hec9711d_102_cp313.conda</code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-6-Windows" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-6-Windows">
+<div id="nav-tabpanel-6-macOS" class="tab-pane" aria-labelledby="nav-tab-6-macOS" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb32">
-<h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">iwr</span> <span class="op">-</span>Uri <span class="st">"https://anaconda.org/conda-forge/python/3.13.3/download/win-64/python-3.13.3-h261c0b1_101_cp313.conda"</span> <span class="op">-</span>OutFile <span class="st">"python-3.13.3-h261c0b1_101_cp313.conda"</span></span>
-<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="fu">ls</span> <span class="op">*.</span><span class="fu">conda</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sLO</span> https://anaconda.org/conda-forge/python/3.13.5/download/osx-arm64/python-3.13.5-hf3f3da0_102_cp313.conda</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.conda</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>python-3.13.3-h261c0b1_101_cp313.conda</code></pre>
+<pre class="output" tabindex="0"><code>python-3.13.5-hf3f3da0_102_cp313.conda</code></pre>
+</div>
+</div>
+<div id="nav-tabpanel-6-Windows" class="tab-pane" aria-labelledby="nav-tab-6-Windows" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb34">
+<h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">iwr</span> <span class="op">-</span>Uri <span class="st">"https://anaconda.org/conda-forge/python/3.13.5/download/win-64/python-3.13.5-h7de537c_102_cp313.conda"</span> <span class="op">-</span>OutFile <span class="st">"python-3.13.5-h7de537c_102_cp313.conda"</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="fu">ls</span> <span class="op">*.</span><span class="fu">conda</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>python-3.13.5-h7de537c_102_cp313.conda</code></pre>
 </div>
 </div>
 </div>
@@ -2695,52 +2754,52 @@ interact with them as we would with <code>.zip</code> files.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-7" class="tab-content">
-<div id="nav-tabpanel-7-Linux" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-7-Linux">
-<div class="codewrapper sourceCode" id="cb34">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">unzip</span> python-3.13.3-hf636f53_101_cp313.conda <span class="at">-d</span> output</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>Archive:  python-3.13.3-hf636f53_101_cp313.conda
- extracting: output/metadata.json
- extracting: output/pkg-python-3.13.3-hf636f53_101_cp313.tar.zst
- extracting: output/info-python-3.13.3-hf636f53_101_cp313.tar.zst</code></pre>
-</div>
-</div>
-<div id="nav-tabpanel-7-macOS" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-7-macOS">
+<div id="nav-tabpanel-7-Linux" class="tab-pane show active" aria-labelledby="nav-tab-7-Linux" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">unzip</span> python-3.13.3-h81fe080_101_cp313.conda <span class="at">-d</span> output</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">unzip</span> python-3.13.5-hec9711d_102_cp313.conda <span class="at">-d</span> output</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Archive:  python-3.13.3-h81fe080_101_cp313.conda
+<pre class="output" tabindex="0"><code>Archive:  python-3.13.5-hec9711d_102_cp313.conda
  extracting: output/metadata.json
- extracting: output/pkg-python-3.13.3-h81fe080_101_cp313.tar.zst
- extracting: output/info-python-3.13.3-h81fe080_101_cp313.tar.zst</code></pre>
+ extracting: output/pkg-python-3.13.5-hec9711d_102_cp313.tar.zst
+ extracting: output/info-python-3.13.5-hec9711d_102_cp313.tar.zst</code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-7-Windows" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-7-Windows">
+<div id="nav-tabpanel-7-macOS" class="tab-pane" aria-labelledby="nav-tab-7-macOS" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb38">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">unzip</span> python-3.13.5-hf3f3da0_102_cp313.conda <span class="at">-d</span> output</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Archive:  python-3.13.5-hf3f3da0_102_cp313.conda
+ extracting: output/metadata.json
+ extracting: output/pkg-python-3.13.5-hf3f3da0_102_cp313.tar.zst
+ extracting: output/info-python-3.13.5-hf3f3da0_102_cp313.tar.zst</code></pre>
+</div>
+</div>
+<div id="nav-tabpanel-7-Windows" class="tab-pane" aria-labelledby="nav-tab-7-Windows" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb40">
 <h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>Expand-Archive <span class="st">"python-3.13.3-h261c0b1_101_cp313.conda"</span> <span class="st">"output"</span></span></code></pre>
+<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>Expand-Archive <span class="st">"python-3.13.5-h7de537c_102_cp313.conda"</span> <span class="st">"output"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
-d----           6/15/2025  4:57 PM                pkg
-d----           6/15/2025  4:57 PM                pkg
--a---            1/1/1980 12:00 AM         133799 info-python-3.13.3-h261c0b1_101_cp313.tar.zst
--a---           4/14/2025  8:38 PM             31 metadata.json
--a---            1/1/1980 12:00 AM       16480111 pkg-python-3.13.3-h261c0b1_101_cp313.tar.zst</code></pre>
+d----           8/11/2025  2:11 AM                pkg
+d----           8/11/2025  2:11 AM                pkg
+-a---            1/1/1980 12:00 AM         133451 info-python-3.13.5-h7de537c_102_cp313.tar.zst
+-a---           6/16/2025  8:25 AM             31 metadata.json
+-a---            1/1/1980 12:00 AM       16691645 pkg-python-3.13.5-h7de537c_102_cp313.tar.zst</code></pre>
 </div>
 </div>
 </div>
@@ -2750,12 +2809,12 @@ metadata (<code>metadata.json</code>) as well as two other tar archives
 compressed with the Zstandard compression algorithm
 (<code>.tar.zst</code>). We can uncompress them manually with
 <code>tar</code></p>
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="bu">cd</span> output</span>
-<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> pkg</span>
-<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a><span class="fu">tar</span> <span class="at">--zstd</span> <span class="at">-xvf</span> pkg-python-<span class="pp">*</span>.tar.zst <span class="at">--directory</span> pkg</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="bu">cd</span> output</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> pkg</span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="fu">tar</span> <span class="at">--zstd</span> <span class="at">-xvf</span> pkg-python-<span class="pp">*</span>.tar.zst <span class="at">--directory</span> pkg</span></code></pre>
 </div>
 <p>and then look at the uncompressed directory tree with
 <code>tree</code></p>
@@ -2778,11 +2837,11 @@ compressed with the Zstandard compression algorithm
 </button>
 </div>
 </nav><div id="nav-tabContent-8" class="tab-content">
-<div id="nav-tabpanel-8-Linux" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-8-Linux">
-<div class="codewrapper sourceCode" id="cb41">
+<div id="nav-tabpanel-8-Linux" class="tab-pane show active" aria-labelledby="nav-tab-8-Linux" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-L</span> 2 pkg</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-L</span> 2 pkg</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2812,48 +2871,52 @@ compressed with the Zstandard compression algorithm
 │   └── python3.13
 └── share
     ├── man
-    └── python_compiler_compat</code></pre>
+    └── python_compiler_compat
+
+12 directories, 14 files</code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-8-macOS" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-8-macOS">
-<div class="codewrapper sourceCode" id="cb43">
+<div id="nav-tabpanel-8-macOS" class="tab-pane" aria-labelledby="nav-tab-8-macOS" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-L</span> 2 pkg</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-L</span> 2 pkg</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>pkg
 ├── bin
-│   ├── idle3 -&gt; idle3.13
-│   ├── idle3.13
-│   ├── pydoc -&gt; pydoc3.13
-│   ├── pydoc3 -&gt; pydoc3.13
-│   ├── pydoc3.13
-│   ├── python -&gt; python3.13
-│   ├── python3 -&gt; python3.13
-│   ├── python3-config -&gt; python3.13-config
-│   ├── python3.1 -&gt; python3.13
-│   ├── python3.13
-│   └── python3.13-config
+│   ├── idle3 -&gt; idle3.13
+│   ├── idle3.13
+│   ├── pydoc -&gt; pydoc3.13
+│   ├── pydoc3 -&gt; pydoc3.13
+│   ├── pydoc3.13
+│   ├── python -&gt; python3.13
+│   ├── python3 -&gt; python3.13
+│   ├── python3.1 -&gt; python3.13
+│   ├── python3.13
+│   ├── python3.13-config
+│   └── python3-config -&gt; python3.13-config
 ├── include
-│   └── python3.13
+│   └── python3.13
 ├── info
-│   └── licenses
+│   └── licenses
 ├── lib
-│   ├── libpython3.13.dylib
-│   ├── pkgconfig
-│   └── python3.13
+│   ├── libpython3.13.dylib
+│   ├── pkgconfig
+│   └── python3.13
 └── share
-    └── man</code></pre>
+    └── man
+
+11 directories, 12 files</code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-8-Windows" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-8-Windows">
-<div class="codewrapper sourceCode" id="cb45">
+<div id="nav-tabpanel-8-Windows" class="tab-pane" aria-labelledby="nav-tab-8-Windows" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb47">
 <h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">ls</span> <span class="op">-</span>d <span class="dv">2</span> pkg\</span></code></pre>
+<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">ls</span> <span class="op">-</span>d <span class="dv">2</span> pkg\</span></code></pre>
 </div>
 </div>
 </div>
@@ -2878,11 +2941,11 @@ compressed with the Zstandard compression algorithm
 </button>
 </div>
 </nav><div id="nav-tabContent-9" class="tab-content">
-<div id="nav-tabpanel-9-Linux" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-9-Linux">
-<div class="codewrapper sourceCode" id="cb46">
+<div id="nav-tabpanel-9-Linux" class="tab-pane show active" aria-labelledby="nav-tab-9-Linux" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1p</span> pkg/lib/</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1p</span> pkg/lib/</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2894,11 +2957,11 @@ pkgconfig/
 python3.13/</code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-9-macOS" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-9-macOS">
-<div class="codewrapper sourceCode" id="cb48">
+<div id="nav-tabpanel-9-macOS" class="tab-pane" aria-labelledby="nav-tab-9-macOS" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1p</span> pkg/lib/</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1p</span> pkg/lib/</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2908,11 +2971,11 @@ pkgconfig/
 python3.13/</code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-9-Windows" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-9-Windows">
-<div class="codewrapper sourceCode" id="cb50">
+<div id="nav-tabpanel-9-Windows" class="tab-pane" aria-labelledby="nav-tab-9-Windows" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">ls</span> pkg <span class="op">|</span> <span class="fu">fw</span> <span class="op">-</span>col <span class="dv">1</span></span></code></pre>
+<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">ls</span> pkg <span class="op">|</span> <span class="fu">fw</span> <span class="op">-</span>col <span class="dv">1</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2957,22 +3020,7 @@ package installed</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-10" class="tab-content">
-<div id="nav-tabpanel-10-Linux" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-10-Linux">
-<div class="codewrapper sourceCode" id="cb52">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="bu">cd</span> ..</span>
-<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1a</span> .pixi/envs/default/lib/libpython<span class="pp">*</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code><span><span class="va">.pixi</span><span class="op">/</span><span class="va">envs</span><span class="op">/</span><span class="va">default</span><span class="op">/</span><span class="va">lib</span><span class="op">/</span><span class="va">libpython3.13.so</span></span>
-<span><span class="va">.pixi</span><span class="op">/</span><span class="va">envs</span><span class="op">/</span><span class="va">default</span><span class="op">/</span><span class="va">lib</span><span class="op">/</span><span class="va">libpython3.13.so.1.0</span></span>
-<span><span class="va">.pixi</span><span class="op">/</span><span class="va">envs</span><span class="op">/</span><span class="va">default</span><span class="op">/</span><span class="va">lib</span><span class="op">/</span><span class="va">libpython3.so</span></span></code></pre>
-</div>
-</div>
-<div id="nav-tabpanel-10-macOS" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-10-macOS">
+<div id="nav-tabpanel-10-Linux" class="tab-pane show active" aria-labelledby="nav-tab-10-Linux" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -2982,15 +3030,30 @@ package installed</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
+<pre class="output" tabindex="0"><code><span><span class="va">.pixi</span><span class="op">/</span><span class="va">envs</span><span class="op">/</span><span class="va">default</span><span class="op">/</span><span class="va">lib</span><span class="op">/</span><span class="va">libpython3.13.so</span></span>
+<span><span class="va">.pixi</span><span class="op">/</span><span class="va">envs</span><span class="op">/</span><span class="va">default</span><span class="op">/</span><span class="va">lib</span><span class="op">/</span><span class="va">libpython3.13.so.1.0</span></span>
+<span><span class="va">.pixi</span><span class="op">/</span><span class="va">envs</span><span class="op">/</span><span class="va">default</span><span class="op">/</span><span class="va">lib</span><span class="op">/</span><span class="va">libpython3.so</span></span></code></pre>
+</div>
+</div>
+<div id="nav-tabpanel-10-macOS" class="tab-pane" aria-labelledby="nav-tab-10-macOS" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb56">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1a</span> .pixi/envs/default/lib/libpython<span class="pp">*</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
 <pre class="output" tabindex="0"><code><span><span class="va">.pixi</span><span class="op">/</span><span class="va">envs</span><span class="op">/</span><span class="va">default</span><span class="op">/</span><span class="va">lib</span><span class="op">/</span><span class="va">libpython3.13.dylib</span></span></code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-10-Windows" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-10-Windows">
-<div class="codewrapper sourceCode" id="cb56">
+<div id="nav-tabpanel-10-Windows" class="tab-pane" aria-labelledby="nav-tab-10-Windows" role="tabpanel">
+<div class="codewrapper sourceCode" id="cb58">
 <h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">cd</span> <span class="op">..</span></span>
-<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a><span class="fu">ls</span> <span class="op">.</span><span class="fu">pixi</span>\envs\default\python<span class="op">*.</span><span class="fu">dll</span> <span class="op">|</span> <span class="fu">fw</span> <span class="op">-</span>col <span class="dv">1</span></span></code></pre>
+<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="fu">cd</span> <span class="op">..</span></span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a><span class="fu">ls</span> <span class="op">.</span><span class="fu">pixi</span>\envs\default\python<span class="op">*.</span><span class="fu">dll</span> <span class="op">|</span> <span class="fu">fw</span> <span class="op">-</span>col <span class="dv">1</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3025,9 +3088,9 @@ tools are just manipulating files.</p>
 <div id="exploring-conda-forge" class="callout-inner">
 <h3 class="callout-title">Exploring conda-forge</h3>
 <div class="callout-content">
-<p>As of 2025 <a href="https://conda-forge.org/" class="external-link">conda-forge</a> has
-over 28,500 packages on it. Go to the conda-forge package list website
-(<a href="https://conda-forge.org/packages/" class="external-link uri">https://conda-forge.org/packages/</a>) and try to find three
+<p>As of August 2025 <a href="https://conda-forge.org/" class="external-link">conda-forge</a>
+has over 29,000 packages on it. Go to the conda-forge package list
+website (<a href="https://conda-forge.org/packages/" class="external-link uri">https://conda-forge.org/packages/</a>) and try to find three
 packages that you use in your research, and three packages from your
 scientific field that are more niche.</p>
 </div>
@@ -3040,7 +3103,7 @@ scientific field that are more niche.</p>
   Some packages
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Research packages:</p>
 <ul>
@@ -4178,7 +4241,7 @@ of the CUDA conda packages episode to
   Dockerfile walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>Let’s step through this to understand what’s happening.
 <code>Dockerfile</code>s (intentionally) look very shell script like,
@@ -4323,7 +4386,7 @@ workspace.</p>
   A possible solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4551,7 +4614,7 @@ pixi list</code></pre>
   Apptainer walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
 <div class="accordion-body">
 <ul>
 <li>The Apptainer definition file is broken out into specific <a href="https://apptainer.org/docs/user/main/definition_files.html#sections" class="external-link">operation
@@ -5826,8 +5889,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/aio.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/aio.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-08-10",
-  "datePublished": "2025-08-10"
+  "dateModified": "2025-08-11",
+  "datePublished": "2025-08-11"
 }
 
   </script><script>

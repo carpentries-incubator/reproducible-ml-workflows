@@ -338,7 +338,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Pixi</h1>
-        <p>Last updated on 2025-08-10 |
+        <p>Last updated on 2025-08-11 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi-intro.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -943,7 +943,7 @@ directory.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Let’s start at the command line and add the additional dependencies
 with <code>pixi add</code></p>
@@ -1065,7 +1065,7 @@ the <code>lab</code> task.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Using the command line, we use the same <code>pixi task</code> syntax
 as before, but now with the <code>--depends-on</code> option</p>
@@ -1228,7 +1228,7 @@ platforms.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Using the <a href="https://pixi.sh/latest/reference/cli/pixi/workspace/" class="external-link"><code>pixi workspace</code>
 CLI API</a>, one can add the platforms with</p>
@@ -1433,6 +1433,37 @@ environments defined in the global manifest will be installed on the
 system. This means that by sharing a Pixi global manifest, a new machine
 can be provisioned with an entire suite of command line tools in
 seconds.</p>
+<div id="version-controlling-our-examples" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="version-controlling-our-examples" class="callout-inner">
+<h3 class="callout-title">Version controlling our examples</h3>
+<div class="callout-content">
+<p>As part of this lesson, we are building up a Git repository of the
+examples that we move through. On a <strong>new branch</strong> in your
+repository, add and commit the files from the this episode.</p>
+<div class="codewrapper sourceCode" id="cb63">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="fu">git</span> add pixi.<span class="pp">*</span> .git<span class="pp">*</span></span>
+<span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a><span class="fu">git</span> commit</span></code></pre>
+</div>
+<p>Then push your branch to your remote on GitHub</p>
+<div class="codewrapper sourceCode" id="cb64">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin HEAD</span></code></pre>
+</div>
+<p>and make a pull request to merge your changes into your remote’s
+default branch.</p>
+<p>We’ll follow this pattern for every episode: * Create a new feature
+branch * Add and commit work to a pull request as we go * Merge the pull
+request at the end</p>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1512,8 +1543,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-intro.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-intro.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-08-10",
-  "datePublished": "2025-08-10"
+  "dateModified": "2025-08-11",
+  "datePublished": "2025-08-11"
 }
 
   </script><script>
