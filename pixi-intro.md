@@ -664,6 +664,37 @@ jupyterlab = ">=4.4.5,<5"
 :::
 :::
 
+::: callout
+
+# Pixi features
+
+"[Features](https://pixi.sh/latest/reference/pixi_manifest/#the-feature-and-environments-tables)" in Pixi are TOML tables that define a _part_ of an environment, but by itself is not useable.
+Features can be composed together to create an environment &mdash; think of how individual LEGO bricks (features) can be connected together to build a larger structure (an environment).
+Features can also be used across multiple environments, which allows for building complex environment structures without having to redefine sections.
+
+Pseudo-example: The following Pixi manifest structure defines three "features" (`A`, `B`, and `C`) and then constructs four different environments (`A`, `two`, `three`, `alternative`) by composing the features together.
+
+```toml
+...
+
+[feature.A.dependencies]
+...
+
+[feature.B.dependencies]
+...
+
+[feature.C.dependencies]
+...
+
+[environments]
+A = ["A"]
+two = ["A", "C"]
+three = ["A", "B", "C"]
+alternative = ["B", "A"]
+```
+
+:::
+
 So far the Pixi project has only had one environment defined in it.
 We can make the [project multi-environment](https://pixi.sh/latest/workspace/multi_environment/) by first defining a new ["feature"][feature table] which provides all the fields necessary to define _part_ of an environment to extend the `default` environment.
 We can create a new `feature` named `dev` and then create an `environment` also named `dev` which uses the `dev` feature to extend the default environment
