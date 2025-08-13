@@ -87,7 +87,7 @@ To use it later, we'll place the `torch_detect_GPU.py` code from the end of the 
 
 ```bash
 mkdir -p app
-curl -sL https://github.com/matthewfeickert/nvidia-gpu-ml-library-test/raw/36c725360b1b1db648d6955c27bd3885b29a3273/torch_detect_GPU.py -o /app/torch_detect_GPU.py
+curl -sL https://github.com/matthewfeickert/nvidia-gpu-ml-library-test/raw/36c725360b1b1db648d6955c27bd3885b29a3273/torch_detect_GPU.py -o ./app/torch_detect_GPU.py
 ```
 
 :::
