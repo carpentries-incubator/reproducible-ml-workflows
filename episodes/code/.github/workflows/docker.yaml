@@ -54,6 +54,7 @@ jobs:
             type=raw,value=gpu-noble-cuda-12.9
             type=raw,value=latest
             type=sha
+            type=sha,prefix=gpu-noble-cuda-12.9-sha-
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
