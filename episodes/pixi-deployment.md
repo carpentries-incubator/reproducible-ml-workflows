@@ -377,9 +377,9 @@ Stage: build
 export CONDA_OVERRIDE_CUDA=12
 cd /app/
 pixi info
-pixi install --locked --environment prod
+pixi install --locked --environment gpu
 echo "#!/bin/bash" > /app/entrypoint.sh && \
-pixi shell-hook --environment prod -s bash >> /app/entrypoint.sh && \
+pixi shell-hook --environment gpu -s bash >> /app/entrypoint.sh && \
 echo 'exec "$@"' >> /app/entrypoint.sh
 
 
@@ -388,7 +388,7 @@ From: ghcr.io/prefix-dev/pixi:noble
 Stage: final
 
 %files from build
-/app/.pixi/envs/prod /app/.pixi/envs/prod
+/app/.pixi/envs/gpu /app/.pixi/envs/gpu
 /app/pixi.toml /app/pixi.toml
 /app/pixi.lock /app/pixi.lock
 /app/.gitignore /app/.gitignore
@@ -455,9 +455,9 @@ export CONDA_OVERRIDE_CUDA=12
 ...
 cd /app/
 pixi info
-pixi install --locked --environment prod
+pixi install --locked --environment gpu
 echo "#!/bin/bash" > /app/entrypoint.sh && \
-pixi shell-hook --environment prod -s bash >> /app/entrypoint.sh && \
+pixi shell-hook --environment gpu -s bash >> /app/entrypoint.sh && \
 echo 'exec "$@"' >> /app/entrypoint.sh
 ```
 
@@ -470,7 +470,7 @@ From: ghcr.io/prefix-dev/pixi:noble
 Stage: final
 
 %files from build
-/app/.pixi/envs/prod /app/.pixi/envs/prod
+/app/.pixi/envs/gpu /app/.pixi/envs/gpu
 /app/pixi.toml /app/pixi.toml
 /app/pixi.lock /app/pixi.lock
 /app/.gitignore /app/.gitignore
