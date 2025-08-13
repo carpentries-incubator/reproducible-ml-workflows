@@ -668,6 +668,28 @@ we created separate CPU and GPU computational environments that are now fully re
 :::
 :::
 
+
+::: callout
+
+## Version Control
+
+On a **new branch** in your repository, add and commit the files from this episode.
+
+```bash
+git add cuda-example/pixi.* cuda-example/git.*
+git add cuda-exercise/pixi.* cuda-exercise/git.*
+```
+
+Then push your branch to your remote on GitHub
+
+```bash
+git push -u origin HEAD
+```
+
+and make a pull request to merge your changes into your remote's default branch.
+
+:::
+
 ::: checklist
 
 ## Further CUDA and GPU references
