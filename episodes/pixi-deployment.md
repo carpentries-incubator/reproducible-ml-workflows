@@ -225,7 +225,7 @@ With this `Dockerfile` the container image can then be built with [`docker build
 
 ### Automation with GitHub Actions workflows
 
-In the personal GitHub repository that we've been working in create a GitHub Actions workflow directory
+In the personal GitHub repository that we've been working in, create a GitHub Actions workflow directory from the top level of the repository
 
 ```bash
 mkdir -p .github/workflows
