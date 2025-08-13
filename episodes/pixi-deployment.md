@@ -534,7 +534,7 @@ apptainer build <container image name>.sif <definition file name>.def
 
 ### Automation with GitHub Actions workflows
 
-In the personal GitHub repository that we've been working in create a GitHub Actions workflow directory
+In the personal GitHub repository that we've been working in, create a GitHub Actions workflow directory from the top level of the repository
 
 ```bash
 mkdir -p .github/workflows
@@ -619,6 +619,29 @@ jobs:
 ```
 
 This will build your Apptainer definition file in GitHub Actions CI into a `.sif` container image and then deploy it to the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) (`ghcr`) associated with your repository.
+
+::: callout
+
+## Version Control
+
+We now want to use these tools to build our Pixi environment into a Linux container.
+
+On a **new branch** in your repository, add and commit the files from this episode.
+
+```bash
+git add cuda-exercise/apptainer.def
+git add .github/workflows/apptainer.yaml
+```
+
+Then push your branch to your remote on GitHub
+
+```bash
+git push -u origin HEAD
+```
+
+and make a pull request to merge your changes into your remote's default branch.
+
+:::
 
 ::: keypoints
 
