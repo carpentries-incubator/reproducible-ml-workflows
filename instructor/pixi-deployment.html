@@ -742,41 +742,42 @@ repository</p>
 <span id="cb11-54"><a href="#cb11-54" tabindex="-1"></a>            type=raw,value=gpu-noble-cuda-12.9</span>
 <span id="cb11-55"><a href="#cb11-55" tabindex="-1"></a>            type=raw,value=latest</span>
 <span id="cb11-56"><a href="#cb11-56" tabindex="-1"></a>            type=sha</span>
-<span id="cb11-57"><a href="#cb11-57" tabindex="-1"></a></span>
-<span id="cb11-58"><a href="#cb11-58" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up QEMU</span></span>
-<span id="cb11-59"><a href="#cb11-59" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/setup-qemu-action@v3</span></span>
-<span id="cb11-60"><a href="#cb11-60" tabindex="-1"></a></span>
-<span id="cb11-61"><a href="#cb11-61" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up Docker Buildx</span></span>
-<span id="cb11-62"><a href="#cb11-62" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/setup-buildx-action@v3</span></span>
-<span id="cb11-63"><a href="#cb11-63" tabindex="-1"></a></span>
-<span id="cb11-64"><a href="#cb11-64" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Login to GitHub Container Registry</span></span>
-<span id="cb11-65"><a href="#cb11-65" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
-<span id="cb11-66"><a href="#cb11-66" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3</span></span>
-<span id="cb11-67"><a href="#cb11-67" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb11-68"><a href="#cb11-68" tabindex="-1"></a><span class="at">          </span><span class="fu">registry</span><span class="kw">:</span><span class="at"> ghcr.io</span></span>
-<span id="cb11-69"><a href="#cb11-69" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ github.repository_owner }}</span></span>
-<span id="cb11-70"><a href="#cb11-70" tabindex="-1"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
-<span id="cb11-71"><a href="#cb11-71" tabindex="-1"></a></span>
-<span id="cb11-72"><a href="#cb11-72" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test build</span></span>
-<span id="cb11-73"><a href="#cb11-73" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> docker_build_test</span></span>
-<span id="cb11-74"><a href="#cb11-74" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/build-push-action@v6</span></span>
-<span id="cb11-75"><a href="#cb11-75" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb11-76"><a href="#cb11-76" tabindex="-1"></a><span class="at">          </span><span class="fu">context</span><span class="kw">:</span><span class="at"> cuda-exercise</span></span>
-<span id="cb11-77"><a href="#cb11-77" tabindex="-1"></a><span class="at">          </span><span class="fu">file</span><span class="kw">:</span><span class="at"> cuda-exercise/Dockerfile</span></span>
-<span id="cb11-78"><a href="#cb11-78" tabindex="-1"></a><span class="at">          </span><span class="fu">tags</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.tags }}</span></span>
-<span id="cb11-79"><a href="#cb11-79" tabindex="-1"></a><span class="at">          </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.labels }}</span></span>
-<span id="cb11-80"><a href="#cb11-80" tabindex="-1"></a><span class="at">          </span><span class="fu">pull</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb11-81"><a href="#cb11-81" tabindex="-1"></a></span>
-<span id="cb11-82"><a href="#cb11-82" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy build</span></span>
-<span id="cb11-83"><a href="#cb11-83" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> docker_build_deploy</span></span>
-<span id="cb11-84"><a href="#cb11-84" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/build-push-action@v6</span></span>
-<span id="cb11-85"><a href="#cb11-85" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb11-86"><a href="#cb11-86" tabindex="-1"></a><span class="at">          </span><span class="fu">context</span><span class="kw">:</span><span class="at"> cuda-exercise</span></span>
-<span id="cb11-87"><a href="#cb11-87" tabindex="-1"></a><span class="at">          </span><span class="fu">file</span><span class="kw">:</span><span class="at"> cuda-exercise/Dockerfile</span></span>
-<span id="cb11-88"><a href="#cb11-88" tabindex="-1"></a><span class="at">          </span><span class="fu">tags</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.tags }}</span></span>
-<span id="cb11-89"><a href="#cb11-89" tabindex="-1"></a><span class="at">          </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.labels }}</span></span>
-<span id="cb11-90"><a href="#cb11-90" tabindex="-1"></a><span class="at">          </span><span class="fu">pull</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb11-91"><a href="#cb11-91" tabindex="-1"></a><span class="at">          </span><span class="fu">push</span><span class="kw">:</span><span class="at"> ${{ github.event_name != 'pull_request' }}</span></span></code></pre>
+<span id="cb11-57"><a href="#cb11-57" tabindex="-1"></a>            type=sha,prefix=gpu-noble-cuda-12.9-sha-</span>
+<span id="cb11-58"><a href="#cb11-58" tabindex="-1"></a></span>
+<span id="cb11-59"><a href="#cb11-59" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up QEMU</span></span>
+<span id="cb11-60"><a href="#cb11-60" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/setup-qemu-action@v3</span></span>
+<span id="cb11-61"><a href="#cb11-61" tabindex="-1"></a></span>
+<span id="cb11-62"><a href="#cb11-62" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up Docker Buildx</span></span>
+<span id="cb11-63"><a href="#cb11-63" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/setup-buildx-action@v3</span></span>
+<span id="cb11-64"><a href="#cb11-64" tabindex="-1"></a></span>
+<span id="cb11-65"><a href="#cb11-65" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Login to GitHub Container Registry</span></span>
+<span id="cb11-66"><a href="#cb11-66" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
+<span id="cb11-67"><a href="#cb11-67" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3</span></span>
+<span id="cb11-68"><a href="#cb11-68" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb11-69"><a href="#cb11-69" tabindex="-1"></a><span class="at">          </span><span class="fu">registry</span><span class="kw">:</span><span class="at"> ghcr.io</span></span>
+<span id="cb11-70"><a href="#cb11-70" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ github.repository_owner }}</span></span>
+<span id="cb11-71"><a href="#cb11-71" tabindex="-1"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
+<span id="cb11-72"><a href="#cb11-72" tabindex="-1"></a></span>
+<span id="cb11-73"><a href="#cb11-73" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test build</span></span>
+<span id="cb11-74"><a href="#cb11-74" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> docker_build_test</span></span>
+<span id="cb11-75"><a href="#cb11-75" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/build-push-action@v6</span></span>
+<span id="cb11-76"><a href="#cb11-76" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb11-77"><a href="#cb11-77" tabindex="-1"></a><span class="at">          </span><span class="fu">context</span><span class="kw">:</span><span class="at"> cuda-exercise</span></span>
+<span id="cb11-78"><a href="#cb11-78" tabindex="-1"></a><span class="at">          </span><span class="fu">file</span><span class="kw">:</span><span class="at"> cuda-exercise/Dockerfile</span></span>
+<span id="cb11-79"><a href="#cb11-79" tabindex="-1"></a><span class="at">          </span><span class="fu">tags</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.tags }}</span></span>
+<span id="cb11-80"><a href="#cb11-80" tabindex="-1"></a><span class="at">          </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.labels }}</span></span>
+<span id="cb11-81"><a href="#cb11-81" tabindex="-1"></a><span class="at">          </span><span class="fu">pull</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb11-82"><a href="#cb11-82" tabindex="-1"></a></span>
+<span id="cb11-83"><a href="#cb11-83" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy build</span></span>
+<span id="cb11-84"><a href="#cb11-84" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> docker_build_deploy</span></span>
+<span id="cb11-85"><a href="#cb11-85" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/build-push-action@v6</span></span>
+<span id="cb11-86"><a href="#cb11-86" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb11-87"><a href="#cb11-87" tabindex="-1"></a><span class="at">          </span><span class="fu">context</span><span class="kw">:</span><span class="at"> cuda-exercise</span></span>
+<span id="cb11-88"><a href="#cb11-88" tabindex="-1"></a><span class="at">          </span><span class="fu">file</span><span class="kw">:</span><span class="at"> cuda-exercise/Dockerfile</span></span>
+<span id="cb11-89"><a href="#cb11-89" tabindex="-1"></a><span class="at">          </span><span class="fu">tags</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.tags }}</span></span>
+<span id="cb11-90"><a href="#cb11-90" tabindex="-1"></a><span class="at">          </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.labels }}</span></span>
+<span id="cb11-91"><a href="#cb11-91" tabindex="-1"></a><span class="at">          </span><span class="fu">pull</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb11-92"><a href="#cb11-92" tabindex="-1"></a><span class="at">          </span><span class="fu">push</span><span class="kw">:</span><span class="at"> ${{ github.event_name != 'pull_request' }}</span></span></code></pre>
 </div>
 <p>This will build your Dockerfile in GitHub Actions CI into a <a href="https://docs.docker.com/build/building/multi-platform/" class="external-link"><code>linux/amd64</code>
 platform</a> Docker container image and then deploy it to the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry" class="external-link">GitHub
@@ -1070,29 +1071,38 @@ repository</p>
 <span id="cb26-48"><a href="#cb26-48" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
 <span id="cb26-49"><a href="#cb26-49" tabindex="-1"></a><span class="at">          </span><span class="fu">fetch-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
 <span id="cb26-50"><a href="#cb26-50" tabindex="-1"></a></span>
-<span id="cb26-51"><a href="#cb26-51" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install Apptainer</span></span>
-<span id="cb26-52"><a href="#cb26-52" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> eWaterCycle/setup-apptainer@v2</span></span>
-<span id="cb26-53"><a href="#cb26-53" tabindex="-1"></a></span>
-<span id="cb26-54"><a href="#cb26-54" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build container from definition file</span></span>
-<span id="cb26-55"><a href="#cb26-55" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
-<span id="cb26-56"><a href="#cb26-56" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer build gpu-noble-cuda-12.9.sif apptainer.def</span></span>
+<span id="cb26-51"><a href="#cb26-51" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Get commit SHA</span></span>
+<span id="cb26-52"><a href="#cb26-52" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> meta</span></span>
+<span id="cb26-53"><a href="#cb26-53" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb26-54"><a href="#cb26-54" tabindex="-1"></a>            # Get the short commit SHA (first 7 characters)</span>
+<span id="cb26-55"><a href="#cb26-55" tabindex="-1"></a>            SHA=$(git rev-parse --short HEAD)</span>
+<span id="cb26-56"><a href="#cb26-56" tabindex="-1"></a>            echo "sha=sha-$SHA" &gt;&gt; $GITHUB_OUTPUT</span>
 <span id="cb26-57"><a href="#cb26-57" tabindex="-1"></a></span>
-<span id="cb26-58"><a href="#cb26-58" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test container</span></span>
-<span id="cb26-59"><a href="#cb26-59" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
-<span id="cb26-60"><a href="#cb26-60" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer test gpu-noble-cuda-12.9.sif</span></span>
-<span id="cb26-61"><a href="#cb26-61" tabindex="-1"></a></span>
-<span id="cb26-62"><a href="#cb26-62" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Login to GitHub Container Registry</span></span>
-<span id="cb26-63"><a href="#cb26-63" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
-<span id="cb26-64"><a href="#cb26-64" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3</span></span>
-<span id="cb26-65"><a href="#cb26-65" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb26-66"><a href="#cb26-66" tabindex="-1"></a><span class="at">          </span><span class="fu">registry</span><span class="kw">:</span><span class="at"> ghcr.io</span></span>
-<span id="cb26-67"><a href="#cb26-67" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ github.repository_owner }}</span></span>
-<span id="cb26-68"><a href="#cb26-68" tabindex="-1"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
-<span id="cb26-69"><a href="#cb26-69" tabindex="-1"></a></span>
-<span id="cb26-70"><a href="#cb26-70" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy built container</span></span>
-<span id="cb26-71"><a href="#cb26-71" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
-<span id="cb26-72"><a href="#cb26-72" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
-<span id="cb26-73"><a href="#cb26-73" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9</span></span></code></pre>
+<span id="cb26-58"><a href="#cb26-58" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install Apptainer</span></span>
+<span id="cb26-59"><a href="#cb26-59" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> eWaterCycle/setup-apptainer@v2</span></span>
+<span id="cb26-60"><a href="#cb26-60" tabindex="-1"></a></span>
+<span id="cb26-61"><a href="#cb26-61" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build container from definition file</span></span>
+<span id="cb26-62"><a href="#cb26-62" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
+<span id="cb26-63"><a href="#cb26-63" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer build gpu-noble-cuda-12.9.sif apptainer.def</span></span>
+<span id="cb26-64"><a href="#cb26-64" tabindex="-1"></a></span>
+<span id="cb26-65"><a href="#cb26-65" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test container</span></span>
+<span id="cb26-66"><a href="#cb26-66" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
+<span id="cb26-67"><a href="#cb26-67" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer test gpu-noble-cuda-12.9.sif</span></span>
+<span id="cb26-68"><a href="#cb26-68" tabindex="-1"></a></span>
+<span id="cb26-69"><a href="#cb26-69" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Login to GitHub Container Registry</span></span>
+<span id="cb26-70"><a href="#cb26-70" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
+<span id="cb26-71"><a href="#cb26-71" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3</span></span>
+<span id="cb26-72"><a href="#cb26-72" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb26-73"><a href="#cb26-73" tabindex="-1"></a><span class="at">          </span><span class="fu">registry</span><span class="kw">:</span><span class="at"> ghcr.io</span></span>
+<span id="cb26-74"><a href="#cb26-74" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ github.repository_owner }}</span></span>
+<span id="cb26-75"><a href="#cb26-75" tabindex="-1"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
+<span id="cb26-76"><a href="#cb26-76" tabindex="-1"></a></span>
+<span id="cb26-77"><a href="#cb26-77" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy built container</span></span>
+<span id="cb26-78"><a href="#cb26-78" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
+<span id="cb26-79"><a href="#cb26-79" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
+<span id="cb26-80"><a href="#cb26-80" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb26-81"><a href="#cb26-81" tabindex="-1"></a>            apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9</span>
+<span id="cb26-82"><a href="#cb26-82" tabindex="-1"></a>            apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}</span></code></pre>
 </div>
 <p>This will build your Apptainer definition file in GitHub Actions CI
 into a <code>.sif</code> container image and then deploy it to the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry" class="external-link">GitHub
