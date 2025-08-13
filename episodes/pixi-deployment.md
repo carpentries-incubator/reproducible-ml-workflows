@@ -333,7 +333,7 @@ This will build your Dockerfile in GitHub Actions CI into a [`linux/amd64` platf
 
 ## Version Control
 
-We now want to use these tools to build our Pixi environment into a Linux container.
+We now want to use these tools to build our Pixi environment into a Docker Linux container.
 
 On a **new branch** in your repository, add and commit the files from this episode.
 
@@ -624,7 +624,7 @@ This will build your Apptainer definition file in GitHub Actions CI into a `.sif
 
 ## Version Control
 
-We now want to use these tools to build our Pixi environment into a Linux container.
+We now want to use these tools to build our Pixi environment into an Apptainer Linux container.
 
 On a **new branch** in your repository, add and commit the files from this episode.
 
