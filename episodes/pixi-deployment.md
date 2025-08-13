@@ -329,6 +329,30 @@ jobs:
 
 This will build your Dockerfile in GitHub Actions CI into a [`linux/amd64` platform](https://docs.docker.com/build/building/multi-platform/) Docker container image and then deploy it to the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) (`ghcr`) associated with your repository.
 
+::: callout
+
+## Version Control
+
+We now want to use these tools to build our Pixi environment into a Linux container.
+
+On a **new branch** in your repository, add and commit the files from this episode.
+
+```bash
+git add cuda-exercise/app
+git add cuda-exercise/Dockerfile
+git add .github
+```
+
+Then push your branch to your remote on GitHub
+
+```bash
+git push -u origin HEAD
+```
+
+and make a pull request to merge your changes into your remote's default branch.
+
+:::
+
 ## Building Apptainer containers with Pixi environments
 
 Most HTC and HPC systems do not allow users to use Docker given security risks and instead use Apptainer.
