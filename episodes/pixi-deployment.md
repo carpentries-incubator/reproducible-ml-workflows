@@ -623,7 +623,9 @@ jobs:
       - name: Deploy built container
         if: github.event_name != 'pull_request'
         working-directory: ./cuda-exercise
-        run: apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}
+        run: |
+            apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9
+            apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}
 ```
 
 This will build your Apptainer definition file in GitHub Actions CI into a `.sif` container image and then deploy it to the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) (`ghcr`) associated with your repository.
