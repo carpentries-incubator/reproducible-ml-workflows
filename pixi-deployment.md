@@ -290,6 +290,7 @@ jobs:
             type=raw,value=gpu-noble-cuda-12.9
             type=raw,value=latest
             type=sha
+            type=sha,prefix=gpu-noble-cuda-12.9-sha-
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -593,6 +594,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Get commit SHA
+        id: meta
+        run: |
+            # Get the short commit SHA (first 7 characters)
+            SHA=$(git rev-parse --short HEAD)
+            echo "sha=sha-$SHA" >> $GITHUB_OUTPUT
+
       - name: Install Apptainer
         uses: eWaterCycle/setup-apptainer@v2
 
@@ -615,7 +623,9 @@ jobs:
       - name: Deploy built container
         if: github.event_name != 'pull_request'
         working-directory: ./cuda-exercise
-        run: apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9
+        run: |
+            apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9
+            apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}
 ```
 
 This will build your Apptainer definition file in GitHub Actions CI into a `.sif` container image and then deploy it to the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) (`ghcr`) associated with your repository.
