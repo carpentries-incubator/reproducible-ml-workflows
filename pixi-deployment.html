@@ -544,7 +544,7 @@ code from the end of the CUDA conda packages episode at
   Dockerfile walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>Let’s step through this to understand what’s happening.
 <code>Dockerfile</code>s (intentionally) look very shell script like,
@@ -892,7 +892,7 @@ pixi list</code></pre>
   Apptainer walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
 <div class="accordion-body">
 <ul><li>The Apptainer definition file is broken out into specific <a href="https://apptainer.org/docs/user/main/definition_files.html#sections" class="external-link">operation
 sections</a> prefixed by <code>%</code> (e.g. <code>files</code>,
@@ -1090,7 +1090,7 @@ repository</p>
 <span id="cb26-70"><a href="#cb26-70" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy built container</span></span>
 <span id="cb26-71"><a href="#cb26-71" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
 <span id="cb26-72"><a href="#cb26-72" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
-<span id="cb26-73"><a href="#cb26-73" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:gpu-noble-cuda-12.9-apptainer</span></span></code></pre>
+<span id="cb26-73"><a href="#cb26-73" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9</span></span></code></pre>
 </div>
 <p>This will build your Apptainer definition file in GitHub Actions CI
 into a <code>.sif</code> container image and then deploy it to the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry" class="external-link">GitHub
