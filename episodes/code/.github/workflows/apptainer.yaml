@@ -70,4 +70,4 @@ jobs:
       - name: Deploy built container
         if: github.event_name != 'pull_request'
         working-directory: ./cuda-exercise
-        run: apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:gpu-noble-cuda-12.9-apptainer
+        run: apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9
