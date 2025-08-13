@@ -287,7 +287,7 @@ jobs:
             ghcr.io/${{ github.repository }}
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=raw,value=noble-cuda-12.9
+            type=raw,value=gpu-noble-cuda-12.9
             type=raw,value=latest
             type=sha
 
@@ -360,7 +360,7 @@ In most situations, Apptainer is able to automatically convert a Docker image, o
 However, the overlay system of Apptainer is different from Docker, which means that the `ENTRYPOINT` of a Docker container image might not get correctly translated into an Apptainer `runscript` and `startscript`.
 In might be advantageous, depending on your situation, to instead write an [Apptainer `.def` definition file](https://apptainer.org/docs/user/main/definition_files.html), giving full control over the commands, and then build that `.def` file into an `.sif` Apptainer container image.
 
-We can build a very similar Apptainer container image definition file to the Dockerfile we wrote
+We can build a very similar `apptainer.def` Apptainer container image definition file to the Dockerfile we wrote
 
 ```
 Bootstrap: docker
@@ -597,12 +597,12 @@ jobs:
         uses: eWaterCycle/setup-apptainer@v2
 
       - name: Build container from definition file
-        working-directory: ./examples/hello_pytorch
-        run: apptainer build pixi-docker-chtc.sif apptainer.def
+        working-directory: ./cuda-exercise
+        run: apptainer build gpu-noble-cuda-12.9.sif apptainer.def
 
       - name: Test container
-        working-directory: ./examples/hello_pytorch
-        run: apptainer test pixi-docker-chtc.sif
+        working-directory: ./cuda-exercise
+        run: apptainer test gpu-noble-cuda-12.9.sif
 
       - name: Login to GitHub Container Registry
         if: github.event_name != 'pull_request'
@@ -614,8 +614,8 @@ jobs:
 
       - name: Deploy built container
         if: github.event_name != 'pull_request'
-        working-directory: ./examples/hello_pytorch
-        run: apptainer push pixi-docker-chtc.sif oras://ghcr.io/${{ github.repository }}:hello-pytorch-noble-cuda-12.9-apptainer
+        working-directory: ./cuda-exercise
+        run: apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:gpu-noble-cuda-12.9-apptainer
 ```
 
 This will build your Apptainer definition file in GitHub Actions CI into a `.sif` container image and then deploy it to the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) (`ghcr`) associated with your repository.
