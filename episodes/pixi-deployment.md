@@ -83,10 +83,11 @@ Luckily, to install Pixi environments into Docker container images there is **ef
 
 ## Moving files
 
-To use it later, move `torch_detect_GPU.py` from the end of the CUDA conda packages episode to `./app/torch_detect_GPU.py`.
+To use it later, we'll place the `torch_detect_GPU.py` code from the end of the CUDA conda packages episode at `./app/torch_detect_GPU.py`.
 
 ```bash
-mv torch_detect_GPU.py app/
+mkdir -p app
+curl -sL https://github.com/matthewfeickert/nvidia-gpu-ml-library-test/raw/36c725360b1b1db648d6955c27bd3885b29a3273/torch_detect_GPU.py -o /app/torch_detect_GPU.py
 ```
 
 :::
@@ -122,6 +123,10 @@ COPY --from=build /app/pixi.lock /app/pixi.lock
 COPY --from=build /app/.pixi/.gitignore /app/.pixi/.gitignore
 COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
 COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
+
+# This bit is needed only if you have code you _want_ to deploy in the container.
+# This is rare as you normally want your code to be able to get brought into a container later.
+COPY ./app /app/src
 
 ENTRYPOINT [ "/app/entrypoint.sh" ]
 ```
