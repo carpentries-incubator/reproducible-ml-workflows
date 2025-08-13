@@ -92,13 +92,13 @@ mv torch_detect_GPU.py app/
 :::
 
 ```dockerfile
-# Declare build ARGS in global scope
+# Declare build ARGs in global scope
 ARG CUDA_VERSION="12"
 ARG ENVIRONMENT="gpu"
 
 FROM ghcr.io/prefix-dev/pixi:noble AS build
 
-# Redeclaring ARGS in a stage without a value inherits the global default
+# Redeclaring ARGs in a stage without a value inherits the global default
 ARG CUDA_VERSION
 ARG ENVIRONMENT
 
@@ -134,6 +134,22 @@ Let's step through this to understand what's happening.
 `Dockerfile`s (intentionally) look very shell script like, and so we can read most of it as if we were typing the commands directly into a shell (e.g. Bash).
 
 * The `Dockerfile` assumes it is being built from a version control repository where any code that it will need to execute later exists under the repository's `src/` directory and the Pixi workspace's `pixi.toml` manifest file and `pixi.lock` lock file exist at the top level of the repository.
+
+* Dockerfile [`ARG`](https://docs.docker.com/reference/dockerfile/#arg)s are declared _before_ the `build` stage's base image `FROM` declaration, meaning they have [global scope](https://docs.docker.com/build/building/variables/#scoping).
+Declaring the `ARG`s again with no value in the local scope of the `build` stage inherits the global scope values.
+
+```dockerfile
+# Declare build ARGS in global scope
+ARG CUDA_VERSION="12"
+ARG ENVIRONMENT="gpu"
+
+FROM ghcr.io/prefix-dev/pixi:noble AS build
+
+# Redeclaring ARGs in a stage without a value inherits the global default
+ARG CUDA_VERSION
+ARG ENVIRONMENT
+```
+
 * The entire repository contents are [`COPY`](https://docs.docker.com/reference/dockerfile/#copy)ed from the container build context into the `/app` directory of the container build.
 
 ```dockerfile
@@ -145,15 +161,15 @@ COPY . .
 To have Pixi still be able to install an environment that uses CUDA when there is no virtual package set the `__cuda` [override environment variable `CONDA_OVERRIDE_CUDA`](https://docs.conda.io/projects/conda/en/stable/user-guide/tasks/manage-virtual.html#overriding-detected-packages).
 
 ```dockerfile
-ENV CONDA_OVERRIDE_CUDA=<cuda version>
+ENV CONDA_OVERRIDE_CUDA=$CUDA_VERSION
 ```
 
-* The `Dockerfile` uses a [multi-stage](https://docs.docker.com/build/building/multi-stage/) build where it first installs the target environment `<environment>` and then creates an [`ENTRYPOINT`](https://docs.docker.com/reference/dockerfile/#entrypoint) script using [`pixi shell-hook`](https://pixi.sh/latest/reference/cli/pixi/shell-hook/) to automatically activate the environment when the container image is run.
+* The `Dockerfile` uses a [multi-stage](https://docs.docker.com/build/building/multi-stage/) build where it first installs the target environment `$ENVIRONMENT` and then creates an [`ENTRYPOINT`](https://docs.docker.com/reference/dockerfile/#entrypoint) script using [`pixi shell-hook`](https://pixi.sh/latest/reference/cli/pixi/shell-hook/) to automatically activate the environment when the container image is run.
 
 ```dockerfile
-RUN pixi install --locked --environment <environment>
+RUN pixi install --locked --environment $ENVIRONMENT
 RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
-    pixi shell-hook --environment <environment> -s bash >> /app/entrypoint.sh && \
+    pixi shell-hook --environment $ENVIRONMENT -s bash >> /app/entrypoint.sh && \
     echo 'exec "$@"' >> /app/entrypoint.sh
 ```
 
@@ -161,10 +177,12 @@ RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
 This can reduce the total size of the final container image if there were additional build tools that needed to get installed in the build phase that aren't required for runtime in production.
 
 ```dockerfile
-FROM ghcr.io/prefix-dev/pixi:noble AS production
+FROM ghcr.io/prefix-dev/pixi:noble AS final
+
+ARG ENVIRONMENT
 
 WORKDIR /app
-COPY --from=build /app/.pixi/envs/<environment> /app/.pixi/envs/<environment>
+COPY --from=build /app/.pixi/envs/$ENVIRONMENT /app/.pixi/envs/$ENVIRONMENT
 COPY --from=build /app/pixi.toml /app/pixi.toml
 COPY --from=build /app/pixi.lock /app/pixi.lock
 # The ignore files are needed for 'pixi run' to work in the container
@@ -189,12 +207,6 @@ You **do** want to containerize your development source code if you'd like to ar
 
 :::
 
-* Any ports that need to be exposed for i/o are exposed
-
-```dockerfile
-EXPOSE <PORT>
-```
-
 * The [`ENTRYPOINT`](https://docs.docker.com/reference/dockerfile/#entrypoint) script is set for activation
 
 
@@ -205,43 +217,6 @@ ENTRYPOINT [ "/app/entrypoint.sh" ]
 :::
 
 With this `Dockerfile` the container image can then be built with [`docker build`](https://docs.docker.com/reference/cli/docker/buildx/build/).
-
-::: challenge
-
-Write a `Dockerfile` that will create a Linux container with the `gpu` environment from the previous exercises Pixi workspace.
-
-::: solution
-
-## A possible solution
-
-```dockerfile
-FROM ghcr.io/prefix-dev/pixi:noble AS build
-
-WORKDIR /app
-COPY . .
-ENV CONDA_OVERRIDE_CUDA=12
-RUN pixi install --locked --environment gpu
-RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
-    pixi shell-hook --environment gpu -s bash >> /app/entrypoint.sh && \
-    echo 'exec "$@"' >> /app/entrypoint.sh
-
-FROM ghcr.io/prefix-dev/pixi:noble AS production
-
-WORKDIR /app
-COPY --from=build /app/.pixi/envs/gpu /app/.pixi/envs/gpu
-COPY --from=build /app/pixi.toml /app/pixi.toml
-COPY --from=build /app/pixi.lock /app/pixi.lock
-# The ignore files are needed for 'pixi run' to work in the container
-COPY --from=build /app/.pixi/.gitignore /app/.pixi/.gitignore
-COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
-COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
-
-EXPOSE 8000
-ENTRYPOINT [ "/app/entrypoint.sh" ]
-```
-
-:::
-:::
 
 ### Automation with GitHub Actions workflows
 
