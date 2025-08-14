@@ -338,7 +338,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Deploying Pixi environments with Linux containers</h1>
-        <p>Last updated on 2025-08-13 |
+        <p>Last updated on 2025-08-14 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi-deployment.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -546,7 +546,7 @@ code from the end of the CUDA conda packages episode at
   Dockerfile walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
 <div class="accordion-body">
 <p>Let’s step through this to understand what’s happening.
 <code>Dockerfile</code>s (intentionally) look very shell script like,
@@ -671,113 +671,117 @@ script is set for activation</li>
 </div>
 <p>With this <code>Dockerfile</code> the container image can then be
 built with <a href="https://docs.docker.com/reference/cli/docker/buildx/build/" class="external-link"><code>docker build</code></a>.</p>
+<pre><code>docker build --file Dockerfile --tag &lt;container image name:tag&gt; .</code></pre>
+<p>and can optionally have the <code>ARG</code> variables set at build
+time with</p>
+<pre><code>docker build --build-arg CUDA_VERSION=12 --build-arg ENVIRONMENT=gpu --file Dockerfile --tag &lt;container image name:tag&gt; .</code></pre>
 <div class="section level3">
 <h3 id="automation-with-github-actions-workflows">Automation with GitHub Actions workflows<a class="anchor" aria-label="anchor" href="#automation-with-github-actions-workflows"></a></h3>
 <p>In the personal GitHub repository that we’ve been working in, create
 a GitHub Actions workflow directory from the top level of the
 repository</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .github/workflows</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .github/workflows</span></code></pre>
 </div>
 <p>and then add the following workflow file as
 <code>.github/workflows/docker.yaml</code></p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">YAML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode yaml" tabindex="0"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Docker Images</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> main</span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="at">    </span><span class="fu">tags</span><span class="kw">:</span></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'v*'</span></span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.toml'</span></span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.lock'</span></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/Dockerfile'</span></span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/.dockerignore'</span></span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/app/**'</span></span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.toml'</span></span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.lock'</span></span>
-<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/Dockerfile'</span></span>
-<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/.dockerignore'</span></span>
-<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/app/**'</span></span>
-<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="at">  </span><span class="fu">release</span><span class="kw">:</span></span>
-<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="at">    </span><span class="fu">types</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">published</span><span class="kw">]</span></span>
-<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
-<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a><span class="fu">concurrency</span><span class="kw">:</span></span>
-<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a><span class="at">  </span><span class="fu">group</span><span class="kw">:</span><span class="at"> ${{ github.workflow }}-${{ github.ref }}</span></span>
-<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a><span class="at">  </span><span class="fu">cancel-in-progress</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a></span>
-<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a><span class="fu">permissions</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span>
-<span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a></span>
-<span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb11-33"><a href="#cb11-33" tabindex="-1"></a><span class="at">  </span><span class="fu">docker</span><span class="kw">:</span></span>
-<span id="cb11-34"><a href="#cb11-34" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build and publish images</span></span>
-<span id="cb11-35"><a href="#cb11-35" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
-<span id="cb11-36"><a href="#cb11-36" tabindex="-1"></a><span class="at">    </span><span class="fu">permissions</span><span class="kw">:</span></span>
-<span id="cb11-37"><a href="#cb11-37" tabindex="-1"></a><span class="at">      </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> read</span></span>
-<span id="cb11-38"><a href="#cb11-38" tabindex="-1"></a><span class="at">      </span><span class="fu">packages</span><span class="kw">:</span><span class="at"> write</span></span>
-<span id="cb11-39"><a href="#cb11-39" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb11-41"><a href="#cb11-41" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Checkout</span></span>
-<span id="cb11-42"><a href="#cb11-42" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
-<span id="cb11-43"><a href="#cb11-43" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb11-44"><a href="#cb11-44" tabindex="-1"></a><span class="at">          </span><span class="fu">fetch-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
-<span id="cb11-45"><a href="#cb11-45" tabindex="-1"></a></span>
-<span id="cb11-46"><a href="#cb11-46" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Docker meta</span></span>
-<span id="cb11-47"><a href="#cb11-47" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> meta</span></span>
-<span id="cb11-48"><a href="#cb11-48" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/metadata-action@v5</span></span>
-<span id="cb11-49"><a href="#cb11-49" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb11-50"><a href="#cb11-50" tabindex="-1"></a><span class="fu">          images</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb11-51"><a href="#cb11-51" tabindex="-1"></a>            ghcr.io/${{ github.repository }}</span>
-<span id="cb11-52"><a href="#cb11-52" tabindex="-1"></a><span class="co">          # generate Docker tags based on the following events/attributes</span></span>
-<span id="cb11-53"><a href="#cb11-53" tabindex="-1"></a><span class="fu">          tags</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb11-54"><a href="#cb11-54" tabindex="-1"></a>            type=raw,value=gpu-noble-cuda-12.9</span>
-<span id="cb11-55"><a href="#cb11-55" tabindex="-1"></a>            type=raw,value=latest</span>
-<span id="cb11-56"><a href="#cb11-56" tabindex="-1"></a>            type=sha</span>
-<span id="cb11-57"><a href="#cb11-57" tabindex="-1"></a>            type=sha,prefix=gpu-noble-cuda-12.9-sha-</span>
-<span id="cb11-58"><a href="#cb11-58" tabindex="-1"></a></span>
-<span id="cb11-59"><a href="#cb11-59" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up QEMU</span></span>
-<span id="cb11-60"><a href="#cb11-60" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/setup-qemu-action@v3</span></span>
-<span id="cb11-61"><a href="#cb11-61" tabindex="-1"></a></span>
-<span id="cb11-62"><a href="#cb11-62" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up Docker Buildx</span></span>
-<span id="cb11-63"><a href="#cb11-63" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/setup-buildx-action@v3</span></span>
-<span id="cb11-64"><a href="#cb11-64" tabindex="-1"></a></span>
-<span id="cb11-65"><a href="#cb11-65" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Login to GitHub Container Registry</span></span>
-<span id="cb11-66"><a href="#cb11-66" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
-<span id="cb11-67"><a href="#cb11-67" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3</span></span>
-<span id="cb11-68"><a href="#cb11-68" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb11-69"><a href="#cb11-69" tabindex="-1"></a><span class="at">          </span><span class="fu">registry</span><span class="kw">:</span><span class="at"> ghcr.io</span></span>
-<span id="cb11-70"><a href="#cb11-70" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ github.repository_owner }}</span></span>
-<span id="cb11-71"><a href="#cb11-71" tabindex="-1"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
-<span id="cb11-72"><a href="#cb11-72" tabindex="-1"></a></span>
-<span id="cb11-73"><a href="#cb11-73" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test build</span></span>
-<span id="cb11-74"><a href="#cb11-74" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> docker_build_test</span></span>
-<span id="cb11-75"><a href="#cb11-75" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/build-push-action@v6</span></span>
-<span id="cb11-76"><a href="#cb11-76" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb11-77"><a href="#cb11-77" tabindex="-1"></a><span class="at">          </span><span class="fu">context</span><span class="kw">:</span><span class="at"> cuda-exercise</span></span>
-<span id="cb11-78"><a href="#cb11-78" tabindex="-1"></a><span class="at">          </span><span class="fu">file</span><span class="kw">:</span><span class="at"> cuda-exercise/Dockerfile</span></span>
-<span id="cb11-79"><a href="#cb11-79" tabindex="-1"></a><span class="at">          </span><span class="fu">tags</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.tags }}</span></span>
-<span id="cb11-80"><a href="#cb11-80" tabindex="-1"></a><span class="at">          </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.labels }}</span></span>
-<span id="cb11-81"><a href="#cb11-81" tabindex="-1"></a><span class="at">          </span><span class="fu">pull</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb11-82"><a href="#cb11-82" tabindex="-1"></a></span>
-<span id="cb11-83"><a href="#cb11-83" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy build</span></span>
-<span id="cb11-84"><a href="#cb11-84" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> docker_build_deploy</span></span>
-<span id="cb11-85"><a href="#cb11-85" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/build-push-action@v6</span></span>
-<span id="cb11-86"><a href="#cb11-86" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb11-87"><a href="#cb11-87" tabindex="-1"></a><span class="at">          </span><span class="fu">context</span><span class="kw">:</span><span class="at"> cuda-exercise</span></span>
-<span id="cb11-88"><a href="#cb11-88" tabindex="-1"></a><span class="at">          </span><span class="fu">file</span><span class="kw">:</span><span class="at"> cuda-exercise/Dockerfile</span></span>
-<span id="cb11-89"><a href="#cb11-89" tabindex="-1"></a><span class="at">          </span><span class="fu">tags</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.tags }}</span></span>
-<span id="cb11-90"><a href="#cb11-90" tabindex="-1"></a><span class="at">          </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.labels }}</span></span>
-<span id="cb11-91"><a href="#cb11-91" tabindex="-1"></a><span class="at">          </span><span class="fu">pull</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb11-92"><a href="#cb11-92" tabindex="-1"></a><span class="at">          </span><span class="fu">push</span><span class="kw">:</span><span class="at"> ${{ github.event_name != 'pull_request' }}</span></span></code></pre>
+<pre class="sourceCode yaml" tabindex="0"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Docker Images</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> main</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="at">    </span><span class="fu">tags</span><span class="kw">:</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'v*'</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.toml'</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.lock'</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/Dockerfile'</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/.dockerignore'</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/app/**'</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.toml'</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.lock'</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/Dockerfile'</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/.dockerignore'</span></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/app/**'</span></span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a><span class="at">  </span><span class="fu">release</span><span class="kw">:</span></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="at">    </span><span class="fu">types</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">published</span><span class="kw">]</span></span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="fu">concurrency</span><span class="kw">:</span></span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="at">  </span><span class="fu">group</span><span class="kw">:</span><span class="at"> ${{ github.workflow }}-${{ github.ref }}</span></span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="at">  </span><span class="fu">cancel-in-progress</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a></span>
+<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="fu">permissions</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span>
+<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a></span>
+<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a><span class="at">  </span><span class="fu">docker</span><span class="kw">:</span></span>
+<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build and publish images</span></span>
+<span id="cb13-35"><a href="#cb13-35" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a><span class="at">    </span><span class="fu">permissions</span><span class="kw">:</span></span>
+<span id="cb13-37"><a href="#cb13-37" tabindex="-1"></a><span class="at">      </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> read</span></span>
+<span id="cb13-38"><a href="#cb13-38" tabindex="-1"></a><span class="at">      </span><span class="fu">packages</span><span class="kw">:</span><span class="at"> write</span></span>
+<span id="cb13-39"><a href="#cb13-39" tabindex="-1"></a></span>
+<span id="cb13-40"><a href="#cb13-40" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb13-41"><a href="#cb13-41" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Checkout</span></span>
+<span id="cb13-42"><a href="#cb13-42" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb13-43"><a href="#cb13-43" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb13-44"><a href="#cb13-44" tabindex="-1"></a><span class="at">          </span><span class="fu">fetch-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
+<span id="cb13-45"><a href="#cb13-45" tabindex="-1"></a></span>
+<span id="cb13-46"><a href="#cb13-46" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Docker meta</span></span>
+<span id="cb13-47"><a href="#cb13-47" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> meta</span></span>
+<span id="cb13-48"><a href="#cb13-48" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/metadata-action@v5</span></span>
+<span id="cb13-49"><a href="#cb13-49" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb13-50"><a href="#cb13-50" tabindex="-1"></a><span class="fu">          images</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb13-51"><a href="#cb13-51" tabindex="-1"></a>            ghcr.io/${{ github.repository }}</span>
+<span id="cb13-52"><a href="#cb13-52" tabindex="-1"></a><span class="co">          # generate Docker tags based on the following events/attributes</span></span>
+<span id="cb13-53"><a href="#cb13-53" tabindex="-1"></a><span class="fu">          tags</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb13-54"><a href="#cb13-54" tabindex="-1"></a>            type=raw,value=gpu-noble-cuda-12.9</span>
+<span id="cb13-55"><a href="#cb13-55" tabindex="-1"></a>            type=raw,value=latest</span>
+<span id="cb13-56"><a href="#cb13-56" tabindex="-1"></a>            type=sha</span>
+<span id="cb13-57"><a href="#cb13-57" tabindex="-1"></a>            type=sha,prefix=gpu-noble-cuda-12.9-sha-</span>
+<span id="cb13-58"><a href="#cb13-58" tabindex="-1"></a></span>
+<span id="cb13-59"><a href="#cb13-59" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up QEMU</span></span>
+<span id="cb13-60"><a href="#cb13-60" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/setup-qemu-action@v3</span></span>
+<span id="cb13-61"><a href="#cb13-61" tabindex="-1"></a></span>
+<span id="cb13-62"><a href="#cb13-62" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up Docker Buildx</span></span>
+<span id="cb13-63"><a href="#cb13-63" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/setup-buildx-action@v3</span></span>
+<span id="cb13-64"><a href="#cb13-64" tabindex="-1"></a></span>
+<span id="cb13-65"><a href="#cb13-65" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Login to GitHub Container Registry</span></span>
+<span id="cb13-66"><a href="#cb13-66" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
+<span id="cb13-67"><a href="#cb13-67" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3</span></span>
+<span id="cb13-68"><a href="#cb13-68" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb13-69"><a href="#cb13-69" tabindex="-1"></a><span class="at">          </span><span class="fu">registry</span><span class="kw">:</span><span class="at"> ghcr.io</span></span>
+<span id="cb13-70"><a href="#cb13-70" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ github.repository_owner }}</span></span>
+<span id="cb13-71"><a href="#cb13-71" tabindex="-1"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
+<span id="cb13-72"><a href="#cb13-72" tabindex="-1"></a></span>
+<span id="cb13-73"><a href="#cb13-73" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test build</span></span>
+<span id="cb13-74"><a href="#cb13-74" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> docker_build_test</span></span>
+<span id="cb13-75"><a href="#cb13-75" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/build-push-action@v6</span></span>
+<span id="cb13-76"><a href="#cb13-76" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb13-77"><a href="#cb13-77" tabindex="-1"></a><span class="at">          </span><span class="fu">context</span><span class="kw">:</span><span class="at"> cuda-exercise</span></span>
+<span id="cb13-78"><a href="#cb13-78" tabindex="-1"></a><span class="at">          </span><span class="fu">file</span><span class="kw">:</span><span class="at"> cuda-exercise/Dockerfile</span></span>
+<span id="cb13-79"><a href="#cb13-79" tabindex="-1"></a><span class="at">          </span><span class="fu">tags</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.tags }}</span></span>
+<span id="cb13-80"><a href="#cb13-80" tabindex="-1"></a><span class="at">          </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.labels }}</span></span>
+<span id="cb13-81"><a href="#cb13-81" tabindex="-1"></a><span class="at">          </span><span class="fu">pull</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb13-82"><a href="#cb13-82" tabindex="-1"></a></span>
+<span id="cb13-83"><a href="#cb13-83" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy build</span></span>
+<span id="cb13-84"><a href="#cb13-84" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> docker_build_deploy</span></span>
+<span id="cb13-85"><a href="#cb13-85" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/build-push-action@v6</span></span>
+<span id="cb13-86"><a href="#cb13-86" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb13-87"><a href="#cb13-87" tabindex="-1"></a><span class="at">          </span><span class="fu">context</span><span class="kw">:</span><span class="at"> cuda-exercise</span></span>
+<span id="cb13-88"><a href="#cb13-88" tabindex="-1"></a><span class="at">          </span><span class="fu">file</span><span class="kw">:</span><span class="at"> cuda-exercise/Dockerfile</span></span>
+<span id="cb13-89"><a href="#cb13-89" tabindex="-1"></a><span class="at">          </span><span class="fu">tags</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.tags }}</span></span>
+<span id="cb13-90"><a href="#cb13-90" tabindex="-1"></a><span class="at">          </span><span class="fu">labels</span><span class="kw">:</span><span class="at"> ${{ steps.meta.outputs.labels }}</span></span>
+<span id="cb13-91"><a href="#cb13-91" tabindex="-1"></a><span class="at">          </span><span class="fu">pull</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb13-92"><a href="#cb13-92" tabindex="-1"></a><span class="at">          </span><span class="fu">push</span><span class="kw">:</span><span class="at"> ${{ github.event_name != 'pull_request' }}</span></span></code></pre>
 </div>
 <p>This will build your Dockerfile in GitHub Actions CI into a <a href="https://docs.docker.com/build/building/multi-platform/" class="external-link"><code>linux/amd64</code>
 platform</a> Docker container image and then deploy it to the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry" class="external-link">GitHub
@@ -795,18 +799,18 @@ repository.</p>
 Docker Linux container.</p>
 <p>On a <strong>new branch</strong> in your repository, add and commit
 the files from this episode.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">git</span> add cuda-exercise/app</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="fu">git</span> add cuda-exercise/Dockerfile</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="fu">git</span> add .github</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">git</span> add cuda-exercise/app</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">git</span> add cuda-exercise/Dockerfile</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="fu">git</span> add .github</span></code></pre>
 </div>
 <p>Then push your branch to your remote on GitHub</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin HEAD</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin HEAD</span></code></pre>
 </div>
 <p>and make a pull request to merge your changes into your remote’s
 default branch.</p>
@@ -834,6 +838,11 @@ container image definition file to the Dockerfile we wrote</p>
 From: ghcr.io/prefix-dev/pixi:noble
 Stage: build
 
+# %arguments have to be defined at each stage
+%arguments
+    CUDA_VERSION=12
+    ENVIRONMENT=gpu
+
 %files
 ./pixi.toml /app/
 ./pixi.lock /app/
@@ -841,12 +850,12 @@ Stage: build
 
 %post
 #!/bin/bash
-export CONDA_OVERRIDE_CUDA=12
+export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
 cd /app/
 pixi info
-pixi install --locked --environment gpu
+pixi install --locked --environment {{ ENVIRONMENT }}
 echo "#!/bin/bash" &gt; /app/entrypoint.sh &amp;&amp; \
-pixi shell-hook --environment gpu -s bash &gt;&gt; /app/entrypoint.sh &amp;&amp; \
+pixi shell-hook --environment {{ ENVIRONMENT }} -s bash &gt;&gt; /app/entrypoint.sh &amp;&amp; \
 echo 'exec "$@"' &gt;&gt; /app/entrypoint.sh
 
 
@@ -854,8 +863,11 @@ Bootstrap: docker
 From: ghcr.io/prefix-dev/pixi:noble
 Stage: final
 
+%arguments
+    ENVIRONMENT=gpu
+
 %files from build
-/app/.pixi/envs/gpu /app/.pixi/envs/gpu
+/app/.pixi/envs/{{ ENVIRONMENT }} /app/.pixi/envs/{{ ENVIRONMENT }}
 /app/pixi.toml /app/pixi.toml
 /app/pixi.lock /app/pixi.lock
 /app/.gitignore /app/.gitignore
@@ -885,7 +897,10 @@ chmod +x /app/entrypoint.sh
 #!/bin/bash -e
 . /app/entrypoint.sh
 pixi info
-pixi list</code></pre>
+pixi list
+
+
+</code></pre>
 <p>Let’s break this down too.</p>
 <div id="accordionSpoiler2" class="accordion spoiler-accordion accordion-flush">
 <div class="accordion-item">
@@ -895,18 +910,26 @@ pixi list</code></pre>
   Apptainer walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
 <div class="accordion-body">
-<ul><li>The Apptainer definition file is broken out into specific <a href="https://apptainer.org/docs/user/main/definition_files.html#sections" class="external-link">operation
+<ul><li><p>The Apptainer definition file is broken out into specific <a href="https://apptainer.org/docs/user/main/definition_files.html#sections" class="external-link">operation
 sections</a> prefixed by <code>%</code> (e.g. <code>files</code>,
-<code>post</code>).</li>
-<li>The Apptainer definition file assumes it is being built from a
+<code>post</code>).</p></li>
+<li><p>The Apptainer definition file assumes it is being built from a
 version control repository where any code that it will need to execute
 later exists under the repository’s <code>src/</code> directory and the
 Pixi workspace’s <code>pixi.toml</code> manifest file and
 <code>pixi.lock</code> lock file exist at the top level of the
-repository.</li>
-<li>The <a href="https://apptainer.org/docs/user/main/definition_files.html#files" class="external-link"><code>files</code>
+repository.</p></li>
+<li><p>The <a href="https://apptainer.org/docs/user/main/definition_files.html#arguments" class="external-link"><code>arguments</code>
+section</a> allows for variables — which appear as
+<code>{{ variable }}</code> in the rest of the file — to be set at the
+stage scope that can be set with the build options
+<code>--build-arg</code> or <code>--build-arg-file</code>.</p></li>
+</ul><pre><code>%arguments
+    CUDA_VERSION=12
+    ENVIRONMENT=gpu</code></pre>
+<ul><li>The <a href="https://apptainer.org/docs/user/main/definition_files.html#files" class="external-link"><code>files</code>
 section</a> allows for a mapping of what files should be copied from a
 build context (e.g. the local file system) to the container file
 system</li>
@@ -924,7 +947,7 @@ an environment that uses CUDA when there is no virtual package set the
 environment variable <code>CONDA_OVERRIDE_CUDA</code></a>.</li>
 </ul><pre><code>%post
 #!/bin/bash
-export CONDA_OVERRIDE_CUDA=12
+export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
 ...</code></pre>
 <ul><li>The definition files uses a <a href="https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds" class="external-link">multi-stage
 build</a> where it first installs the target environment
@@ -936,9 +959,9 @@ run.</li>
 </ul><pre><code>...
 cd /app/
 pixi info
-pixi install --locked --environment gpu
+pixi install --locked --environment {{ ENVIRONMENT }}
 echo "#!/bin/bash" &gt; /app/entrypoint.sh &amp;&amp; \
-pixi shell-hook --environment gpu -s bash &gt;&gt; /app/entrypoint.sh &amp;&amp; \
+pixi shell-hook --environment {{ ENVIRONMENT }} -s bash &gt;&gt; /app/entrypoint.sh &amp;&amp; \
 echo 'exec "$@"' &gt;&gt; /app/entrypoint.sh</code></pre>
 <ul><li>The next stage of the build starts from a new container instance and
 then copies the installed environment and files <strong>from</strong>
@@ -950,8 +973,11 @@ build phase that aren’t required for runtime in production.</li>
 From: ghcr.io/prefix-dev/pixi:noble
 Stage: final
 
+%arguments
+    ENVIRONMENT=gpu
+
 %files from build
-/app/.pixi/envs/gpu /app/.pixi/envs/gpu
+/app/.pixi/envs/{{ ENVIRONMENT }} /app/.pixi/envs/{{ ENVIRONMENT }}
 /app/pixi.toml /app/pixi.toml
 /app/pixi.lock /app/pixi.lock
 /app/.gitignore /app/.gitignore
@@ -1001,108 +1027,114 @@ pixi list</code></pre>
 </div>
 <p>With this Apptainer defintion file the container image can then be
 built with <code>apptainer build</code></p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="ex">apptainer</span> build <span class="op">&lt;</span>container image name<span class="op">&gt;</span>.sif <span class="op">&lt;</span>definition file name<span class="op">&gt;</span>.def</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="ex">apptainer</span> build <span class="op">&lt;</span>container image name<span class="op">&gt;</span>.sif <span class="op">&lt;</span>definition file name<span class="op">&gt;</span>.def</span></code></pre>
+</div>
+<p>and can optionally have the stage scoped variables set with</p>
+<div class="codewrapper sourceCode" id="cb28">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="ex">apptainer</span> build <span class="op">&lt;</span>container image name<span class="op">&gt;</span>.sif <span class="at">--build-arg</span> CUDA_VERSION=12 <span class="at">--build-arg</span> ENVIRONMENT_NAME=gpu <span class="op">&lt;</span>definition file name<span class="op">&gt;</span>.def</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="automation-with-github-actions-workflows-1">Automation with GitHub Actions workflows<a class="anchor" aria-label="anchor" href="#automation-with-github-actions-workflows-1"></a></h3>
 <p>In the personal GitHub repository that we’ve been working in, create
 a GitHub Actions workflow directory from the top level of the
 repository</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .github/workflows</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .github/workflows</span></code></pre>
 </div>
 <p>and then add the following workflow file as
 <code>.github/workflows/apptainer.yaml</code></p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">YAML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode yaml" tabindex="0"><code class="sourceCode yaml"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Apptainer Images</span></span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
-<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
-<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> main</span></span>
-<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="at">    </span><span class="fu">tags</span><span class="kw">:</span></span>
-<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'v*'</span></span>
-<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
-<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.toml'</span></span>
-<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.lock'</span></span>
-<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/apptainer.def'</span></span>
-<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/app/**'</span></span>
-<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
-<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
-<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.toml'</span></span>
-<span id="cb26-17"><a href="#cb26-17" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.lock'</span></span>
-<span id="cb26-18"><a href="#cb26-18" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/apptainer.def'</span></span>
-<span id="cb26-19"><a href="#cb26-19" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/app/**'</span></span>
-<span id="cb26-20"><a href="#cb26-20" tabindex="-1"></a><span class="at">  </span><span class="fu">release</span><span class="kw">:</span></span>
-<span id="cb26-21"><a href="#cb26-21" tabindex="-1"></a><span class="at">    </span><span class="fu">types</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">published</span><span class="kw">]</span></span>
-<span id="cb26-22"><a href="#cb26-22" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
-<span id="cb26-23"><a href="#cb26-23" tabindex="-1"></a></span>
-<span id="cb26-24"><a href="#cb26-24" tabindex="-1"></a><span class="fu">concurrency</span><span class="kw">:</span></span>
-<span id="cb26-25"><a href="#cb26-25" tabindex="-1"></a><span class="at">  </span><span class="fu">group</span><span class="kw">:</span><span class="at"> ${{ github.workflow }}-${{ github.ref }}</span></span>
-<span id="cb26-26"><a href="#cb26-26" tabindex="-1"></a><span class="at">  </span><span class="fu">cancel-in-progress</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb26-27"><a href="#cb26-27" tabindex="-1"></a></span>
-<span id="cb26-28"><a href="#cb26-28" tabindex="-1"></a><span class="fu">permissions</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span>
-<span id="cb26-29"><a href="#cb26-29" tabindex="-1"></a></span>
-<span id="cb26-30"><a href="#cb26-30" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb26-31"><a href="#cb26-31" tabindex="-1"></a><span class="at">  </span><span class="fu">docker</span><span class="kw">:</span></span>
-<span id="cb26-32"><a href="#cb26-32" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build and publish images</span></span>
-<span id="cb26-33"><a href="#cb26-33" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
-<span id="cb26-34"><a href="#cb26-34" tabindex="-1"></a><span class="at">    </span><span class="fu">permissions</span><span class="kw">:</span></span>
-<span id="cb26-35"><a href="#cb26-35" tabindex="-1"></a><span class="at">      </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> read</span></span>
-<span id="cb26-36"><a href="#cb26-36" tabindex="-1"></a><span class="at">      </span><span class="fu">packages</span><span class="kw">:</span><span class="at"> write</span></span>
-<span id="cb26-37"><a href="#cb26-37" tabindex="-1"></a></span>
-<span id="cb26-38"><a href="#cb26-38" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb26-39"><a href="#cb26-39" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Free disk space</span></span>
-<span id="cb26-40"><a href="#cb26-40" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> AdityaGarg8/remove-unwanted-software@v5</span></span>
-<span id="cb26-41"><a href="#cb26-41" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb26-42"><a href="#cb26-42" tabindex="-1"></a><span class="at">          </span><span class="fu">remove-android</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
-<span id="cb26-43"><a href="#cb26-43" tabindex="-1"></a><span class="at">          </span><span class="fu">remove-dotnet</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
-<span id="cb26-44"><a href="#cb26-44" tabindex="-1"></a><span class="at">          </span><span class="fu">remove-haskell</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
-<span id="cb26-45"><a href="#cb26-45" tabindex="-1"></a></span>
-<span id="cb26-46"><a href="#cb26-46" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Checkout</span></span>
-<span id="cb26-47"><a href="#cb26-47" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
-<span id="cb26-48"><a href="#cb26-48" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb26-49"><a href="#cb26-49" tabindex="-1"></a><span class="at">          </span><span class="fu">fetch-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
-<span id="cb26-50"><a href="#cb26-50" tabindex="-1"></a></span>
-<span id="cb26-51"><a href="#cb26-51" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Get commit SHA</span></span>
-<span id="cb26-52"><a href="#cb26-52" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> meta</span></span>
-<span id="cb26-53"><a href="#cb26-53" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb26-54"><a href="#cb26-54" tabindex="-1"></a>            # Get the short commit SHA (first 7 characters)</span>
-<span id="cb26-55"><a href="#cb26-55" tabindex="-1"></a>            SHA=$(git rev-parse --short HEAD)</span>
-<span id="cb26-56"><a href="#cb26-56" tabindex="-1"></a>            echo "sha=sha-$SHA" &gt;&gt; $GITHUB_OUTPUT</span>
-<span id="cb26-57"><a href="#cb26-57" tabindex="-1"></a></span>
-<span id="cb26-58"><a href="#cb26-58" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install Apptainer</span></span>
-<span id="cb26-59"><a href="#cb26-59" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> eWaterCycle/setup-apptainer@v2</span></span>
-<span id="cb26-60"><a href="#cb26-60" tabindex="-1"></a></span>
-<span id="cb26-61"><a href="#cb26-61" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build container from definition file</span></span>
-<span id="cb26-62"><a href="#cb26-62" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
-<span id="cb26-63"><a href="#cb26-63" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer build gpu-noble-cuda-12.9.sif apptainer.def</span></span>
-<span id="cb26-64"><a href="#cb26-64" tabindex="-1"></a></span>
-<span id="cb26-65"><a href="#cb26-65" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test container</span></span>
-<span id="cb26-66"><a href="#cb26-66" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
-<span id="cb26-67"><a href="#cb26-67" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer test gpu-noble-cuda-12.9.sif</span></span>
-<span id="cb26-68"><a href="#cb26-68" tabindex="-1"></a></span>
-<span id="cb26-69"><a href="#cb26-69" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Login to GitHub Container Registry</span></span>
-<span id="cb26-70"><a href="#cb26-70" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
-<span id="cb26-71"><a href="#cb26-71" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3</span></span>
-<span id="cb26-72"><a href="#cb26-72" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb26-73"><a href="#cb26-73" tabindex="-1"></a><span class="at">          </span><span class="fu">registry</span><span class="kw">:</span><span class="at"> ghcr.io</span></span>
-<span id="cb26-74"><a href="#cb26-74" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ github.repository_owner }}</span></span>
-<span id="cb26-75"><a href="#cb26-75" tabindex="-1"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
-<span id="cb26-76"><a href="#cb26-76" tabindex="-1"></a></span>
-<span id="cb26-77"><a href="#cb26-77" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy built container</span></span>
-<span id="cb26-78"><a href="#cb26-78" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
-<span id="cb26-79"><a href="#cb26-79" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
-<span id="cb26-80"><a href="#cb26-80" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb26-81"><a href="#cb26-81" tabindex="-1"></a>            apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9</span>
-<span id="cb26-82"><a href="#cb26-82" tabindex="-1"></a>            apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}</span></code></pre>
+<pre class="sourceCode yaml" tabindex="0"><code class="sourceCode yaml"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Apptainer Images</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span></span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> main</span></span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a><span class="at">    </span><span class="fu">tags</span><span class="kw">:</span></span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'v*'</span></span>
+<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb30-10"><a href="#cb30-10" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.toml'</span></span>
+<span id="cb30-11"><a href="#cb30-11" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.lock'</span></span>
+<span id="cb30-12"><a href="#cb30-12" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/apptainer.def'</span></span>
+<span id="cb30-13"><a href="#cb30-13" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/app/**'</span></span>
+<span id="cb30-14"><a href="#cb30-14" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
+<span id="cb30-15"><a href="#cb30-15" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb30-16"><a href="#cb30-16" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.toml'</span></span>
+<span id="cb30-17"><a href="#cb30-17" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/pixi.lock'</span></span>
+<span id="cb30-18"><a href="#cb30-18" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/apptainer.def'</span></span>
+<span id="cb30-19"><a href="#cb30-19" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'cuda-exercise/app/**'</span></span>
+<span id="cb30-20"><a href="#cb30-20" tabindex="-1"></a><span class="at">  </span><span class="fu">release</span><span class="kw">:</span></span>
+<span id="cb30-21"><a href="#cb30-21" tabindex="-1"></a><span class="at">    </span><span class="fu">types</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">published</span><span class="kw">]</span></span>
+<span id="cb30-22"><a href="#cb30-22" tabindex="-1"></a><span class="at">  </span><span class="fu">workflow_dispatch</span><span class="kw">:</span></span>
+<span id="cb30-23"><a href="#cb30-23" tabindex="-1"></a></span>
+<span id="cb30-24"><a href="#cb30-24" tabindex="-1"></a><span class="fu">concurrency</span><span class="kw">:</span></span>
+<span id="cb30-25"><a href="#cb30-25" tabindex="-1"></a><span class="at">  </span><span class="fu">group</span><span class="kw">:</span><span class="at"> ${{ github.workflow }}-${{ github.ref }}</span></span>
+<span id="cb30-26"><a href="#cb30-26" tabindex="-1"></a><span class="at">  </span><span class="fu">cancel-in-progress</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb30-27"><a href="#cb30-27" tabindex="-1"></a></span>
+<span id="cb30-28"><a href="#cb30-28" tabindex="-1"></a><span class="fu">permissions</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span>
+<span id="cb30-29"><a href="#cb30-29" tabindex="-1"></a></span>
+<span id="cb30-30"><a href="#cb30-30" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb30-31"><a href="#cb30-31" tabindex="-1"></a><span class="at">  </span><span class="fu">docker</span><span class="kw">:</span></span>
+<span id="cb30-32"><a href="#cb30-32" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build and publish images</span></span>
+<span id="cb30-33"><a href="#cb30-33" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb30-34"><a href="#cb30-34" tabindex="-1"></a><span class="at">    </span><span class="fu">permissions</span><span class="kw">:</span></span>
+<span id="cb30-35"><a href="#cb30-35" tabindex="-1"></a><span class="at">      </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> read</span></span>
+<span id="cb30-36"><a href="#cb30-36" tabindex="-1"></a><span class="at">      </span><span class="fu">packages</span><span class="kw">:</span><span class="at"> write</span></span>
+<span id="cb30-37"><a href="#cb30-37" tabindex="-1"></a></span>
+<span id="cb30-38"><a href="#cb30-38" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb30-39"><a href="#cb30-39" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Free disk space</span></span>
+<span id="cb30-40"><a href="#cb30-40" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> AdityaGarg8/remove-unwanted-software@v5</span></span>
+<span id="cb30-41"><a href="#cb30-41" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb30-42"><a href="#cb30-42" tabindex="-1"></a><span class="at">          </span><span class="fu">remove-android</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
+<span id="cb30-43"><a href="#cb30-43" tabindex="-1"></a><span class="at">          </span><span class="fu">remove-dotnet</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
+<span id="cb30-44"><a href="#cb30-44" tabindex="-1"></a><span class="at">          </span><span class="fu">remove-haskell</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
+<span id="cb30-45"><a href="#cb30-45" tabindex="-1"></a></span>
+<span id="cb30-46"><a href="#cb30-46" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Checkout</span></span>
+<span id="cb30-47"><a href="#cb30-47" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb30-48"><a href="#cb30-48" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb30-49"><a href="#cb30-49" tabindex="-1"></a><span class="at">          </span><span class="fu">fetch-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
+<span id="cb30-50"><a href="#cb30-50" tabindex="-1"></a></span>
+<span id="cb30-51"><a href="#cb30-51" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Get commit SHA</span></span>
+<span id="cb30-52"><a href="#cb30-52" tabindex="-1"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> meta</span></span>
+<span id="cb30-53"><a href="#cb30-53" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb30-54"><a href="#cb30-54" tabindex="-1"></a>            # Get the short commit SHA (first 7 characters)</span>
+<span id="cb30-55"><a href="#cb30-55" tabindex="-1"></a>            SHA=$(git rev-parse --short HEAD)</span>
+<span id="cb30-56"><a href="#cb30-56" tabindex="-1"></a>            echo "sha=sha-$SHA" &gt;&gt; $GITHUB_OUTPUT</span>
+<span id="cb30-57"><a href="#cb30-57" tabindex="-1"></a></span>
+<span id="cb30-58"><a href="#cb30-58" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install Apptainer</span></span>
+<span id="cb30-59"><a href="#cb30-59" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> eWaterCycle/setup-apptainer@v2</span></span>
+<span id="cb30-60"><a href="#cb30-60" tabindex="-1"></a></span>
+<span id="cb30-61"><a href="#cb30-61" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build container from definition file</span></span>
+<span id="cb30-62"><a href="#cb30-62" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
+<span id="cb30-63"><a href="#cb30-63" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer build gpu-noble-cuda-12.9.sif apptainer.def</span></span>
+<span id="cb30-64"><a href="#cb30-64" tabindex="-1"></a></span>
+<span id="cb30-65"><a href="#cb30-65" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test container</span></span>
+<span id="cb30-66"><a href="#cb30-66" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
+<span id="cb30-67"><a href="#cb30-67" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer test gpu-noble-cuda-12.9.sif</span></span>
+<span id="cb30-68"><a href="#cb30-68" tabindex="-1"></a></span>
+<span id="cb30-69"><a href="#cb30-69" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Login to GitHub Container Registry</span></span>
+<span id="cb30-70"><a href="#cb30-70" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
+<span id="cb30-71"><a href="#cb30-71" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3</span></span>
+<span id="cb30-72"><a href="#cb30-72" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb30-73"><a href="#cb30-73" tabindex="-1"></a><span class="at">          </span><span class="fu">registry</span><span class="kw">:</span><span class="at"> ghcr.io</span></span>
+<span id="cb30-74"><a href="#cb30-74" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ github.repository_owner }}</span></span>
+<span id="cb30-75"><a href="#cb30-75" tabindex="-1"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
+<span id="cb30-76"><a href="#cb30-76" tabindex="-1"></a></span>
+<span id="cb30-77"><a href="#cb30-77" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy built container</span></span>
+<span id="cb30-78"><a href="#cb30-78" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
+<span id="cb30-79"><a href="#cb30-79" tabindex="-1"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./cuda-exercise</span></span>
+<span id="cb30-80"><a href="#cb30-80" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb30-81"><a href="#cb30-81" tabindex="-1"></a>            apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9</span>
+<span id="cb30-82"><a href="#cb30-82" tabindex="-1"></a>            apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}</span></code></pre>
 </div>
 <p>This will build your Apptainer definition file in GitHub Actions CI
 into a <code>.sif</code> container image and then deploy it to the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry" class="external-link">GitHub
@@ -1120,17 +1152,17 @@ repository.</p>
 Apptainer Linux container.</p>
 <p>On a <strong>new branch</strong> in your repository, add and commit
 the files from this episode.</p>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">git</span> add cuda-exercise/apptainer.def</span>
-<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="fu">git</span> add .github/workflows/apptainer.yaml</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">git</span> add cuda-exercise/apptainer.def</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a><span class="fu">git</span> add .github/workflows/apptainer.yaml</span></code></pre>
 </div>
 <p>Then push your branch to your remote on GitHub</p>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin HEAD</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin HEAD</span></code></pre>
 </div>
 <p>and make a pull request to merge your changes into your remote’s
 default branch.</p>
@@ -1223,8 +1255,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-deployment.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-deployment.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-08-13",
-  "datePublished": "2025-08-13"
+  "dateModified": "2025-08-14",
+  "datePublished": "2025-08-14"
 }
 
   </script><script>
