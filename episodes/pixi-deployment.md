@@ -223,6 +223,16 @@ ENTRYPOINT [ "/app/entrypoint.sh" ]
 
 With this `Dockerfile` the container image can then be built with [`docker build`](https://docs.docker.com/reference/cli/docker/buildx/build/).
 
+```
+docker build --file Dockerfile --tag <container image name:tag> .
+```
+
+and can optionally have the `ARG` variables set at build time with
+
+```
+docker build --build-arg CUDA_VERSION=12 --build-arg ENVIRONMENT=gpu --file Dockerfile --tag <container image name:tag> .
+```
+
 ### Automation with GitHub Actions workflows
 
 In the personal GitHub repository that we've been working in, create a GitHub Actions workflow directory from the top level of the repository
@@ -554,6 +564,12 @@ With this Apptainer defintion file the container image can then be built with `a
 
 ```bash
 apptainer build <container image name>.sif <definition file name>.def
+```
+
+and can optionally have the stage scoped variables set with
+
+```bash
+apptainer build <container image name>.sif --build-arg CUDA_VERSION=12 --build-arg ENVIRONMENT_NAME=gpu <definition file name>.def
 ```
 
 ### Automation with GitHub Actions workflows
