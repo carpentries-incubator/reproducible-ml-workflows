@@ -386,13 +386,14 @@ ENTRYPOINT [ "/app/entrypoint.sh" ]
 
 #### Building and deploying the container image
 
-Now let's add a GitHub Actions pipeline to build this Dockerfile and deploy it to a Linux container registry.
+Now let's add a GitHub Actions pipeline to build the container image definition files (apptainer.def and Dockerfile) and deploy it to a Linux container registry.
 
 ::: challenge
 
 ## Build and deploy Linux container image to registry
 
-Add a GitHub Actions pipeline that will build the Dockerfile and deploy it to GitHub Container Registry (`ghcr`).
+Add a GitHub Actions pipeline that will build both the apptainer.def and Dockerfile files deploy them to GitHub Container Registry (`ghcr`).
+Have the image tags include the text `hello-pytorch` as this our "Hello, World" equivalent for machine learning.
 
 ::: solution
 
@@ -405,7 +406,7 @@ mkdir -p .github/workflows
 and then write a YAML file at `.github/workflows/ci.yaml` that contains the following:
 
 ```yaml
-name: Build and publish Docker images
+name: Build and publish Linux container images
 
 on:
   push:
@@ -416,12 +417,14 @@ on:
     paths:
       - 'htcondor/pixi.toml'
       - 'htcondor/pixi.lock'
+      - 'htcondor/apptainer.def'
       - 'htcondor/Dockerfile'
       - 'htcondor/.dockerignore'
   pull_request:
     paths:
       - 'htcondor/pixi.toml'
       - 'htcondor/pixi.lock'
+      - 'htcondor/apptainer.def'
       - 'htcondor/Dockerfile'
       - 'htcondor/.dockerignore'
   release:
@@ -456,9 +459,10 @@ jobs:
             ghcr.io/${{ github.repository }}
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=raw,value=hello-pytorch-noble-cuda-12.9
+            type=raw,value=hello-pytorch-gpu-noble-cuda-12.9
             type=raw,value=latest
             type=sha
+            type=sha,prefix=hello-pytorch-gpu-noble-cuda-12.9-sha-
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -494,6 +498,57 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           pull: true
           push: ${{ github.event_name != 'pull_request' }}
+
+  apptainer:
+    name: Build and publish images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Free disk space
+        uses: AdityaGarg8/remove-unwanted-software@v5
+        with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get commit SHA
+        id: meta
+        run: |
+            # Get the short commit SHA (first 7 characters)
+            SHA=$(git rev-parse --short HEAD)
+            echo "sha=sha-$SHA" >> $GITHUB_OUTPUT
+
+      - name: Install Apptainer
+        uses: eWaterCycle/setup-apptainer@v2
+
+      - name: Build container from definition file
+        working-directory: ./htcondor
+        run: apptainer build gpu-noble-cuda-12.9.sif apptainer.def
+
+      - name: Test container
+        working-directory: ./htcondor
+        run: apptainer test gpu-noble-cuda-12.9.sif
+
+      - name: Login to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy built container
+        if: github.event_name != 'pull_request'
+        working-directory: ./htcondor
+        run: apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-hello-pytorch-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}
 ```
 
 :::
