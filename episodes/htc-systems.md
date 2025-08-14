@@ -440,7 +440,7 @@ permissions: {}
 
 jobs:
   docker:
-    name: Build and publish images
+    name: Build and publish Docker images
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -501,7 +501,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
 
   apptainer:
-    name: Build and publish images
+    name: Build and publish Apptainer images
     runs-on: ubuntu-latest
     permissions:
       contents: read
