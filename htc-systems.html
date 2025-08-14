@@ -1132,45 +1132,41 @@ container image.</li>
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a><span class="co"># detailed logging to stderr</span></span>
-<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a><span class="bu">set</span> <span class="at">-x</span></span>
-<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a></span>
-<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"# Hello from Job </span><span class="va">${1}</span><span class="st"> running on </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">\n"</span></span>
-<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"# GPUs assigned: </span><span class="va">${CUDA_VISIBLE_DEVICES}</span><span class="st">\n"</span></span>
-<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"# Activate Pixi environment\n"</span></span>
-<span id="cb33-10"><a href="#cb33-10" tabindex="-1"></a><span class="co"># The last line of the entrypoint.sh file is 'exec "$@"'. If this shell script</span></span>
-<span id="cb33-11"><a href="#cb33-11" tabindex="-1"></a><span class="co"># receives arguments, exec will interpret them as arguments to it, which is not</span></span>
-<span id="cb33-12"><a href="#cb33-12" tabindex="-1"></a><span class="co"># intended. To avoid this, strip the last line of entrypoint.sh and source that</span></span>
-<span id="cb33-13"><a href="#cb33-13" tabindex="-1"></a><span class="co"># instead.</span></span>
-<span id="cb33-14"><a href="#cb33-14" tabindex="-1"></a><span class="bu">.</span> <span class="op">&lt;(</span><span class="fu">sed</span> <span class="st">'$d'</span> /app/entrypoint.sh<span class="op">)</span></span>
-<span id="cb33-15"><a href="#cb33-15" tabindex="-1"></a></span>
-<span id="cb33-16"><a href="#cb33-16" tabindex="-1"></a><span class="co"># Note: Use of nvidia-smi in Apptainer requires the '--nvccli' option.</span></span>
-<span id="cb33-17"><a href="#cb33-17" tabindex="-1"></a><span class="co"># https://apptainer.org/docs/user/main/gpu.html#nvidia-gpus-cuda-nvidia-container-cli</span></span>
-<span id="cb33-18"><a href="#cb33-18" tabindex="-1"></a><span class="co"># As of 2025-06-12, CHTC supports '--nv' but not '--nvccli' and so 'nvidia-smi'</span></span>
-<span id="cb33-19"><a href="#cb33-19" tabindex="-1"></a><span class="co"># can not be used.</span></span>
-<span id="cb33-20"><a href="#cb33-20" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb33-21"><a href="#cb33-21" tabindex="-1"></a><span class="co"># echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"</span></span>
-<span id="cb33-22"><a href="#cb33-22" tabindex="-1"></a><span class="co"># nvidia-smi</span></span>
-<span id="cb33-23"><a href="#cb33-23" tabindex="-1"></a></span>
-<span id="cb33-24"><a href="#cb33-24" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n# Check that the training code exists:\n"</span></span>
-<span id="cb33-25"><a href="#cb33-25" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1ap</span> ./src/</span>
-<span id="cb33-26"><a href="#cb33-26" tabindex="-1"></a></span>
-<span id="cb33-27"><a href="#cb33-27" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n# Check if PyTorch can detect the GPU:\n"</span></span>
-<span id="cb33-28"><a href="#cb33-28" tabindex="-1"></a><span class="ex">python</span> ./src/torch_detect_GPU.py</span>
-<span id="cb33-29"><a href="#cb33-29" tabindex="-1"></a></span>
-<span id="cb33-30"><a href="#cb33-30" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n# Extract the training data:\n"</span></span>
-<span id="cb33-31"><a href="#cb33-31" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">"MNIST_data.tar.gz"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb33-32"><a href="#cb33-32" tabindex="-1"></a>    <span class="fu">tar</span> <span class="at">-vxzf</span> MNIST_data.tar.gz</span>
-<span id="cb33-33"><a href="#cb33-33" tabindex="-1"></a><span class="cf">else</span></span>
-<span id="cb33-34"><a href="#cb33-34" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"The training data archive, MNIST_data.tar.gz, is not found."</span></span>
-<span id="cb33-35"><a href="#cb33-35" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Please transfer it to the worker node in the HTCondor jobs submission file."</span></span>
-<span id="cb33-36"><a href="#cb33-36" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
-<span id="cb33-37"><a href="#cb33-37" tabindex="-1"></a><span class="cf">fi</span></span>
-<span id="cb33-38"><a href="#cb33-38" tabindex="-1"></a></span>
-<span id="cb33-39"><a href="#cb33-39" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n# Train MNIST with PyTorch:\n"</span></span>
-<span id="cb33-40"><a href="#cb33-40" tabindex="-1"></a><span class="bu">time</span> python ./src/torch_MNIST.py <span class="at">--data-dir</span> ./data <span class="at">--epochs</span> 14 <span class="at">--save-model</span></span></code></pre>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="co"># mnist_gpu_apptainer.sh</span></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a><span class="co"># detailed logging to stderr</span></span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a><span class="bu">set</span> <span class="at">-x</span></span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"# Hello from Job </span><span class="va">${1}</span><span class="st"> running on </span><span class="va">$(</span><span class="fu">hostname</span><span class="va">)</span><span class="st">\n"</span></span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"# GPUs assigned: </span><span class="va">${CUDA_VISIBLE_DEVICES}</span><span class="st">\n"</span></span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"# Activate Pixi environment\n"</span></span>
+<span id="cb33-11"><a href="#cb33-11" tabindex="-1"></a><span class="co"># The last line of the entrypoint.sh file is 'exec "$@"'. If this shell script</span></span>
+<span id="cb33-12"><a href="#cb33-12" tabindex="-1"></a><span class="co"># receives arguments, exec will interpret them as arguments to it, which is not</span></span>
+<span id="cb33-13"><a href="#cb33-13" tabindex="-1"></a><span class="co"># intended. To avoid this, strip the last line of entrypoint.sh and source that</span></span>
+<span id="cb33-14"><a href="#cb33-14" tabindex="-1"></a><span class="co"># instead.</span></span>
+<span id="cb33-15"><a href="#cb33-15" tabindex="-1"></a><span class="bu">.</span> <span class="op">&lt;(</span><span class="fu">sed</span> <span class="st">'$d'</span> /app/entrypoint.sh<span class="op">)</span></span>
+<span id="cb33-16"><a href="#cb33-16" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"</span></span>
+<span id="cb33-18"><a href="#cb33-18" tabindex="-1"></a><span class="ex">nvidia-smi</span></span>
+<span id="cb33-19"><a href="#cb33-19" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n# Check that the training code exists:\n"</span></span>
+<span id="cb33-21"><a href="#cb33-21" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-1ap</span> ./src/</span>
+<span id="cb33-22"><a href="#cb33-22" tabindex="-1"></a></span>
+<span id="cb33-23"><a href="#cb33-23" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n# Check if PyTorch can detect the GPU:\n"</span></span>
+<span id="cb33-24"><a href="#cb33-24" tabindex="-1"></a><span class="ex">python</span> ./src/torch_detect_GPU.py</span>
+<span id="cb33-25"><a href="#cb33-25" tabindex="-1"></a></span>
+<span id="cb33-26"><a href="#cb33-26" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n# Extract the training data:\n"</span></span>
+<span id="cb33-27"><a href="#cb33-27" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">"MNIST_data.tar.gz"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb33-28"><a href="#cb33-28" tabindex="-1"></a>    <span class="fu">tar</span> <span class="at">-vxzf</span> MNIST_data.tar.gz</span>
+<span id="cb33-29"><a href="#cb33-29" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb33-30"><a href="#cb33-30" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"The training data archive, MNIST_data.tar.gz, is not found."</span></span>
+<span id="cb33-31"><a href="#cb33-31" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Please transfer it to the worker node in the HTCondor jobs submission file."</span></span>
+<span id="cb33-32"><a href="#cb33-32" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb33-33"><a href="#cb33-33" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb33-34"><a href="#cb33-34" tabindex="-1"></a></span>
+<span id="cb33-35"><a href="#cb33-35" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n# Train MNIST with PyTorch:\n"</span></span>
+<span id="cb33-36"><a href="#cb33-36" tabindex="-1"></a><span class="bu">time</span> python ./src/torch_MNIST.py <span class="at">--data-dir</span> ./data <span class="at">--epochs</span> 14 <span class="at">--save-model</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -1214,7 +1210,7 @@ request_cpus = 1
 request_gpus = 1
 
 # select some memory and disk space
-request_memory = 2GB
+request_memory = 4GB
 # Apptainer jobs take more disk than Docker jobs for some reason
 request_disk = 7GB
 
@@ -1225,7 +1221,7 @@ request_disk = 7GB
 gpus_minimum_capability = 5.0
 
 # Optional: required GPU memory
-# gpus_minimum_memory = 4GB
+gpus_minimum_memory = 4GB
 
 # Tell HTCondor to run 1 instances of our job:
 queue 1</code></pre>
@@ -1239,19 +1235,20 @@ submit description file to HTCondor for us with <a href="https://htcondor.readth
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="co"># Download the training data locally to transfer to the worker node</span></span>
-<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="st">"MNIST_data.tar.gz"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a>    <span class="co"># c.f. https://github.com/CHTC/templates-GPUs/blob/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz</span></span>
-<span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a>    <span class="ex">curl</span> <span class="at">-sLO</span> https://raw.githubusercontent.com/CHTC/templates-GPUs/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz</span>
-<span id="cb35-7"><a href="#cb35-7" tabindex="-1"></a><span class="cf">fi</span></span>
-<span id="cb35-8"><a href="#cb35-8" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" tabindex="-1"></a><span class="co"># Ensure existing models are backed up</span></span>
-<span id="cb35-10"><a href="#cb35-10" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">"mnist_cnn.pt"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb35-11"><a href="#cb35-11" tabindex="-1"></a>    <span class="fu">mv</span> mnist_cnn.pt mnist_cnn_<span class="st">"</span><span class="va">$(</span><span class="fu">date</span> <span class="st">'+%Y-%m-%d-%H-%M'</span><span class="va">)</span><span class="st">"</span>.pt.bak</span>
-<span id="cb35-12"><a href="#cb35-12" tabindex="-1"></a><span class="cf">fi</span></span>
-<span id="cb35-13"><a href="#cb35-13" tabindex="-1"></a></span>
-<span id="cb35-14"><a href="#cb35-14" tabindex="-1"></a><span class="ex">condor_submit</span> mnist_gpu_apptainer.sub</span></code></pre>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="co"># submit.sh</span></span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a><span class="co"># Download the training data locally to transfer to the worker node</span></span>
+<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="st">"MNIST_data.tar.gz"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a>    <span class="co"># c.f. https://github.com/CHTC/templates-GPUs/blob/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz</span></span>
+<span id="cb35-7"><a href="#cb35-7" tabindex="-1"></a>    <span class="ex">curl</span> <span class="at">-sLO</span> https://raw.githubusercontent.com/CHTC/templates-GPUs/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz</span>
+<span id="cb35-8"><a href="#cb35-8" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb35-9"><a href="#cb35-9" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" tabindex="-1"></a><span class="co"># Ensure existing models are backed up</span></span>
+<span id="cb35-11"><a href="#cb35-11" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">"mnist_cnn.pt"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb35-12"><a href="#cb35-12" tabindex="-1"></a>    <span class="fu">mv</span> mnist_cnn.pt mnist_cnn_<span class="st">"</span><span class="va">$(</span><span class="fu">date</span> <span class="st">'+%Y-%m-%d-%H-%M'</span><span class="va">)</span><span class="st">"</span>.pt.bak</span>
+<span id="cb35-13"><a href="#cb35-13" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb35-14"><a href="#cb35-14" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="#cb35-15" tabindex="-1"></a><span class="ex">condor_submit</span> mnist_gpu_apptainer.sub</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -1263,19 +1260,20 @@ expected.</p>
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a></span>
-<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a><span class="co"># Download the training data locally to transfer to the worker node</span></span>
-<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="st">"MNIST_data.tar.gz"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a>    <span class="co"># c.f. https://github.com/CHTC/templates-GPUs/blob/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz</span></span>
-<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>    <span class="ex">curl</span> <span class="at">-sLO</span> https://raw.githubusercontent.com/CHTC/templates-GPUs/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz</span>
-<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a><span class="cf">fi</span></span>
-<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a></span>
-<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a><span class="co"># Ensure existing models are backed up</span></span>
-<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">"mnist_cnn.pt"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a>    <span class="fu">mv</span> mnist_cnn.pt mnist_cnn_<span class="st">"</span><span class="va">$(</span><span class="fu">date</span> <span class="st">'+%Y-%m-%d-%H-%M'</span><span class="va">)</span><span class="st">"</span>.pt.bak</span>
-<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a><span class="cf">fi</span></span>
-<span id="cb36-13"><a href="#cb36-13" tabindex="-1"></a></span>
-<span id="cb36-14"><a href="#cb36-14" tabindex="-1"></a><span class="ex">condor_submit</span> <span class="at">-interactive</span> mnist_gpu_apptainer.sub</span></code></pre>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a><span class="co"># interact.sh</span></span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a><span class="co"># Download the training data locally to transfer to the worker node</span></span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="st">"MNIST_data.tar.gz"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>    <span class="co"># c.f. https://github.com/CHTC/templates-GPUs/blob/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz</span></span>
+<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a>    <span class="ex">curl</span> <span class="at">-sLO</span> https://raw.githubusercontent.com/CHTC/templates-GPUs/450081144c6ae0657123be2a9a357cb432d9d394/shared/pytorch/MNIST_data.tar.gz</span>
+<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a><span class="co"># Ensure existing models are backed up</span></span>
+<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">"mnist_cnn.pt"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a>    <span class="fu">mv</span> mnist_cnn.pt mnist_cnn_<span class="st">"</span><span class="va">$(</span><span class="fu">date</span> <span class="st">'+%Y-%m-%d-%H-%M'</span><span class="va">)</span><span class="st">"</span>.pt.bak</span>
+<span id="cb36-13"><a href="#cb36-13" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb36-14"><a href="#cb36-14" tabindex="-1"></a></span>
+<span id="cb36-15"><a href="#cb36-15" tabindex="-1"></a><span class="ex">condor_submit</span> <span class="at">-interactive</span> mnist_gpu_apptainer.sub</span></code></pre>
 </div>
 <p>Submitting the job for the first time will take a bit as it needs to
 pull down the container image, so be patient. The container image will
@@ -1332,15 +1330,18 @@ I have no name!@vetsigian0001:/var/lib/condor/execute/slot3/dir_2367762$</code><
 <div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="ex">pixi</span> list pytorch</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="ex">pixi</span> list torch</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>Environment: gpu
-Package      Version  Build                           Size      Kind   Source
-pytorch      2.7.0    cuda126_mkl_py313_he20fe19_300  27.8 MiB  conda  https://conda.anaconda.org/conda-forge/
-pytorch-gpu  2.7.0    cuda126_mkl_ha999a5f_300        46.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
+Package                     Version  Build                           Size       Kind   Source
+libtorch                    2.7.1    cuda129_mkl_h9562ed8_304        836.3 MiB  conda  https://conda.anaconda.org/conda-forge/
+pytorch                     2.7.1    cuda129_mkl_py313_h1e53aa0_304  28.1 MiB   conda  https://conda.anaconda.org/conda-forge/
+pytorch-gpu                 2.7.1    cuda129_mkl_h43a4b0b_304        46.9 KiB   conda  https://conda.anaconda.org/conda-forge/
+torchvision                 0.22.0   cuda_py313_h6be0d2c_2           3.2 MiB    conda  https://conda.anaconda.org/conda-forge/
+torchvision-extra-decoders  0.0.2    py313hf1e760e_3                 62.9 KiB   conda  https://conda.anaconda.org/conda-forge/</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb47">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1352,16 +1353,16 @@ pytorch-gpu  2.7.0    cuda126_mkl_ha999a5f_300        46.1 KiB  conda  https://c
 </h3>
 <pre class="output" tabindex="0"><code>Environment: gpu
 Package               Version  Build       Size       Kind   Source
-cuda-crt-tools        12.9.86  ha770c72_1  28.2 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-crt-tools        12.9.86  ha770c72_2  28.5 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-cudart           12.9.79  h5888daf_0  22.7 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-cudart_linux-64  12.9.79  h3f2d84a_0  192.6 KiB  conda  https://conda.anaconda.org/conda-forge/
 cuda-cuobjdump        12.9.82  hbd13f7d_0  237.5 KiB  conda  https://conda.anaconda.org/conda-forge/
 cuda-cupti            12.9.79  h9ab20c4_0  1.8 MiB    conda  https://conda.anaconda.org/conda-forge/
-cuda-nvcc-tools       12.9.86  he02047a_1  26.2 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvcc-tools       12.9.86  he02047a_2  26.1 MiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-nvdisasm         12.9.88  hbd13f7d_0  5.3 MiB    conda  https://conda.anaconda.org/conda-forge/
 cuda-nvrtc            12.9.86  h5888daf_0  64.1 MiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-nvtx             12.9.79  h5888daf_0  28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvvm-tools       12.9.86  he02047a_1  23.1 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvvm-tools       12.9.86  h4bc722e_2  23.1 MiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-version          12.9     h4f385c5_3  21.1 KiB   conda  https://conda.anaconda.org/conda-forge/</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb49">
@@ -1372,17 +1373,17 @@ cuda-version          12.9     h4f385c5_3  21.1 KiB   conda  https://conda.anaco
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Mon Jun 16 00:07:33 2025
+<pre class="output" tabindex="0"><code>Thu Aug 14 06:36:21 2025
 +-----------------------------------------------------------------------------------------+
-| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+| NVIDIA-SMI 555.42.06              Driver Version: 555.42.06      CUDA Version: 12.5     |
 |-----------------------------------------+------------------------+----------------------+
 | GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
 | Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
 |                                         |                        |               MIG M. |
 |=========================================+========================+======================|
-|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B2:00.0 Off |                  N/A |
-| 29%   26C    P8             23W /  250W |       3MiB /  11264MiB |      0%      Default |
-|                                         |                        |                  N/A |
+|   0  NVIDIA A100-PCIE-40GB          On  |   00000000:81:00.0 Off |                    0 |
+| N/A   25C    P0             35W /  250W |       4MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
 +-----------------------------------------+------------------------+----------------------+
 
 +-----------------------------------------------------------------------------------------+
@@ -1418,7 +1419,7 @@ script</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>Submitting job(s).
-1 job(s) submitted to cluster 2127879.</code></pre>
+1 job(s) submitted to cluster 12651114.</code></pre>
 </div>
 <p>and its submission and state can be monitored with <a href="https://htcondor.readthedocs.io/en/latest/man-pages/condor_q.html" class="external-link"><code>condor_q</code></a>.</p>
 <div class="codewrapper sourceCode" id="cb55">
@@ -1431,9 +1432,9 @@ script</p>
 </h3>
 <pre class="output" tabindex="0"><code>
 
--- Schedd: ap2001.chtc.wisc.edu : &lt;128.105.68.112:9618?... @ 06/15/25 19:16:17
-OWNER     BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
-mfeickert ID: 2127879   6/15 19:13      _      1      _      1 2127879.0
+-- Schedd: ap40.uw.osg-htc.org : &lt;128.105.68.62:9618?... @ 08/14/25 08:20:12
+OWNER            BATCH_NAME      SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+matthew.feickert ID: 12651114   8/14 08:18      _      1      _      1 12651114.0
 
 1 jobs; 0 completed, 0 removed, 0 idle, 1 running, 0 held, 0 suspended
 </code></pre>
@@ -1441,14 +1442,14 @@ mfeickert ID: 2127879   6/15 19:13      _      1      _      1 2127879.0
 <p>When the job finishes we see that HTCondor has returned to us the
 following files:</p>
 <ul><li>
-<code>mnist_gpu_docker.log.txt</code>: the HTCondor log file for the
-job</li>
+<code>mnist_gpu_apptainer_$(Cluster)_$(Process).log.txt</code>: the
+HTCondor log file for the job</li>
 <li>
-<code>mnist_gpu_docker.out.txt</code>: the stdout of all actions
-executed in the job</li>
+<code>mnist_gpu_apptainer_$(Cluster)_$(Process).out.txt</code>: the
+stdout of all actions executed in the job</li>
 <li>
-<code>mnist_gpu_docker.err.txt</code>: the stderr of all actions
-executed in the job</li>
+<code>mnist_gpu_apptainer_$(Cluster)_$(Process).err.txt</code>: the
+stderr of all actions executed in the job</li>
 <li>
 <code>mnist_cnn.pt</code>: the <a href="https://docs.pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-model-for-inference" class="external-link">serialized
 trained PyTorch model</a>
