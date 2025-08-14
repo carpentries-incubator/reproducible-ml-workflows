@@ -57,9 +57,9 @@ We'll download Python code that uses a convocational neural network written in P
 This is a modified example from the PyTorch documentation (https://github.com/pytorch/examples/blob/main/mnist/main.py) which is [licensed under the BSD 3-Clause license](https://github.com/pytorch/examples/blob/abfa4f9cc4379de12f6c340538ef9a697332cccb/LICENSE).
 
 ```bash
-curl -sLO https://raw.githubusercontent.com/matthewfeickert/nvidia-gpu-ml-library-test/c7889222544928fb6f9fdeb1145767272b5cfec8/torch_MNIST.py
 mkdir -p src
-mv torch_MNIST.py src/
+curl -sL https://github.com/matthewfeickert/nvidia-gpu-ml-library-test/raw/c7889222544928fb6f9fdeb1145767272b5cfec8/torch_MNIST.py -o ./src/torch_MNIST.py
+curl -sL https://github.com/matthewfeickert/nvidia-gpu-ml-library-test/raw/36c725360b1b1db648d6955c27bd3885b29a3273/torch_detect_GPU.py -o ./src/torch_detect_GPU.py
 ```
 
 #### The Pixi environment
@@ -77,7 +77,7 @@ Create a Pixi workspace that:
 * Has PyTorch and `torchvision` in it.
 * Has the ability to support CUDA v12.
 * Has an environment that has the CPU version of PyTorch and `torchvision` that can be installed on `linux-64`, `osx-arm64`, and `win-64`.
-* Has an environment that has the GPU version of PyTorch and `torchvision`.
+* Has an environment that has the GPU version of PyTorch and `torchvision` that can be installed on `linux-64`, and `win-64`.
 
 ::: solution
 
@@ -142,7 +142,7 @@ version = "0.1.0"
 python = ">=3.13.5,<3.14"
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.7.0,<3"
+pytorch-cpu = ">=2.7.1,<3"
 torchvision = ">=0.22.0,<0.23"
 
 [environments]
@@ -156,18 +156,6 @@ Let's start with the CUDA system requirements
 pixi workspace system-requirements add --feature gpu cuda 12
 ```
 
-::: caution
-
-## Override the `__cuda` virtual package
-
-Remember that if you're on a platform that doesn't support the `system-requirement` you'll need to override the checks to solve the environment.
-
-```bash
-export CONDA_OVERRIDE_CUDA=12
-```
-
-:::
-
 and create an environment from the feature
 
 ```bash
@@ -180,12 +168,12 @@ pixi workspace environment add --feature gpu gpu
 and then add the GPU dependencies for the target platform of `linux-64` (where we'll run in production).
 
 ```bash
-pixi add --platform linux-64 --feature gpu pytorch-gpu torchvision
+pixi add --platform linux-64 --platform win-64 --feature gpu pytorch-gpu torchvision
 ```
 ```output
-✔ Added pytorch-gpu >=2.7.0,<3
+✔ Added pytorch-gpu >=2.7.1,<3
 ✔ Added torchvision >=0.22.0,<0.23
-Added these only for platform(s): linux-64
+Added these only for platform(s): linux-64, win-64
 Added these only for feature: gpu
 ```
 
@@ -202,14 +190,18 @@ version = "0.1.0"
 python = ">=3.13.5,<3.14"
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.7.0,<3"
+pytorch-cpu = ">=2.7.1,<3"
 torchvision = ">=0.22.0,<0.23"
 
 [feature.gpu.system-requirements]
 cuda = "12"
 
 [feature.gpu.target.linux-64.dependencies]
-pytorch-gpu = ">=2.7.0,<3"
+pytorch-gpu = ">=2.7.1,<3"
+torchvision = ">=0.22.0,<0.23"
+
+[feature.gpu.target.win-64.dependencies]
+pytorch-gpu = ">=2.7.1,<3"
 torchvision = ">=0.22.0,<0.23"
 
 [environments]
@@ -218,6 +210,21 @@ gpu = ["gpu"]
 ```
 
 :::
+:::
+
+
+::: caution
+
+## Override the `__cuda` virtual package
+
+Remember that if you're on a platform that doesn't support the `system-requirement` you'll need to override the checks to **install** the environment.
+
+```bash
+export CONDA_OVERRIDE_CUDA=12
+# or
+# CONDA_OVERRIDE_CUDA=12 pixi <command>
+```
+
 :::
 
 To validate that things are working with the CPU code, let's do a short training run for only `2` epochs in the `cpu` environment.
@@ -263,6 +270,76 @@ python src/torch_MNIST.py --epochs 2 --save-model --data-dir data
 
 #### The Linux container
 
+##### Apptainer
+
+Let's write an Apptainer definition file that installs the `gpu` environment, and nothing else, into the container image when built.
+
+```
+Bootstrap: docker
+From: ghcr.io/prefix-dev/pixi:noble
+Stage: build
+
+# %arguments have to be defined at each stage
+%arguments
+    CUDA_VERSION=12
+    ENVIRONMENT=gpu
+
+%files
+./pixi.toml /app/
+./pixi.lock /app/
+./.gitignore /app/
+
+%post
+#!/bin/bash
+export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
+cd /app/
+pixi info
+pixi install --locked --environment {{ ENVIRONMENT }}
+echo "#!/bin/bash" > /app/entrypoint.sh && \
+pixi shell-hook --environment {{ ENVIRONMENT }} -s bash >> /app/entrypoint.sh && \
+echo 'exec "$@"' >> /app/entrypoint.sh
+
+
+Bootstrap: docker
+From: ghcr.io/prefix-dev/pixi:noble
+Stage: final
+
+%arguments
+    ENVIRONMENT=gpu
+
+%files from build
+/app/.pixi/envs/{{ ENVIRONMENT }} /app/.pixi/envs/{{ ENVIRONMENT }}
+/app/pixi.toml /app/pixi.toml
+/app/pixi.lock /app/pixi.lock
+/app/.gitignore /app/.gitignore
+# The ignore files are needed for 'pixi run' to work in the container
+/app/.pixi/.gitignore /app/.pixi/.gitignore
+/app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
+/app/entrypoint.sh /app/entrypoint.sh
+
+%post
+#!/bin/bash
+cd /app/
+pixi info
+chmod +x /app/entrypoint.sh
+
+%runscript
+#!/bin/bash
+/app/entrypoint.sh "$@"
+
+%startscript
+#!/bin/bash
+/app/entrypoint.sh "$@"
+
+%test
+#!/bin/bash -e
+. /app/entrypoint.sh
+pixi info
+pixi list
+```
+
+##### Docker
+
 Let's write a `Dockerfile` that installs the `gpu` environment into the container image when built.
 
 ::: challenge
@@ -274,23 +351,30 @@ Write a `Dockerfile` that will install the `gpu` environment and only the `gpu` 
 ::: solution
 
 ```dockerfile
+ARG CUDA_VERSION="12"
+ARG ENVIRONMENT="gpu"
+
 FROM ghcr.io/prefix-dev/pixi:noble AS build
+
+ARG CUDA_VERSION
+ARG ENVIRONMENT
 
 WORKDIR /app
 COPY . .
-ENV CONDA_OVERRIDE_CUDA=12
-RUN pixi install --locked --environment gpu
+ENV CONDA_OVERRIDE_CUDA=$CUDA_VERSION
+RUN pixi install --locked --environment $ENVIRONMENT
 RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
-    pixi shell-hook --environment gpu -s bash >> /app/entrypoint.sh && \
+    pixi shell-hook --environment $ENVIRONMENT -s bash >> /app/entrypoint.sh && \
     echo 'exec "$@"' >> /app/entrypoint.sh
 
-FROM ghcr.io/prefix-dev/pixi:noble AS production
+FROM ghcr.io/prefix-dev/pixi:noble AS final
+
+ARG ENVIRONMENT
 
 WORKDIR /app
-COPY --from=build /app/.pixi/envs/gpu /app/.pixi/envs/gpu
+COPY --from=build /app/.pixi/envs/$ENVIRONMENT /app/.pixi/envs/$ENVIRONMENT
 COPY --from=build /app/pixi.toml /app/pixi.toml
 COPY --from=build /app/pixi.lock /app/pixi.lock
-# The ignore files are needed for 'pixi run' to work in the container
 COPY --from=build /app/.pixi/.gitignore /app/.pixi/.gitignore
 COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
 COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
@@ -303,13 +387,14 @@ ENTRYPOINT [ "/app/entrypoint.sh" ]
 
 #### Building and deploying the container image
 
-Now let's add a GitHub Actions pipeline to build this Dockerfile and deploy it to a Linux container registry.
+Now let's add a GitHub Actions pipeline to build the container image definition files (apptainer.def and Dockerfile) and deploy it to a Linux container registry.
 
 ::: challenge
 
 ## Build and deploy Linux container image to registry
 
-Add a GitHub Actions pipeline that will build the Dockerfile and deploy it to GitHub Container Registry (`ghcr`).
+Add a GitHub Actions pipeline that will build both the apptainer.def and Dockerfile files deploy them to GitHub Container Registry (`ghcr`).
+Have the image tags include the text `mnist` as this will be the identifying problem.
 
 ::: solution
 
@@ -319,10 +404,10 @@ Create the GitHub Actions workflow directory tree
 mkdir -p .github/workflows
 ```
 
-and then write a YAML file at `.github/workflows/ci.yaml` that contains the following:
+and then write a YAML file at `.github/workflows/containers.yaml` that contains the following:
 
 ```yaml
-name: Build and publish Docker images
+name: Build and publish Linux container images
 
 on:
   push:
@@ -333,12 +418,14 @@ on:
     paths:
       - 'htcondor/pixi.toml'
       - 'htcondor/pixi.lock'
+      - 'htcondor/apptainer.def'
       - 'htcondor/Dockerfile'
       - 'htcondor/.dockerignore'
   pull_request:
     paths:
       - 'htcondor/pixi.toml'
       - 'htcondor/pixi.lock'
+      - 'htcondor/apptainer.def'
       - 'htcondor/Dockerfile'
       - 'htcondor/.dockerignore'
   release:
@@ -353,7 +440,7 @@ permissions: {}
 
 jobs:
   docker:
-    name: Build and publish images
+    name: Build and publish Docker images
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -373,9 +460,10 @@ jobs:
             ghcr.io/${{ github.repository }}
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=raw,value=hello-pytorch-noble-cuda-12.9
+            type=raw,value=mnist-gpu-noble-cuda-12.9
             type=raw,value=latest
             type=sha
+            type=sha,prefix=mnist-gpu-noble-cuda-12.9-sha-
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -411,9 +499,86 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           pull: true
           push: ${{ github.event_name != 'pull_request' }}
+
+  apptainer:
+    name: Build and publish Apptainer images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Free disk space
+        uses: AdityaGarg8/remove-unwanted-software@v5
+        with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get commit SHA
+        id: meta
+        run: |
+            # Get the short commit SHA (first 7 characters)
+            SHA=$(git rev-parse --short HEAD)
+            echo "sha=sha-$SHA" >> $GITHUB_OUTPUT
+
+      - name: Install Apptainer
+        uses: eWaterCycle/setup-apptainer@v2
+
+      - name: Build container from definition file
+        working-directory: ./htcondor
+        run: apptainer build gpu-noble-cuda-12.9.sif apptainer.def
+
+      - name: Test container
+        working-directory: ./htcondor
+        run: apptainer test gpu-noble-cuda-12.9.sif
+
+      - name: Login to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy built container
+        if: github.event_name != 'pull_request'
+        working-directory: ./htcondor
+        run: apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-mnist-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}
 ```
 
 :::
+:::
+
+::: callout
+
+## Version Control
+
+We now want to make sure that we can build container images with these defention files and workflows.
+
+On a **new branch** in your repository, add and commit the files from this episode.
+
+```bash
+git add htcondor/pixi.*
+git add htcondor/.git*
+git add htcondor/apptainer.def
+git add htcondor/Dockerfile.def
+git add .github/workflows/containers.yaml
+```
+
+Then push your branch to your remote on GitHub
+
+```bash
+git push -u origin HEAD
+```
+
+and make a pull request to merge your changes into your remote's default branch.
+
 :::
 
 To verify that things are visible to other computers, install the Linux container utility [`crane`](https://github.com/google/go-containerregistry/tree/main/cmd/crane)
@@ -426,7 +591,7 @@ pixi global install crane
     └─ exposes: crane
 ```
 
-and then use [`crane ls`](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_ls.md) to list all of the container images in your container registry for the particular image
+and then use [`crane ls`](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_ls.md) to list all of the Docker container images in your container registry for the particular image
 
 ```bash
 crane ls ghcr.io/<your GitHub username>/pixi-cuda-lesson
@@ -459,12 +624,12 @@ Though they are presented as separate steps above, you will in practice write th
 
 ### Write the HTCondor execution script
 
-Let's first start to write the execution script `mnist_gpu_docker.sh`, as we can think about how that relates to our code.
+Let's first start to write the execution script `mnist_gpu_apptainer.sh`, as we can think about how that relates to our code.
 
-* We'll be running in the `gpu` environment that we defined with Pixi and built into our Docker container image.
+* We'll be running in the `gpu` environment that we defined with Pixi and built into our Apptainer container image.
 * For security reasons the HTCondor worker nodes don't have full connection to all of the internet.
 So we'll need to transfer out input data and source code rather than download it on demand.
-* We'll need to activate the environment using the `/app/entrypoint.sh` script we built into the Docker container image.
+* We'll need to activate the environment using the `/app/entrypoint.sh` script we built into the Apptainer container image.
 
 ```bash
 #!/bin/bash
@@ -472,7 +637,7 @@ So we'll need to transfer out input data and source code rather than download it
 # detailed logging to stderr
 set -x
 
-echo -e "# Hello CHTC from Job ${1} running on $(hostname)\n"
+echo -e "# Hello from Job ${1} running on $(hostname)\n"
 echo -e "# GPUs assigned: ${CUDA_VISIBLE_DEVICES}\n"
 
 echo -e "# Activate Pixi environment\n"
@@ -482,8 +647,16 @@ echo -e "# Activate Pixi environment\n"
 # instead.
 . <(sed '$d' /app/entrypoint.sh)
 
-echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
-nvidia-smi
+# Note: Use of nvidia-smi in Apptainer requires the '--nvccli' option.
+# https://apptainer.org/docs/user/main/gpu.html#nvidia-gpus-cuda-nvidia-container-cli
+# As of 2025-06-12, CHTC supports '--nv' but not '--nvccli' and so 'nvidia-smi'
+# can not be used.
+#
+# echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
+# nvidia-smi
+
+echo -e "\n# Check that the training code exists:\n"
+ls -1ap ./src/
 
 echo -e "\n# Check if PyTorch can detect the GPU:\n"
 python ./src/torch_detect_GPU.py
@@ -497,9 +670,6 @@ else
     exit 1
 fi
 
-echo -e "\n# Check that the training code exists:\n"
-ls -1ap ./src/
-
 echo -e "\n# Train MNIST with PyTorch:\n"
 time python ./src/torch_MNIST.py --data-dir ./data --epochs 14 --save-model
 ```
@@ -509,25 +679,24 @@ time python ./src/torch_MNIST.py --data-dir ./data --epochs 14 --save-model
 This is pretty standard boiler plate taken from the [HTCondor documentation](https://htcondor.readthedocs.io/en/latest/users-manual/submitting-a-job.html)
 
 ```condor
-# mnist_gpu_docker.sub
-# Submit file to access the GPU via docker
+# mnist_gpu_apptainer.sub
+# Submit file to access the GPU via apptainer
 
-# Set the "universe" to 'container' to use Docker
 universe = container
-# the container images are cached, and so if a container image tag is
-# overwritten it will not be pulled again
-container_image = docker://ghcr.io/<github user name>/pixi-cuda-lesson:sha-<sha>
+container_image = oras://ghcr.io/<github user name>/pixi-cuda-lesson:apptainer-mnist-gpu-noble-cuda-12.9-sha-<sha>
 
 # set the log, error and output files
-log = mnist_gpu_docker.log.txt
-error = mnist_gpu_docker.err.txt
-output = mnist_gpu_docker.out.txt
+log = mnist_gpu_apptainer_$(Cluster)_$(Process).log.txt
+error = mnist_gpu_apptainer_$(Cluster)_$(Process).err.txt
+output = mnist_gpu_apptainer_$(Cluster)_$(Process).out.txt
 
 # set the executable to run
-executable = mnist_gpu_docker.sh
+executable = mnist_gpu_apptainer.sh
 arguments = $(Process)
 
-# transfer training data files to the compute node
++JobDurationCategory = "Medium"
+
+# transfer training data files and runtime source files to the compute node
 transfer_input_files = MNIST_data.tar.gz,src
 
 # transfer the serialized trained model back
@@ -536,9 +705,10 @@ transfer_output_files = mnist_cnn.pt
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
-# We require a machine with a modern version of the CUDA driver
-Requirements = (Target.CUDADriverVersion >= 12.0)
-# Don't use CentOS7 to ensure pseudoterminal support for interactive jobs
+# Require a machine with a modern version of the CUDA driver
+requirements = (GPUs_DriverVersion >= 12.0)
+
+# Don't use CentOS7 to ensure pty support
 requirements = (OpSysMajorVer > 7)
 
 # We must request 1 CPU in addition to 1 GPU
@@ -547,13 +717,17 @@ request_gpus = 1
 
 # select some memory and disk space
 request_memory = 2GB
-request_disk = 2GB
+# Apptainer jobs take more disk than Docker jobs for some reason
+request_disk = 7GB
 
-# Opt in to using CHTC GPU Lab resources
-+WantGPULab = true
-# Specify short job type to run more GPUs in parallel
-# Can also request "medium" or "long"
-+GPUJobLength = "short"
+# Optional: specify the GPU hardware architecture required
+# Check against the CUDA GPU Compute Capability for your software
+# e.g. python -c "import torch; print(torch.cuda.get_arch_list())"
+# The listed 'sm_xy' values show the x.y gpu capability supported
+gpus_minimum_capability = 5.0
+
+# Optional: required GPU memory
+# gpus_minimum_memory = 4GB
 
 # Tell HTCondor to run 1 instances of our job:
 queue 1
@@ -577,7 +751,7 @@ if [ -f "mnist_cnn.pt" ]; then
     mv mnist_cnn.pt mnist_cnn_"$(date '+%Y-%m-%d-%H-%M')".pt.bak
 fi
 
-condor_submit mnist_gpu_docker.sub
+condor_submit mnist_gpu_apptainer.sub
 ```
 
 ### Submitting the job
@@ -598,7 +772,7 @@ if [ -f "mnist_cnn.pt" ]; then
     mv mnist_cnn.pt mnist_cnn_"$(date '+%Y-%m-%d-%H-%M')".pt.bak
 fi
 
-condor_submit -interactive mnist_gpu_docker.sub
+condor_submit -interactive mnist_gpu_apptainer.sub
 ```
 
 Submitting the job for the first time will take a bit as it needs to pull down the container image, so be patient.

@@ -613,7 +613,7 @@ concurrency:
 permissions: {}
 
 jobs:
-  docker:
+  apptainer:
     name: Build and publish images
     runs-on: ubuntu-latest
     permissions:
