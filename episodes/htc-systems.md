@@ -58,7 +58,8 @@ This is a modified example from the PyTorch documentation (https://github.com/py
 
 ```bash
 mkdir -p src
-curl -sL https://raw.githubusercontent.com/matthewfeickert/nvidia-gpu-ml-library-test/c7889222544928fb6f9fdeb1145767272b5cfec8/torch_MNIST.py -o src/torch_MNIST.py
+curl -sL https://github.com/matthewfeickert/nvidia-gpu-ml-library-test/raw/c7889222544928fb6f9fdeb1145767272b5cfec8/torch_MNIST.py -o ./src/torch_MNIST.py
+curl -sL https://github.com/matthewfeickert/nvidia-gpu-ml-library-test/raw/36c725360b1b1db648d6955c27bd3885b29a3273/torch_detect_GPU.py -o ./src/torch_detect_GPU.py
 ```
 
 #### The Pixi environment
