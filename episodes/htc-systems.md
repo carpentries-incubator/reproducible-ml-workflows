@@ -394,7 +394,7 @@ Now let's add a GitHub Actions pipeline to build the container image definition 
 ## Build and deploy Linux container image to registry
 
 Add a GitHub Actions pipeline that will build both the apptainer.def and Dockerfile files deploy them to GitHub Container Registry (`ghcr`).
-Have the image tags include the text `hello-pytorch` as this our "Hello, World" equivalent for machine learning.
+Have the image tags include the text `mnist` as this will be the identifying problem.
 
 ::: solution
 
@@ -460,10 +460,10 @@ jobs:
             ghcr.io/${{ github.repository }}
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=raw,value=hello-pytorch-gpu-noble-cuda-12.9
+            type=raw,value=mnist-gpu-noble-cuda-12.9
             type=raw,value=latest
             type=sha
-            type=sha,prefix=hello-pytorch-gpu-noble-cuda-12.9-sha-
+            type=sha,prefix=mnist-gpu-noble-cuda-12.9-sha-
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -549,7 +549,7 @@ jobs:
       - name: Deploy built container
         if: github.event_name != 'pull_request'
         working-directory: ./htcondor
-        run: apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-hello-pytorch-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}
+        run: apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-mnist-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}
 ```
 
 :::
@@ -683,7 +683,7 @@ This is pretty standard boiler plate taken from the [HTCondor documentation](htt
 # Submit file to access the GPU via apptainer
 
 universe = container
-container_image = oras://ghcr.io/<github user name>/pixi-cuda-lesson:apptainer-hello-pytorch-gpu-noble-cuda-12.9-sha-<sha>
+container_image = oras://ghcr.io/<github user name>/pixi-cuda-lesson:apptainer-mnist-gpu-noble-cuda-12.9-sha-<sha>
 
 # set the log, error and output files
 log = mnist_gpu_apptainer_$(Cluster)_$(Process).log.txt
