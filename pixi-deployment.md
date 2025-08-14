@@ -223,6 +223,16 @@ ENTRYPOINT [ "/app/entrypoint.sh" ]
 
 With this `Dockerfile` the container image can then be built with [`docker build`](https://docs.docker.com/reference/cli/docker/buildx/build/).
 
+```
+docker build --file Dockerfile --tag <container image name:tag> .
+```
+
+and can optionally have the `ARG` variables set at build time with
+
+```
+docker build --build-arg CUDA_VERSION=12 --build-arg ENVIRONMENT=gpu --file Dockerfile --tag <container image name:tag> .
+```
+
 ### Automation with GitHub Actions workflows
 
 In the personal GitHub repository that we've been working in, create a GitHub Actions workflow directory from the top level of the repository
@@ -368,6 +378,11 @@ Bootstrap: docker
 From: ghcr.io/prefix-dev/pixi:noble
 Stage: build
 
+# %arguments have to be defined at each stage
+%arguments
+    CUDA_VERSION=12
+    ENVIRONMENT=gpu
+
 %files
 ./pixi.toml /app/
 ./pixi.lock /app/
@@ -375,12 +390,12 @@ Stage: build
 
 %post
 #!/bin/bash
-export CONDA_OVERRIDE_CUDA=12
+export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
 cd /app/
 pixi info
-pixi install --locked --environment gpu
+pixi install --locked --environment {{ ENVIRONMENT }}
 echo "#!/bin/bash" > /app/entrypoint.sh && \
-pixi shell-hook --environment gpu -s bash >> /app/entrypoint.sh && \
+pixi shell-hook --environment {{ ENVIRONMENT }} -s bash >> /app/entrypoint.sh && \
 echo 'exec "$@"' >> /app/entrypoint.sh
 
 
@@ -388,8 +403,11 @@ Bootstrap: docker
 From: ghcr.io/prefix-dev/pixi:noble
 Stage: final
 
+%arguments
+    ENVIRONMENT=gpu
+
 %files from build
-/app/.pixi/envs/gpu /app/.pixi/envs/gpu
+/app/.pixi/envs/{{ ENVIRONMENT }} /app/.pixi/envs/{{ ENVIRONMENT }}
 /app/pixi.toml /app/pixi.toml
 /app/pixi.lock /app/pixi.lock
 /app/.gitignore /app/.gitignore
@@ -420,6 +438,9 @@ chmod +x /app/entrypoint.sh
 . /app/entrypoint.sh
 pixi info
 pixi list
+
+
+
 ```
 
 Let's break this down too.
@@ -430,6 +451,15 @@ Let's break this down too.
 
 * The Apptainer definition file is broken out into specific [operation sections](https://apptainer.org/docs/user/main/definition_files.html#sections) prefixed by `%` (e.g. `files`, `post`).
 * The Apptainer definition file assumes it is being built from a version control repository where any code that it will need to execute later exists under the repository's `src/` directory and the Pixi workspace's `pixi.toml` manifest file and `pixi.lock` lock file exist at the top level of the repository.
+
+* The [`arguments` section](https://apptainer.org/docs/user/main/definition_files.html#arguments) allows for variables &mdash; which appear as `{{ variable }}` in the rest of the file &mdash; to be set at the stage scope that can be set with the build options `--build-arg` or `--build-arg-file`.
+
+```
+%arguments
+    CUDA_VERSION=12
+    ENVIRONMENT=gpu
+```
+
 * The [`files` section](https://apptainer.org/docs/user/main/definition_files.html#files) allows for a mapping of what files should be copied from a build context (e.g. the local file system) to the container file system
 
 ```singularity
@@ -446,7 +476,7 @@ To have Pixi still be able to install an environment that uses CUDA when there i
 ```
 %post
 #!/bin/bash
-export CONDA_OVERRIDE_CUDA=12
+export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
 ...
 ```
 
@@ -456,9 +486,9 @@ export CONDA_OVERRIDE_CUDA=12
 ...
 cd /app/
 pixi info
-pixi install --locked --environment gpu
+pixi install --locked --environment {{ ENVIRONMENT }}
 echo "#!/bin/bash" > /app/entrypoint.sh && \
-pixi shell-hook --environment gpu -s bash >> /app/entrypoint.sh && \
+pixi shell-hook --environment {{ ENVIRONMENT }} -s bash >> /app/entrypoint.sh && \
 echo 'exec "$@"' >> /app/entrypoint.sh
 ```
 
@@ -470,8 +500,11 @@ Bootstrap: docker
 From: ghcr.io/prefix-dev/pixi:noble
 Stage: final
 
+%arguments
+    ENVIRONMENT=gpu
+
 %files from build
-/app/.pixi/envs/gpu /app/.pixi/envs/gpu
+/app/.pixi/envs/{{ ENVIRONMENT }} /app/.pixi/envs/{{ ENVIRONMENT }}
 /app/pixi.toml /app/pixi.toml
 /app/pixi.lock /app/pixi.lock
 /app/.gitignore /app/.gitignore
@@ -531,6 +564,12 @@ With this Apptainer defintion file the container image can then be built with `a
 
 ```bash
 apptainer build <container image name>.sif <definition file name>.def
+```
+
+and can optionally have the stage scoped variables set with
+
+```bash
+apptainer build <container image name>.sif --build-arg CUDA_VERSION=12 --build-arg ENVIRONMENT_NAME=gpu <definition file name>.def
 ```
 
 ### Automation with GitHub Actions workflows
