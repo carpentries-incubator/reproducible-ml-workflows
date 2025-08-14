@@ -155,18 +155,6 @@ Let's start with the CUDA system requirements
 pixi workspace system-requirements add --feature gpu cuda 12
 ```
 
-::: caution
-
-## Override the `__cuda` virtual package
-
-Remember that if you're on a platform that doesn't support the `system-requirement` you'll need to override the checks to solve the environment.
-
-```bash
-export CONDA_OVERRIDE_CUDA=12
-```
-
-:::
-
 and create an environment from the feature
 
 ```bash
@@ -221,6 +209,21 @@ gpu = ["gpu"]
 ```
 
 :::
+:::
+
+
+::: caution
+
+## Override the `__cuda` virtual package
+
+Remember that if you're on a platform that doesn't support the `system-requirement` you'll need to override the checks to **install** the environment.
+
+```bash
+export CONDA_OVERRIDE_CUDA=12
+# or
+# CONDA_OVERRIDE_CUDA=12 pixi <command>
+```
+
 :::
 
 To validate that things are working with the CPU code, let's do a short training run for only `2` epochs in the `cpu` environment.
