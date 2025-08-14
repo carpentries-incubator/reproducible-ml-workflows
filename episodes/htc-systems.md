@@ -648,13 +648,8 @@ echo -e "# Activate Pixi environment\n"
 # instead.
 . <(sed '$d' /app/entrypoint.sh)
 
-# Note: Use of nvidia-smi in Apptainer requires the '--nvccli' option.
-# https://apptainer.org/docs/user/main/gpu.html#nvidia-gpus-cuda-nvidia-container-cli
-# As of 2025-06-12, CHTC supports '--nv' but not '--nvccli' and so 'nvidia-smi'
-# can not be used.
-#
-# echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
-# nvidia-smi
+echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
+nvidia-smi
 
 echo -e "\n# Check that the training code exists:\n"
 ls -1ap ./src/
@@ -728,7 +723,7 @@ request_disk = 7GB
 gpus_minimum_capability = 5.0
 
 # Optional: required GPU memory
-# gpus_minimum_memory = 4GB
+gpus_minimum_memory = 4GB
 
 # Tell HTCondor to run 1 instances of our job:
 queue 1
