@@ -269,6 +269,76 @@ python src/torch_MNIST.py --epochs 2 --save-model --data-dir data
 
 #### The Linux container
 
+##### Apptainer
+
+Let's write an Apptainer definition file that installs the `gpu` environment, and nothing else, into the container image when built.
+
+```
+Bootstrap: docker
+From: ghcr.io/prefix-dev/pixi:noble
+Stage: build
+
+# %arguments have to be defined at each stage
+%arguments
+    CUDA_VERSION=12
+    ENVIRONMENT=gpu
+
+%files
+./pixi.toml /app/
+./pixi.lock /app/
+./.gitignore /app/
+
+%post
+#!/bin/bash
+export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
+cd /app/
+pixi info
+pixi install --locked --environment {{ ENVIRONMENT }}
+echo "#!/bin/bash" > /app/entrypoint.sh && \
+pixi shell-hook --environment {{ ENVIRONMENT }} -s bash >> /app/entrypoint.sh && \
+echo 'exec "$@"' >> /app/entrypoint.sh
+
+
+Bootstrap: docker
+From: ghcr.io/prefix-dev/pixi:noble
+Stage: final
+
+%arguments
+    ENVIRONMENT=gpu
+
+%files from build
+/app/.pixi/envs/{{ ENVIRONMENT }} /app/.pixi/envs/{{ ENVIRONMENT }}
+/app/pixi.toml /app/pixi.toml
+/app/pixi.lock /app/pixi.lock
+/app/.gitignore /app/.gitignore
+# The ignore files are needed for 'pixi run' to work in the container
+/app/.pixi/.gitignore /app/.pixi/.gitignore
+/app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
+/app/entrypoint.sh /app/entrypoint.sh
+
+%post
+#!/bin/bash
+cd /app/
+pixi info
+chmod +x /app/entrypoint.sh
+
+%runscript
+#!/bin/bash
+/app/entrypoint.sh "$@"
+
+%startscript
+#!/bin/bash
+/app/entrypoint.sh "$@"
+
+%test
+#!/bin/bash -e
+. /app/entrypoint.sh
+pixi info
+pixi list
+```
+
+##### Docker
+
 Let's write a `Dockerfile` that installs the `gpu` environment into the container image when built.
 
 ::: challenge
@@ -280,23 +350,30 @@ Write a `Dockerfile` that will install the `gpu` environment and only the `gpu` 
 ::: solution
 
 ```dockerfile
+ARG CUDA_VERSION="12"
+ARG ENVIRONMENT="gpu"
+
 FROM ghcr.io/prefix-dev/pixi:noble AS build
+
+ARG CUDA_VERSION
+ARG ENVIRONMENT
 
 WORKDIR /app
 COPY . .
-ENV CONDA_OVERRIDE_CUDA=12
-RUN pixi install --locked --environment gpu
+ENV CONDA_OVERRIDE_CUDA=$CUDA_VERSION
+RUN pixi install --locked --environment $ENVIRONMENT
 RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
-    pixi shell-hook --environment gpu -s bash >> /app/entrypoint.sh && \
+    pixi shell-hook --environment $ENVIRONMENT -s bash >> /app/entrypoint.sh && \
     echo 'exec "$@"' >> /app/entrypoint.sh
 
-FROM ghcr.io/prefix-dev/pixi:noble AS production
+FROM ghcr.io/prefix-dev/pixi:noble AS final
+
+ARG ENVIRONMENT
 
 WORKDIR /app
-COPY --from=build /app/.pixi/envs/gpu /app/.pixi/envs/gpu
+COPY --from=build /app/.pixi/envs/$ENVIRONMENT /app/.pixi/envs/$ENVIRONMENT
 COPY --from=build /app/pixi.toml /app/pixi.toml
 COPY --from=build /app/pixi.lock /app/pixi.lock
-# The ignore files are needed for 'pixi run' to work in the container
 COPY --from=build /app/.pixi/.gitignore /app/.pixi/.gitignore
 COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
 COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
