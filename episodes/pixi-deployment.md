@@ -441,6 +441,15 @@ Let's break this down too.
 
 * The Apptainer definition file is broken out into specific [operation sections](https://apptainer.org/docs/user/main/definition_files.html#sections) prefixed by `%` (e.g. `files`, `post`).
 * The Apptainer definition file assumes it is being built from a version control repository where any code that it will need to execute later exists under the repository's `src/` directory and the Pixi workspace's `pixi.toml` manifest file and `pixi.lock` lock file exist at the top level of the repository.
+
+* The [`arguments` section](https://apptainer.org/docs/user/main/definition_files.html#arguments) allows for variables &mdash; which appear as `{{ variable }}` in the rest of the file &mdash; to be set at the stage scope that can be set with the build options `--build-arg` or `--build-arg-file`.
+
+```
+%arguments
+    CUDA_VERSION=12
+    ENVIRONMENT=gpu
+```
+
 * The [`files` section](https://apptainer.org/docs/user/main/definition_files.html#files) allows for a mapping of what files should be copied from a build context (e.g. the local file system) to the container file system
 
 ```singularity
@@ -457,7 +466,7 @@ To have Pixi still be able to install an environment that uses CUDA when there i
 ```
 %post
 #!/bin/bash
-export CONDA_OVERRIDE_CUDA=12
+export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
 ...
 ```
 
@@ -467,9 +476,9 @@ export CONDA_OVERRIDE_CUDA=12
 ...
 cd /app/
 pixi info
-pixi install --locked --environment gpu
+pixi install --locked --environment {{ ENVIRONMENT }}
 echo "#!/bin/bash" > /app/entrypoint.sh && \
-pixi shell-hook --environment gpu -s bash >> /app/entrypoint.sh && \
+pixi shell-hook --environment {{ ENVIRONMENT }} -s bash >> /app/entrypoint.sh && \
 echo 'exec "$@"' >> /app/entrypoint.sh
 ```
 
@@ -481,8 +490,11 @@ Bootstrap: docker
 From: ghcr.io/prefix-dev/pixi:noble
 Stage: final
 
+%arguments
+    ENVIRONMENT=gpu
+
 %files from build
-/app/.pixi/envs/gpu /app/.pixi/envs/gpu
+/app/.pixi/envs/{{ ENVIRONMENT }} /app/.pixi/envs/{{ ENVIRONMENT }}
 /app/pixi.toml /app/pixi.toml
 /app/pixi.lock /app/pixi.lock
 /app/.gitignore /app/.gitignore
