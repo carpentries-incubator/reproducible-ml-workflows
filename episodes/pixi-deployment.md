@@ -368,6 +368,11 @@ Bootstrap: docker
 From: ghcr.io/prefix-dev/pixi:noble
 Stage: build
 
+# %arguments have to be defined at each stage
+%arguments
+    CUDA_VERSION=12
+    ENVIRONMENT=gpu
+
 %files
 ./pixi.toml /app/
 ./pixi.lock /app/
@@ -375,12 +380,12 @@ Stage: build
 
 %post
 #!/bin/bash
-export CONDA_OVERRIDE_CUDA=12
+export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
 cd /app/
 pixi info
-pixi install --locked --environment gpu
+pixi install --locked --environment {{ ENVIRONMENT }}
 echo "#!/bin/bash" > /app/entrypoint.sh && \
-pixi shell-hook --environment gpu -s bash >> /app/entrypoint.sh && \
+pixi shell-hook --environment {{ ENVIRONMENT }} -s bash >> /app/entrypoint.sh && \
 echo 'exec "$@"' >> /app/entrypoint.sh
 
 
@@ -388,8 +393,11 @@ Bootstrap: docker
 From: ghcr.io/prefix-dev/pixi:noble
 Stage: final
 
+%arguments
+    ENVIRONMENT=gpu
+
 %files from build
-/app/.pixi/envs/gpu /app/.pixi/envs/gpu
+/app/.pixi/envs/{{ ENVIRONMENT }} /app/.pixi/envs/{{ ENVIRONMENT }}
 /app/pixi.toml /app/pixi.toml
 /app/pixi.lock /app/pixi.lock
 /app/.gitignore /app/.gitignore
@@ -420,6 +428,9 @@ chmod +x /app/entrypoint.sh
 . /app/entrypoint.sh
 pixi info
 pixi list
+
+
+
 ```
 
 Let's break this down too.
