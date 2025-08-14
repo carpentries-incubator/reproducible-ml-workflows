@@ -633,6 +633,7 @@ So we'll need to transfer out input data and source code rather than download it
 
 ```bash
 #!/bin/bash
+# mnist_gpu_apptainer.sh
 
 # detailed logging to stderr
 set -x
@@ -647,13 +648,8 @@ echo -e "# Activate Pixi environment\n"
 # instead.
 . <(sed '$d' /app/entrypoint.sh)
 
-# Note: Use of nvidia-smi in Apptainer requires the '--nvccli' option.
-# https://apptainer.org/docs/user/main/gpu.html#nvidia-gpus-cuda-nvidia-container-cli
-# As of 2025-06-12, CHTC supports '--nv' but not '--nvccli' and so 'nvidia-smi'
-# can not be used.
-#
-# echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
-# nvidia-smi
+echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
+nvidia-smi
 
 echo -e "\n# Check that the training code exists:\n"
 ls -1ap ./src/
@@ -716,7 +712,7 @@ request_cpus = 1
 request_gpus = 1
 
 # select some memory and disk space
-request_memory = 2GB
+request_memory = 4GB
 # Apptainer jobs take more disk than Docker jobs for some reason
 request_disk = 7GB
 
@@ -727,7 +723,7 @@ request_disk = 7GB
 gpus_minimum_capability = 5.0
 
 # Optional: required GPU memory
-# gpus_minimum_memory = 4GB
+gpus_minimum_memory = 4GB
 
 # Tell HTCondor to run 1 instances of our job:
 queue 1
@@ -739,6 +735,7 @@ To make it easy for us, we can write a small job submission script `submit.sh` t
 
 ```bash
 #!/bin/bash
+# submit.sh
 
 # Download the training data locally to transfer to the worker node
 if [ ! -f "MNIST_data.tar.gz" ]; then
@@ -760,6 +757,7 @@ Before we actually submit code to run, we can submit an interactive job from the
 
 ```bash
 #!/bin/bash
+# interact.sh
 
 # Download the training data locally to transfer to the worker node
 if [ ! -f "MNIST_data.tar.gz" ]; then
@@ -817,13 +815,16 @@ Python 3.13.5
 ```
 
 ```bash
-pixi list pytorch
+pixi list torch
 ```
 ```output
 Environment: gpu
-Package      Version  Build                           Size      Kind   Source
-pytorch      2.7.0    cuda126_mkl_py313_he20fe19_300  27.8 MiB  conda  https://conda.anaconda.org/conda-forge/
-pytorch-gpu  2.7.0    cuda126_mkl_ha999a5f_300        46.1 KiB  conda  https://conda.anaconda.org/conda-forge/
+Package                     Version  Build                           Size       Kind   Source
+libtorch                    2.7.1    cuda129_mkl_h9562ed8_304        836.3 MiB  conda  https://conda.anaconda.org/conda-forge/
+pytorch                     2.7.1    cuda129_mkl_py313_h1e53aa0_304  28.1 MiB   conda  https://conda.anaconda.org/conda-forge/
+pytorch-gpu                 2.7.1    cuda129_mkl_h43a4b0b_304        46.9 KiB   conda  https://conda.anaconda.org/conda-forge/
+torchvision                 0.22.0   cuda_py313_h6be0d2c_2           3.2 MiB    conda  https://conda.anaconda.org/conda-forge/
+torchvision-extra-decoders  0.0.2    py313hf1e760e_3                 62.9 KiB   conda  https://conda.anaconda.org/conda-forge/
 ```
 
 ```bash
@@ -832,16 +833,16 @@ pixi list cuda
 ```output
 Environment: gpu
 Package               Version  Build       Size       Kind   Source
-cuda-crt-tools        12.9.86  ha770c72_1  28.2 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-crt-tools        12.9.86  ha770c72_2  28.5 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-cudart           12.9.79  h5888daf_0  22.7 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-cudart_linux-64  12.9.79  h3f2d84a_0  192.6 KiB  conda  https://conda.anaconda.org/conda-forge/
 cuda-cuobjdump        12.9.82  hbd13f7d_0  237.5 KiB  conda  https://conda.anaconda.org/conda-forge/
 cuda-cupti            12.9.79  h9ab20c4_0  1.8 MiB    conda  https://conda.anaconda.org/conda-forge/
-cuda-nvcc-tools       12.9.86  he02047a_1  26.2 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvcc-tools       12.9.86  he02047a_2  26.1 MiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-nvdisasm         12.9.88  hbd13f7d_0  5.3 MiB    conda  https://conda.anaconda.org/conda-forge/
 cuda-nvrtc            12.9.86  h5888daf_0  64.1 MiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-nvtx             12.9.79  h5888daf_0  28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvvm-tools       12.9.86  he02047a_1  23.1 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvvm-tools       12.9.86  h4bc722e_2  23.1 MiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-version          12.9     h4f385c5_3  21.1 KiB   conda  https://conda.anaconda.org/conda-forge/
 ```
 
@@ -849,17 +850,17 @@ cuda-version          12.9     h4f385c5_3  21.1 KiB   conda  https://conda.anaco
 nvidia-smi
 ```
 ```output
-Mon Jun 16 00:07:33 2025
+Thu Aug 14 06:36:21 2025
 +-----------------------------------------------------------------------------------------+
-| NVIDIA-SMI 550.54.14              Driver Version: 550.54.14      CUDA Version: 12.4     |
+| NVIDIA-SMI 555.42.06              Driver Version: 555.42.06      CUDA Version: 12.5     |
 |-----------------------------------------+------------------------+----------------------+
 | GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
 | Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
 |                                         |                        |               MIG M. |
 |=========================================+========================+======================|
-|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B2:00.0 Off |                  N/A |
-| 29%   26C    P8             23W /  250W |       3MiB /  11264MiB |      0%      Default |
-|                                         |                        |                  N/A |
+|   0  NVIDIA A100-PCIE-40GB          On  |   00000000:81:00.0 Off |                    0 |
+| N/A   25C    P0             35W /  250W |       4MiB /  40960MiB |      0%      Default |
+|                                         |                        |             Disabled |
 +-----------------------------------------+------------------------+----------------------+
 
 +-----------------------------------------------------------------------------------------+
@@ -891,7 +892,7 @@ bash submit.sh
 ```
 ```output
 Submitting job(s).
-1 job(s) submitted to cluster 2127879.
+1 job(s) submitted to cluster 12651114.
 ```
 
 and its submission and state can be monitored with [`condor_q`](https://htcondor.readthedocs.io/en/latest/man-pages/condor_q.html).
@@ -902,9 +903,9 @@ condor_q
 ```output
 
 
--- Schedd: ap2001.chtc.wisc.edu : <128.105.68.112:9618?... @ 06/15/25 19:16:17
-OWNER     BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
-mfeickert ID: 2127879   6/15 19:13      _      1      _      1 2127879.0
+-- Schedd: ap40.uw.osg-htc.org : <128.105.68.62:9618?... @ 08/14/25 08:20:12
+OWNER            BATCH_NAME      SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+matthew.feickert ID: 12651114   8/14 08:18      _      1      _      1 12651114.0
 
 1 jobs; 0 completed, 0 removed, 0 idle, 1 running, 0 held, 0 suspended
 
@@ -912,9 +913,9 @@ mfeickert ID: 2127879   6/15 19:13      _      1      _      1 2127879.0
 
 When the job finishes we see that HTCondor has returned to us the following files:
 
-* `mnist_gpu_docker.log.txt`: the HTCondor log file for the job
-* `mnist_gpu_docker.out.txt`: the stdout of all actions executed in the job
-* `mnist_gpu_docker.err.txt`: the stderr of all actions executed in the job
+* `mnist_gpu_apptainer_$(Cluster)_$(Process).log.txt`: the HTCondor log file for the job
+* `mnist_gpu_apptainer_$(Cluster)_$(Process).out.txt`: the stdout of all actions executed in the job
+* `mnist_gpu_apptainer_$(Cluster)_$(Process).err.txt`: the stderr of all actions executed in the job
 * `mnist_cnn.pt`: the [serialized trained PyTorch model](https://docs.pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-model-for-inference)
 
 ::: keypoints
