@@ -403,7 +403,7 @@ Create the GitHub Actions workflow directory tree
 mkdir -p .github/workflows
 ```
 
-and then write a YAML file at `.github/workflows/ci.yaml` that contains the following:
+and then write a YAML file at `.github/workflows/containers.yaml` that contains the following:
 
 ```yaml
 name: Build and publish Linux container images
@@ -554,6 +554,30 @@ jobs:
 :::
 :::
 
+## Version Control
+
+We now want to make sure that we can build container images with these defention files and workflows.
+
+On a **new branch** in your repository, add and commit the files from this episode.
+
+```bash
+git add htcondor/pixi.*
+git add htcondor/.git*
+git add htcondor/apptainer.def
+git add htcondor/Dockerfile.def
+git add .github/workflows/containers.yaml
+```
+
+Then push your branch to your remote on GitHub
+
+```bash
+git push -u origin HEAD
+```
+
+and make a pull request to merge your changes into your remote's default branch.
+
+:::
+
 To verify that things are visible to other computers, install the Linux container utility [`crane`](https://github.com/google/go-containerregistry/tree/main/cmd/crane)
 
 ```bash
@@ -564,7 +588,7 @@ pixi global install crane
     └─ exposes: crane
 ```
 
-and then use [`crane ls`](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_ls.md) to list all of the container images in your container registry for the particular image
+and then use [`crane ls`](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_ls.md) to list all of the Docker container images in your container registry for the particular image
 
 ```bash
 crane ls ghcr.io/<your GitHub username>/pixi-cuda-lesson
