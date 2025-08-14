@@ -544,7 +544,7 @@ code from the end of the CUDA conda packages episode at
   Dockerfile walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>Let’s step through this to understand what’s happening.
 <code>Dockerfile</code>s (intentionally) look very shell script like,
@@ -908,7 +908,7 @@ pixi list
   Apptainer walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
 <div class="accordion-body">
 <ul><li><p>The Apptainer definition file is broken out into specific <a href="https://apptainer.org/docs/user/main/definition_files.html#sections" class="external-link">operation
 sections</a> prefixed by <code>%</code> (e.g. <code>files</code>,
@@ -1081,7 +1081,7 @@ repository</p>
 <span id="cb30-28"><a href="#cb30-28" tabindex="-1"></a><span class="fu">permissions</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span>
 <span id="cb30-29"><a href="#cb30-29" tabindex="-1"></a></span>
 <span id="cb30-30"><a href="#cb30-30" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb30-31"><a href="#cb30-31" tabindex="-1"></a><span class="at">  </span><span class="fu">docker</span><span class="kw">:</span></span>
+<span id="cb30-31"><a href="#cb30-31" tabindex="-1"></a><span class="at">  </span><span class="fu">apptainer</span><span class="kw">:</span></span>
 <span id="cb30-32"><a href="#cb30-32" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build and publish images</span></span>
 <span id="cb30-33"><a href="#cb30-33" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
 <span id="cb30-34"><a href="#cb30-34" tabindex="-1"></a><span class="at">    </span><span class="fu">permissions</span><span class="kw">:</span></span>
