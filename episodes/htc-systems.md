@@ -712,7 +712,7 @@ request_cpus = 1
 request_gpus = 1
 
 # select some memory and disk space
-request_memory = 2GB
+request_memory = 4GB
 # Apptainer jobs take more disk than Docker jobs for some reason
 request_disk = 7GB
 
