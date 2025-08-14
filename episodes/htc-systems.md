@@ -624,12 +624,12 @@ Though they are presented as separate steps above, you will in practice write th
 
 ### Write the HTCondor execution script
 
-Let's first start to write the execution script `mnist_gpu_docker.sh`, as we can think about how that relates to our code.
+Let's first start to write the execution script `mnist_gpu_apptainer.sh`, as we can think about how that relates to our code.
 
-* We'll be running in the `gpu` environment that we defined with Pixi and built into our Docker container image.
+* We'll be running in the `gpu` environment that we defined with Pixi and built into our Apptainer container image.
 * For security reasons the HTCondor worker nodes don't have full connection to all of the internet.
 So we'll need to transfer out input data and source code rather than download it on demand.
-* We'll need to activate the environment using the `/app/entrypoint.sh` script we built into the Docker container image.
+* We'll need to activate the environment using the `/app/entrypoint.sh` script we built into the Apptainer container image.
 
 ```bash
 #!/bin/bash
@@ -637,7 +637,7 @@ So we'll need to transfer out input data and source code rather than download it
 # detailed logging to stderr
 set -x
 
-echo -e "# Hello CHTC from Job ${1} running on $(hostname)\n"
+echo -e "# Hello from Job ${1} running on $(hostname)\n"
 echo -e "# GPUs assigned: ${CUDA_VISIBLE_DEVICES}\n"
 
 echo -e "# Activate Pixi environment\n"
@@ -647,8 +647,16 @@ echo -e "# Activate Pixi environment\n"
 # instead.
 . <(sed '$d' /app/entrypoint.sh)
 
-echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
-nvidia-smi
+# Note: Use of nvidia-smi in Apptainer requires the '--nvccli' option.
+# https://apptainer.org/docs/user/main/gpu.html#nvidia-gpus-cuda-nvidia-container-cli
+# As of 2025-06-12, CHTC supports '--nv' but not '--nvccli' and so 'nvidia-smi'
+# can not be used.
+#
+# echo -e "# Check to see if the NVIDIA drivers can correctly detect the GPU:\n"
+# nvidia-smi
+
+echo -e "\n# Check that the training code exists:\n"
+ls -1ap ./src/
 
 echo -e "\n# Check if PyTorch can detect the GPU:\n"
 python ./src/torch_detect_GPU.py
@@ -662,9 +670,6 @@ else
     exit 1
 fi
 
-echo -e "\n# Check that the training code exists:\n"
-ls -1ap ./src/
-
 echo -e "\n# Train MNIST with PyTorch:\n"
 time python ./src/torch_MNIST.py --data-dir ./data --epochs 14 --save-model
 ```
@@ -674,25 +679,24 @@ time python ./src/torch_MNIST.py --data-dir ./data --epochs 14 --save-model
 This is pretty standard boiler plate taken from the [HTCondor documentation](https://htcondor.readthedocs.io/en/latest/users-manual/submitting-a-job.html)
 
 ```condor
-# mnist_gpu_docker.sub
-# Submit file to access the GPU via docker
+# mnist_gpu_apptainer.sub
+# Submit file to access the GPU via apptainer
 
-# Set the "universe" to 'container' to use Docker
 universe = container
-# the container images are cached, and so if a container image tag is
-# overwritten it will not be pulled again
-container_image = docker://ghcr.io/<github user name>/pixi-cuda-lesson:sha-<sha>
+container_image = oras://ghcr.io/<github user name>/pixi-cuda-lesson:apptainer-hello-pytorch-gpu-noble-cuda-12.9-sha-<sha>
 
 # set the log, error and output files
-log = mnist_gpu_docker.log.txt
-error = mnist_gpu_docker.err.txt
-output = mnist_gpu_docker.out.txt
+log = mnist_gpu_apptainer_$(Cluster)_$(Process).log.txt
+error = mnist_gpu_apptainer_$(Cluster)_$(Process).err.txt
+output = mnist_gpu_apptainer_$(Cluster)_$(Process).out.txt
 
 # set the executable to run
-executable = mnist_gpu_docker.sh
+executable = mnist_gpu_apptainer.sh
 arguments = $(Process)
 
-# transfer training data files to the compute node
++JobDurationCategory = "Medium"
+
+# transfer training data files and runtime source files to the compute node
 transfer_input_files = MNIST_data.tar.gz,src
 
 # transfer the serialized trained model back
@@ -701,9 +705,10 @@ transfer_output_files = mnist_cnn.pt
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
-# We require a machine with a modern version of the CUDA driver
-Requirements = (Target.CUDADriverVersion >= 12.0)
-# Don't use CentOS7 to ensure pseudoterminal support for interactive jobs
+# Require a machine with a modern version of the CUDA driver
+requirements = (GPUs_DriverVersion >= 12.0)
+
+# Don't use CentOS7 to ensure pty support
 requirements = (OpSysMajorVer > 7)
 
 # We must request 1 CPU in addition to 1 GPU
@@ -712,13 +717,17 @@ request_gpus = 1
 
 # select some memory and disk space
 request_memory = 2GB
-request_disk = 2GB
+# Apptainer jobs take more disk than Docker jobs for some reason
+request_disk = 7GB
 
-# Opt in to using CHTC GPU Lab resources
-+WantGPULab = true
-# Specify short job type to run more GPUs in parallel
-# Can also request "medium" or "long"
-+GPUJobLength = "short"
+# Optional: specify the GPU hardware architecture required
+# Check against the CUDA GPU Compute Capability for your software
+# e.g. python -c "import torch; print(torch.cuda.get_arch_list())"
+# The listed 'sm_xy' values show the x.y gpu capability supported
+gpus_minimum_capability = 5.0
+
+# Optional: required GPU memory
+# gpus_minimum_memory = 4GB
 
 # Tell HTCondor to run 1 instances of our job:
 queue 1
@@ -742,7 +751,7 @@ if [ -f "mnist_cnn.pt" ]; then
     mv mnist_cnn.pt mnist_cnn_"$(date '+%Y-%m-%d-%H-%M')".pt.bak
 fi
 
-condor_submit mnist_gpu_docker.sub
+condor_submit mnist_gpu_apptainer.sub
 ```
 
 ### Submitting the job
@@ -763,7 +772,7 @@ if [ -f "mnist_cnn.pt" ]; then
     mv mnist_cnn.pt mnist_cnn_"$(date '+%Y-%m-%d-%H-%M')".pt.bak
 fi
 
-condor_submit -interactive mnist_gpu_docker.sub
+condor_submit -interactive mnist_gpu_apptainer.sub
 ```
 
 Submitting the job for the first time will take a bit as it needs to pull down the container image, so be patient.
