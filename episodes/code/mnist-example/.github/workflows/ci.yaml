@@ -49,9 +49,10 @@ jobs:
             ghcr.io/${{ github.repository }}
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=raw,value=hello-pytorch-noble-cuda-12.9
+            type=raw,value=mnist-gpu-noble-cuda-12.9
             type=raw,value=latest
             type=sha
+            type=sha,prefix=mnist-gpu-noble-cuda-12.9-sha-
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
