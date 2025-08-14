@@ -57,9 +57,8 @@ We'll download Python code that uses a convocational neural network written in P
 This is a modified example from the PyTorch documentation (https://github.com/pytorch/examples/blob/main/mnist/main.py) which is [licensed under the BSD 3-Clause license](https://github.com/pytorch/examples/blob/abfa4f9cc4379de12f6c340538ef9a697332cccb/LICENSE).
 
 ```bash
-curl -sLO https://raw.githubusercontent.com/matthewfeickert/nvidia-gpu-ml-library-test/c7889222544928fb6f9fdeb1145767272b5cfec8/torch_MNIST.py
 mkdir -p src
-mv torch_MNIST.py src/
+curl -sL https://raw.githubusercontent.com/matthewfeickert/nvidia-gpu-ml-library-test/c7889222544928fb6f9fdeb1145767272b5cfec8/torch_MNIST.py -o src/torch_MNIST.py
 ```
 
 #### The Pixi environment
@@ -77,7 +76,7 @@ Create a Pixi workspace that:
 * Has PyTorch and `torchvision` in it.
 * Has the ability to support CUDA v12.
 * Has an environment that has the CPU version of PyTorch and `torchvision` that can be installed on `linux-64`, `osx-arm64`, and `win-64`.
-* Has an environment that has the GPU version of PyTorch and `torchvision`.
+* Has an environment that has the GPU version of PyTorch and `torchvision` that can be installed on `linux-64`, and `win-64`.
 
 ::: solution
 
@@ -142,7 +141,7 @@ version = "0.1.0"
 python = ">=3.13.5,<3.14"
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.7.0,<3"
+pytorch-cpu = ">=2.7.1,<3"
 torchvision = ">=0.22.0,<0.23"
 
 [environments]
@@ -180,12 +179,12 @@ pixi workspace environment add --feature gpu gpu
 and then add the GPU dependencies for the target platform of `linux-64` (where we'll run in production).
 
 ```bash
-pixi add --platform linux-64 --feature gpu pytorch-gpu torchvision
+pixi add --platform linux-64 --platform win-64 --feature gpu pytorch-gpu torchvision
 ```
 ```output
-✔ Added pytorch-gpu >=2.7.0,<3
+✔ Added pytorch-gpu >=2.7.1,<3
 ✔ Added torchvision >=0.22.0,<0.23
-Added these only for platform(s): linux-64
+Added these only for platform(s): linux-64, win-64
 Added these only for feature: gpu
 ```
 
@@ -202,14 +201,18 @@ version = "0.1.0"
 python = ">=3.13.5,<3.14"
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.7.0,<3"
+pytorch-cpu = ">=2.7.1,<3"
 torchvision = ">=0.22.0,<0.23"
 
 [feature.gpu.system-requirements]
 cuda = "12"
 
 [feature.gpu.target.linux-64.dependencies]
-pytorch-gpu = ">=2.7.0,<3"
+pytorch-gpu = ">=2.7.1,<3"
+torchvision = ">=0.22.0,<0.23"
+
+[feature.gpu.target.win-64.dependencies]
+pytorch-gpu = ">=2.7.1,<3"
 torchvision = ">=0.22.0,<0.23"
 
 [environments]
