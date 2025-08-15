@@ -704,15 +704,12 @@ when_to_transfer_output = ON_EXIT
 # Require a machine with a modern version of the CUDA driver
 requirements = (GPUs_DriverVersion >= 12.0)
 
-# Don't use CentOS7 to ensure pty support
-requirements = (OpSysMajorVer > 7)
-
 # We must request 1 CPU in addition to 1 GPU
 request_cpus = 1
 request_gpus = 1
 
 # select some memory and disk space
-request_memory = 4GB
+request_memory = 2GB
 # Apptainer jobs take more disk than Docker jobs for some reason
 request_disk = 7GB
 
@@ -723,7 +720,7 @@ request_disk = 7GB
 gpus_minimum_capability = 5.0
 
 # Optional: required GPU memory
-gpus_minimum_memory = 4GB
+gpus_minimum_memory = 2GB
 
 # Tell HTCondor to run 1 instances of our job:
 queue 1
