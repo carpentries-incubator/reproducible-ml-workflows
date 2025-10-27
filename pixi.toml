@@ -28,6 +28,6 @@ description = "Serve site"
 depends-on = ["serve"]
 
 [dependencies]
-git = ">=2.49.0,<3"
+git = ">=2.51.1,<3"
 r-varnish = ">=1.0.7,<2"
 r-sandpaper = ">=0.17.1,<0.18"
