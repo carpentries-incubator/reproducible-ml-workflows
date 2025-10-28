@@ -94,16 +94,7 @@ pixi workspace platform add linux-64 osx-arm64 win-64
 ✔ Added win-64
 ```
 
-We know that in both environment we'll want to use Python, and so we can install that in the `default` environment and have it be used in both the `cpu` and `gpu` environment.
-
-```bash
-pixi add python
-```
-```output
-✔ Added python >=3.13.5,<3.14
-```
-
-Let's now add the CPU requirements to a feature named `cpu`
+Let's add the CPU requirements to a feature named `cpu`
 
 ```bash
 pixi add --feature cpu pytorch-cpu torchvision
@@ -139,11 +130,10 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-python = ">=3.13.5,<3.14"
 
 [feature.cpu.dependencies]
 pytorch-cpu = ">=2.7.1,<3"
-torchvision = ">=0.22.0,<0.23"
+torchvision = ">=0.24.0,<0.25"
 
 [environments]
 cpu = ["cpu"]
@@ -172,7 +162,7 @@ pixi add --platform linux-64 --platform win-64 --feature gpu pytorch-gpu torchvi
 ```
 ```output
 ✔ Added pytorch-gpu >=2.7.1,<3
-✔ Added torchvision >=0.22.0,<0.23
+✔ Added torchvision >=0.24.0,<0.25
 Added these only for platform(s): linux-64, win-64
 Added these only for feature: gpu
 ```
@@ -187,22 +177,21 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-python = ">=3.13.5,<3.14"
 
 [feature.cpu.dependencies]
 pytorch-cpu = ">=2.7.1,<3"
-torchvision = ">=0.22.0,<0.23"
+torchvision = ">=0.24.0,<0.25"
 
 [feature.gpu.system-requirements]
 cuda = "12"
 
 [feature.gpu.target.linux-64.dependencies]
 pytorch-gpu = ">=2.7.1,<3"
-torchvision = ">=0.22.0,<0.23"
+torchvision = ">=0.24.0,<0.25"
 
 [feature.gpu.target.win-64.dependencies]
 pytorch-gpu = ">=2.7.1,<3"
-torchvision = ">=0.22.0,<0.23"
+torchvision = ">=0.24.0,<0.25"
 
 [environments]
 cpu = ["cpu"]
@@ -808,7 +797,7 @@ command -v python
 python --version
 ```
 ```output
-Python 3.13.5
+Python 3.13.9
 ```
 
 ```bash
@@ -820,7 +809,7 @@ Package                     Version  Build                           Size       
 libtorch                    2.7.1    cuda129_mkl_h9562ed8_304        836.3 MiB  conda  https://conda.anaconda.org/conda-forge/
 pytorch                     2.7.1    cuda129_mkl_py313_h1e53aa0_304  28.1 MiB   conda  https://conda.anaconda.org/conda-forge/
 pytorch-gpu                 2.7.1    cuda129_mkl_h43a4b0b_304        46.9 KiB   conda  https://conda.anaconda.org/conda-forge/
-torchvision                 0.22.0   cuda_py313_h6be0d2c_2           3.2 MiB    conda  https://conda.anaconda.org/conda-forge/
+torchvision                 0.24.0   cuda129_py313_h6be0d2c_0        3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
 torchvision-extra-decoders  0.0.2    py313hf1e760e_3                 62.9 KiB   conda  https://conda.anaconda.org/conda-forge/
 ```
 
@@ -833,12 +822,12 @@ Package               Version  Build       Size       Kind   Source
 cuda-crt-tools        12.9.86  ha770c72_2  28.5 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-cudart           12.9.79  h5888daf_0  22.7 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-cudart_linux-64  12.9.79  h3f2d84a_0  192.6 KiB  conda  https://conda.anaconda.org/conda-forge/
-cuda-cuobjdump        12.9.82  hbd13f7d_0  237.5 KiB  conda  https://conda.anaconda.org/conda-forge/
-cuda-cupti            12.9.79  h9ab20c4_0  1.8 MiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-cuobjdump        12.9.82  hffce074_1  239.3 KiB  conda  https://conda.anaconda.org/conda-forge/
+cuda-cupti            12.9.79  h676940d_1  1.8 MiB    conda  https://conda.anaconda.org/conda-forge/
 cuda-nvcc-tools       12.9.86  he02047a_2  26.1 MiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvdisasm         12.9.88  hbd13f7d_0  5.3 MiB    conda  https://conda.anaconda.org/conda-forge/
-cuda-nvrtc            12.9.86  h5888daf_0  64.1 MiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvtx             12.9.79  h5888daf_0  28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvdisasm         12.9.88  hffce074_1  5.3 MiB    conda  https://conda.anaconda.org/conda-forge/
+cuda-nvrtc            12.9.86  hecca717_1  64.1 MiB   conda  https://conda.anaconda.org/conda-forge/
+cuda-nvtx             12.9.79  hecca717_1  28.7 KiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-nvvm-tools       12.9.86  h4bc722e_2  23.1 MiB   conda  https://conda.anaconda.org/conda-forge/
 cuda-version          12.9     h4f385c5_3  21.1 KiB   conda  https://conda.anaconda.org/conda-forge/
 ```
