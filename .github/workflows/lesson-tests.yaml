@@ -245,7 +245,9 @@ jobs:
     - name: List cuda-example episode gpu environment
       if: ${{ matrix.os != 'macos-latest' }}
       shell: pixi run bash -ex {0}
-      run: pixi list --environment gpu
+      run: |
+        cd cuda-exercise
+        pixi list --environment gpu
 
   episode-mnist-example:
 
@@ -282,4 +284,6 @@ jobs:
     - name: List mnist-example episode gpu environment
       if: ${{ matrix.os != 'macos-latest' }}
       shell: pixi run bash -ex {0}
-      run: pixi list --environment gpu
+      run: |
+        cd mnist-example
+        pixi list --environment gpu
