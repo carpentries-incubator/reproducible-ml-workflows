@@ -484,16 +484,7 @@ version = "0.1.0"
 [dependencies]
 ```
 
-Let's first add `python` as a common dependency
-
-```bash
-pixi add python
-```
-```output
-✔ Added python >=3.13.5,<3.14
-```
-
-Add `pytorch-cpu` to a `cpu` feature
+Let's first add `pytorch-cpu` to a `cpu` feature
 
 ```bash
 pixi add --feature cpu pytorch-cpu
@@ -517,10 +508,6 @@ and then instantiate the `pytorch-cpu` package with a particular version and sol
 ```bash
 pixi upgrade --feature cpu pytorch-cpu
 ```
-```output
-✔ Added pytorch-cpu >=2.7.1,<3
-Added these only for feature: cpu
-```
 
 ```toml
 [workspace]
@@ -532,10 +519,9 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-python = ">=3.13.5,<3.14"
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.7.1,<3"
+pytorch-cpu = ">=2.8.0,<3"
 
 [environments]
 cpu = ["cpu"]
@@ -557,10 +543,9 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-python = ">=3.13.5,<3.14"
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.7.1,<3"
+pytorch-cpu = ">=2.8.0,<3"
 
 [feature.gpu.system-requirements]
 cuda = "12"
@@ -588,10 +573,9 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-python = ">=3.13.5,<3.14"
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.7.1,<3"
+pytorch-cpu = ">=2.8.0,<3"
 
 [feature.gpu.system-requirements]
 cuda = "12"
@@ -607,7 +591,7 @@ then add the `pytorch-gpu` pacakge for `linux-64` and `win-64` to the `gpu` feat
 pixi add --platform linux-64 --platform win-64 --feature gpu pytorch-gpu
 ```
 ```output
-✔ Added pytorch-gpu >=2.7.1,<3
+✔ Added pytorch-gpu >=2.8.0,<3
 Added these only for platform(s): linux-64, win-64
 Added these only for feature: gpu
 ```
@@ -622,19 +606,18 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-python = ">=3.13.5,<3.14"
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.7.1,<3"
+pytorch-cpu = ">=2.8.0,<3"
 
 [feature.gpu.system-requirements]
 cuda = "12"
 
 [feature.gpu.target.linux-64.dependencies]
-pytorch-gpu = ">=2.7.1,<3"
+pytorch-gpu = ">=2.8.0,<3"
 
 [feature.gpu.target.win-64.dependencies]
-pytorch-gpu = ">=2.7.1,<3"
+pytorch-gpu = ">=2.8.0,<3"
 
 [environments]
 cpu = ["cpu"]
