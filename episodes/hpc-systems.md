@@ -121,6 +121,18 @@ echo -e "\n# Train MNIST with PyTorch:\n"
 time pixi run --environment gpu python ./src/torch_MNIST.py --epochs 14 --data-dir ./data --save-model
 ```
 
+::: callout
+
+## Making the execution script executable
+
+To directly execute the execution script with `srun` the execution script needs to be executable.
+
+```bash
+chmod +x mnist_gpu.sh
+```
+
+:::
+
 ### Write the batch script
 
 The batch script allows us to execute our jobs with [`srun`](https://slurm.schedmd.com/srun.html) when submitted to Slurm with [`sbatch`](https://slurm.schedmd.com/sbatch.html).
