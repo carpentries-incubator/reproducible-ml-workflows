@@ -231,7 +231,6 @@ jobs:
         pixi init cuda-exercise
         cd cuda-exercise
         pixi workspace platform add linux-64 osx-arm64 win-64
-        pixi add python
         pixi add --feature cpu pytorch-cpu
         pixi workspace environment add --feature cpu cpu
         pixi upgrade --feature cpu pytorch-cpu
@@ -264,7 +263,6 @@ jobs:
         pixi init mnist-example
         cd mnist-example
         pixi workspace platform add linux-64 osx-arm64 win-64
-        pixi add python
         pixi add --feature cpu pytorch-cpu torchvision
         pixi workspace environment add --feature cpu cpu
         pixi upgrade --feature cpu
