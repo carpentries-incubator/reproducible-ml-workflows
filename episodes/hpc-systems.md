@@ -127,7 +127,7 @@ The batch script allows us to execute our jobs with [`srun`](https://slurm.sched
 Configuration options for `sbatch` can be provided through `#SBATCH` comments in the batch script header.
 Note that in the `mnist_gpu_slurm.sh` there will be cluster specific information that needs to be adjusted such as:
 
-* [`partition`](https://slurm.schedmd.com/sbatch.html#OPT_partition): Name of the partition available from [`sinfo -o "%R"`](https://slurm.schedmd.com/sinfo.html).
+* [`partition`](https://slurm.schedmd.com/sbatch.html#OPT_partition): Name of the partition available from [`sinfo`](https://slurm.schedmd.com/sinfo.html).
 * [`account`](https://slurm.schedmd.com/sbatch.html#OPT_account): Match to an "Account" returned by the `accounts` command.
 * [`constraint`](https://slurm.schedmd.com/sbatch.html#OPT_constraint): Constraint list on required node features, if any.
 
@@ -160,6 +160,35 @@ nvidia-smi
 srun mnist_gpu.sh
 ```
 
+::: challenge
+
+## Complete the batch script
+
+Update the batch script above with the proper `partition`, `account`, and `constraint` arguments for your HPC system.
+
+::: solution
+
+**`partition`**
+
+Using [`sinfo -o "%R"`](https://slurm.schedmd.com/sinfo.html) we can list all partitions available to us.
+For GPU jobs, consult your HPC system's administrators and documentation on what a reasonable partition would be to use.
+
+**`account`**
+
+If the HPC system that you are on charges different accounts for compute time, you will need to provide an account name in your `sbatch` configuration.
+Consult your HPC system's administrators if you don't know if you need an account or not.
+If you do, the `accounts` command will give you a list of all the accounts that you can charge.
+
+**`constraint`**
+
+The constraint argument allows you to require compute nodes to have different features.
+These constraints will be system specific, and should be documented.
+
+Example: A system might have a `"scratch"` constraint that means compute nodes have access to the scratch disk partition.
+
+:::
+:::
+
 ### Write the submission script
 
 To make it easy for us, we can write a small job submission script `submit.sh` that will prepare the data for us and submit the submit description file to Slurm for us with [`sbatch`](https://slurm.schedmd.com/sbatch.html).
@@ -184,8 +213,7 @@ To submit our job, we run the `submit.sh` script
 bash submit.sh
 ```
 ```output
-Submitting job(s).
-1 job(s) submitted to cluster 12651114.
+Submitted batch job 13422726
 ```
 
 and its submission and state can be monitored with [`squeue`](https://slurm.schedmd.com/squeue.html).
@@ -194,14 +222,8 @@ and its submission and state can be monitored with [`squeue`](https://slurm.sche
 squeue --user $USER
 ```
 ```output
-
-
--- Schedd: ap40.uw.osg-htc.org : <128.105.68.62:9618?... @ 08/14/25 08:20:12
-OWNER            BATCH_NAME      SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
-matthew.feickert ID: 12651114   8/14 08:18      _      1      _      1 12651114.0
-
-1 jobs; 0 completed, 0 removed, 0 idle, 1 running, 0 held, 0 suspended
-
+       JOBID    PARTITION         NAME           USER ST       TIME  NODES   NODELIST(REASON) FEATURES
+    13422726     gpuA40x4    mnist_gpu       feickert PD       0:00      1         (Priority) scratch
 ```
 
 When the job finishes we see that Slurm has returned to us the following files:
