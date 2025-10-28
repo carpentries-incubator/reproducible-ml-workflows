@@ -282,7 +282,7 @@ jobs:
 
     # pixi list with no packages raises an error
     - name: List mnist-example episode gpu environment
-      if: ${{ matrix.os != 'macos-latest' }}
+      if: ${{ matrix.os == 'ubuntu-latest' }}
       shell: pixi run bash -ex {0}
       run: |
         cd mnist-example
