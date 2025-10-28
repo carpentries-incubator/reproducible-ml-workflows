@@ -6,7 +6,7 @@ exercises: 30
 
 ::: questions
 
-* How can you run workflows that use GPUs with Pixi CUDA environments?
+* How can you run workflows that use GPUs with Pixi CUDA environments using HTCondor?
 * What solutions exist for the resources you have?
 
 :::
@@ -23,7 +23,7 @@ One of the most common forms of production computing is **high-throughput comput
 HTC resources are quite dynamic, but usually focus on smaller memory and disk requirements on each individual worker compute node.
 This is in contrast to **high-performance computing (HPC)** where there are comparatively fewer compute nodes but the capabilities and associated memory, disk, and bandwidth resources are much higher.
 
-Two of the most common HTC workflow management systems are [HTCondor](https://htcondor.org/) and [SLURM](https://slurm.schedmd.com/).
+The most common HTC workflow management system is [HTCondor](https://htcondor.org/).
 
 ## Setting up a problem
 
@@ -54,7 +54,7 @@ More exciting examples will be used in the future, but MNIST is perhaps one of t
 #### The neural network code
 
 We'll download Python code that uses a convocational neural network written in PyTorch to learn to identify the handwritten number of the MNIST dataset and place it under a `src/` directory.
-This is a modified example from the PyTorch documentation (https://github.com/pytorch/examples/blob/main/mnist/main.py) which is [licensed under the BSD 3-Clause license](https://github.com/pytorch/examples/blob/abfa4f9cc4379de12f6c340538ef9a697332cccb/LICENSE).
+This is a [modified example from the PyTorch documentation](https://github.com/pytorch/examples/blob/main/mnist/main.py) which is [licensed under the BSD 3-Clause license](https://github.com/pytorch/examples/blob/abfa4f9cc4379de12f6c340538ef9a697332cccb/LICENSE).
 
 ```bash
 mkdir -p src
@@ -592,7 +592,7 @@ crane ls ghcr.io/<your GitHub username>/pixi-cuda-lesson
 
 ## This episode will be on a remote system
 
-All the computation in the rest of this episode will take place on a remote system with an HTC workflow manager.
+All the computation in the rest of this episode will take place on a remote system with a HTC workflow manager.
 
 :::
 
