@@ -118,11 +118,11 @@
   Reproducible Machine Learning Workflows for Scientists
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 70%" class="percentage">
-    70%
+<aside class="col-md-12 lesson-progress"><div style="width: 62%" class="percentage">
+    62%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 70%" aria-valuenow="70" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 62%" aria-valuenow="62" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -279,6 +279,15 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="hpc-systems.html">8. Using Pixi environments on HPC Systems</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -322,7 +331,7 @@
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="pixi-deployment.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="hpc-systems.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -330,8 +339,8 @@
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Deploying Pixi
         </a>
-        <a class="chapter-link float-end" href="index.html" rel="next">
-          Home
+        <a class="chapter-link float-end" href="hpc-systems.html" rel="next">
+          Next: Using Pixi...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -356,8 +365,8 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>How can you run workflows that use GPUs with Pixi CUDA
-environments?</li>
+<ul><li>How can you run workflows that use GPUs with Pixi CUDA environments
+using HTCondor?</li>
 <li>What solutions exist for the resources you have?</li>
 </ul></div>
 </div>
@@ -382,7 +391,7 @@ requirements on each individual worker compute node. This is in contrast
 to <strong>high-performance computing (HPC)</strong> where there are
 comparatively fewer compute nodes but the capabilities and associated
 memory, disk, and bandwidth resources are much higher.</p>
-<p>Two of the most common HTC workflow management systems are <a href="https://htcondor.org/" class="external-link">HTCondor</a> and <a href="https://slurm.schedmd.com/" class="external-link">SLURM</a>.</p>
+<p>The most common HTC workflow management system is <a href="https://htcondor.org/" class="external-link">HTCondor</a>.</p>
 </section><section><h2 class="section-heading" id="setting-up-a-problem">Setting up a problem<a class="anchor" aria-label="anchor" href="#setting-up-a-problem"></a></h2>
 <hr class="half-width"><p>First let’s create a computing problem to apply these compute systems
 to.</p>
@@ -422,8 +431,8 @@ perhaps one of the most simple examples to illustrate a point.</p>
 <p>We’ll download Python code that uses a convocational neural network
 written in PyTorch to learn to identify the handwritten number of the
 MNIST dataset and place it under a <code>src/</code> directory. This is
-a modified example from the PyTorch documentation (<a href="https://github.com/pytorch/examples/blob/main/mnist/main.py" class="external-link uri">https://github.com/pytorch/examples/blob/main/mnist/main.py</a>)
-which is <a href="https://github.com/pytorch/examples/blob/abfa4f9cc4379de12f6c340538ef9a697332cccb/LICENSE" class="external-link">licensed
+a <a href="https://github.com/pytorch/examples/blob/main/mnist/main.py" class="external-link">modified
+example from the PyTorch documentation</a> which is <a href="https://github.com/pytorch/examples/blob/abfa4f9cc4379de12f6c340538ef9a697332cccb/LICENSE" class="external-link">licensed
 under the BSD 3-Clause license</a>.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1070,7 +1079,7 @@ for the particular image</p>
 <h3 class="callout-title">This episode will be on a remote system</h3>
 <div class="callout-content">
 <p>All the computation in the rest of this episode will take place on a
-remote system with an HTC workflow manager.</p>
+remote system with a HTC workflow manager.</p>
 </div>
 </div>
 </div>
@@ -1456,7 +1465,7 @@ any links that you are not going to use.
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="pixi-deployment.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="hpc-systems.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -1464,8 +1473,8 @@ any links that you are not going to use.
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Deploying Pixi
         </a>
-        <a class="chapter-link float-end" href="index.html" rel="next">
-          Home
+        <a class="chapter-link float-end" href="hpc-systems.html" rel="next">
+          Next: Using Pixi...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
