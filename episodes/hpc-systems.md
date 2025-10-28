@@ -169,7 +169,7 @@ echo "job is starting on $(hostname)"
 
 nvidia-smi
 
-srun mnist_gpu.sh
+srun ./mnist_gpu.sh
 ```
 
 ::: challenge
