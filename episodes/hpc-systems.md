@@ -233,9 +233,19 @@ and its submission and state can be monitored with [`squeue`](https://slurm.sche
 ```bash
 squeue --user $USER
 ```
+
+Example output: Pending state queued behind a higher priority job
+
 ```output
        JOBID    PARTITION         NAME           USER ST       TIME  NODES   NODELIST(REASON) FEATURES
     13422726     gpuA40x4    mnist_gpu       feickert PD       0:00      1         (Priority) scratch
+```
+
+Example output: Running job
+
+```output
+       JOBID    PARTITION         NAME           USER ST       TIME  NODES   NODELIST(REASON) FEATURES
+    13422805     gpuA40x4    mnist_gpu       feickert  R       0:53      1            gpub043 scratch
 ```
 
 When the job finishes we see that Slurm has returned to us the following files:
