@@ -239,8 +239,13 @@ jobs:
         pixi workspace environment add --feature gpu gpu
         pixi add --platform linux-64 --platform win-64 --feature gpu pytorch-gpu
         pixi list --environment cpu
-        pixi list --environment gpu
         cat pixi.toml
+
+    # pixi list with no packages raises an error
+    - name: List cuda-example episode gpu environment
+      if: ${{ matrix.os != 'macos-latest' }}
+      shell: pixi run bash -ex {0}
+      run: pixi list --environment gpu
 
   episode-mnist-example:
 
@@ -272,4 +277,9 @@ jobs:
         pixi add --platform linux-64 --feature gpu pytorch-gpu torchvision
         cat pixi.toml
         pixi list --environment cpu
-        pixi list --environment gpu
+
+    # pixi list with no packages raises an error
+    - name: List mnist-example episode gpu environment
+      if: ${{ matrix.os != 'macos-latest' }}
+      shell: pixi run bash -ex {0}
+      run: pixi list --environment gpu
