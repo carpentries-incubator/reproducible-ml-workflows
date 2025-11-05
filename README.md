@@ -1,5 +1,7 @@
 # Reproducible Machine Learning Workflows for Scientists
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17537698.svg)](https://doi.org/10.5281/zenodo.17537698)
+
 > [!TIP]
 > This lesson uses [The Carpentries Workbench][workbench].
 
