@@ -125,6 +125,16 @@ Typically the path is `~\Documents\PowerShell\Microsoft.PowerShell_profile.ps1`.
 
 :::
 
+::: caution
+
+# Optionally disable Apple SIP for your terminal emulator
+
+If you are on macOS, [Apple System Integrity Protection (SIP)](https://en.wikipedia.org/wiki/System_Integrity_Protection) will security scan everything executed in your terminal emulator (and the rest of the computer) the first time you ever use it.
+This can add _significant_ runtime overhead for the first time you ever execute any code a bespoke computing environment (e.g. a Pixi environment).
+If this overhead becomes problematic, you can disable it for your terminal emulator program by selecting "Settings" → "Privacy & Security" → "Developer Tools" and adding your terminal emulator program of choice.
+
+:::
+
 ## Docker (optional)
 
 While not explicitly required for this lesson, if you would like to have a more full interactive experience with the material it is suggested that you install the Linux container runtime and tool [Docker](https://www.docker.com/).
