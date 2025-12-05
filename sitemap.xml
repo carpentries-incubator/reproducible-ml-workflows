@@ -10,37 +10,22 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/aio.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/backwards-compatibility.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/backwards_compatibility.html</loc>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/citation.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/conda-pacakges.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/conda_pacakges.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/cuda-conda-pacakges.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/cuda_conda_pacakges.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/hpc-systems.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/htc-systems.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/htc_systems.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/images.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/index.html</loc>
@@ -55,25 +40,16 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/aio.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/backwards-compatibility.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/backwards_compatibility.html</loc>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/citation.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/conda-pacakges.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/conda_pacakges.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/cuda-conda-pacakges.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/cuda_conda_pacakges.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/hpc-systems.html</loc>
@@ -82,22 +58,10 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/htc-systems.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/htc_systems.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/images.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/index.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/instructor-notes.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/introduction.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/paper.html</loc>
@@ -109,25 +73,13 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-intro.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi_deployment.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi_intro.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/profiles.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/reference.html</loc>
   </url>
   <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor-notes.html</loc>
-  </url>
-  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/introduction.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/paper.html</loc>
@@ -137,12 +89,6 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/pixi-intro.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/pixi_deployment.html</loc>
-  </url>
-  <url>
-    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/pixi_intro.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/profiles.html</loc>
