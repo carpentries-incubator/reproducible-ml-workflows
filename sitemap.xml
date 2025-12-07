@@ -10,6 +10,9 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/aio.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/backwards-compatibility.html</loc>
   </url>
   <url>
@@ -28,6 +31,9 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/htc-systems.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/images.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/index.html</loc>
   </url>
   <url>
@@ -38,6 +44,9 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/aio.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/backwards-compatibility.html</loc>
@@ -58,10 +67,19 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/htc-systems.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/images.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/index.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/instructor-notes.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/paper.html</loc>
@@ -79,7 +97,13 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/reference.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor-notes.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/paper.html</loc>
