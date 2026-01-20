@@ -156,7 +156,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rmarkdown-2.30-r45hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rprojroot-2.1.1-r45hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rstudioapi-0.17.1-r45hc72bb7e_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.3-r45ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.18.0-r45ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-sass-0.4.10-r45h3697838_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-servr-0.32-r45hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/r-stringi-1.8.7-r45h2dae267_1.conda
@@ -350,7 +350,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rmarkdown-2.30-r45hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rprojroot-2.1.1-r45hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rstudioapi-0.17.1-r45hc72bb7e_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.3-r45ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.18.0-r45ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-sass-0.4.10-r45hc1cd577_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-servr-0.32-r45hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/r-stringi-1.8.7-r45he9eb878_1.conda
@@ -521,7 +521,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rmarkdown-2.30-r45hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rprojroot-2.1.1-r45hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-rstudioapi-0.17.1-r45hc72bb7e_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.3-r45ha770c72_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.18.0-r45ha770c72_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-sass-0.4.10-r45hd8a2815_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-servr-0.32-r45hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/r-stringi-1.8.7-r45hd8a2815_1.conda
@@ -4910,9 +4910,9 @@ packages:
   license_family: MIT
   size: 317820
   timestamp: 1757459995395
-- conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.17.3-r45ha770c72_0.conda
-  sha256: c4bc10d1bc2071500d7a776b9df5760fedb53529a6a97247dd5bf7a240007852
-  md5: dcf27b05c95c52b5683000355f36db2d
+- conda: https://conda.anaconda.org/conda-forge/noarch/r-sandpaper-0.18.0-r45ha770c72_0.conda
+  sha256: d85fd25fc47b0c3f224ec29fc07d4bf1addae58bbef308b750e437ac184bf2f1
+  md5: d368b1d49005d6b4bcf979aab60df2dc
   depends:
   - r-assertthat
   - r-base >=4.5,<4.6.0a0
@@ -4945,8 +4945,8 @@ packages:
   - r-yaml
   license: MIT
   license_family: MIT
-  size: 835986
-  timestamp: 1764785561026
+  size: 842026
+  timestamp: 1768645516591
 - conda: https://conda.anaconda.org/conda-forge/linux-64/r-sass-0.4.10-r45h3697838_1.conda
   sha256: 4d6d7db9d0187a9ede70d6d48278a8ba2b3160e823f5de239b86a6108f23172e
   md5: a3ccf52eefa448628535ee758c5a8a37
