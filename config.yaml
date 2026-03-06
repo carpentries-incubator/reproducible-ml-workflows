@@ -29,7 +29,7 @@ keywords: 'software, lesson, The Carpentries, machine learning, CUDA, hardware a
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'pre-alpha'
+life_cycle: 'beta'
 
 # License of the lesson
 license: 'CC-BY 4.0'
