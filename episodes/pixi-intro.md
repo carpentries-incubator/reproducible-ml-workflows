@@ -63,7 +63,7 @@ This allows for much greater freedom of exploration and development without fear
 This can be mitigated for disk limited machines by cleaning environments not in use while keeping their lock files and cleaning the system cache periodically.
 * Each project needs to be set up by itself and does not reuse components of previous projects.
 
-## Pixi project files and the CLI API basics
+## Pixi project files and the CLI basics
 
 Every Pixi project begins with creating a manifest file.
 A manifest file is a declarative configuration file that lists what the high level requirements of a project are.
@@ -153,7 +153,7 @@ For the rest of the lesson we'll ignore the `authors` list in our discussions as
 
 :::
 
-At the moment there are no dependencies defined in the manifest, so let's add Python using the [`pixi add` CLI API](https://pixi.sh/latest/reference/cli/pixi/add/).
+At the moment there are no dependencies defined in the manifest, so let's add Python using the [`pixi add` CLI](https://pixi.sh/latest/reference/cli/pixi/add/).
 
 ```bash
 pixi add python
