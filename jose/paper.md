@@ -50,7 +50,7 @@ By the end of the first day of instruction, participants will be able to:
 * Describe what is needed for a computational environment to be reproducible.
 * Describe what Pixi is, as well as its main features and benefits to reproducible software environments.
 * Describe the content and purpose of a lock file.
-* Use Pixi's command line interface (CLI) API to create a reproducible software environment.
+* Use Pixi's command line interface (CLI) to create a reproducible software environment.
 * Describe the structure and functionality of the Pixi manifest file.
 * Create and use tasks defined using Pixi's task runner system.
 * Create a multi-platform Pixi workspace.
@@ -97,7 +97,7 @@ As the full course content covers multiple concepts and technologies, individual
 Long-term follow-up surveys, querying participants on changes to their scientific workflows three months after participating in a workshop, have shown evidence that participants find Pixi as a technology easy to learn and beneficial enough for researchers that it has changed their normal scientific software workflow habits, becoming a common tool in their regular work.
 Additional experience teaching the course in different workshop settings is needed to expand the scope of responses to form a more complete understanding of long-term impact on participants.
 
-# How the project came to be
+# How the Project Came to Be
 
 This course was motivated from experience and difficulty in creating CUDA accelerated software environments for machine learning research studies in experimental physics.
 The challenge was to create environments that could resolve quickly enough to allow for rapid experimentation on local compute resources and then be deployed to remote resources, while also being robust to temporal drift of software versions and compute platform hardware-level system requirements.
