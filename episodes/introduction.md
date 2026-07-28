@@ -48,7 +48,7 @@ Take 3 minutes to discuss the following questions in small groups.
 
 Think about all aspects of research computing &mdash; data, hardware, and software &mdash; from collecting and cleaning the data through analysis and visualization to publishing your methods and results?
 
-Have you even inherited a project from a previous contributor?
+Have you ever inherited a project from a previous contributor?
 Or gone back to a previous project more than couple months later and struggled to get back into it?
 What issues did you come across?
 
@@ -71,7 +71,7 @@ There are many! Here are some you might have thought of:
 
 "Reproducible" research can mean many things and is a multipronged problem.
 This lesson will focus primarily on computational reproducibility.
-Like all forms of reproducibility, there are multiple "levels" of reproducibility.
+Like all forms of reproducibility, there are multiple "levels" of computational reproducibility.
 For this lesson we will focus on "full" reproducibility, meaning that reproducible software environments will:
 
 * Be defined through user readable and writable configuration files.
