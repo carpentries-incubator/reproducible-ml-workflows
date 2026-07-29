@@ -41,7 +41,7 @@ cd ~/pixi-cuda-lesson/htcondor
 
 ### Training a PyTorch model on the MNIST dataset
 
-Let's write a very standard tutorial example of training a deep neral network on the [MNIST dataset](https://en.wikipedia.org/wiki/MNIST_database) with PyTorch and then run it on GPUs in an HTCondor worker pool.
+Let's write a very standard tutorial example of training a deep neural network on the [MNIST dataset](https://en.wikipedia.org/wiki/MNIST_database) with PyTorch and then run it on GPUs in an HTCondor worker pool.
 
 ::: caution
 
@@ -53,7 +53,7 @@ More exciting examples will be used in the future, but MNIST is perhaps one of t
 
 #### The neural network code
 
-We'll download Python code that uses a convocational neural network written in PyTorch to learn to identify the handwritten number of the MNIST dataset and place it under a `src/` directory.
+We'll download Python code that uses a convolutional neural network written in PyTorch to learn to identify the handwritten number of the MNIST dataset and place it under a `src/` directory.
 This is a [modified example from the PyTorch documentation](https://github.com/pytorch/examples/blob/main/mnist/main.py) which is [licensed under the BSD 3-Clause license](https://github.com/pytorch/examples/blob/abfa4f9cc4379de12f6c340538ef9a697332cccb/LICENSE).
 
 ```bash
@@ -114,7 +114,7 @@ pixi workspace environment add --feature cpu cpu
 ✔ Added environment cpu
 ```
 
-and insatiate it with particular versions
+and instantiate it with particular versions
 
 ```bash
 pixi upgrade --feature cpu
