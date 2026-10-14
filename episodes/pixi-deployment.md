@@ -560,7 +560,7 @@ pixi list
 
 :::
 
-With this Apptainer defintion file the container image can then be built with `apptainer build`
+With this Apptainer definition file the container image can then be built with `apptainer build`
 
 ```bash
 apptainer build <container image name>.sif <definition file name>.def

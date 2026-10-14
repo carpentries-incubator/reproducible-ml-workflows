@@ -254,7 +254,7 @@ pixi add --platform <platform> <dependency>
 
 :::
 
-This now means that if we ask for any CUDA enbabled packages, we will get ones that are built to support `cudatoolkit` `v12.9.*`
+This now means that if we ask for any CUDA enabled packages, we will get ones that are built to support `cudatoolkit` `v12.9.*`
 
 ```bash
 pixi add --platform linux-64 cuda
@@ -400,7 +400,7 @@ cat .pixi/envs/default/conda-meta/pytorch-gpu-*.json
 
 :::
 
-and **if on the supported `linux-64` platform with a valid `__cuda` virtual pacakge** check that it can see and find GPUs
+and **if on the supported `linux-64` platform with a valid `__cuda` virtual package** check that it can see and find GPUs
 
 ```python
 # torch_detect_GPU.py
@@ -503,7 +503,7 @@ pixi workspace environment add --feature cpu cpu
 ✔ Added environment cpu
 ```
 
-and then instantiate the `pytorch-cpu` package with a particular version and solve through [`pixi upgrade`](https://pixi.sh/dev/reference/cli/pixi/upgrade/) (or could readd the package to the feature)
+and then instantiate the `pytorch-cpu` package with a particular version and solve through [`pixi upgrade`](https://pixi.sh/dev/reference/cli/pixi/upgrade/) (or could re-add the package to the feature)
 
 ```bash
 pixi upgrade --feature cpu pytorch-cpu
@@ -585,7 +585,7 @@ cpu = ["cpu"]
 gpu = ["gpu"]
 ```
 
-then add the `pytorch-gpu` pacakge for `linux-64` and `win-64` to the `gpu` feature
+then add the `pytorch-gpu` package for `linux-64` and `win-64` to the `gpu` feature
 
 ```bash
 pixi add --platform linux-64 --platform win-64 --feature gpu pytorch-gpu
@@ -689,6 +689,6 @@ If you would also like a useful summary of different things related to CUDA, che
 * Pixi can specify a minimum required CUDA version with the `[system-requirements]` table.
 * Pixi can solve environments for platforms that are not the system platform.
 * NVIDIA's open source team and the conda-forge community support the CUDA conda packages on conda-forge.
-* The [`cuda` metapackage](https://github.com/conda-forge/cuda-feedstock/tree/main/recipe) is the primary place to go for user documetnation on the CUDA conda packages.
+* The [`cuda` metapackage](https://github.com/conda-forge/cuda-feedstock/tree/main/recipe) is the primary place to go for user documentation on the CUDA conda packages.
 
 :::

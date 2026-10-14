@@ -20,7 +20,7 @@ exercises: 8
 
 ## Introduction
 
-Modern scientific analyses are complex software and logistical workflows that may span multiple software environments and require heterogenous software and computing infrastructure.
+Modern scientific analyses are complex software and logistical workflows that may span multiple software environments and require heterogeneous software and computing infrastructure.
 Scientific researchers need to use these tools to be able to do their research, and to ensure the validity of their work, which can be difficult.
 Scientific software enables all of this work to happen, but software isn't a static resource &mdash; software is continually developed, revised, and released, which can introduce breaking changes or subtle computational differences in outputs and results.
 Having the software you're using change without you intending it from day-to-day, run-to-run, or on different machines is problematic when trying to do high quality research.
@@ -48,7 +48,7 @@ Take 3 minutes to discuss the following questions in small groups.
 
 Think about all aspects of research computing &mdash; data, hardware, and software &mdash; from collecting and cleaning the data through analysis and visualization to publishing your methods and results?
 
-Have you even inherited a project from a previous contributor?
+Have you ever inherited a project from a previous contributor?
 Or gone back to a previous project more than couple months later and struggled to get back into it?
 What issues did you come across?
 
@@ -71,7 +71,7 @@ There are many! Here are some you might have thought of:
 
 "Reproducible" research can mean many things and is a multipronged problem.
 This lesson will focus primarily on computational reproducibility.
-Like all forms of reproducibility, there are multiple "levels" of reproducibility.
+Like all forms of reproducibility, there are multiple "levels" of computational reproducibility.
 For this lesson we will focus on "full" reproducibility, meaning that reproducible software environments will:
 
 * Be defined through user readable and writable configuration files.

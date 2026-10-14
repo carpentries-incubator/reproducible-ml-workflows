@@ -137,7 +137,7 @@ If this overhead becomes problematic, you can disable it for your terminal emula
 
 ## Docker (optional)
 
-While not explicitly required for this lesson, if you would like to have a more full interactive experience with the material it is suggested that you install the Linux container runtime and tool [Docker](https://www.docker.com/).
+While not explicitly required for this lesson, if you would like to have a more fully interactive experience with the material it is suggested that you install the Linux container runtime and tool [Docker](https://www.docker.com/).
 Install instructions for Docker can be found for your specific platform on [the Docker docs website](https://docs.docker.com/desktop/).
 
 ::: callout
