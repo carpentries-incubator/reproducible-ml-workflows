@@ -6,7 +6,7 @@ exercises: 15
 
 ::: questions
 
-* How can Pixi environment be deployed to production compute facilities?
+* How can Pixi environments be deployed to production compute facilities?
 * What tools can be used to achieve this?
 
 :::
@@ -34,8 +34,8 @@ There is one very straightforward solution:
 
 That's a nice and simple story, and it can work!
 However, in most realistic scenarios the worker compute nodes that are executing code share resource pools of storage and memory and are regulated to smaller allotments of both.
-CUDA binaries are relatively large files and amount of memory and storage to just unpack them can easily exceed a standard 2 GB memory limit on most high throughput computing (HTC) facility worker nodes.
-This also requires direct access to the public internet, or for you to setup a [S3 object store](https://pixi.sh/latest/deployment/s3/) behind your compute facility's firewall with all of your conda packages mirrored into it.
+CUDA binaries are relatively large files and the amount of memory and storage to just unpack them can easily exceed a standard 2 GB memory limit on most high throughput computing (HTC) facility worker nodes.
+This also requires direct access to the public internet, or for you to set up an [S3 object store](https://pixi.sh/latest/deployment/s3/) behind your compute facility's firewall with all of your conda packages mirrored into it.
 In many scenarios, public internet access at HTC and high performance computing (HPC) facilities is limited to only a select "allow list" of websites or it might be fully restricted for users.
 
 ## Building Linux containers with Pixi environments
@@ -369,7 +369,7 @@ and make a pull request to merge your changes into your remote's default branch.
 Most HTC and HPC systems do not allow users to use Docker given security risks and instead use Apptainer.
 In most situations, Apptainer is able to automatically convert a Docker image, or other Open Container Initiative (OCI) container image format, to Apptainer's [Singularity Image Format](https://github.com/apptainer/sif) `.sif` container image format, and so no additional work is required.
 However, the overlay system of Apptainer is different from Docker, which means that the `ENTRYPOINT` of a Docker container image might not get correctly translated into an Apptainer `runscript` and `startscript`.
-In might be advantageous, depending on your situation, to instead write an [Apptainer `.def` definition file](https://apptainer.org/docs/user/main/definition_files.html), giving full control over the commands, and then build that `.def` file into an `.sif` Apptainer container image.
+It might be advantageous, depending on your situation, to instead write an [Apptainer `.def` definition file](https://apptainer.org/docs/user/main/definition_files.html), giving full control over the commands, and then build that `.def` file into an `.sif` Apptainer container image.
 
 We can build a very similar `apptainer.def` Apptainer container image definition file to the Dockerfile we wrote
 
@@ -438,9 +438,6 @@ chmod +x /app/entrypoint.sh
 . /app/entrypoint.sh
 pixi info
 pixi list
-
-
-
 ```
 
 Let's break this down too.
@@ -467,7 +464,7 @@ Let's break this down too.
 ./pixi.toml /app/
 ./pixi.lock /app/
 ./.gitignore /app/
-````
+```
 
 * The [`post` section](https://apptainer.org/docs/user/main/definition_files.html#post) runs commands listed in it as a shell script executed in a clean shell environment that does not have any pre-existing build environment context.
 It is not reasonable to expect that the container image build machine contains GPUs.
@@ -480,7 +477,7 @@ export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
 ...
 ```
 
-* The definition files uses a [multi-stage build](https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds) where it first installs the target environment `<environment>` and then creates an `entrypoint.sh` script script that will be used as a [`runscript`](https://apptainer.org/docs/user/main/definition_files.html#runscript) using [`pixi shell-hook`](https://pixi.sh/latest/reference/cli/pixi/shell-hook/) to automatically activate the environment when the container image is run.
+* The definition file uses a [multi-stage build](https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds) where it first installs the target environment `<environment>` and then creates an `entrypoint.sh` script that will be used as a [`runscript`](https://apptainer.org/docs/user/main/definition_files.html#runscript) using [`pixi shell-hook`](https://pixi.sh/latest/reference/cli/pixi/shell-hook/) to automatically activate the environment when the container image is run.
 
 ```
 ...
@@ -539,7 +536,7 @@ chmod +x /app/entrypoint.sh
 /app/entrypoint.sh "$@"
 ```
 
-* We also define a [`startscript` section](https://apptainer.org/docs/user/main/definition_files.html#startscript) that is the same as the `runscript`'s contents that is executed when the [`instance start`](https://apptainer.org/docs/user/main/cli/apptainer_instance_start.html) command is executed (which creates a container instances that starts running in the background).
+* We also define a [`startscript` section](https://apptainer.org/docs/user/main/definition_files.html#startscript) that is the same as the `runscript`'s contents that is executed when the [`instance start`](https://apptainer.org/docs/user/main/cli/apptainer_instance_start.html) command is executed (which creates a container instance that starts running in the background).
 
 ```
 %startscript
@@ -560,7 +557,7 @@ pixi list
 
 :::
 
-With this Apptainer defintion file the container image can then be built with `apptainer build`
+With this Apptainer definition file the container image can then be built with `apptainer build`
 
 ```bash
 apptainer build <container image name>.sif <definition file name>.def
@@ -569,7 +566,7 @@ apptainer build <container image name>.sif <definition file name>.def
 and can optionally have the stage scoped variables set with
 
 ```bash
-apptainer build <container image name>.sif --build-arg CUDA_VERSION=12 --build-arg ENVIRONMENT_NAME=gpu <definition file name>.def
+apptainer build <container image name>.sif --build-arg CUDA_VERSION=12 --build-arg ENVIRONMENT=gpu <definition file name>.def
 ```
 
 ### Automation with GitHub Actions workflows
