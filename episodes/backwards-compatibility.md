@@ -19,7 +19,7 @@ exercises: 5
 
 ## Backporting to conda environments
 
-While Pixi is currently unique in its abilities, there may be situations in which given technical debt, migration effort in large collaborations, or collaborator preferences that switching all infrastructure to use Pixi might not yet be feasible.
+While Pixi is currently unique in its abilities, there may be situations in which given technical debt, migration effort in large collaborations, or collaborator preferences, switching all infrastructure to use Pixi might not yet be feasible.
 It would still be useful to take advantage of Pixi's technology and features as an individual but be able to export Pixi workspace environments and lock files to the "legacy system" of conda.
 ^[Conda is still a very well supported tool and the dominant conda package environment manager by numbers of users.]
 Luckily, we can do this with the [`pixi workspace export`](https://pixi.sh/latest/reference/cli/pixi/workspace/export/) commands.
@@ -198,7 +198,7 @@ Only use spec files when you are certain that you have the same platform machine
 
 ::: keypoints
 
-* If you need to use conda, you can export Pixi workspace environment to formats conda can use.
+* If you need to use conda, you can export Pixi workspace environments to formats conda can use.
 * Exporting conda explicit spec files from Pixi locked environments provides the ability to create the same hash level locked environment with conda that Pixi solved.
 
 :::
