@@ -86,7 +86,7 @@ All the computation in the rest of this episode will take place on a remote syst
 
 To provide a very high level overview of Slurm in this episode we'll focus on only a few of its many resources and capabilities.
 
-1. Writing SLRUM execution scripts to define what the Slurm worker nodes will actually do.
+1. Writing Slurm execution scripts to define what the Slurm worker nodes will actually do.
 1. Writing a [batch script](https://slurm.schedmd.com/sbatch.html) to send our jobs to Slurm.
 1. Submitting those jobs with [`sbatch`](https://slurm.schedmd.com/sbatch.html) and monitoring them with [`squeue`](https://slurm.schedmd.com/squeue.html).
 
@@ -95,7 +95,7 @@ To provide a very high level overview of Slurm in this episode we'll focus on on
 Let's first start to write the execution script `mnist_gpu.sh`, as we can think about how that relates to our code.
 
 * We'll be running in the `gpu` environment that we defined with Pixi.
-* The workers will have access to the shared files system that the login node has, so we can write our execution script as if it was local.
+* The workers will have access to the shared file system that the login node has, so we can write our execution script as if it was local.
 
 ```bash
 #!/usr/bin/env bash
@@ -147,7 +147,7 @@ Note that in the `mnist_gpu_slurm.sh` there will be cluster specific information
 #!/usr/bin/env bash
 # mnist_gpu_slurm.sh
 #SBATCH --job-name="mnist_gpu"
-#SBATCH --partition=<PARTITITON NAME>
+#SBATCH --partition=<PARTITION NAME>
 #SBATCH --mem=2G
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -203,7 +203,7 @@ Example: A system might have a `"scratch"` constraint that means compute nodes h
 
 ### Write the submission script
 
-To make it easy for us, we can write a small job submission script `submit.sh` that will prepare the data for us and submit the submit description file to Slurm for us with [`sbatch`](https://slurm.schedmd.com/sbatch.html).
+To make it easy for us, we can write a small job submission script `submit.sh` that will prepare the data for us and submit the batch script to Slurm for us with [`sbatch`](https://slurm.schedmd.com/sbatch.html).
 
 ```bash
 #!/usr/bin/env bash
