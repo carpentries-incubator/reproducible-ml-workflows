@@ -12,5 +12,5 @@ authors:
     orcid: "https://orcid.org/0000-0003-4124-7862"
 abstract: >-
   Provide an introduction to creating multi-platform fully reproducible
-  hardware accelerated and machine learning environment using Pixi.
+  hardware accelerated and machine learning environments using Pixi.
 license: CC-BY-4.0
