@@ -38,13 +38,13 @@ It also combines these features with robust behaviors:
 
 1. **Automatic lock files**: Any changes to a Pixi workspace that can mutate the environments defined in it will automatically and non-optionally result in the Pixi lock file for the workspace being updated.
 This ensures that any and every state of a Pixi project is trivially computationally reproducible.
-1. **Solving environments for other platforms**: Pixi allows the user to solve environment for platforms other than the current user machine's.
-This allows for users to solve and share environment to any collaborator with confidence that all environments will work with no additional setup.
-1. **Pairity of conda and Python packages**: Pixi allows for conda packages and Python packages to be used together seamlessly, and is unique in its ability to handle overlap in dependencies between them.
-Pixi will first solve all conda package requirements for the target environment, lock the environment, and then solve all the dependencies of the Python packages for the environment, determine if there are any overlaps with the existing conda environment, and the only install the missing Python dependencies.
-This ensures allows for fully reproducible solves and for the two package ecosystems to compliment each other rather than potentially cause conflicts.
+1. **Solving environments for other platforms**: Pixi allows the user to solve environments for platforms other than the current user machine's.
+This allows for users to solve and share environments with any collaborator with confidence that all environments will work with no additional setup.
+1. **Parity of conda and Python packages**: Pixi allows for conda packages and Python packages to be used together seamlessly, and is unique in its ability to handle overlap in dependencies between them.
+Pixi will first solve all conda package requirements for the target environment, lock the environment, and then solve all the dependencies of the Python packages for the environment, determine if there are any overlaps with the existing conda environment, and then only install the missing Python dependencies.
+This allows for fully reproducible solves and for the two package ecosystems to complement each other rather than potentially cause conflicts.
 1. **Efficient caching**: Pixi uses an extremely efficient global caching scheme.
-This means that the first time a package is installed on a machine with Pixi is the slowest is will ever be to install it for any future project on the machine while the cache is still active.
+This means that the first time a package is installed on a machine with Pixi is the slowest it will ever be to install it for any future project on the machine while the cache is still active.
 
 ## Project-based workflows
 
@@ -66,7 +66,7 @@ This can be mitigated for disk limited machines by cleaning environments not in 
 ## Pixi project files and the CLI API basics
 
 Every Pixi project begins with creating a manifest file.
-A manifest file is a declarative configuration file that list what the high level requirements of a project are.
+A manifest file is a declarative configuration file that lists what the high level requirements of a project are.
 Pixi then takes those requirements and constraints and solves for the full dependency tree.
 
 Let's create our first Pixi project.
@@ -122,7 +122,7 @@ pixi.toml
 
 ::::
 
-We see that Pixi  has setup Git configuration files for the project as well as a Pixi manifest `pixi.toml` file.
+We see that Pixi has set up Git configuration files for the project as well as a Pixi manifest `pixi.toml` file.
 Checking the default manifest file, we see three TOML tables: `workspace`, `tasks`, and `dependencies`.
 
 ```bash
@@ -249,7 +249,7 @@ The `pixi.lock` lock file is a YAML file that contains two definition groups: `e
 The `environments` group lists every environment in the workspace for every platform with a complete listing of all packages in the environment.
 The `packages` group lists a full definition of every package that appears in the `environments` lists, including the package's URL on the conda package index and digests (e.g. sha256, md5).
 
-Here's an example of what the `environments` and `packages` groups look like in the `pixi.toml` file we created for a `linux-64` platform machine.
+Here's an example of what the `environments` and `packages` groups look like in the `pixi.lock` file we created for a `linux-64` platform machine.
 
 ```
 version: 6
@@ -499,7 +499,7 @@ width='100%'
 
 ## Adding the canonical Pixi `start` task
 
-For Pixi projects, it is canonical to have a `start` task so that for any Pixi project a user can navigate to the top level directory of a project run
+For Pixi projects, it is canonical to have a `start` task so that for any Pixi project a user can navigate to the top level directory of a project and run
 
 ```bash
 pixi run start
@@ -590,7 +590,7 @@ start  Start exploring the Pixi project
 :::
 
 Here we used [`pixi run`](https://pixi.sh/latest/reference/cli/pixi/run/) to execute tasks in the workspace's environments without ever explicitly activating the environment.
-This is a different behavior compared to tools like conda of Python virtual environments, where the assumption is that you have activated an environment before using it.
+This is a different behavior compared to tools like conda or Python virtual environments, where the assumption is that you have activated an environment before using it.
 With Pixi we can do the equivalent with [`pixi shell`](https://pixi.sh/latest/reference/cli/pixi/shell/), which starts a subshell in the current working directory with the Pixi environment activated.
 
 ```bash
@@ -668,7 +668,7 @@ jupyterlab = ">=4.4.5,<5"
 
 # Pixi features
 
-"[Features](https://pixi.sh/latest/reference/pixi_manifest/#the-feature-and-environments-tables)" in Pixi are TOML tables that define a _part_ of an environment, but by itself is not useable.
+"[Features](https://pixi.sh/latest/reference/pixi_manifest/#the-feature-and-environments-tables)" in Pixi are TOML tables that define a _part_ of an environment, but by themselves are not usable.
 Features can be composed together to create an environment &mdash; think of how individual LEGO bricks (features) can be connected together to build a larger structure (an environment).
 Features can also be used across multiple environments, which allows for building complex environment structures without having to redefine sections.
 
@@ -822,7 +822,7 @@ This means that by sharing a Pixi global manifest, a new machine can be provisio
 ## Version controlling our examples
 
 As part of this lesson, we are building up a Git repository of the examples that we move through.
-On a **new branch** in your repository, add and commit the files from the this episode.
+On a **new branch** in your repository, add and commit the files from this episode.
 
 ```bash
 git add pixi.* .git*
