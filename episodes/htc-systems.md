@@ -19,7 +19,7 @@ exercises: 30
 
 ## High Throughput Computing (HTC)
 
-One of the most common forms of production computing is **high-throughput computing (HTC)**, where computational problems as distributed across multiple computing resources to parallelize computations and reduce total compute time.
+One of the most common forms of production computing is **high-throughput computing (HTC)**, where computational problems are distributed across multiple computing resources to parallelize computations and reduce total compute time.
 HTC resources are quite dynamic, but usually focus on smaller memory and disk requirements on each individual worker compute node.
 This is in contrast to **high-performance computing (HPC)** where there are comparatively fewer compute nodes but the capabilities and associated memory, disk, and bandwidth resources are much higher.
 
@@ -41,19 +41,19 @@ cd ~/pixi-cuda-lesson/htcondor
 
 ### Training a PyTorch model on the MNIST dataset
 
-Let's write a very standard tutorial example of training a deep neral network on the [MNIST dataset](https://en.wikipedia.org/wiki/MNIST_database) with PyTorch and then run it on GPUs in an HTCondor worker pool.
+Let's write a very standard tutorial example of training a deep neural network on the [MNIST dataset](https://en.wikipedia.org/wiki/MNIST_database) with PyTorch and then run it on GPUs in an HTCondor worker pool.
 
 ::: caution
 
 ## Mea culpa, more interesting examples exist
 
-More exciting examples will be used in the future, but MNIST is perhaps one of the most simple examples to illustrate a point.
+More exciting examples will be used in the future, but MNIST is perhaps one of the simplest examples to illustrate a point.
 
 :::
 
 #### The neural network code
 
-We'll download Python code that uses a convocational neural network written in PyTorch to learn to identify the handwritten number of the MNIST dataset and place it under a `src/` directory.
+We'll download Python code that uses a convolutional neural network written in PyTorch to learn to identify the handwritten numbers of the MNIST dataset and place it under a `src/` directory.
 This is a [modified example from the PyTorch documentation](https://github.com/pytorch/examples/blob/main/mnist/main.py) which is [licensed under the BSD 3-Clause license](https://github.com/pytorch/examples/blob/abfa4f9cc4379de12f6c340538ef9a697332cccb/LICENSE).
 
 ```bash
@@ -66,7 +66,7 @@ curl -sL https://github.com/matthewfeickert/nvidia-gpu-ml-library-test/raw/36c72
 
 Now let's think about what we need to use this code.
 Looking at the imports of `src/torch_MNIST.py` we can see that `torch` and `torchvision` are the only imported libraries that aren't part of the Python standard library, so we will need to depend on PyTorch and `torchvision`.
-We also know that we'd like to use CUDA accelerated code, so that we'll need CUDA libraries and versions of PyTorch that support CUDA.
+We also know that we'd like to use CUDA accelerated code, so we'll need CUDA libraries and versions of PyTorch that support CUDA.
 
 ::: challenge
 
@@ -77,7 +77,7 @@ Create a Pixi workspace that:
 * Has PyTorch and `torchvision` in it.
 * Has the ability to support CUDA v12.
 * Has an environment that has the CPU version of PyTorch and `torchvision` that can be installed on `linux-64`, `osx-arm64`, and `win-64`.
-* Has an environment that has the GPU version of PyTorch and `torchvision` that can be installed on `linux-64`, and `win-64`.
+* Has an environment that has the GPU version of PyTorch and `torchvision` that can be installed on `linux-64` and `win-64`.
 
 ::: solution
 
@@ -114,7 +114,7 @@ pixi workspace environment add --feature cpu cpu
 ✔ Added environment cpu
 ```
 
-and insatiate it with particular versions
+and instantiate it with particular versions
 
 ```bash
 pixi upgrade --feature cpu
@@ -382,7 +382,7 @@ Now let's add a GitHub Actions pipeline to build the container image definition 
 
 ## Build and deploy Linux container image to registry
 
-Add a GitHub Actions pipeline that will build both the apptainer.def and Dockerfile files deploy them to GitHub Container Registry (`ghcr`).
+Add a GitHub Actions pipeline that will build both the apptainer.def and Dockerfile files and deploy them to GitHub Container Registry (`ghcr`).
 Have the image tags include the text `mnist` as this will be the identifying problem.
 
 ::: solution
@@ -548,7 +548,7 @@ jobs:
 
 ## Version Control
 
-We now want to make sure that we can build container images with these defention files and workflows.
+We now want to make sure that we can build container images with these definition files and workflows.
 
 On a **new branch** in your repository, add and commit the files from this episode.
 
@@ -556,7 +556,7 @@ On a **new branch** in your repository, add and commit the files from this episo
 git add htcondor/pixi.*
 git add htcondor/.git*
 git add htcondor/apptainer.def
-git add htcondor/Dockerfile.def
+git add htcondor/Dockerfile
 git add .github/workflows/containers.yaml
 ```
 
@@ -592,7 +592,7 @@ crane ls ghcr.io/<your GitHub username>/pixi-cuda-lesson
 
 ## This episode will be on a remote system
 
-All the computation in the rest of this episode will take place on a remote system with a HTC workflow manager.
+All the computation in the rest of this episode will take place on a remote system with an HTC workflow manager.
 
 :::
 
@@ -617,7 +617,7 @@ Let's first start to write the execution script `mnist_gpu_apptainer.sh`, as we 
 
 * We'll be running in the `gpu` environment that we defined with Pixi and built into our Apptainer container image.
 * For security reasons the HTCondor worker nodes don't have full connection to all of the internet.
-So we'll need to transfer out input data and source code rather than download it on demand.
+So we'll need to transfer our input data and source code rather than download it on demand.
 * We'll need to activate the environment using the `/app/entrypoint.sh` script we built into the Apptainer container image.
 
 ```bash
@@ -661,7 +661,7 @@ time python ./src/torch_MNIST.py --data-dir ./data --epochs 14 --save-model
 
 ### Write the HTCondor submit description file
 
-This is pretty standard boiler plate taken from the [HTCondor documentation](https://htcondor.readthedocs.io/en/latest/users-manual/submitting-a-job.html)
+This is pretty standard boilerplate taken from the [HTCondor documentation](https://htcondor.readthedocs.io/en/latest/users-manual/submitting-a-job.html)
 
 ```condor
 # mnist_gpu_apptainer.sub
@@ -711,7 +711,7 @@ gpus_minimum_capability = 5.0
 # Optional: required GPU memory
 gpus_minimum_memory = 2GB
 
-# Tell HTCondor to run 1 instances of our job:
+# Tell HTCondor to run 1 instance of our job:
 queue 1
 ```
 
