@@ -80,7 +80,7 @@ gpu = ["gpu"]
 
 ## This episode will be on a remote system
 
-All the computation in the rest of this episode will take place on a remote system with a HPC workflow manager.
+All the computation in the rest of this episode will take place on a remote system with an HPC workflow manager.
 
 :::
 
