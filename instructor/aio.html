@@ -281,7 +281,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="conda-pacakges.html">4. Conda packages</a>
+        <a href="conda-packages.html">4. Conda packages</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -293,7 +293,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="cuda-conda-pacakges.html">5. CUDA conda packages</a>
+        <a href="cuda-conda-packages.html">5. CUDA conda packages</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -414,7 +414,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Reproducible Research</a></p>
 <hr>
-<p>Last updated on 2025-12-05 |
+<p>Last updated on 2026-10-22 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 18 minutes</p>
@@ -455,7 +455,7 @@ reproducible.</li>
 <hr class="half-width">
 <p>Modern scientific analyses are complex software and logistical
 workflows that may span multiple software environments and require
-heterogenous software and computing infrastructure. Scientific
+heterogeneous software and computing infrastructure. Scientific
 researchers need to use these tools to be able to do their research, and
 to ensure the validity of their work, which can be difficult. Scientific
 software enables all of this work to happen, but software isn’t a static
@@ -473,9 +473,9 @@ unreproducible. All of these things are not desirable!</p>
 <span class="callout-header">Callout</span>
 <div class="callout-inner">
 <div class="callout-content">
-<p>When discussing “software” in this lesson we will primarily be
-meaning open source software that is openly developed. However, there
-are situations in which software might (for good reason) be:</p>
+<p>When discussing “software” in this lesson we will primarily mean open
+source software that is openly developed. However, there are situations
+in which software might (for good reason) be:</p>
 <ul>
 <li>Closed development with open source release artifacts</li>
 <li>Closed development and closed source with public binary
@@ -499,9 +499,9 @@ groups.</p>
 research?</strong></p>
 <p>Think about all aspects of research computing — data, hardware, and
 software — from collecting and cleaning the data through analysis and
-visualization to publishing your methods and results?</p>
-<p>Have you even inherited a project from a previous contributor? Or
-gone back to a previous project more than couple months later and
+visualization to publishing your methods and results.</p>
+<p>Have you ever inherited a project from a previous contributor? Or
+gone back to a previous project more than a couple of months later and
 struggled to get back into it? What issues did you come across?</p>
 </div>
 </div>
@@ -511,12 +511,12 @@ struggled to get back into it? What issues did you come across?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Possible answers </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>There are many! Here are some you might have thought of:</p>
 <ul>
 <li>(Not having) Access to data</li>
-<li>Required software packages be removed from mutable package
+<li>Required software packages being removed from mutable package
 indexes</li>
 <li>Unreproducible builds of software that isn’t packaged and
 distributed on public package indexes</li>
@@ -572,7 +572,7 @@ what challenges have you run into with running your code?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Possible answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Here are some you might have thought of:</p>
 <ul>
@@ -617,7 +617,7 @@ table.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Not necessarily. Even though the computational software environment
 is identical there are things that can change between runs of software
@@ -626,7 +626,7 @@ generation seeds, file read order, machine entropy). This isn’t
 necessarily a problem, and in general one should be more concerned with
 getting answers that make sense within application uncertainties than
 matching down to machine precision.</p>
-<p>Did your the individuals in your group agree?</p>
+<p>Did the individuals in your group agree?</p>
 </div>
 </div>
 </div>
@@ -674,7 +674,7 @@ research practices reproducible and reusable?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Possible answers </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <ul>
 <li>Technical expertise in reproducibility technologies</li>
@@ -717,7 +717,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-pixi-intro"><p>Content from <a href="pixi-intro.html">Introduction to Pixi</a></p>
 <hr>
-<p>Last updated on 2025-12-05 |
+<p>Last updated on 2026-10-22 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi-intro.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
@@ -795,25 +795,25 @@ workspace being updated. This ensures that any and every state of a Pixi
 project is trivially computationally reproducible.</li>
 <li>
 <strong>Solving environments for other platforms</strong>: Pixi
-allows the user to solve environment for platforms other than the
+allows the user to solve environments for platforms other than the
 current user machine’s. This allows for users to solve and share
-environment to any collaborator with confidence that all environments
+environments with any collaborator with confidence that all environments
 will work with no additional setup.</li>
 <li>
-<strong>Pairity of conda and Python packages</strong>: Pixi allows
+<strong>Parity of conda and Python packages</strong>: Pixi allows
 for conda packages and Python packages to be used together seamlessly,
 and is unique in its ability to handle overlap in dependencies between
 them. Pixi will first solve all conda package requirements for the
 target environment, lock the environment, and then solve all the
 dependencies of the Python packages for the environment, determine if
-there are any overlaps with the existing conda environment, and the only
-install the missing Python dependencies. This ensures allows for fully
-reproducible solves and for the two package ecosystems to compliment
+there are any overlaps with the existing conda environment, and then
+only install the missing Python dependencies. This allows for fully
+reproducible solves and for the two package ecosystems to complement
 each other rather than potentially cause conflicts.</li>
 <li>
 <strong>Efficient caching</strong>: Pixi uses an extremely efficient
 global caching scheme. This means that the first time a package is
-installed on a machine with Pixi is the slowest is will ever be to
+installed on a machine with Pixi is the slowest it will ever be to
 install it for any future project on the machine while the cache is
 still active.</li>
 </ol></section><section><h2 class="section-heading" id="project-based-workflows">Project-based workflows<a class="anchor" aria-label="anchor" href="#project-based-workflows"></a>
@@ -848,7 +848,7 @@ components of previous projects.</li>
 </h2>
 <hr class="half-width">
 <p>Every Pixi project begins with creating a manifest file. A manifest
-file is a declarative configuration file that list what the high level
+file is a declarative configuration file that lists what the high level
 requirements of a project are. Pixi then takes those requirements and
 constraints and solves for the full dependency tree.</p>
 <p>Let’s create our first Pixi project. First, to have a uniform
@@ -924,8 +924,8 @@ directory structure</p>
 </div>
 </div>
 </div>
-<p>We see that Pixi has setup Git configuration files for the project as
-well as a Pixi manifest <code>pixi.toml</code> file. Checking the
+<p>We see that Pixi has set up Git configuration files for the project
+as well as a Pixi manifest <code>pixi.toml</code> file. Checking the
 default manifest file, we see three TOML tables: <code>workspace</code>,
 <code>tasks</code>, and <code>dependencies</code>.</p>
 <div class="codewrapper sourceCode" id="cb8">
@@ -1117,7 +1117,7 @@ of every package that appears in the <code>environments</code> lists,
 including the package’s URL on the conda package index and digests
 (e.g. sha256, md5).</p>
 <p>Here’s an example of what the <code>environments</code> and
-<code>packages</code> groups look like in the <code>pixi.toml</code>
+<code>packages</code> groups look like in the <code>pixi.lock</code>
 file we created for a <code>linux-64</code> platform machine.</p>
 <pre><code>version: 6
 environments:
@@ -1438,7 +1438,7 @@ task</h3>
 <div class="callout-content">
 <p>For Pixi projects, it is canonical to have a <code>start</code> task
 so that for any Pixi project a user can navigate to the top level
-directory of a project run</p>
+directory of a project and run</p>
 <div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1566,7 +1566,7 @@ start  Start exploring the Pixi project</code></pre>
 <p>Here we used <a href="https://pixi.sh/latest/reference/cli/pixi/run/" class="external-link"><code>pixi run</code></a>
 to execute tasks in the workspace’s environments without ever explicitly
 activating the environment. This is a different behavior compared to
-tools like conda of Python virtual environments, where the assumption is
+tools like conda or Python virtual environments, where the assumption is
 that you have activated an environment before using it. With Pixi we can
 do the equivalent with <a href="https://pixi.sh/latest/reference/cli/pixi/shell/" class="external-link"><code>pixi shell</code></a>,
 which starts a subshell in the current working directory with the Pixi
@@ -1678,7 +1678,7 @@ list.</p>
 <div class="callout-content">
 <p>“<a href="https://pixi.sh/latest/reference/pixi_manifest/#the-feature-and-environments-tables" class="external-link">Features</a>”
 in Pixi are TOML tables that define a <em>part</em> of an environment,
-but by itself is not useable. Features can be composed together to
+but by themselves are not usable. Features can be composed together to
 create an environment — think of how individual LEGO bricks (features)
 can be connected together to build a larger structure (an environment).
 Features can also be used across multiple environments, which allows for
@@ -1879,7 +1879,7 @@ seconds.</p>
 <div class="callout-content">
 <p>As part of this lesson, we are building up a Git repository of the
 examples that we move through. On a <strong>new branch</strong> in your
-repository, add and commit the files from the this episode.</p>
+repository, add and commit the files from this episode.</p>
 <div class="codewrapper sourceCode" id="cb64">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1925,7 +1925,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-backwards-compatibility"><p>Content from <a href="backwards-compatibility.html">Backwards compatibility with conda</a></p>
 <hr>
-<p>Last updated on 2025-12-05 |
+<p>Last updated on 2026-10-22 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/backwards-compatibility.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 15 minutes</p>
@@ -1965,7 +1965,7 @@ spec files</li>
 <hr class="half-width">
 <p>While Pixi is currently unique in its abilities, there may be
 situations in which given technical debt, migration effort in large
-collaborations, or collaborator preferences that switching all
+collaborations, or collaborator preferences, switching all
 infrastructure to use Pixi might not yet be feasible. It would still be
 useful to take advantage of Pixi’s technology and features as an
 individual but be able to export Pixi workspace environments and lock
@@ -2008,7 +2008,7 @@ to a conda environment</h3>
   Possible answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2095,7 +2095,7 @@ lock files as a conda explicit spec file</h3>
   Possible answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2230,7 +2230,7 @@ machine as the machine that created the spec file.</p>
 <div class="callout-inner">
 <div class="callout-content">
 <ul>
-<li>If you need to use conda, you can export Pixi workspace environment
+<li>If you need to use conda, you can export Pixi workspace environments
 to formats conda can use.</li>
 <li>Exporting conda explicit spec files from Pixi locked environments
 provides the ability to create the same hash level locked environment
@@ -2249,11 +2249,11 @@ any links that you are not going to use.
 <li id="fn1"><p>Conda is still a very well supported tool and the
 dominant conda package environment manager by numbers of users.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
-</div></section><section id="aio-conda-pacakges"><p>Content from <a href="conda-pacakges.html">Conda packages</a></p>
+</div></section><section id="aio-conda-packages"><p>Content from <a href="conda-packages.html">Conda packages</a></p>
 <hr>
-<p>Last updated on 2025-12-05 |
+<p>Last updated on 2026-10-22 |
 
-        <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/conda-pacakges.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/conda-packages.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -2294,7 +2294,7 @@ as it allows for arbitrary code to be built for any target platform and
 then packaged with its metadata. When a conda package is downloaded and
 then unpacked with a conda package management tool (e.g. Pixi, conda,
 mamba) the only thing that needs to be done to “install” that package is
-just copy the package’s file directory tree to the base of the
+to just copy the package’s file directory tree to the base of the
 environment’s directory tree. Package contents are also simple; they can
 only contain files and symbolic links.</p>
 <div class="section level3">
@@ -2611,7 +2611,7 @@ applications might need from the installed programs</li>
 <p>as well as some less common ones related to system administration</p>
 <ul>
 <li>
-<code>man:</code> for manual pages</li>
+<code>man</code>: for manual pages</li>
 <li>
 <code>sbin</code>: for system binaries</li>
 <li>
@@ -3242,11 +3242,11 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
 </div>
-</section></section><section id="aio-cuda-conda-pacakges"><p>Content from <a href="cuda-conda-pacakges.html">CUDA conda packages</a></p>
+</section></section><section id="aio-cuda-conda-packages"><p>Content from <a href="cuda-conda-packages.html">CUDA conda packages</a></p>
 <hr>
-<p>Last updated on 2025-12-05 |
+<p>Last updated on 2026-10-22 |
 
-        <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/cuda-conda-pacakges.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/cuda-conda-packages.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -3284,21 +3284,21 @@ any links that you are not going to use.
 <p>CUDA (Compute Unified Device Architecture) <a href="https://developer.nvidia.com/cuda-zone" class="external-link">is a parallel computing
 platform and programming model developed by NVIDIA for general computing
 on graphical processing units (GPUs)</a>. The CUDA ecosystem provides
-software developer software development kits (SDK) with APIs to CUDA
-that allow for software developers to write hardware accelerated
-programs with CUDA in various languages for NVIDIA GPUs. CUDA supports a
-number of languages including C, C++, Fortran, Python, and Julia. While
-there are other types of hardware acceleration development platforms, as
-of 2025 CUDA is the most abundant platform for scientific computing that
-uses GPUs and effectively the default choice for major machine learning
-libraries and applications.</p>
+software development kits (SDKs) with APIs to CUDA that allow for
+software developers to write hardware accelerated programs with CUDA in
+various languages for NVIDIA GPUs. CUDA supports a number of languages
+including C, C++, Fortran, Python, and Julia. While there are other
+types of hardware acceleration development platforms, as of 2025 CUDA is
+the most abundant platform for scientific computing that uses GPUs and
+effectively the default choice for major machine learning libraries and
+applications.</p>
 <p>CUDA is closed source and proprietary to NVIDIA, which means that
 NVIDIA has historically limited the download access of the CUDA toolkits
 and drivers to registered NVIDIA developers (while keeping the software
 free (monetarily) to use). CUDA then required a <a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/" class="external-link">multi-step
 installation process</a> with manual steps and decisions based on the
 target platform and particular CUDA version. This meant that when CUDA
-enabled environments were setup on a particular machine they were
+enabled environments were set up on a particular machine they were
 powerful and optimized, but brittle to change and could easily be broken
 if system wide updates (like for security fixes) occurred. CUDA software
 environments were bespoke and not many scientists understood how to
@@ -3453,7 +3453,7 @@ in <code>osx-arm64</code> environments.</p>
 </div>
 </div>
 <p>and then install the <a href="https://github.com/conda-forge/cuda-version-feedstock/blob/main/recipe/README.md" class="external-link"><code>cuda-version</code>
-metapacakge</a></p>
+metapackage</a></p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3538,21 +3538,21 @@ package (the only thing it does)</p>
 <span id="cb14-7"><a href="#cb14-7" tabindex="-1" aria-label="code-block-14-7"></a>  <span class="er">...</span></span>
 <span id="cb14-8"><a href="#cb14-8" tabindex="-1" aria-label="code-block-14-8"></a><span class="fu">}</span></span></code></pre>
 </div>
-<div id="use-the-feature-table-to-solve-environment-that-your-platform-doesnt-support" class="callout">
+<div id="use-the-feature-table-to-solve-environments-that-your-platform-doesnt-support" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <span class="callout-header">Callout</span>
-<div id="use-the-feature-table-to-solve-environment-that-your-platform-doesnt-support" class="callout-inner">
+<div id="use-the-feature-table-to-solve-environments-that-your-platform-doesnt-support" class="callout-inner">
 <h3 class="callout-title">Use the <code>feature</code> table to solve
-environment that your platform doesn’t support</h3>
+environments that your platform doesn’t support</h3>
 <div class="callout-content">
 <p>CUDA is supported only by NVIDIA GPUs, which means that macOS
 operating system platforms (<code>osx-64</code>, <code>osx-arm64</code>)
-can’t support it. Similarly, if you machine doesn’t have an NVIDIA GPU,
+can’t support it. Similarly, if your machine doesn’t have an NVIDIA GPU,
 then the <code>__cuda</code> virtual package won’t exist and installs of
-CUDA packages will fail. However, there’s many situations in which you
-want to <strong>solve and environment for a platform that you don’t
+CUDA packages will fail. However, there are many situations in which you
+want to <strong>solve an environment for a platform that you don’t
 have</strong> and we can do this for CUDA as well.</p>
 <p>If we make the Pixi workspace multiplatform</p>
 <div class="codewrapper sourceCode" id="cb15">
@@ -3593,7 +3593,7 @@ it for only that platform with</platform></p>
 </div>
 </div>
 </div>
-<p>This now means that if we ask for any CUDA enbabled packages, we will
+<p>This now means that if we ask for any CUDA enabled packages, we will
 get ones that are built to support <code>cudatoolkit</code>
 <code>v12.9.*</code></p>
 <div class="codewrapper sourceCode" id="cb19">
@@ -3720,7 +3720,7 @@ pytorch-gpu  2.7.1    cuda129_mkl_h43a4b0b_304        46.9 KiB   conda  https://
 <h3 class="callout-title">Redundancy in example</h3>
 <div class="callout-content">
 <p>Note that we added the <code>cuda</code> package here for
-demonstraton purposes, but we didn’t <em>need</em> to as it would
+demonstration purposes, but we didn’t <em>need</em> to as it would
 already be installed as a dependency of <code>pytorch-gpu</code>.</p>
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3764,7 +3764,7 @@ already be installed as a dependency of <code>pytorch-gpu</code>.</p>
 </div>
 </div>
 <p>and <strong>if on the supported <code>linux-64</code> platform with a
-valid <code>__cuda</code> virtual pacakge</strong> check that it can see
+valid <code>__cuda</code> virtual package</strong> check that it can see
 and find GPUs</p>
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3900,7 +3900,7 @@ Added these only for feature: cpu</code></pre>
 </div>
 <p>and then instantiate the <code>pytorch-cpu</code> package with a
 particular version and solve through <a href="https://pixi.sh/dev/reference/cli/pixi/upgrade/" class="external-link"><code>pixi upgrade</code></a>
-(or could readd the package to the feature)</p>
+(or could re-add the package to the feature)</p>
 <div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3989,7 +3989,7 @@ feature</p>
 <span id="cb48-18"><a href="#cb48-18" tabindex="-1" aria-label="code-block-48-18"></a><span class="dt">cpu</span> <span class="op">=</span> <span class="op">[</span><span class="st">"cpu"</span><span class="op">]</span></span>
 <span id="cb48-19"><a href="#cb48-19" tabindex="-1" aria-label="code-block-48-19"></a><span class="dt">gpu</span> <span class="op">=</span> <span class="op">[</span><span class="st">"gpu"</span><span class="op">]</span></span></code></pre>
 </div>
-<p>then add the <code>pytorch-gpu</code> pacakge for
+<p>then add the <code>pytorch-gpu</code> package for
 <code>linux-64</code> and <code>win-64</code> to the <code>gpu</code>
 feature</p>
 <div class="codewrapper sourceCode" id="cb49">
@@ -4076,8 +4076,8 @@ the files from this episode.</p>
 <div class="codewrapper sourceCode" id="cb56">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" tabindex="-1" aria-label="code-block-56-1"></a><span class="fu">git</span> add cuda-example/pixi.<span class="pp">*</span> cuda-example/git.<span class="pp">*</span></span>
-<span id="cb56-2"><a href="#cb56-2" tabindex="-1" aria-label="code-block-56-2"></a><span class="fu">git</span> add cuda-exercise/pixi.<span class="pp">*</span> cuda-exercise/git.<span class="pp">*</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" tabindex="-1" aria-label="code-block-56-1"></a><span class="fu">git</span> add cuda-example/pixi.<span class="pp">*</span> cuda-example/.git<span class="pp">*</span></span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1" aria-label="code-block-56-2"></a><span class="fu">git</span> add cuda-exercise/pixi.<span class="pp">*</span> cuda-exercise/.git<span class="pp">*</span></span></code></pre>
 </div>
 <p>Then push your branch to your remote on GitHub</p>
 <div class="codewrapper sourceCode" id="cb57">
@@ -4118,7 +4118,7 @@ Modal</li>
 <div class="callout-content">
 <ul>
 <li>The <code>cuda-version</code> metapackage can be used to specify
-constrains on the versions of the <code>__cuda</code> virtual package
+constraints on the versions of the <code>__cuda</code> virtual package
 and <code>cudatoolkit</code>.</li>
 <li>Pixi can specify a minimum required CUDA version with the
 <code>[system-requirements]</code> table.</li>
@@ -4127,7 +4127,7 @@ platform.</li>
 <li>NVIDIA’s open source team and the conda-forge community support the
 CUDA conda packages on conda-forge.</li>
 <li>The <a href="https://github.com/conda-forge/cuda-feedstock/tree/main/recipe" class="external-link"><code>cuda</code>
-metapackage</a> is the primary place to go for user documetnation on the
+metapackage</a> is the primary place to go for user documentation on the
 CUDA conda packages.</li>
 </ul>
 </div>
@@ -4139,7 +4139,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-pixi-deployment"><p>Content from <a href="pixi-deployment.html">Deploying Pixi environments with Linux containers</a></p>
 <hr>
-<p>Last updated on 2025-12-05 |
+<p>Last updated on 2026-10-22 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi-deployment.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
@@ -4154,7 +4154,7 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>How can Pixi environment be deployed to production compute
+<li>How can Pixi environments be deployed to production compute
 facilities?</li>
 <li>What tools can be used to achieve this?</li>
 </ul>
@@ -4197,16 +4197,15 @@ analysis code with a version control system (e.g. Git).</li>
 <p>That’s a nice and simple story, and it can work! However, in most
 realistic scenarios the worker compute nodes that are executing code
 share resource pools of storage and memory and are regulated to smaller
-allotments of both. CUDA binaries are relatively large files and amount
-of memory and storage to just unpack them can easily exceed a standard 2
-GB memory limit on most high throughput computing (HTC) facility worker
-nodes. This also requires direct access to the public internet, or for
-you to setup a <a href="https://pixi.sh/latest/deployment/s3/" class="external-link">S3 object
-store</a> behind your compute facility’s firewall with all of your conda
-packages mirrored into it. In many scenarios, public internet access at
-HTC and high performance computing (HPC) facilities is limited to only a
-select “allow list” of websites or it might be fully restricted for
-users.</p>
+allotments of both. CUDA binaries are relatively large files and the
+amount of memory and storage to just unpack them can easily exceed a
+standard 2 GB memory limit on most high throughput computing (HTC)
+facility worker nodes. This also requires direct access to the public
+internet, or for you to set up an <a href="https://pixi.sh/latest/deployment/s3/" class="external-link">S3 object store</a> behind
+your compute facility’s firewall with all of your conda packages
+mirrored into it. In many scenarios, public internet access at HTC and
+high performance computing (HPC) facilities is limited to only a select
+“allow list” of websites or it might be fully restricted for users.</p>
 </section><section><h2 class="section-heading" id="building-linux-containers-with-pixi-environments">Building Linux containers with Pixi environments<a class="anchor" aria-label="anchor" href="#building-linux-containers-with-pixi-environments"></a>
 </h2>
 <hr class="half-width">
@@ -4652,7 +4651,7 @@ Initiative (OCI) container image format, to Apptainer’s <a href="https://githu
 required. However, the overlay system of Apptainer is different from
 Docker, which means that the <code>ENTRYPOINT</code> of a Docker
 container image might not get correctly translated into an Apptainer
-<code>runscript</code> and <code>startscript</code>. In might be
+<code>runscript</code> and <code>startscript</code>. It might be
 advantageous, depending on your situation, to instead write an <a href="https://apptainer.org/docs/user/main/definition_files.html" class="external-link">Apptainer
 <code>.def</code> definition file</a>, giving full control over the
 commands, and then build that <code>.def</code> file into an
@@ -4722,10 +4721,7 @@ chmod +x /app/entrypoint.sh
 #!/bin/bash -e
 . /app/entrypoint.sh
 pixi info
-pixi list
-
-
-</code></pre>
+pixi list</code></pre>
 <p>Let’s break this down too.</p>
 <div id="accordionSpoiler2" class="accordion spoiler-accordion accordion-flush">
 <div class="accordion-item">
@@ -4781,10 +4777,10 @@ environment variable <code>CONDA_OVERRIDE_CUDA</code></a>.</li>
 export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
 ...</code></pre>
 <ul>
-<li>The definition files uses a <a href="https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds" class="external-link">multi-stage
+<li>The definition file uses a <a href="https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds" class="external-link">multi-stage
 build</a> where it first installs the target environment
 <code>&lt;environment&gt;</code> and then creates an
-<code>entrypoint.sh</code> script script that will be used as a <a href="https://apptainer.org/docs/user/main/definition_files.html#runscript" class="external-link"><code>runscript</code></a>
+<code>entrypoint.sh</code> script that will be used as a <a href="https://apptainer.org/docs/user/main/definition_files.html#runscript" class="external-link"><code>runscript</code></a>
 using <a href="https://pixi.sh/latest/reference/cli/pixi/shell-hook/" class="external-link"><code>pixi shell-hook</code></a>
 to automatically activate the environment when the container image is
 run.</li>
@@ -4849,7 +4845,7 @@ the container directly as a command</a>).</li>
 <li>We also define a <a href="https://apptainer.org/docs/user/main/definition_files.html#startscript" class="external-link"><code>startscript</code>
 section</a> that is the same as the <code>runscript</code>’s contents
 that is executed when the <a href="https://apptainer.org/docs/user/main/cli/apptainer_instance_start.html" class="external-link"><code>instance start</code></a>
-command is executed (which creates a container instances that starts
+command is executed (which creates a container instance that starts
 running in the background).</li>
 </ul>
 <pre><code>%startscript
@@ -4870,7 +4866,7 @@ pixi list</code></pre>
 </div>
 </div>
 </div>
-<p>With this Apptainer defintion file the container image can then be
+<p>With this Apptainer definition file the container image can then be
 built with <code>apptainer build</code></p>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4881,7 +4877,7 @@ built with <code>apptainer build</code></p>
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1" aria-label="code-block-28-1"></a><span class="ex">apptainer</span> build <span class="op">&lt;</span>container image name<span class="op">&gt;</span>.sif <span class="at">--build-arg</span> CUDA_VERSION=12 <span class="at">--build-arg</span> ENVIRONMENT_NAME=gpu <span class="op">&lt;</span>definition file name<span class="op">&gt;</span>.def</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1" aria-label="code-block-28-1"></a><span class="ex">apptainer</span> build <span class="op">&lt;</span>container image name<span class="op">&gt;</span>.sif <span class="at">--build-arg</span> CUDA_VERSION=12 <span class="at">--build-arg</span> ENVIRONMENT=gpu <span class="op">&lt;</span>definition file name<span class="op">&gt;</span>.def</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="automation-with-github-actions-workflows-1">Automation with GitHub Actions workflows<a class="anchor" aria-label="anchor" href="#automation-with-github-actions-workflows-1"></a>
@@ -5046,7 +5042,7 @@ any links that you are not going to use.
 </ol>
 </div></section><section id="aio-htc-systems"><p>Content from <a href="htc-systems.html">Using Pixi environments on HTC Systems</a></p>
 <hr>
-<p>Last updated on 2025-12-05 |
+<p>Last updated on 2026-10-22 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/htc-systems.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 90 minutes</p>
@@ -5085,7 +5081,7 @@ using HTCondor?</li>
 <hr class="half-width">
 <p>One of the most common forms of production computing is
 <strong>high-throughput computing (HTC)</strong>, where computational
-problems as distributed across multiple computing resources to
+problems are distributed across multiple computing resources to
 parallelize computations and reduce total compute time. HTC resources
 are quite dynamic, but usually focus on smaller memory and disk
 requirements on each individual worker compute node. This is in contrast
@@ -5113,8 +5109,8 @@ to.</p>
 <div class="section level3">
 <h3 id="training-a-pytorch-model-on-the-mnist-dataset">Training a PyTorch model on the MNIST dataset<a class="anchor" aria-label="anchor" href="#training-a-pytorch-model-on-the-mnist-dataset"></a>
 </h3>
-<p>Let’s write a very standard tutorial example of training a deep neral
-network on the <a href="https://en.wikipedia.org/wiki/MNIST_database" class="external-link">MNIST dataset</a>
+<p>Let’s write a very standard tutorial example of training a deep
+neural network on the <a href="https://en.wikipedia.org/wiki/MNIST_database" class="external-link">MNIST dataset</a>
 with PyTorch and then run it on GPUs in an HTCondor worker pool.</p>
 <div id="mea-culpa-more-interesting-examples-exist" class="callout caution">
 <div class="callout-square">
@@ -5126,15 +5122,15 @@ with PyTorch and then run it on GPUs in an HTCondor worker pool.</p>
 exist</h3>
 <div class="callout-content">
 <p>More exciting examples will be used in the future, but MNIST is
-perhaps one of the most simple examples to illustrate a point.</p>
+perhaps one of the simplest examples to illustrate a point.</p>
 </div>
 </div>
 </div>
 <div class="section level4">
 <h4 id="the-neural-network-code">The neural network code<a class="anchor" aria-label="anchor" href="#the-neural-network-code"></a>
 </h4>
-<p>We’ll download Python code that uses a convocational neural network
-written in PyTorch to learn to identify the handwritten number of the
+<p>We’ll download Python code that uses a convolutional neural network
+written in PyTorch to learn to identify the handwritten numbers of the
 MNIST dataset and place it under a <code>src/</code> directory. This is
 a <a href="https://github.com/pytorch/examples/blob/main/mnist/main.py" class="external-link">modified
 example from the PyTorch documentation</a> which is <a href="https://github.com/pytorch/examples/blob/abfa4f9cc4379de12f6c340538ef9a697332cccb/LICENSE" class="external-link">licensed
@@ -5155,7 +5151,7 @@ imports of <code>src/torch_MNIST.py</code> we can see that
 <code>torch</code> and <code>torchvision</code> are the only imported
 libraries that aren’t part of the Python standard library, so we will
 need to depend on PyTorch and <code>torchvision</code>. We also know
-that we’d like to use CUDA accelerated code, so that we’ll need CUDA
+that we’d like to use CUDA accelerated code, so we’ll need CUDA
 libraries and versions of PyTorch that support CUDA.</p>
 <div id="create-the-environment" class="callout challenge">
 <div class="callout-square">
@@ -5173,7 +5169,7 @@ libraries and versions of PyTorch that support CUDA.</p>
 <code>torchvision</code> that can be installed on <code>linux-64</code>,
 <code>osx-arm64</code>, and <code>win-64</code>.</li>
 <li>Has an environment that has the GPU version of PyTorch and
-<code>torchvision</code> that can be installed on <code>linux-64</code>,
+<code>torchvision</code> that can be installed on <code>linux-64</code>
 and <code>win-64</code>.</li>
 </ul>
 </div>
@@ -5228,7 +5224,7 @@ feature</p>
 </h3>
 <pre class="output" tabindex="0"><code>✔ Added environment cpu</code></pre>
 </div>
-<p>and insatiate it with particular versions</p>
+<p>and instantiate it with particular versions</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -5557,7 +5553,7 @@ container registry.</p>
 registry</h3>
 <div class="callout-content">
 <p>Add a GitHub Actions pipeline that will build both the apptainer.def
-and Dockerfile files deploy them to GitHub Container Registry
+and Dockerfile files and deploy them to GitHub Container Registry
 (<code>ghcr</code>). Have the image tags include the text
 <code>mnist</code> as this will be the identifying problem.</p>
 </div>
@@ -5739,7 +5735,7 @@ following:</p>
 <h3 class="callout-title">Version Control</h3>
 <div class="callout-content">
 <p>We now want to make sure that we can build container images with
-these defention files and workflows.</p>
+these definition files and workflows.</p>
 <p>On a <strong>new branch</strong> in your repository, add and commit
 the files from this episode.</p>
 <div class="codewrapper sourceCode" id="cb26">
@@ -5748,7 +5744,7 @@ the files from this episode.</p>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" tabindex="-1" aria-label="code-block-26-1"></a><span class="fu">git</span> add htcondor/pixi.<span class="pp">*</span></span>
 <span id="cb26-2"><a href="#cb26-2" tabindex="-1" aria-label="code-block-26-2"></a><span class="fu">git</span> add htcondor/.git<span class="pp">*</span></span>
 <span id="cb26-3"><a href="#cb26-3" tabindex="-1" aria-label="code-block-26-3"></a><span class="fu">git</span> add htcondor/apptainer.def</span>
-<span id="cb26-4"><a href="#cb26-4" tabindex="-1" aria-label="code-block-26-4"></a><span class="fu">git</span> add htcondor/Dockerfile.def</span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1" aria-label="code-block-26-4"></a><span class="fu">git</span> add htcondor/Dockerfile</span>
 <span id="cb26-5"><a href="#cb26-5" tabindex="-1" aria-label="code-block-26-5"></a><span class="fu">git</span> add .github/workflows/containers.yaml</span></code></pre>
 </div>
 <p>Then push your branch to your remote on GitHub</p>
@@ -5793,7 +5789,7 @@ for the particular image</p>
 <h3 class="callout-title">This episode will be on a remote system</h3>
 <div class="callout-content">
 <p>All the computation in the rest of this episode will take place on a
-remote system with a HTC workflow manager.</p>
+remote system with an HTC workflow manager.</p>
 </div>
 </div>
 </div>
@@ -5835,7 +5831,7 @@ relates to our code.</p>
 <li>We’ll be running in the <code>gpu</code> environment that we defined
 with Pixi and built into our Apptainer container image.</li>
 <li>For security reasons the HTCondor worker nodes don’t have full
-connection to all of the internet. So we’ll need to transfer out input
+connection to all of the internet. So we’ll need to transfer our input
 data and source code rather than download it on demand.</li>
 <li>We’ll need to activate the environment using the
 <code>/app/entrypoint.sh</code> script we built into the Apptainer
@@ -5885,7 +5881,7 @@ container image.</li>
 <div class="section level3">
 <h3 id="write-the-htcondor-submit-description-file">Write the HTCondor submit description file<a class="anchor" aria-label="anchor" href="#write-the-htcondor-submit-description-file"></a>
 </h3>
-<p>This is pretty standard boiler plate taken from the <a href="https://htcondor.readthedocs.io/en/latest/users-manual/submitting-a-job.html" class="external-link">HTCondor
+<p>This is pretty standard boilerplate taken from the <a href="https://htcondor.readthedocs.io/en/latest/users-manual/submitting-a-job.html" class="external-link">HTCondor
 documentation</a></p>
 <pre class="condor"><code># mnist_gpu_apptainer.sub
 # Submit file to access the GPU via apptainer
@@ -5934,7 +5930,7 @@ gpus_minimum_capability = 5.0
 # Optional: required GPU memory
 gpus_minimum_memory = 2GB
 
-# Tell HTCondor to run 1 instances of our job:
+# Tell HTCondor to run 1 instance of our job:
 queue 1</code></pre>
 </div>
 <div class="section level3">
@@ -6190,7 +6186,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-hpc-systems"><p>Content from <a href="hpc-systems.html">Using Pixi environments on HPC Systems</a></p>
 <hr>
-<p>Last updated on 2025-12-05 |
+<p>Last updated on 2026-10-22 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/hpc-systems.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 40 minutes</p>
@@ -6300,14 +6296,14 @@ example. Let’s first create a new project in our Git repository</p>
 <h3 class="callout-title">This episode will be on a remote system</h3>
 <div class="callout-content">
 <p>All the computation in the rest of this episode will take place on a
-remote system with a HPC workflow manager.</p>
+remote system with an HPC workflow manager.</p>
 </div>
 </div>
 </div>
 <p>To provide a very high level overview of Slurm in this episode we’ll
 focus on only a few of its many resources and capabilities.</p>
 <ol style="list-style-type: decimal">
-<li>Writing SLRUM execution scripts to define what the Slurm worker
+<li>Writing Slurm execution scripts to define what the Slurm worker
 nodes will actually do.</li>
 <li>Writing a <a href="https://slurm.schedmd.com/sbatch.html" class="external-link">batch
 script</a> to send our jobs to Slurm.</li>
@@ -6323,7 +6319,7 @@ code.</p>
 <ul>
 <li>We’ll be running in the <code>gpu</code> environment that we defined
 with Pixi.</li>
-<li>The workers will have access to the shared files system that the
+<li>The workers will have access to the shared file system that the
 login node has, so we can write our execution script as if it was
 local.</li>
 </ul>
@@ -6398,7 +6394,7 @@ Constraint list on required node features, if any.</li>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="co">#!/usr/bin/env bash</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a><span class="co"># mnist_gpu_slurm.sh</span></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a><span class="co">#SBATCH --job-name="mnist_gpu"</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a><span class="co">#SBATCH --partition=&lt;PARTITITON NAME&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a><span class="co">#SBATCH --partition=&lt;PARTITION NAME&gt;</span></span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1" aria-label="code-block-7-5"></a><span class="co">#SBATCH --mem=2G</span></span>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1" aria-label="code-block-7-6"></a><span class="co">#SBATCH --nodes=1</span></span>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1" aria-label="code-block-7-7"></a><span class="co">#SBATCH --ntasks-per-node=1</span></span>
@@ -6441,7 +6437,7 @@ system.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p><strong><code>partition</code></strong></p>
 <p>Using <a href="https://slurm.schedmd.com/sinfo.html" class="external-link"><code>sinfo -o "%R"</code></a>
@@ -6471,7 +6467,7 @@ means compute nodes have access to the scratch disk partition.</p>
 </h3>
 <p>To make it easy for us, we can write a small job submission script
 <code>submit.sh</code> that will prepare the data for us and submit the
-submit description file to Slurm for us with <a href="https://slurm.schedmd.com/sbatch.html" class="external-link"><code>sbatch</code></a>.</p>
+batch script to Slurm for us with <a href="https://slurm.schedmd.com/sbatch.html" class="external-link"><code>sbatch</code></a>.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -6603,8 +6599,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/aio.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/aio.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2026-10-20",
-  "datePublished": "2026-10-20"
+  "dateModified": "2026-10-22",
+  "datePublished": "2026-10-22"
 }
 
   </script><script>

@@ -22,7 +22,13 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/conda-pacakges.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/conda-packages.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/cuda-conda-pacakges.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/cuda-conda-packages.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/hpc-systems.html</loc>
@@ -58,7 +64,13 @@
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/conda-pacakges.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/conda-packages.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/cuda-conda-pacakges.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/cuda-conda-packages.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/hpc-systems.html</loc>

@@ -235,7 +235,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="conda-pacakges.html">4. Conda packages</a>
+        <a href="conda-packages.html">4. Conda packages</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -244,7 +244,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="cuda-conda-pacakges.html">5. CUDA conda packages</a>
+        <a href="cuda-conda-packages.html">5. CUDA conda packages</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -347,12 +347,12 @@
         <!-- START: inst/pkgdown/templates/content-instructor.html -->
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter Top"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="../instructor/cuda-conda-pacakges.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="../instructor/cuda-conda-packages.html" rel="prev"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/htc-systems.html" rel="next">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="../instructor/cuda-conda-pacakges.html" rel="prev">
+        <a class="chapter-link" href="../instructor/cuda-conda-packages.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: CUDA conda packages...
         </a>
@@ -363,7 +363,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Deploying Pixi environments with Linux containers</h1>
-        <p>Last updated on 2025-12-05 |
+        <p>Last updated on 2026-10-22 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi-deployment.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -384,7 +384,7 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>How can Pixi environment be deployed to production compute
+<ul><li>How can Pixi environments be deployed to production compute
 facilities?</li>
 <li>What tools can be used to achieve this?</li>
 </ul></div>
@@ -420,16 +420,15 @@ analysis code with a version control system (e.g. Git).</li>
 </ol><p>That’s a nice and simple story, and it can work! However, in most
 realistic scenarios the worker compute nodes that are executing code
 share resource pools of storage and memory and are regulated to smaller
-allotments of both. CUDA binaries are relatively large files and amount
-of memory and storage to just unpack them can easily exceed a standard 2
-GB memory limit on most high throughput computing (HTC) facility worker
-nodes. This also requires direct access to the public internet, or for
-you to setup a <a href="https://pixi.sh/latest/deployment/s3/" class="external-link">S3 object
-store</a> behind your compute facility’s firewall with all of your conda
-packages mirrored into it. In many scenarios, public internet access at
-HTC and high performance computing (HPC) facilities is limited to only a
-select “allow list” of websites or it might be fully restricted for
-users.</p>
+allotments of both. CUDA binaries are relatively large files and the
+amount of memory and storage to just unpack them can easily exceed a
+standard 2 GB memory limit on most high throughput computing (HTC)
+facility worker nodes. This also requires direct access to the public
+internet, or for you to set up an <a href="https://pixi.sh/latest/deployment/s3/" class="external-link">S3 object store</a> behind
+your compute facility’s firewall with all of your conda packages
+mirrored into it. In many scenarios, public internet access at HTC and
+high performance computing (HPC) facilities is limited to only a select
+“allow list” of websites or it might be fully restricted for users.</p>
 </section><section><h2 class="section-heading" id="building-linux-containers-with-pixi-environments">Building Linux containers with Pixi environments<a class="anchor" aria-label="anchor" href="#building-linux-containers-with-pixi-environments"></a></h2>
 <hr class="half-width"><p>A more standard and robust way of distributing computing environments
 is the use of <a href="https://pixi.sh/latest/deployment/container/" class="external-link">Linux container</a>
@@ -852,7 +851,7 @@ Initiative (OCI) container image format, to Apptainer’s <a href="https://githu
 required. However, the overlay system of Apptainer is different from
 Docker, which means that the <code>ENTRYPOINT</code> of a Docker
 container image might not get correctly translated into an Apptainer
-<code>runscript</code> and <code>startscript</code>. In might be
+<code>runscript</code> and <code>startscript</code>. It might be
 advantageous, depending on your situation, to instead write an <a href="https://apptainer.org/docs/user/main/definition_files.html" class="external-link">Apptainer
 <code>.def</code> definition file</a>, giving full control over the
 commands, and then build that <code>.def</code> file into an
@@ -922,10 +921,7 @@ chmod +x /app/entrypoint.sh
 #!/bin/bash -e
 . /app/entrypoint.sh
 pixi info
-pixi list
-
-
-</code></pre>
+pixi list</code></pre>
 <p>Let’s break this down too.</p>
 <div id="accordionSpoiler2" class="accordion spoiler-accordion accordion-flush">
 <div class="accordion-item">
@@ -974,10 +970,10 @@ environment variable <code>CONDA_OVERRIDE_CUDA</code></a>.</li>
 #!/bin/bash
 export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
 ...</code></pre>
-<ul><li>The definition files uses a <a href="https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds" class="external-link">multi-stage
+<ul><li>The definition file uses a <a href="https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds" class="external-link">multi-stage
 build</a> where it first installs the target environment
 <code>&lt;environment&gt;</code> and then creates an
-<code>entrypoint.sh</code> script script that will be used as a <a href="https://apptainer.org/docs/user/main/definition_files.html#runscript" class="external-link"><code>runscript</code></a>
+<code>entrypoint.sh</code> script that will be used as a <a href="https://apptainer.org/docs/user/main/definition_files.html#runscript" class="external-link"><code>runscript</code></a>
 using <a href="https://pixi.sh/latest/reference/cli/pixi/shell-hook/" class="external-link"><code>pixi shell-hook</code></a>
 to automatically activate the environment when the container image is
 run.</li>
@@ -1032,7 +1028,7 @@ the container directly as a command</a>).</li>
 <ul><li>We also define a <a href="https://apptainer.org/docs/user/main/definition_files.html#startscript" class="external-link"><code>startscript</code>
 section</a> that is the same as the <code>runscript</code>’s contents
 that is executed when the <a href="https://apptainer.org/docs/user/main/cli/apptainer_instance_start.html" class="external-link"><code>instance start</code></a>
-command is executed (which creates a container instances that starts
+command is executed (which creates a container instance that starts
 running in the background).</li>
 </ul><pre><code>%startscript
 #!/bin/bash
@@ -1050,7 +1046,7 @@ pixi list</code></pre>
 </div>
 </div>
 </div>
-<p>With this Apptainer defintion file the container image can then be
+<p>With this Apptainer definition file the container image can then be
 built with <code>apptainer build</code></p>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1061,7 +1057,7 @@ built with <code>apptainer build</code></p>
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1" aria-label="code-block-28-1"></a><span class="ex">apptainer</span> build <span class="op">&lt;</span>container image name<span class="op">&gt;</span>.sif <span class="at">--build-arg</span> CUDA_VERSION=12 <span class="at">--build-arg</span> ENVIRONMENT_NAME=gpu <span class="op">&lt;</span>definition file name<span class="op">&gt;</span>.def</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1" aria-label="code-block-28-1"></a><span class="ex">apptainer</span> build <span class="op">&lt;</span>container image name<span class="op">&gt;</span>.sif <span class="at">--build-arg</span> CUDA_VERSION=12 <span class="at">--build-arg</span> ENVIRONMENT=gpu <span class="op">&lt;</span>definition file name<span class="op">&gt;</span>.def</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="automation-with-github-actions-workflows-1">Automation with GitHub Actions workflows<a class="anchor" aria-label="anchor" href="#automation-with-github-actions-workflows-1"></a></h3>
@@ -1224,12 +1220,12 @@ any links that you are not going to use.
 
       </div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter Bottom"><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="../instructor/cuda-conda-pacakges.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="../instructor/cuda-conda-packages.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/htc-systems.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="../instructor/cuda-conda-pacakges.html" rel="prev">
+        <a class="chapter-link" href="../instructor/cuda-conda-packages.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: CUDA conda packages...
         </a>
@@ -1282,8 +1278,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-deployment.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-deployment.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-12-05",
-  "datePublished": "2026-10-20"
+  "dateModified": "2026-10-22",
+  "datePublished": "2026-10-22"
 }
 
   </script><script>

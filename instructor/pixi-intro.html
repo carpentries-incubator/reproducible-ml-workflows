@@ -249,7 +249,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="conda-pacakges.html">4. Conda packages</a>
+        <a href="conda-packages.html">4. Conda packages</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -258,7 +258,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="cuda-conda-pacakges.html">5. CUDA conda packages</a>
+        <a href="cuda-conda-packages.html">5. CUDA conda packages</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -363,7 +363,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Pixi</h1>
-        <p>Last updated on 2025-12-05 |
+        <p>Last updated on 2026-10-22 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi-intro.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -439,25 +439,25 @@ workspace being updated. This ensures that any and every state of a Pixi
 project is trivially computationally reproducible.</li>
 <li>
 <strong>Solving environments for other platforms</strong>: Pixi
-allows the user to solve environment for platforms other than the
+allows the user to solve environments for platforms other than the
 current user machine’s. This allows for users to solve and share
-environment to any collaborator with confidence that all environments
+environments with any collaborator with confidence that all environments
 will work with no additional setup.</li>
 <li>
-<strong>Pairity of conda and Python packages</strong>: Pixi allows
+<strong>Parity of conda and Python packages</strong>: Pixi allows
 for conda packages and Python packages to be used together seamlessly,
 and is unique in its ability to handle overlap in dependencies between
 them. Pixi will first solve all conda package requirements for the
 target environment, lock the environment, and then solve all the
 dependencies of the Python packages for the environment, determine if
-there are any overlaps with the existing conda environment, and the only
-install the missing Python dependencies. This ensures allows for fully
-reproducible solves and for the two package ecosystems to compliment
+there are any overlaps with the existing conda environment, and then
+only install the missing Python dependencies. This allows for fully
+reproducible solves and for the two package ecosystems to complement
 each other rather than potentially cause conflicts.</li>
 <li>
 <strong>Efficient caching</strong>: Pixi uses an extremely efficient
 global caching scheme. This means that the first time a package is
-installed on a machine with Pixi is the slowest is will ever be to
+installed on a machine with Pixi is the slowest it will ever be to
 install it for any future project on the machine while the cache is
 still active.</li>
 </ol></section><section><h2 class="section-heading" id="project-based-workflows">Project-based workflows<a class="anchor" aria-label="anchor" href="#project-based-workflows"></a></h2>
@@ -485,7 +485,7 @@ system cache periodically.</li>
 components of previous projects.</li>
 </ul></section><section><h2 class="section-heading" id="pixi-project-files-and-the-cli-api-basics">Pixi project files and the CLI API basics<a class="anchor" aria-label="anchor" href="#pixi-project-files-and-the-cli-api-basics"></a></h2>
 <hr class="half-width"><p>Every Pixi project begins with creating a manifest file. A manifest
-file is a declarative configuration file that list what the high level
+file is a declarative configuration file that lists what the high level
 requirements of a project are. Pixi then takes those requirements and
 constraints and solves for the full dependency tree.</p>
 <p>Let’s create our first Pixi project. First, to have a uniform
@@ -561,8 +561,8 @@ directory structure</p>
 </div>
 </div>
 </div>
-<p>We see that Pixi has setup Git configuration files for the project as
-well as a Pixi manifest <code>pixi.toml</code> file. Checking the
+<p>We see that Pixi has set up Git configuration files for the project
+as well as a Pixi manifest <code>pixi.toml</code> file. Checking the
 default manifest file, we see three TOML tables: <code>workspace</code>,
 <code>tasks</code>, and <code>dependencies</code>.</p>
 <div class="codewrapper sourceCode" id="cb8">
@@ -752,7 +752,7 @@ of every package that appears in the <code>environments</code> lists,
 including the package’s URL on the conda package index and digests
 (e.g. sha256, md5).</p>
 <p>Here’s an example of what the <code>environments</code> and
-<code>packages</code> groups look like in the <code>pixi.toml</code>
+<code>packages</code> groups look like in the <code>pixi.lock</code>
 file we created for a <code>linux-64</code> platform machine.</p>
 <pre><code>version: 6
 environments:
@@ -1073,7 +1073,7 @@ task</h3>
 <div class="callout-content">
 <p>For Pixi projects, it is canonical to have a <code>start</code> task
 so that for any Pixi project a user can navigate to the top level
-directory of a project run</p>
+directory of a project and run</p>
 <div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1201,7 +1201,7 @@ start  Start exploring the Pixi project</code></pre>
 <p>Here we used <a href="https://pixi.sh/latest/reference/cli/pixi/run/" class="external-link"><code>pixi run</code></a>
 to execute tasks in the workspace’s environments without ever explicitly
 activating the environment. This is a different behavior compared to
-tools like conda of Python virtual environments, where the assumption is
+tools like conda or Python virtual environments, where the assumption is
 that you have activated an environment before using it. With Pixi we can
 do the equivalent with <a href="https://pixi.sh/latest/reference/cli/pixi/shell/" class="external-link"><code>pixi shell</code></a>,
 which starts a subshell in the current working directory with the Pixi
@@ -1313,7 +1313,7 @@ list.</p>
 <div class="callout-content">
 <p>“<a href="https://pixi.sh/latest/reference/pixi_manifest/#the-feature-and-environments-tables" class="external-link">Features</a>”
 in Pixi are TOML tables that define a <em>part</em> of an environment,
-but by itself is not useable. Features can be composed together to
+but by themselves are not usable. Features can be composed together to
 create an environment — think of how individual LEGO bricks (features)
 can be connected together to build a larger structure (an environment).
 Features can also be used across multiple environments, which allows for
@@ -1512,7 +1512,7 @@ seconds.</p>
 <div class="callout-content">
 <p>As part of this lesson, we are building up a Git repository of the
 examples that we move through. On a <strong>new branch</strong> in your
-repository, add and commit the files from the this episode.</p>
+repository, add and commit the files from this episode.</p>
 <div class="codewrapper sourceCode" id="cb64">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1614,8 +1614,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-intro.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-intro.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2025-12-05",
-  "datePublished": "2026-10-20"
+  "dateModified": "2026-10-22",
+  "datePublished": "2026-10-22"
 }
 
   </script><script>
