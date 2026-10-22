@@ -661,6 +661,7 @@ On a **new branch** in your repository, add and commit the files from this episo
 ```bash
 git add cuda-example/pixi.* cuda-example/.git*
 git add cuda-exercise/pixi.* cuda-exercise/.git*
+git commit
 ```
 
 Then push your branch to your remote on GitHub

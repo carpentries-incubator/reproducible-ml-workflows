@@ -352,6 +352,7 @@ On a **new branch** in your repository, add and commit the files from this episo
 git add cuda-exercise/app
 git add cuda-exercise/Dockerfile
 git add .github
+git commit
 ```
 
 Then push your branch to your remote on GitHub
@@ -677,6 +678,7 @@ On a **new branch** in your repository, add and commit the files from this episo
 ```bash
 git add cuda-exercise/apptainer.def
 git add .github/workflows/apptainer.yaml
+git commit
 ```
 
 Then push your branch to your remote on GitHub
