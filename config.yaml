@@ -70,8 +70,8 @@ episodes:
 - introduction.md
 - pixi-intro.md
 - backwards-compatibility.md
-- conda-pacakges.md
-- cuda-conda-pacakges.md
+- conda-packages.md
+- cuda-conda-packages.md
 - pixi-deployment.md
 - htc-systems.md
 - hpc-systems.md

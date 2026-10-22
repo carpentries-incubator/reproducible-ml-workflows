@@ -20,7 +20,7 @@ exercises: 8
 
 ## Introduction
 
-Modern scientific analyses are complex software and logistical workflows that may span multiple software environments and require heterogenous software and computing infrastructure.
+Modern scientific analyses are complex software and logistical workflows that may span multiple software environments and require heterogeneous software and computing infrastructure.
 Scientific researchers need to use these tools to be able to do their research, and to ensure the validity of their work, which can be difficult.
 Scientific software enables all of this work to happen, but software isn't a static resource &mdash; software is continually developed, revised, and released, which can introduce breaking changes or subtle computational differences in outputs and results.
 Having the software you're using change without you intending it from day-to-day, run-to-run, or on different machines is problematic when trying to do high quality research.
@@ -29,7 +29,7 @@ All of these things are not desirable!
 
 ::: callout
 
-When discussing "software" in this lesson we will primarily be meaning open source software that is openly developed.
+When discussing "software" in this lesson we will primarily mean open source software that is openly developed.
 However, there are situations in which software might (for good reason) be:
 
 * Closed development with open source release artifacts
@@ -46,10 +46,10 @@ Take 3 minutes to discuss the following questions in small groups.
 
 **What are other challenges to doing reproducible research?**
 
-Think about all aspects of research computing &mdash; data, hardware, and software &mdash; from collecting and cleaning the data through analysis and visualization to publishing your methods and results?
+Think about all aspects of research computing &mdash; data, hardware, and software &mdash; from collecting and cleaning the data through analysis and visualization to publishing your methods and results.
 
-Have you even inherited a project from a previous contributor?
-Or gone back to a previous project more than couple months later and struggled to get back into it?
+Have you ever inherited a project from a previous contributor?
+Or gone back to a previous project more than a couple of months later and struggled to get back into it?
 What issues did you come across?
 
 ::: solution
@@ -59,7 +59,7 @@ What issues did you come across?
 There are many! Here are some you might have thought of:
 
 * (Not having) Access to data
-* Required software packages be removed from mutable package indexes
+* Required software packages being removed from mutable package indexes
 * Unreproducible builds of software that isn't packaged and distributed on public package indexes
 * Analysis code not being under version control
 * Not having any environment definition configuration files
@@ -121,7 +121,7 @@ Not necessarily.
 Even though the computational software environment is identical there are things that can change between runs of software that could slightly change numerical results (e.g. random number generation seeds, file read order, machine entropy).
 This isn't necessarily a problem, and in general one should be more concerned with getting answers that make sense within application uncertainties than matching down to machine precision.
 
-Did your the individuals in your group agree?
+Did the individuals in your group agree?
 
 :::
 :::

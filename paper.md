@@ -86,7 +86,7 @@ and if participants are working with access to a high-performance computing (HPC
 # Content
 
 The content of the course is aimed at a target audience of professional researchers who already have experience with scientific software development, including file system structures, such as the Filesystem Hierarchy Standard of Unix-like systems, version control software, such as Git, and programming languages, such as Python or C++, and a working understanding of the goals of machine learning.
-Experience with Linux containers and CI/CD systems are strongly beneficial to participation in the course, and while not strictly required, should be considered as non-optional to gain the most benefit from participation in the course.
+Experience with Linux containers and CI/CD systems is strongly beneficial to participation in the course, and while not strictly required, should be considered as non-optional to gain the most benefit from participation in the course.
 The focus of the course is on applications using CUDA enabled Python machine learning libraries, as well as deploying these software environments to production settings on HTC and HPC systems.
 This course does not teach machine learning concepts, but will focus on the methodologies and tools to make existing machine learning workflows reproducible.
 
@@ -99,7 +99,7 @@ Additional experience teaching the course in different workshop settings is need
 
 # How the project came to be
 
-This course was motivated from experience and difficulty in creating CUDA accelerated software environments for machine learning research studies in experimental physics.
+This course was motivated by experience and difficulty in creating CUDA accelerated software environments for machine learning research studies in experimental physics.
 The challenge was to create environments that could resolve quickly enough to allow for rapid experimentation on local compute resources and then be deployed to remote resources, while also being robust to temporal drift of software versions and compute platform hardware-level system requirements.
 This multi-year challenge was disrupted in September, 2023 [@feickert_odsl:2023] with first experiments in using Pixi and CUDA enabled PyTorch builds from conda-forge, which led to questions of distributed computing applications for real world research problems.
 Further motivation came from conversations with Pixi developers Ruben Arts and Wolf Vollprecht at the 2024 SciPy conference in July, 2024.

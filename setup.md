@@ -13,7 +13,7 @@ This gives you version controlled examples that you can take forward with you as
 
 1. Create a [GitHub account](https://github.com/) if you don't have one yet.
 1. Navigate to your GitHub profile (https://github.com/<username>) and click the "+" icon in the upper right hand side to [create a new repository](https://github.com/new).
-1. Name the new repository named `pixi-cuda-lesson`, make it public, and give it a README and an [open source license](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) (e.g. MIT License).
+1. Name the new repository `pixi-cuda-lesson`, make it public, and give it a README and an [open source license](https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) (e.g. MIT License).
 1. As GitHub requires two-factor authentication, it is highly recommended that you [generate an SSH key pair](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) specifically for GitHub, [add the generated SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account), and then use your SSH keys to connect with GitHub.
 
 ::: caution
@@ -130,14 +130,14 @@ Typically the path is `~\Documents\PowerShell\Microsoft.PowerShell_profile.ps1`.
 # Optionally disable Apple SIP for your terminal emulator
 
 If you are on macOS, [Apple System Integrity Protection (SIP)](https://en.wikipedia.org/wiki/System_Integrity_Protection) will security scan everything executed in your terminal emulator (and the rest of the computer) the first time you ever use it.
-This can add _significant_ runtime overhead for the first time you ever execute any code a bespoke computing environment (e.g. a Pixi environment).
+This can add _significant_ runtime overhead for the first time you ever execute any code in a bespoke computing environment (e.g. a Pixi environment).
 If this overhead becomes problematic, you can disable it for your terminal emulator program by selecting "Settings" → "Privacy & Security" → "Developer Tools" and adding your terminal emulator program of choice.
 
 :::
 
 ## Docker (optional)
 
-While not explicitly required for this lesson, if you would like to have a more full interactive experience with the material it is suggested that you install the Linux container runtime and tool [Docker](https://www.docker.com/).
+While not explicitly required for this lesson, if you would like to have a fuller interactive experience with the material it is suggested that you install the Linux container runtime and tool [Docker](https://www.docker.com/).
 Install instructions for Docker can be found for your specific platform on [the Docker docs website](https://docs.docker.com/desktop/).
 
 ::: callout

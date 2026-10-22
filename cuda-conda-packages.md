@@ -21,13 +21,13 @@ exercises: 15
 ## CUDA
 
 CUDA (Compute Unified Device Architecture) [is a parallel computing platform and programming model developed by NVIDIA for general computing on graphical processing units (GPUs)](https://developer.nvidia.com/cuda-zone).
-The CUDA ecosystem provides software developer software development kits (SDK) with APIs to CUDA that allow for software developers to write hardware accelerated programs with CUDA in various languages for NVIDIA GPUs.
+The CUDA ecosystem provides software development kits (SDKs) with APIs to CUDA that allow for software developers to write hardware accelerated programs with CUDA in various languages for NVIDIA GPUs.
 CUDA supports a number of languages including C, C++, Fortran, Python, and Julia.
 While there are other types of hardware acceleration development platforms, as of 2025 CUDA is the most abundant platform for scientific computing that uses GPUs and effectively the default choice for major machine learning libraries and applications.
 
 CUDA is closed source and proprietary to NVIDIA, which means that NVIDIA has historically limited the download access of the CUDA toolkits and drivers to registered NVIDIA developers (while keeping the software free (monetarily) to use).
 CUDA then required a [multi-step installation process](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/) with manual steps and decisions based on the target platform and particular CUDA version.
-This meant that when CUDA enabled environments were setup on a particular machine they were powerful and optimized, but brittle to change and could easily be broken if system wide updates (like for security fixes) occurred.
+This meant that when CUDA enabled environments were set up on a particular machine they were powerful and optimized, but brittle to change and could easily be broken if system wide updates (like for security fixes) occurred.
 CUDA software environments were bespoke and not many scientists understood how to construct and curate them.
 
 ## CUDA on conda-forge
@@ -137,7 +137,7 @@ Pixi will ignore that requirement unless you try to use CUDA packages in `osx-ar
 
 :::
 
-and then install the [`cuda-version` metapacakge](https://github.com/conda-forge/cuda-version-feedstock/blob/main/recipe/README.md)
+and then install the [`cuda-version` metapackage](https://github.com/conda-forge/cuda-version-feedstock/blob/main/recipe/README.md)
 
 ```bash
 pixi add "cuda-version 12.9.*"
@@ -216,11 +216,11 @@ we see that it now enforces constraints on the versions of `cudatoolkit` that ca
 
 ::: callout
 
-## Use the `feature` table to solve environment that your platform doesn't support
+## Use the `feature` table to solve environments that your platform doesn't support
 
 CUDA is supported only by NVIDIA GPUs, which means that macOS operating system platforms (`osx-64`, `osx-arm64`) can't support it.
-Similarly, if you machine doesn't have an NVIDIA GPU, then the `__cuda` virtual package won't exist and installs of CUDA packages will fail.
-However, there's many situations in which you want to **solve and environment for a platform that you don't have** and we can do this for CUDA as well.
+Similarly, if your machine doesn't have an NVIDIA GPU, then the `__cuda` virtual package won't exist and installs of CUDA packages will fail.
+However, there are many situations in which you want to **solve an environment for a platform that you don't have** and we can do this for CUDA as well.
 
 If we make the Pixi workspace multiplatform
 
@@ -254,7 +254,7 @@ pixi add --platform <platform> <dependency>
 
 :::
 
-This now means that if we ask for any CUDA enbabled packages, we will get ones that are built to support `cudatoolkit` `v12.9.*`
+This now means that if we ask for any CUDA enabled packages, we will get ones that are built to support `cudatoolkit` `v12.9.*`
 
 ```bash
 pixi add --platform linux-64 cuda
@@ -361,7 +361,7 @@ pytorch-gpu = ">=2.7.1,<3"
 
 ## Redundancy in example
 
-Note that we added the `cuda` package here for demonstraton purposes, but we didn't _need_ to as it would already be installed as a dependency of `pytorch-gpu`.
+Note that we added the `cuda` package here for demonstration purposes, but we didn't _need_ to as it would already be installed as a dependency of `pytorch-gpu`.
 
 ```bash
 cat .pixi/envs/default/conda-meta/pytorch-gpu-*.json
@@ -400,7 +400,7 @@ cat .pixi/envs/default/conda-meta/pytorch-gpu-*.json
 
 :::
 
-and **if on the supported `linux-64` platform with a valid `__cuda` virtual pacakge** check that it can see and find GPUs
+and **if on the supported `linux-64` platform with a valid `__cuda` virtual package** check that it can see and find GPUs
 
 ```python
 # torch_detect_GPU.py
@@ -503,7 +503,7 @@ pixi workspace environment add --feature cpu cpu
 ✔ Added environment cpu
 ```
 
-and then instantiate the `pytorch-cpu` package with a particular version and solve through [`pixi upgrade`](https://pixi.sh/dev/reference/cli/pixi/upgrade/) (or could readd the package to the feature)
+and then instantiate the `pytorch-cpu` package with a particular version and solve through [`pixi upgrade`](https://pixi.sh/dev/reference/cli/pixi/upgrade/) (or could re-add the package to the feature)
 
 ```bash
 pixi upgrade --feature cpu pytorch-cpu
@@ -585,7 +585,7 @@ cpu = ["cpu"]
 gpu = ["gpu"]
 ```
 
-then add the `pytorch-gpu` pacakge for `linux-64` and `win-64` to the `gpu` feature
+then add the `pytorch-gpu` package for `linux-64` and `win-64` to the `gpu` feature
 
 ```bash
 pixi add --platform linux-64 --platform win-64 --feature gpu pytorch-gpu
@@ -659,8 +659,8 @@ we created separate CPU and GPU computational environments that are now fully re
 On a **new branch** in your repository, add and commit the files from this episode.
 
 ```bash
-git add cuda-example/pixi.* cuda-example/git.*
-git add cuda-exercise/pixi.* cuda-exercise/git.*
+git add cuda-example/pixi.* cuda-example/.git*
+git add cuda-exercise/pixi.* cuda-exercise/.git*
 ```
 
 Then push your branch to your remote on GitHub
@@ -685,10 +685,10 @@ If you would also like a useful summary of different things related to CUDA, che
 
 ::: keypoints
 
-* The `cuda-version` metapackage can be used to specify constrains on the versions of the `__cuda` virtual package and `cudatoolkit`.
+* The `cuda-version` metapackage can be used to specify constraints on the versions of the `__cuda` virtual package and `cudatoolkit`.
 * Pixi can specify a minimum required CUDA version with the `[system-requirements]` table.
 * Pixi can solve environments for platforms that are not the system platform.
 * NVIDIA's open source team and the conda-forge community support the CUDA conda packages on conda-forge.
-* The [`cuda` metapackage](https://github.com/conda-forge/cuda-feedstock/tree/main/recipe) is the primary place to go for user documetnation on the CUDA conda packages.
+* The [`cuda` metapackage](https://github.com/conda-forge/cuda-feedstock/tree/main/recipe) is the primary place to go for user documentation on the CUDA conda packages.
 
 :::

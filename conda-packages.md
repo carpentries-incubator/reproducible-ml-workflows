@@ -21,7 +21,7 @@ exercises: 15
 In a previous episode we learned that Pixi can control conda packages, but what _is_ a conda package?
 [Conda packages](https://docs.conda.io/projects/conda/en/stable/user-guide/concepts/packages.html) (`.conda` files) are language agnostic file archives that contain built code distributions.
 This is quite powerful, as it allows for arbitrary code to be built for any target platform and then packaged with its metadata.
-When a conda package is downloaded and then unpacked with a conda package management tool (e.g. Pixi, conda, mamba) the only thing that needs to be done to "install" that package is just copy the package's file directory tree to the base of the environment's directory tree.
+When a conda package is downloaded and then unpacked with a conda package management tool (e.g. Pixi, conda, mamba) the only thing that needs to be done to "install" that package is to just copy the package's file directory tree to the base of the environment's directory tree.
 Package contents are also simple; they can only contain files and symbolic links.
 
 ### Exploring package structure
@@ -241,7 +241,7 @@ We see that the `default` environment that Pixi created has the standard directo
 
 as well as some less common ones related to system administration
 
-* `man:` for manual pages
+* `man`: for manual pages
 * `sbin`: for system binaries
 * `ssl`: for SSL (Secure Sockets Layer) certificates to provide secure encryption when connecting to websites
 
