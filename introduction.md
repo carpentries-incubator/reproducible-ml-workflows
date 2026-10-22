@@ -71,7 +71,7 @@ There are many! Here are some you might have thought of:
 
 "Reproducible" research can mean many things and is a multipronged problem.
 This lesson will focus primarily on computational reproducibility.
-Like all forms of reproducibility, there are multiple "levels" of reproducibility.
+Like all forms of reproducibility, there are multiple "levels" of computational reproducibility.
 For this lesson we will focus on "full" reproducibility, meaning that reproducible software environments will:
 
 * Be defined through user readable and writable configuration files.

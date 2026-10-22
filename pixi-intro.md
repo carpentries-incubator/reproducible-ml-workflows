@@ -31,14 +31,14 @@ Pixi is written in Rust, and leverages the language's speed and technologies to 
 Pixi addresses the concept of computational reproducibility by focusing on a set of main features:
 
 1. **Virtual environment management**: Pixi can create environments that contain conda packages and Python packages and use or switch between environments easily.
-1. **Package management**: Pixi enables the user to install, update, and remove packages from these environments through the `pixi` command line.
+1. **Package management**: Pixi enables the user to install, update, and remove packages from these environments through the `pixi` command line interface.
 1. **Task management**: Pixi has a task runner system built-in, which allows for tasks with custom logic and dependencies on other tasks to be created.
 
 It also combines these features with robust behaviors:
 
 1. **Automatic lock files**: Any changes to a Pixi workspace that can mutate the environments defined in it will automatically and non-optionally result in the Pixi lock file for the workspace being updated.
 This ensures that any and every state of a Pixi project is trivially computationally reproducible.
-1. **Solving environments for other platforms**: Pixi allows the user to solve environments for platforms other than the current user machine's.
+1. **Solving environments for other platforms**: Pixi allows the user to solve environments for platforms other than the current user's machine.
 This allows for users to solve and share environments with any collaborator with confidence that all environments will work with no additional setup.
 1. **Parity of conda and Python packages**: Pixi allows for conda packages and Python packages to be used together seamlessly, and is unique in its ability to handle overlap in dependencies between them.
 Pixi will first solve all conda package requirements for the target environment, lock the environment, and then solve all the dependencies of the Python packages for the environment, determine if there are any overlaps with the existing conda environment, and then only install the missing Python dependencies.
@@ -63,7 +63,7 @@ This allows for much greater freedom of exploration and development without fear
 This can be mitigated for disk limited machines by cleaning environments not in use while keeping their lock files and cleaning the system cache periodically.
 * Each project needs to be set up by itself and does not reuse components of previous projects.
 
-## Pixi project files and the CLI API basics
+## Pixi project files and the CLI basics
 
 Every Pixi project begins with creating a manifest file.
 A manifest file is a declarative configuration file that lists what the high level requirements of a project are.
@@ -153,7 +153,7 @@ For the rest of the lesson we'll ignore the `authors` list in our discussions as
 
 :::
 
-At the moment there are no dependencies defined in the manifest, so let's add Python using the [`pixi add` CLI API](https://pixi.sh/latest/reference/cli/pixi/add/).
+At the moment there are no dependencies defined in the manifest, so let's add Python using the [`pixi add` command](https://pixi.sh/latest/reference/cli/pixi/add/).
 
 ```bash
 pixi add python
@@ -623,7 +623,7 @@ Extend your project to additionally support the `linux-64`, `osx-arm64`, and `wi
 
 ::: solution
 
-Using the [`pixi workspace` CLI API](https://pixi.sh/latest/reference/cli/pixi/workspace/), one can add the platforms with
+Using the [`pixi workspace` command](https://pixi.sh/latest/reference/cli/pixi/workspace/), one can add the platforms with
 
 ```bash
 pixi workspace platform add linux-64 osx-arm64 win-64
@@ -787,7 +787,7 @@ pixi upgrade --feature dev pre-commit
 
 ## Global Tools
 
-With the [`pixi global` CLI API](https://pixi.sh/dev/reference/cli/pixi/global/), users can manage globally installed tools in a way that makes them available from any directory on their machine.
+With the [`pixi global` command](https://pixi.sh/dev/reference/cli/pixi/global/), users can manage globally installed tools in a way that makes them available from any directory on their machine.
 
 As an example, we can install the [`bat`](https://github.com/sharkdp/bat) program &mdash; a `cat` clone with syntax highlighting and Git integration &mdash; as a global utility from conda-forge using [`pixi global`](https://pixi.sh/latest/global_tools/introduction/).
 
