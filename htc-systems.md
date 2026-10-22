@@ -558,6 +558,7 @@ git add htcondor/.git*
 git add htcondor/apptainer.def
 git add htcondor/Dockerfile
 git add .github/workflows/containers.yaml
+git commit
 ```
 
 Then push your branch to your remote on GitHub
