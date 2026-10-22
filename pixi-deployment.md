@@ -143,81 +143,81 @@ Let's step through this to understand what's happening.
 * Dockerfile [`ARG`](https://docs.docker.com/reference/dockerfile/#arg)s are declared _before_ the `build` stage's base image `FROM` declaration, meaning they have [global scope](https://docs.docker.com/build/building/variables/#scoping).
 Declaring the `ARG`s again with no value in the local scope of the `build` stage inherits the global scope values.
 
-```dockerfile
-# Declare build ARGS in global scope
-ARG CUDA_VERSION="12"
-ARG ENVIRONMENT="gpu"
+  ```dockerfile
+  # Declare build ARGS in global scope
+  ARG CUDA_VERSION="12"
+  ARG ENVIRONMENT="gpu"
 
-FROM ghcr.io/prefix-dev/pixi:noble AS build
+  FROM ghcr.io/prefix-dev/pixi:noble AS build
 
-# Redeclaring ARGs in a stage without a value inherits the global default
-ARG CUDA_VERSION
-ARG ENVIRONMENT
-```
+  # Redeclaring ARGs in a stage without a value inherits the global default
+  ARG CUDA_VERSION
+  ARG ENVIRONMENT
+  ```
 
 * The entire repository contents are [`COPY`](https://docs.docker.com/reference/dockerfile/#copy)ed from the container build context into the `/app` directory of the container build.
 
-```dockerfile
-WORKDIR /app
-COPY . .
-```
+  ```dockerfile
+  WORKDIR /app
+  COPY . .
+  ```
 
 * It is not reasonable to expect that the container image build machine contains GPUs.
 To have Pixi still be able to install an environment that uses CUDA when there is no virtual package set the `__cuda` [override environment variable `CONDA_OVERRIDE_CUDA`](https://docs.conda.io/projects/conda/en/stable/user-guide/tasks/manage-virtual.html#overriding-detected-packages).
 
-```dockerfile
-ENV CONDA_OVERRIDE_CUDA=$CUDA_VERSION
-```
+  ```dockerfile
+  ENV CONDA_OVERRIDE_CUDA=$CUDA_VERSION
+  ```
 
 * The `Dockerfile` uses a [multi-stage](https://docs.docker.com/build/building/multi-stage/) build where it first installs the target environment `$ENVIRONMENT` and then creates an [`ENTRYPOINT`](https://docs.docker.com/reference/dockerfile/#entrypoint) script using [`pixi shell-hook`](https://pixi.sh/latest/reference/cli/pixi/shell-hook/) to automatically activate the environment when the container image is run.
 
-```dockerfile
-RUN pixi install --locked --environment $ENVIRONMENT
-RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
-    pixi shell-hook --environment $ENVIRONMENT -s bash >> /app/entrypoint.sh && \
-    echo 'exec "$@"' >> /app/entrypoint.sh
-```
+  ```dockerfile
+  RUN pixi install --locked --environment $ENVIRONMENT
+  RUN echo "#!/bin/bash" > /app/entrypoint.sh && \
+      pixi shell-hook --environment $ENVIRONMENT -s bash >> /app/entrypoint.sh && \
+      echo 'exec "$@"' >> /app/entrypoint.sh
+  ```
 
 * The next stage of the build starts from a new container instance and then [`COPY`](https://docs.docker.com/reference/dockerfile/#copy)s the installed environment and files **from** the build container image into the production container image.
 This can reduce the total size of the final container image if there were additional build tools that needed to get installed in the build phase that aren't required for runtime in production.
 
-```dockerfile
-FROM ghcr.io/prefix-dev/pixi:noble AS final
+  ```dockerfile
+  FROM ghcr.io/prefix-dev/pixi:noble AS final
 
-ARG ENVIRONMENT
+  ARG ENVIRONMENT
 
-WORKDIR /app
-COPY --from=build /app/.pixi/envs/$ENVIRONMENT /app/.pixi/envs/$ENVIRONMENT
-COPY --from=build /app/pixi.toml /app/pixi.toml
-COPY --from=build /app/pixi.lock /app/pixi.lock
-# The ignore files are needed for 'pixi run' to work in the container
-COPY --from=build /app/.pixi/.gitignore /app/.pixi/.gitignore
-COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
-COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
-```
+  WORKDIR /app
+  COPY --from=build /app/.pixi/envs/$ENVIRONMENT /app/.pixi/envs/$ENVIRONMENT
+  COPY --from=build /app/pixi.toml /app/pixi.toml
+  COPY --from=build /app/pixi.lock /app/pixi.lock
+  # The ignore files are needed for 'pixi run' to work in the container
+  COPY --from=build /app/.pixi/.gitignore /app/.pixi/.gitignore
+  COPY --from=build /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
+  COPY --from=build --chmod=0755 /app/entrypoint.sh /app/entrypoint.sh
+  ```
 
 * Code that is specific to application purposes (e.g. environment diagnostics) from the repository is [`COPY`](https://docs.docker.com/reference/dockerfile/#copy)ed into the final container image as well
 
-```dockerfile
-COPY ./app /app/src
-```
+  ```dockerfile
+  COPY ./app /app/src
+  ```
 
-::: caution
+  ::: caution
 
-## Knowing what code to copy
+  ## Knowing what code to copy
 
-Generally you do **not** want to containerize your development source code, as you'd like to be able to quickly iterate on it and have it be transferred into a Linux container to be evaluated.
+  Generally you do **not** want to containerize your development source code, as you'd like to be able to quickly iterate on it and have it be transferred into a Linux container to be evaluated.
 
-You **do** want to containerize your development source code if you'd like to archive it as an executable into the future.
+  You **do** want to containerize your development source code if you'd like to archive it as an executable into the future.
 
-:::
+  :::
 
 * The [`ENTRYPOINT`](https://docs.docker.com/reference/dockerfile/#entrypoint) script is set for activation
 
 
-```dockerfile
-ENTRYPOINT [ "/app/entrypoint.sh" ]
-```
+  ```dockerfile
+  ENTRYPOINT [ "/app/entrypoint.sh" ]
+  ```
 
 :::
 
@@ -451,109 +451,109 @@ Let's break this down too.
 
 * The [`arguments` section](https://apptainer.org/docs/user/main/definition_files.html#arguments) allows for variables &mdash; which appear as `{{ variable }}` in the rest of the file &mdash; to be set at the stage scope that can be set with the build options `--build-arg` or `--build-arg-file`.
 
-```
-%arguments
-    CUDA_VERSION=12
-    ENVIRONMENT=gpu
-```
+  ```
+  %arguments
+      CUDA_VERSION=12
+      ENVIRONMENT=gpu
+  ```
 
 * The [`files` section](https://apptainer.org/docs/user/main/definition_files.html#files) allows for a mapping of what files should be copied from a build context (e.g. the local file system) to the container file system
 
-```singularity
-%files
-./pixi.toml /app/
-./pixi.lock /app/
-./.gitignore /app/
-```
+  ```singularity
+  %files
+  ./pixi.toml /app/
+  ./pixi.lock /app/
+  ./.gitignore /app/
+  ```
 
 * The [`post` section](https://apptainer.org/docs/user/main/definition_files.html#post) runs commands listed in it as a shell script executed in a clean shell environment that does not have any pre-existing build environment context.
 It is not reasonable to expect that the container image build machine contains GPUs.
 To have Pixi still be able to install an environment that uses CUDA when there is no virtual package set the `__cuda` [override environment variable `CONDA_OVERRIDE_CUDA`](https://docs.conda.io/projects/conda/en/stable/user-guide/tasks/manage-virtual.html#overriding-detected-packages).
 
-```
-%post
-#!/bin/bash
-export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
-...
-```
+  ```
+  %post
+  #!/bin/bash
+  export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
+  ...
+  ```
 
 * The definition file uses a [multi-stage build](https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds) where it first installs the target environment `<environment>` and then creates an `entrypoint.sh` script that will be used as a [`runscript`](https://apptainer.org/docs/user/main/definition_files.html#runscript) using [`pixi shell-hook`](https://pixi.sh/latest/reference/cli/pixi/shell-hook/) to automatically activate the environment when the container image is run.
 
-```
-...
-cd /app/
-pixi info
-pixi install --locked --environment {{ ENVIRONMENT }}
-echo "#!/bin/bash" > /app/entrypoint.sh && \
-pixi shell-hook --environment {{ ENVIRONMENT }} -s bash >> /app/entrypoint.sh && \
-echo 'exec "$@"' >> /app/entrypoint.sh
-```
+  ```
+  ...
+  cd /app/
+  pixi info
+  pixi install --locked --environment {{ ENVIRONMENT }}
+  echo "#!/bin/bash" > /app/entrypoint.sh && \
+  pixi shell-hook --environment {{ ENVIRONMENT }} -s bash >> /app/entrypoint.sh && \
+  echo 'exec "$@"' >> /app/entrypoint.sh
+  ```
 
 * The next stage of the build starts from a new container instance and then copies the installed environment and files **from** the `build` stage into the `final` container image.
 This can reduce the total size of the final container image if there were additional build tools that needed to get installed in the build phase that aren't required for runtime in production.
 
-```
-Bootstrap: docker
-From: ghcr.io/prefix-dev/pixi:noble
-Stage: final
+  ```
+  Bootstrap: docker
+  From: ghcr.io/prefix-dev/pixi:noble
+  Stage: final
 
-%arguments
-    ENVIRONMENT=gpu
+  %arguments
+      ENVIRONMENT=gpu
 
-%files from build
-/app/.pixi/envs/{{ ENVIRONMENT }} /app/.pixi/envs/{{ ENVIRONMENT }}
-/app/pixi.toml /app/pixi.toml
-/app/pixi.lock /app/pixi.lock
-/app/.gitignore /app/.gitignore
-# The ignore files are needed for 'pixi run' to work in the container
-/app/.pixi/.gitignore /app/.pixi/.gitignore
-/app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
-/app/entrypoint.sh /app/entrypoint.sh
-```
+  %files from build
+  /app/.pixi/envs/{{ ENVIRONMENT }} /app/.pixi/envs/{{ ENVIRONMENT }}
+  /app/pixi.toml /app/pixi.toml
+  /app/pixi.lock /app/pixi.lock
+  /app/.gitignore /app/.gitignore
+  # The ignore files are needed for 'pixi run' to work in the container
+  /app/.pixi/.gitignore /app/.pixi/.gitignore
+  /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
+  /app/entrypoint.sh /app/entrypoint.sh
+  ```
 
 * By repeating the `files` section we can also copy in the source code
 
-```
-%files
-./app /app/src
-```
+  ```
+  %files
+  ./app /app/src
+  ```
 
 * The `post` section then verifies that the Pixi workspace is valid and makes the `/app/entrypoint.sh` executable
 
-```
-%post
-#!/bin/bash
-cd /app/
-pixi info
-chmod +x /app/entrypoint.sh
-```
+  ```
+  %post
+  #!/bin/bash
+  cd /app/
+  pixi info
+  chmod +x /app/entrypoint.sh
+  ```
 
 * The [`runscript` section](https://apptainer.org/docs/user/main/definition_files.html#runscript) defines a shell script that will get executed when the container image is run (either via the [`apptainer run`](https://apptainer.org/docs/user/main/cli/apptainer_run.html) command or by [executing the container directly as a command](https://apptainer.org/docs/user/main/quick_start.html#runcontainer)).
 
-```
-%runscript
-#!/bin/bash
-/app/entrypoint.sh "$@"
-```
+  ```
+  %runscript
+  #!/bin/bash
+  /app/entrypoint.sh "$@"
+  ```
 
 * We also define a [`startscript` section](https://apptainer.org/docs/user/main/definition_files.html#startscript) that is the same as the `runscript`'s contents that is executed when the [`instance start`](https://apptainer.org/docs/user/main/cli/apptainer_instance_start.html) command is executed (which creates a container instance that starts running in the background).
 
-```
-%startscript
-#!/bin/bash
-/app/entrypoint.sh "$@"
-```
+  ```
+  %startscript
+  #!/bin/bash
+  /app/entrypoint.sh "$@"
+  ```
 
 * Finally, the [`test` section](https://apptainer.org/docs/user/main/definition_files.html#test) defines a script that will be executed in the built container at the end of the build process.
 This allows for validation of the container functionality before it is distributed.
 
-```
-%test
-#!/bin/bash -e
-. /app/entrypoint.sh
-pixi info
-pixi list
-```
+  ```
+  %test
+  #!/bin/bash -e
+  . /app/entrypoint.sh
+  pixi info
+  pixi list
+  ```
 
 :::
 
