@@ -570,7 +570,7 @@ code from the end of the CUDA conda packages episode at
   Dockerfile walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>Let’s step through this to understand what’s happening.
 <code>Dockerfile</code>s (intentionally) look very shell script like,
@@ -582,13 +582,14 @@ later exists under the repository’s <code>src/</code> directory and the
 Pixi workspace’s <code>pixi.toml</code> manifest file and
 <code>pixi.lock</code> lock file exist at the top level of the
 repository.</p></li>
-<li><p>Dockerfile <a href="https://docs.docker.com/reference/dockerfile/#arg" class="external-link"><code>ARG</code></a>s
+<li>
+<p>Dockerfile <a href="https://docs.docker.com/reference/dockerfile/#arg" class="external-link"><code>ARG</code></a>s
 are declared <em>before</em> the <code>build</code> stage’s base image
 <code>FROM</code> declaration, meaning they have <a href="https://docs.docker.com/build/building/variables/#scoping" class="external-link">global
 scope</a>. Declaring the <code>ARG</code>s again with no value in the
 local scope of the <code>build</code> stage inherits the global scope
-values.</p></li>
-</ul><div class="codewrapper sourceCode" id="cb3">
+values.</p>
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode dockerfile" tabindex="0"><code class="sourceCode dockerfile"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="co"># Declare build ARGS in global scope</span></span>
@@ -601,32 +602,38 @@ values.</p></li>
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a><span class="kw">ARG</span> CUDA_VERSION</span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1" aria-label="code-block-3-9"></a><span class="kw">ARG</span> ENVIRONMENT</span></code></pre>
 </div>
-<ul><li>The entire repository contents are <a href="https://docs.docker.com/reference/dockerfile/#copy" class="external-link"><code>COPY</code></a>ed
+</li>
+<li>
+<p>The entire repository contents are <a href="https://docs.docker.com/reference/dockerfile/#copy" class="external-link"><code>COPY</code></a>ed
 from the container build context into the <code>/app</code> directory of
-the container build.</li>
-</ul><div class="codewrapper sourceCode" id="cb4">
+the container build.</p>
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode dockerfile" tabindex="0"><code class="sourceCode dockerfile"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="kw">WORKDIR</span> /app</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="kw">COPY</span> . .</span></code></pre>
 </div>
-<ul><li>It is not reasonable to expect that the container image build
+</li>
+<li>
+<p>It is not reasonable to expect that the container image build
 machine contains GPUs. To have Pixi still be able to install an
 environment that uses CUDA when there is no virtual package set the
 <code>__cuda</code> <a href="https://docs.conda.io/projects/conda/en/stable/user-guide/tasks/manage-virtual.html#overriding-detected-packages" class="external-link">override
-environment variable <code>CONDA_OVERRIDE_CUDA</code></a>.</li>
-</ul><div class="codewrapper sourceCode" id="cb5">
+environment variable <code>CONDA_OVERRIDE_CUDA</code></a>.</p>
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode dockerfile" tabindex="0"><code class="sourceCode dockerfile"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="kw">ENV</span> CONDA_OVERRIDE_CUDA=$CUDA_VERSION</span></code></pre>
 </div>
-<ul><li>The <code>Dockerfile</code> uses a <a href="https://docs.docker.com/build/building/multi-stage/" class="external-link">multi-stage</a>
+</li>
+<li>
+<p>The <code>Dockerfile</code> uses a <a href="https://docs.docker.com/build/building/multi-stage/" class="external-link">multi-stage</a>
 build where it first installs the target environment
 <code>$ENVIRONMENT</code> and then creates an <a href="https://docs.docker.com/reference/dockerfile/#entrypoint" class="external-link"><code>ENTRYPOINT</code></a>
 script using <a href="https://pixi.sh/latest/reference/cli/pixi/shell-hook/" class="external-link"><code>pixi shell-hook</code></a>
 to automatically activate the environment when the container image is
-run.</li>
-</ul><div class="codewrapper sourceCode" id="cb6">
+run.</p>
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode dockerfile" tabindex="0"><code class="sourceCode dockerfile"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="kw">RUN</span> <span class="ex">pixi</span> install <span class="at">--locked</span> <span class="at">--environment</span> <span class="va">$ENVIRONMENT</span></span>
@@ -634,14 +641,16 @@ run.</li>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a>    <span class="ex">pixi</span> shell-hook <span class="at">--environment</span> <span class="va">$ENVIRONMENT</span> <span class="at">-s</span> bash <span class="op">&gt;&gt;</span> /app/entrypoint.sh <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a>    <span class="bu">echo</span> <span class="st">'exec "$@"'</span> <span class="op">&gt;&gt;</span> /app/entrypoint.sh</span></code></pre>
 </div>
-<ul><li>The next stage of the build starts from a new container instance and
-then <a href="https://docs.docker.com/reference/dockerfile/#copy" class="external-link"><code>COPY</code></a>s
+</li>
+<li>
+<p>The next stage of the build starts from a new container instance
+and then <a href="https://docs.docker.com/reference/dockerfile/#copy" class="external-link"><code>COPY</code></a>s
 the installed environment and files <strong>from</strong> the build
 container image into the production container image. This can reduce the
 total size of the final container image if there were additional build
 tools that needed to get installed in the build phase that aren’t
-required for runtime in production.</li>
-</ul><div class="codewrapper sourceCode" id="cb7">
+required for runtime in production.</p>
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode dockerfile" tabindex="0"><code class="sourceCode dockerfile"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="kw">FROM</span> ghcr.io/prefix-dev/pixi:noble <span class="kw">AS</span> final</span>
@@ -657,10 +666,12 @@ required for runtime in production.</li>
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1" aria-label="code-block-7-11"></a><span class="kw">COPY</span> <span class="op">--from=build</span> /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore</span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1" aria-label="code-block-7-12"></a><span class="kw">COPY</span> <span class="op">--from=build</span> <span class="op">--chmod=0755</span> /app/entrypoint.sh /app/entrypoint.sh</span></code></pre>
 </div>
-<ul><li>Code that is specific to application purposes (e.g. environment
+</li>
+<li>
+<p>Code that is specific to application purposes (e.g. environment
 diagnostics) from the repository is <a href="https://docs.docker.com/reference/dockerfile/#copy" class="external-link"><code>COPY</code></a>ed
-into the final container image as well</li>
-</ul><div class="codewrapper sourceCode" id="cb8">
+into the final container image as well</p>
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode dockerfile" tabindex="0"><code class="sourceCode dockerfile"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="kw">COPY</span> ./app /app/src</span></code></pre>
@@ -670,8 +681,9 @@ into the final container image as well</li>
 <i class="callout-icon" data-feather="alert-triangle"></i>
 </div>
 <span class="callout-header">Caution</span>
-<div id="knowing-what-code-to-copy" class="callout-inner">
-<h3 class="callout-title">Knowing what code to copy</h3>
+<div class="callout-inner">
+<h3 class="callout-title">Knowing what
+code to copy</h3>
 <div class="callout-content">
 <p>Generally you do <strong>not</strong> want to containerize your
 development source code, as you’d like to be able to quickly iterate on
@@ -682,14 +694,17 @@ code if you’d like to archive it as an executable into the future.</p>
 </div>
 </div>
 </div>
-<ul><li>The <a href="https://docs.docker.com/reference/dockerfile/#entrypoint" class="external-link"><code>ENTRYPOINT</code></a>
-script is set for activation</li>
-</ul><div class="codewrapper sourceCode" id="cb9">
+</li>
+<li>
+<p>The <a href="https://docs.docker.com/reference/dockerfile/#entrypoint" class="external-link"><code>ENTRYPOINT</code></a>
+script is set for activation</p>
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode dockerfile" tabindex="0"><code class="sourceCode dockerfile"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a><span class="kw">ENTRYPOINT</span> [ <span class="st">"/app/entrypoint.sh"</span> ]</span></code></pre>
 </div>
-</div>
+</li>
+</ul></div>
 </div>
 </div>
 </div>
@@ -931,7 +946,7 @@ pixi list</code></pre>
   Apptainer walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
 <div class="accordion-body">
 <ul><li><p>The Apptainer definition file is broken out into specific <a href="https://apptainer.org/docs/user/main/definition_files.html#sections" class="external-link">operation
 sections</a> prefixed by <code>%</code> (e.g. <code>files</code>,
@@ -942,55 +957,65 @@ later exists under the repository’s <code>src/</code> directory and the
 Pixi workspace’s <code>pixi.toml</code> manifest file and
 <code>pixi.lock</code> lock file exist at the top level of the
 repository.</p></li>
-<li><p>The <a href="https://apptainer.org/docs/user/main/definition_files.html#arguments" class="external-link"><code>arguments</code>
+<li>
+<p>The <a href="https://apptainer.org/docs/user/main/definition_files.html#arguments" class="external-link"><code>arguments</code>
 section</a> allows for variables — which appear as
 <code>{{ variable }}</code> in the rest of the file — to be set at the
 stage scope that can be set with the build options
-<code>--build-arg</code> or <code>--build-arg-file</code>.</p></li>
-</ul><pre><code>%arguments
+<code>--build-arg</code> or <code>--build-arg-file</code>.</p>
+<pre><code>%arguments
     CUDA_VERSION=12
     ENVIRONMENT=gpu</code></pre>
-<ul><li>The <a href="https://apptainer.org/docs/user/main/definition_files.html#files" class="external-link"><code>files</code>
+</li>
+<li>
+<p>The <a href="https://apptainer.org/docs/user/main/definition_files.html#files" class="external-link"><code>files</code>
 section</a> allows for a mapping of what files should be copied from a
 build context (e.g. the local file system) to the container file
-system</li>
-</ul><pre class="singularity"><code>%files
+system</p>
+<pre class="singularity"><code>%files
 ./pixi.toml /app/
 ./pixi.lock /app/
 ./.gitignore /app/</code></pre>
-<ul><li>The <a href="https://apptainer.org/docs/user/main/definition_files.html#post" class="external-link"><code>post</code>
+</li>
+<li>
+<p>The <a href="https://apptainer.org/docs/user/main/definition_files.html#post" class="external-link"><code>post</code>
 section</a> runs commands listed in it as a shell script executed in a
 clean shell environment that does not have any pre-existing build
 environment context. It is not reasonable to expect that the container
 image build machine contains GPUs. To have Pixi still be able to install
 an environment that uses CUDA when there is no virtual package set the
 <code>__cuda</code> <a href="https://docs.conda.io/projects/conda/en/stable/user-guide/tasks/manage-virtual.html#overriding-detected-packages" class="external-link">override
-environment variable <code>CONDA_OVERRIDE_CUDA</code></a>.</li>
-</ul><pre><code>%post
+environment variable <code>CONDA_OVERRIDE_CUDA</code></a>.</p>
+<pre><code>%post
 #!/bin/bash
 export CONDA_OVERRIDE_CUDA={{ CUDA_VERSION }}
 ...</code></pre>
-<ul><li>The definition file uses a <a href="https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds" class="external-link">multi-stage
+</li>
+<li>
+<p>The definition file uses a <a href="https://apptainer.org/docs/user/main/definition_files.html#multi-stage-builds" class="external-link">multi-stage
 build</a> where it first installs the target environment
 <code>&lt;environment&gt;</code> and then creates an
 <code>entrypoint.sh</code> script that will be used as a <a href="https://apptainer.org/docs/user/main/definition_files.html#runscript" class="external-link"><code>runscript</code></a>
 using <a href="https://pixi.sh/latest/reference/cli/pixi/shell-hook/" class="external-link"><code>pixi shell-hook</code></a>
 to automatically activate the environment when the container image is
-run.</li>
-</ul><pre><code>...
+run.</p>
+<pre><code>...
 cd /app/
 pixi info
 pixi install --locked --environment {{ ENVIRONMENT }}
 echo "#!/bin/bash" &gt; /app/entrypoint.sh &amp;&amp; \
 pixi shell-hook --environment {{ ENVIRONMENT }} -s bash &gt;&gt; /app/entrypoint.sh &amp;&amp; \
 echo 'exec "$@"' &gt;&gt; /app/entrypoint.sh</code></pre>
-<ul><li>The next stage of the build starts from a new container instance and
-then copies the installed environment and files <strong>from</strong>
-the <code>build</code> stage into the <code>final</code> container
-image. This can reduce the total size of the final container image if
-there were additional build tools that needed to get installed in the
-build phase that aren’t required for runtime in production.</li>
-</ul><pre><code>Bootstrap: docker
+</li>
+<li>
+<p>The next stage of the build starts from a new container instance
+and then copies the installed environment and files
+<strong>from</strong> the <code>build</code> stage into the
+<code>final</code> container image. This can reduce the total size of
+the final container image if there were additional build tools that
+needed to get installed in the build phase that aren’t required for
+runtime in production.</p>
+<pre><code>Bootstrap: docker
 From: ghcr.io/prefix-dev/pixi:noble
 Stage: final
 
@@ -1006,43 +1031,55 @@ Stage: final
 /app/.pixi/.gitignore /app/.pixi/.gitignore
 /app/.pixi/.condapackageignore /app/.pixi/.condapackageignore
 /app/entrypoint.sh /app/entrypoint.sh</code></pre>
-<ul><li>By repeating the <code>files</code> section we can also copy in the
-source code</li>
-</ul><pre><code>%files
+</li>
+<li>
+<p>By repeating the <code>files</code> section we can also copy in
+the source code</p>
+<pre><code>%files
 ./app /app/src</code></pre>
-<ul><li>The <code>post</code> section then verifies that the Pixi workspace
-is valid and makes the <code>/app/entrypoint.sh</code> executable</li>
-</ul><pre><code>%post
+</li>
+<li>
+<p>The <code>post</code> section then verifies that the Pixi
+workspace is valid and makes the <code>/app/entrypoint.sh</code>
+executable</p>
+<pre><code>%post
 #!/bin/bash
 cd /app/
 pixi info
 chmod +x /app/entrypoint.sh</code></pre>
-<ul><li>The <a href="https://apptainer.org/docs/user/main/definition_files.html#runscript" class="external-link"><code>runscript</code>
+</li>
+<li>
+<p>The <a href="https://apptainer.org/docs/user/main/definition_files.html#runscript" class="external-link"><code>runscript</code>
 section</a> defines a shell script that will get executed when the
 container image is run (either via the <a href="https://apptainer.org/docs/user/main/cli/apptainer_run.html" class="external-link"><code>apptainer run</code></a>
 command or by <a href="https://apptainer.org/docs/user/main/quick_start.html#runcontainer" class="external-link">executing
-the container directly as a command</a>).</li>
-</ul><pre><code>%runscript
+the container directly as a command</a>).</p>
+<pre><code>%runscript
 #!/bin/bash
 /app/entrypoint.sh "$@"</code></pre>
-<ul><li>We also define a <a href="https://apptainer.org/docs/user/main/definition_files.html#startscript" class="external-link"><code>startscript</code>
+</li>
+<li>
+<p>We also define a <a href="https://apptainer.org/docs/user/main/definition_files.html#startscript" class="external-link"><code>startscript</code>
 section</a> that is the same as the <code>runscript</code>’s contents
 that is executed when the <a href="https://apptainer.org/docs/user/main/cli/apptainer_instance_start.html" class="external-link"><code>instance start</code></a>
 command is executed (which creates a container instance that starts
-running in the background).</li>
-</ul><pre><code>%startscript
+running in the background).</p>
+<pre><code>%startscript
 #!/bin/bash
 /app/entrypoint.sh "$@"</code></pre>
-<ul><li>Finally, the <a href="https://apptainer.org/docs/user/main/definition_files.html#test" class="external-link"><code>test</code>
+</li>
+<li>
+<p>Finally, the <a href="https://apptainer.org/docs/user/main/definition_files.html#test" class="external-link"><code>test</code>
 section</a> defines a script that will be executed in the built
 container at the end of the build process. This allows for validation of
-the container functionality before it is distributed.</li>
-</ul><pre><code>%test
+the container functionality before it is distributed.</p>
+<pre><code>%test
 #!/bin/bash -e
 . /app/entrypoint.sh
 pixi info
 pixi list</code></pre>
-</div>
+</li>
+</ul></div>
 </div>
 </div>
 </div>
