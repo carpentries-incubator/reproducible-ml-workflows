@@ -1,5 +1,5 @@
 ---
-title: "Using Pixi environments on HPC Systems"
+title: "Using Pixi environments on HPC systems"
 teaching: 30
 exercises: 10
 ---

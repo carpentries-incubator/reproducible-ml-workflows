@@ -1,5 +1,5 @@
 ---
-title: "Reproducible Research"
+title: "Reproducible research"
 teaching: 10
 exercises: 8
 ---
