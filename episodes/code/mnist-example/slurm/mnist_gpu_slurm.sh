@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH --job-name="mnist_gpu"
-#SBATCH --partition=<PARTITITON NAME>
+#SBATCH --partition=<PARTITION NAME>
 #SBATCH --mem=2G
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1

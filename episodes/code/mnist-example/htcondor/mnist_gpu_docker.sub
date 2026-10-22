@@ -44,5 +44,5 @@ request_disk = 2GB
 # Can also request "medium" or "long"
 +GPUJobLength = "short"
 
-# Tell HTCondor to run 1 instances of our job:
+# Tell HTCondor to run 1 instance of our job:
 queue 1
