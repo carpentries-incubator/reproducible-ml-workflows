@@ -1,0 +1,6 @@
+[codespell]
+# pixi.lock is machine-generated and full of hashes that codespell misreads,
+# and site/ holds rendered lesson output that is not edited by hand
+skip = pixi.lock,./site
+# "Ser." is the standard abbreviation in journal names like "J. Phys. Conf. Ser."
+ignore-words-list = ser

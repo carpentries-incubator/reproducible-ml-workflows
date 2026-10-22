@@ -31,3 +31,10 @@ depends-on = ["serve"]
 git = ">=2.55.0,<3"
 r-varnish = ">=1.1.3,<2"
 r-sandpaper = ">=0.20.2,<0.22"
+
+[feature.lint.dependencies]
+prek = ">=0.5.7,<0.6"
+codespell = ">=2.4.3,<3"
+
+[environments]
+lint = { features = ["lint"], no-default-feature = true }
