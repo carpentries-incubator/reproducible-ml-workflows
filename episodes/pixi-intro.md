@@ -153,7 +153,7 @@ For the rest of the lesson we'll ignore the `authors` list in our discussions as
 
 :::
 
-At the moment there are no dependencies defined in the manifest, so let's add Python using the [`pixi add` CLI](https://pixi.sh/latest/reference/cli/pixi/add/).
+At the moment there are no dependencies defined in the manifest, so let's add Python using the [`pixi add` command](https://pixi.sh/latest/reference/cli/pixi/add/).
 
 ```bash
 pixi add python
@@ -623,7 +623,7 @@ Extend your project to additionally support the `linux-64`, `osx-arm64`, and `wi
 
 ::: solution
 
-Using the [`pixi workspace` CLI API](https://pixi.sh/latest/reference/cli/pixi/workspace/), one can add the platforms with
+Using the [`pixi workspace` command](https://pixi.sh/latest/reference/cli/pixi/workspace/), one can add the platforms with
 
 ```bash
 pixi workspace platform add linux-64 osx-arm64 win-64
@@ -787,7 +787,7 @@ pixi upgrade --feature dev pre-commit
 
 ## Global Tools
 
-With the [`pixi global` CLI API](https://pixi.sh/dev/reference/cli/pixi/global/), users can manage globally installed tools in a way that makes them available from any directory on their machine.
+With the [`pixi global` command](https://pixi.sh/dev/reference/cli/pixi/global/), users can manage globally installed tools in a way that makes them available from any directory on their machine.
 
 As an example, we can install the [`bat`](https://github.com/sharkdp/bat) program &mdash; a `cat` clone with syntax highlighting and Git integration &mdash; as a global utility from conda-forge using [`pixi global`](https://pixi.sh/latest/global_tools/introduction/).
 
