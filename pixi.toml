@@ -36,5 +36,9 @@ r-sandpaper = ">=0.20.2,<0.22"
 prek = ">=0.5.7,<0.6"
 codespell = ">=2.4.3,<3"
 
+[feature.lint.tasks.lint]
+description = "Run the pre-commit checks on all files with prek"
+cmd = "prek run --all-files"
+
 [environments]
 lint = { features = ["lint"], no-default-feature = true }
