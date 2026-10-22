@@ -1,5 +1,5 @@
 ---
-title: "Using Pixi environments on HTC Systems"
+title: "Using Pixi environments on HTC systems"
 teaching: 60
 exercises: 30
 ---
