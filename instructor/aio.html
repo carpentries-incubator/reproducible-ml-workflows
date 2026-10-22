@@ -533,9 +533,9 @@ distributed on public package indexes</li>
 <p>“Reproducible” research can mean many things and is a multipronged
 problem. This lesson will focus primarily on computational
 reproducibility. Like all forms of reproducibility, there are multiple
-“levels” of reproducibility. For this lesson we will focus on “full”
-reproducibility, meaning that reproducible software environments
-will:</p>
+“levels” of computational reproducibility. For this lesson we will focus
+on “full” reproducibility, meaning that reproducible software
+environments will:</p>
 <ul>
 <li>Be defined through user readable and writable configuration
 files.</li>
@@ -779,7 +779,7 @@ switch between environments easily.</li>
 <li>
 <strong>Package management</strong>: Pixi enables the user to
 install, update, and remove packages from these environments through the
-<code>pixi</code> command line.</li>
+<code>pixi</code> command line interface.</li>
 <li>
 <strong>Task management</strong>: Pixi has a task runner system
 built-in, which allows for tasks with custom logic and dependencies on
@@ -796,7 +796,7 @@ project is trivially computationally reproducible.</li>
 <li>
 <strong>Solving environments for other platforms</strong>: Pixi
 allows the user to solve environments for platforms other than the
-current user machine’s. This allows for users to solve and share
+current user’s machine. This allows for users to solve and share
 environments with any collaborator with confidence that all environments
 will work with no additional setup.</li>
 <li>
@@ -844,7 +844,7 @@ environments not in use while keeping their lock files and cleaning the
 system cache periodically.</li>
 <li>Each project needs to be set up by itself and does not reuse
 components of previous projects.</li>
-</ul></section><section><h2 class="section-heading" id="pixi-project-files-and-the-cli-api-basics">Pixi project files and the CLI API basics<a class="anchor" aria-label="anchor" href="#pixi-project-files-and-the-cli-api-basics"></a>
+</ul></section><section><h2 class="section-heading" id="pixi-project-files-and-the-cli-basics">Pixi project files and the CLI basics<a class="anchor" aria-label="anchor" href="#pixi-project-files-and-the-cli-basics"></a>
 </h2>
 <hr class="half-width">
 <p>Every Pixi project begins with creating a manifest file. A manifest
@@ -975,7 +975,7 @@ in our discussions as it is optional and will be specific to you.</p>
 </div>
 <p>At the moment there are no dependencies defined in the manifest, so
 let’s add Python using the <a href="https://pixi.sh/latest/reference/cli/pixi/add/" class="external-link"><code>pixi add</code>
-CLI API</a>.</p>
+command</a>.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1621,7 +1621,7 @@ platforms.</p>
 <div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Using the <a href="https://pixi.sh/latest/reference/cli/pixi/workspace/" class="external-link"><code>pixi workspace</code>
-CLI API</a>, one can add the platforms with</p>
+command</a>, one can add the platforms with</p>
 <div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1827,7 +1827,7 @@ can be added to the manifest</p>
 </h2>
 <hr class="half-width">
 <p>With the <a href="https://pixi.sh/dev/reference/cli/pixi/global/" class="external-link"><code>pixi global</code>
-CLI API</a>, users can manage globally installed tools in a way that
+command</a>, users can manage globally installed tools in a way that
 makes them available from any directory on their machine.</p>
 <p>As an example, we can install the <a href="https://github.com/sharkdp/bat" class="external-link"><code>bat</code></a> program — a
 <code>cat</code> clone with syntax highlighting and Git integration — as
@@ -2008,7 +2008,7 @@ to a conda environment</h3>
   Possible answers
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2095,7 +2095,7 @@ lock files as a conda explicit spec file</h3>
   Possible answers
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3833,7 +3833,7 @@ version of PyTorch</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Create a new workspace</p>
 <div class="codewrapper sourceCode" id="cb33">
@@ -4353,7 +4353,7 @@ code from the end of the CUDA conda packages episode at
   Dockerfile walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
 <div class="accordion-body">
 <p>Let’s step through this to understand what’s happening.
 <code>Dockerfile</code>s (intentionally) look very shell script like,
@@ -4731,7 +4731,7 @@ pixi list</code></pre>
   Apptainer walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
 <div class="accordion-body">
 <ul>
 <li><p>The Apptainer definition file is broken out into specific <a href="https://apptainer.org/docs/user/main/definition_files.html#sections" class="external-link">operation

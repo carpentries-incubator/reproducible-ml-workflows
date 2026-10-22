@@ -229,7 +229,7 @@
       <div class="accordion-body">
         <ul><li><a href="#pixi">Pixi</a></li>
 <li><a href="#project-based-workflows">Project-based workflows</a></li>
-<li><a href="#pixi-project-files-and-the-cli-api-basics">Pixi project files and the CLI API basics</a></li>
+<li><a href="#pixi-project-files-and-the-cli-basics">Pixi project files and the CLI basics</a></li>
 <li><a href="#global-tools">Global Tools</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
@@ -425,7 +425,7 @@ switch between environments easily.</li>
 <li>
 <strong>Package management</strong>: Pixi enables the user to
 install, update, and remove packages from these environments through the
-<code>pixi</code> command line.</li>
+<code>pixi</code> command line interface.</li>
 <li>
 <strong>Task management</strong>: Pixi has a task runner system
 built-in, which allows for tasks with custom logic and dependencies on
@@ -440,7 +440,7 @@ project is trivially computationally reproducible.</li>
 <li>
 <strong>Solving environments for other platforms</strong>: Pixi
 allows the user to solve environments for platforms other than the
-current user machine’s. This allows for users to solve and share
+current user’s machine. This allows for users to solve and share
 environments with any collaborator with confidence that all environments
 will work with no additional setup.</li>
 <li>
@@ -483,7 +483,7 @@ environments not in use while keeping their lock files and cleaning the
 system cache periodically.</li>
 <li>Each project needs to be set up by itself and does not reuse
 components of previous projects.</li>
-</ul></section><section><h2 class="section-heading" id="pixi-project-files-and-the-cli-api-basics">Pixi project files and the CLI API basics<a class="anchor" aria-label="anchor" href="#pixi-project-files-and-the-cli-api-basics"></a></h2>
+</ul></section><section><h2 class="section-heading" id="pixi-project-files-and-the-cli-basics">Pixi project files and the CLI basics<a class="anchor" aria-label="anchor" href="#pixi-project-files-and-the-cli-basics"></a></h2>
 <hr class="half-width"><p>Every Pixi project begins with creating a manifest file. A manifest
 file is a declarative configuration file that lists what the high level
 requirements of a project are. Pixi then takes those requirements and
@@ -610,7 +610,7 @@ in our discussions as it is optional and will be specific to you.</p>
 </div>
 <p>At the moment there are no dependencies defined in the manifest, so
 let’s add Python using the <a href="https://pixi.sh/latest/reference/cli/pixi/add/" class="external-link"><code>pixi add</code>
-CLI API</a>.</p>
+command</a>.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1256,7 +1256,7 @@ platforms.</p>
 <div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Using the <a href="https://pixi.sh/latest/reference/cli/pixi/workspace/" class="external-link"><code>pixi workspace</code>
-CLI API</a>, one can add the platforms with</p>
+command</a>, one can add the platforms with</p>
 <div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1460,7 +1460,7 @@ can be added to the manifest</p>
 </div>
 </section><section><h2 class="section-heading" id="global-tools">Global Tools<a class="anchor" aria-label="anchor" href="#global-tools"></a></h2>
 <hr class="half-width"><p>With the <a href="https://pixi.sh/dev/reference/cli/pixi/global/" class="external-link"><code>pixi global</code>
-CLI API</a>, users can manage globally installed tools in a way that
+command</a>, users can manage globally installed tools in a way that
 makes them available from any directory on their machine.</p>
 <p>As an example, we can install the <a href="https://github.com/sharkdp/bat" class="external-link"><code>bat</code></a> program — a
 <code>cat</code> clone with syntax highlighting and Git integration — as
