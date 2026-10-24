@@ -59,13 +59,30 @@ This allows for much greater freedom of exploration and development without fear
 
 **Cons**
 
-* As each project has its own environments, the same package can exist in many environments on one machine.
+* As each project has its own environments, the same package can exist in many environments on one machine, and the total amount of disk space used can be larger than with other forms of development workflows.
+
+::: callout
+
+## Disk space and the package cache
+
 When the global package cache and the project environment are on the same file system, Pixi [links most of the package files from the cache into each environment](https://prefix.dev/blog/what-linking-means-when-installing-a-conda-package) instead of copying them, taking much less extra disk space than it might appear.
-However, when the cache and the project environment are on different file systems (e.g. a home directory and a scratch space on an HPC system) the files are copied, and the total amount of disk space used can be much larger than with other forms of development workflows.
-This can be avoided by setting the `PIXI_CACHE_DIR` environment variable to a directory on the same file system as your projects, and mitigated on disk limited machines by removing the environments of projects not in use with `pixi clean` (while keeping their lock files) and periodically cleaning the cache with `pixi clean cache`.
-* Each project is set up separately, with its own manifest, lock file, and environments that need to be solved and installed.
-Nothing is shared implicitly between projects, so tools that you want available everywhere need to be added to each project or installed globally (see "Global Tools" below), though packages already in the cache are reused rather than downloaded again.
-If you would like to use a workspace's environments from any directory, more like a traditional named conda environment, Pixi also supports [named workspaces](https://pixi.sh/latest/switching_from/conda/#named-workspaces) that are registered with `pixi workspace register` and can then be used by name with the `--workspace` option (e.g. `pixi shell --workspace <name>`).
+However, when the cache and the project environment are on different file systems (e.g. a home directory and a scratch space on an HPC system) the files are copied, and the total amount of disk space used can be much larger.
+
+This can be avoided by setting the [`PIXI_CACHE_DIR`](https://pixi.prefix.dev/latest/workspace/environment/#caching-packages) environment variable to a directory on the same file system as your projects, and mitigated on disk limited machines by removing the environments of projects not in use with [`pixi clean`](https://pixi.prefix.dev/latest/reference/cli/pixi/clean/#pixi-clean) (while keeping their lock files) and periodically cleaning the cache with `pixi clean cache`.
+
+:::
+
+* Each project is set up separately, with its own manifest, lock file, and environments that need to be solved and installed, and nothing is shared implicitly between projects.
+
+::: callout
+
+## Sharing between projects
+
+Tools that you want available everywhere need to be added to each project or installed globally (see "Global Tools" below), though packages already in the cache are reused rather than downloaded again.
+
+If you would like to use a workspace's environments from any directory, more like a traditional named conda environment, Pixi also supports [named workspaces](https://pixi.sh/latest/switching_from/conda/#named-workspaces) that are registered with [`pixi workspace register`](https://pixi.prefix.dev/latest/reference/cli/pixi/workspace/register/) and can then be used by name with the `--workspace` option (e.g. `pixi shell --workspace <name>`).
+
+:::
 
 ## Pixi project files and the CLI basics
 
