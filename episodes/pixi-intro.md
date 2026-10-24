@@ -65,6 +65,7 @@ However, when the cache and the project environment are on different file system
 This can be avoided by setting the `PIXI_CACHE_DIR` environment variable to a directory on the same file system as your projects, and mitigated on disk limited machines by removing the environments of projects not in use with `pixi clean` (while keeping their lock files) and periodically cleaning the cache with `pixi clean cache`.
 * Each project is set up separately, with its own manifest, lock file, and environments that need to be solved and installed.
 Nothing is shared implicitly between projects, so tools that you want available everywhere need to be added to each project or installed globally (see "Global Tools" below), though packages already in the cache are reused rather than downloaded again.
+If you would like to use a workspace's environments from any directory, more like a traditional named conda environment, Pixi also supports [named workspaces](https://pixi.sh/latest/switching_from/conda/#named-workspaces) that are registered with `pixi workspace register` and can then be used by name with the `--workspace` option (e.g. `pixi shell --workspace <name>`).
 
 ## Pixi project files and the CLI basics
 
