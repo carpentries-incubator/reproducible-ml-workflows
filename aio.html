@@ -508,7 +508,7 @@ struggled to get back into it? What issues did you come across?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Possible answers </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>There are many! Here are some you might have thought of:</p>
 <ul>
@@ -569,7 +569,7 @@ what challenges have you run into with running your code?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Possible answers </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Here are some you might have thought of:</p>
 <ul>
@@ -614,7 +614,7 @@ table.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Not necessarily. Even though the computational software environment
 is identical there are things that can change between runs of software
@@ -671,7 +671,7 @@ research practices reproducible and reusable?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Possible answers </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <ul>
 <li>Technical expertise in reproducibility technologies</li>
@@ -714,7 +714,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-pixi-intro"><p>Content from <a href="pixi-intro.html">Introduction to Pixi</a></p>
 <hr>
-<p>Last updated on 2026-10-22 |
+<p>Last updated on 2026-10-24 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi-intro.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -832,15 +832,62 @@ without fear.</li>
 </ul>
 <p><strong>Cons</strong></p>
 <ul>
-<li>As each project has its own version of its packages installed, and
-does not share a copy with other projects, the total amount of disk
-space on a machine can be larger than other forms of development
-workflows. This can be mitigated for disk limited machines by cleaning
-environments not in use while keeping their lock files and cleaning the
-system cache periodically.</li>
-<li>Each project needs to be set up by itself and does not reuse
-components of previous projects.</li>
-</ul></section><section><h2 class="section-heading" id="pixi-project-files-and-the-cli-basics">Pixi project files and the CLI basics<a class="anchor" aria-label="anchor" href="#pixi-project-files-and-the-cli-basics"></a>
+<li>As each project has its own environments, the same package can exist
+in many environments on one machine, and the total amount of disk space
+used can be larger than with other forms of development workflows.</li>
+</ul>
+<div id="disk-space-and-the-package-cache" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="disk-space-and-the-package-cache" class="callout-inner">
+<h3 class="callout-title">Disk space and the package cache</h3>
+<div class="callout-content">
+<p>When the global package cache and the project environment are on the
+same file system, Pixi <a href="https://prefix.dev/blog/what-linking-means-when-installing-a-conda-package" class="external-link">links
+most of the package files from the cache into each environment</a>
+instead of copying them, taking much less extra disk space than it might
+appear. However, when the cache and the project environment are on
+different file systems (e.g. a home directory and a scratch space on an
+HPC system) the files are copied, and the total amount of disk space
+used can be much larger.</p>
+<p>This can be avoided by setting the <a href="https://pixi.prefix.dev/latest/workspace/environment/#caching-packages" class="external-link"><code>PIXI_CACHE_DIR</code></a>
+environment variable to a directory on the same file system as your
+projects, and mitigated on disk limited machines by removing the
+environments of projects not in use with <a href="https://pixi.prefix.dev/latest/reference/cli/pixi/clean/#pixi-clean" class="external-link"><code>pixi clean</code></a>
+(while keeping their lock files) and periodically cleaning the cache
+with <code>pixi clean cache</code>.</p>
+</div>
+</div>
+</div>
+<ul>
+<li>Each project is set up separately, with its own manifest, lock file,
+and environments that need to be solved and installed, and nothing is
+shared implicitly between projects.</li>
+</ul>
+<div id="sharing-between-projects" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="sharing-between-projects" class="callout-inner">
+<h3 class="callout-title">Sharing between projects</h3>
+<div class="callout-content">
+<p>Tools that you want available everywhere need to be added to each
+project or installed globally (see “Global Tools” below), though
+packages already in the cache are reused rather than downloaded
+again.</p>
+<p>If you would like to use a workspace’s environments from any
+directory, more like a traditional named conda environment, Pixi also
+supports <a href="https://pixi.sh/latest/switching_from/conda/#named-workspaces" class="external-link">named
+workspaces</a> that are registered with <a href="https://pixi.prefix.dev/latest/reference/cli/pixi/workspace/register/" class="external-link"><code>pixi workspace register</code></a>
+and can then be used by name with the <code>--workspace</code> option
+(e.g. <code>pixi shell --workspace &lt;name&gt;</code>).</p>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="pixi-project-files-and-the-cli-basics">Pixi project files and the CLI basics<a class="anchor" aria-label="anchor" href="#pixi-project-files-and-the-cli-basics"></a>
 </h2>
 <hr class="half-width">
 <p>Every Pixi project begins with creating a manifest file. A manifest
@@ -957,7 +1004,7 @@ line and their dependencies.</li>
 Defines the conda package dependencies from the <code>channels</code> in
 your <code>workspace</code> table.</li>
 </ul>
-<div id="callout1" class="callout">
+<div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -1329,7 +1376,7 @@ directory.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Let’s start at the command line and add the additional dependencies
 with <code>pixi add</code></p>
@@ -1451,7 +1498,7 @@ the <code>lab</code> task.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Using the command line, we use the same <code>pixi task</code> syntax
 as before, but now with the <code>--depends-on</code> option</p>
@@ -1614,7 +1661,7 @@ platforms.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Using the <a href="https://pixi.sh/latest/reference/cli/pixi/workspace/" class="external-link"><code>pixi workspace</code>
 command</a>, one can add the platforms with</p>
@@ -1799,7 +1846,7 @@ with the <code>--environment</code> flag</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" tabindex="-1" aria-label="code-block-59-1"></a><span class="ex">pixi</span> shell <span class="at">--environment</span> dev</span></code></pre>
 </div>
-<div id="callout3" class="callout">
+<div id="callout5" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -5181,7 +5228,7 @@ and <code>win-64</code>.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>This is just expanding the exercises from the CUDA conda packages
 episode.</p>
@@ -5388,7 +5435,7 @@ Test set: Average loss: 0.0351, Accuracy: 9874/10000 (99%)</code></pre>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can enter a shell environment first</p>
 <div class="codewrapper sourceCode" id="cb21">
@@ -5497,7 +5544,7 @@ into the container image.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5565,7 +5612,7 @@ and Dockerfile files and deploy them to GitHub Container Registry
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>Create the GitHub Actions workflow directory tree</p>
 <div class="codewrapper sourceCode" id="cb24">
@@ -6600,8 +6647,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/aio.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/aio.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2026-10-22",
-  "datePublished": "2026-10-22"
+  "dateModified": "2026-10-24",
+  "datePublished": "2026-10-24"
 }
 
   </script><script>
