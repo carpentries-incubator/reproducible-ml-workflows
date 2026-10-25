@@ -619,12 +619,20 @@ jobs:
       packages: write
 
     steps:
+      - name: Check available disk space
+        id: disk
+        run: |
+          df -h /
+          echo "available_kib=$(df -k --output=avail / | awk 'NR == 2 {print $1}')" >> "$GITHUB_OUTPUT"
+
+      # GitHub only guarantees 14 GB of storage on standard runners, which is not enough
+      # to build the CUDA Apptainer image. If space is low, remove large preinstalled
+      # toolchains that this job does not use (Android SDK, .NET, and Haskell).
       - name: Free disk space
-        uses: AdityaGarg8/remove-unwanted-software@v5
-        with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
+        if: ${{ fromJSON(steps.disk.outputs.available_kib) < 31457280 }}  # 30 GiB
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          df -h /
 
       - name: Checkout
         uses: actions/checkout@v4
