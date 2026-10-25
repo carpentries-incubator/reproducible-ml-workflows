@@ -354,8 +354,56 @@
     </nav><main id="main-content" class="main-content"><h1 class="schedule-heading">Summary and Setup</h1>
       
 
-<p>This is a new lesson built with <a href="https://carpentries.github.io/sandpaper-docs" class="external-link">The Carpentries
-Workbench</a>.</p>
+<p>Scientific researchers need reproducible software environments for
+complex applications that can run across heterogeneous computing
+platforms. For machine learning on GPUs, a working environment also
+depends on the hardware acceleration libraries, like CUDA, that the
+software was built against. Without a precise definition of every
+package in an environment, rerunning a workflow on a different machine,
+or on the same machine in the future, can give different results or
+fail.</p>
+<p>This lesson teaches technologies and best practices for creating
+fully reproducible, multi-platform software environments for machine
+learning workflows, including environments that use CUDA on NVIDIA GPUs.
+Using <a href="https://pixi.prefix.dev/" class="external-link">Pixi</a>, you will define
+software environments with declarative manifest files, resolve and lock
+all dependencies to their exact version and digest, and resolve
+environments for Linux, macOS, and Windows from any of these platforms.
+You will then build these environments into Linux containers with
+automated GitHub Actions workflows, and use them to run machine learning
+training on high-throughput computing (HTC) and high-performance
+computing (HPC) systems.</p>
+<p>The lesson is designed to be taught as a three-day workshop, where
+each day has a half day of instruction from the lesson material,
+followed by a half day of interactive work sessions in which
+participants apply what they learned to their own research projects with
+the help of the instruction team. The lesson does not teach machine
+learning concepts. Instead, it focuses on the tools and methods that
+make existing machine learning workflows reproducible.</p>
+<div id="prerequisites" class="callout prereq">
+<div class="callout-square">
+<i class="callout-icon" data-feather="check"></i>
+</div>
+<span class="callout-header">Prerequisite</span>
+<div id="prerequisites" class="callout-inner">
+<h3 class="callout-title">Prerequisites</h3>
+<div class="callout-content">
+<p>This lesson is aimed at researchers who already have basic experience
+with scientific software development, including:</p>
+<ul><li>Navigating file systems that follow the Filesystem Hierarchy
+Standard of Unix-like systems.</li>
+<li>Using version control with Git.</li>
+<li>Programming in a language such as Python or C++.</li>
+<li>A working understanding of the goals of machine learning.</li>
+</ul><p>Experience with Linux containers and continuous integration and
+continuous delivery (CI/CD) systems is not required, but is
+beneficial.</p>
+<p>Access to an NVIDIA GPU, and to an HTC or HPC system, is needed to
+run some of the examples, but you can follow the lesson without them.
+See the <a href="index.html#setup">Setup</a> page for details.</p>
+</div>
+</div>
+</div>
 <p>The source code for the lesson is archived on Zenodo and is citable
 from the following DOI: <a href="https://doi.org/10.5281/zenodo.17537698" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17537698.svg" alt="DOI" class="figure"></a></p>
 <!--
@@ -447,7 +495,7 @@ learning libraries.</p>
   Unix machines (Linux and macOS)
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -500,7 +548,7 @@ learning libraries.</p>
   Windows
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -679,8 +727,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/index.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/index.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2026-10-24",
-  "datePublished": "2026-10-24"
+  "dateModified": "2026-10-25",
+  "datePublished": "2026-10-25"
 }
 
   </script><script>
