@@ -327,6 +327,25 @@ packages:
 These groups provide a full description of every package described in the Pixi workspace and its dependencies and constraints on other packages.
 This means that for each package specified, that version, and **only** that version, will be downloaded and installed in the future.
 
+::: callout
+
+## Lock files and security
+
+Locking every package in an environment to an exact version and digest has consequences for the security of the environment.
+
+**Pros**
+
+* Packages are installed at the exact versions and digests recorded in the lock file, so new releases do not enter the environment until the lock file is explicitly updated.
+This protects a locked environment from installing malicious releases of a package published after it was locked.
+For example, a lock file that contained `pytorch-lightning` before the malicious `pytorch-lightning` 2.6.2 and 2.6.3 releases on PyPI that contained credential harvesting code ([CVE-2026-44484](https://github.com/advisories/GHSA-w37p-236h-pfx3)) was safe from the attack.
+
+**Cons**
+
+* A locked environment also does not receive security fixes until you update the lock file.
+For example, after the [2026 eMudhra certificate authority incident](https://discuss.python.org/t/information-for-python-users-regarding-emudhra-emsign-ca-certificate-security-incident/109576), users needed new versions of `certifi`, `ca-certificates`, and potentially `pip`, to stop trusting the compromised certificates, and a locked environment keeps the old versions until its lock file is updated.
+
+:::
+
 We can even test that now by deleting the installed environment fully with [`pixi clean`](https://pixi.sh/latest/reference/cli/pixi/clean/) and then getting it back (bit for bit) in a few seconds with [`pixi install`](https://pixi.sh/latest/reference/cli/pixi/install/).
 
 ```bash
