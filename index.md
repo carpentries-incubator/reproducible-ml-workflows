@@ -32,4 +32,4 @@ See the [Setup](learners/setup.md) page for details.
 
 :::
 
-The source code for the lesson is archived on Zenodo and is citable from the following DOI: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17537698.svg)](https://doi.org/10.5281/zenodo.17537698)
+The source code for the lesson is archived on Zenodo and is citable from the following DOI: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17537698.svg){alt="Zenodo DOI badge for 10.5281/zenodo.17537698"}](https://doi.org/10.5281/zenodo.17537698)
