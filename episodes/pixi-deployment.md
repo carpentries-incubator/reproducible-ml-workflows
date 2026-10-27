@@ -657,7 +657,15 @@ jobs:
           # /tmp on ubuntu-26.04 runners is a ~8 GB tmpfs, too small for the CUDA
           # environment, so build on the runner's disk instead
           APPTAINER_TMPDIR: ${{ runner.temp }}
-        run: apptainer build gpu-noble-cuda-12.9.sif apptainer.def
+        run: |
+          # gzip is the most widely supported SIF compression, so keep it for published
+          # images. Pull request builds are never pushed, so use the much faster zstd.
+          # See https://apptainer.org/docs/user/main/build_a_container.html
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            apptainer build --mksquashfs-args "-comp zstd -Xcompression-level 3" gpu-noble-cuda-12.9.sif apptainer.def
+          else
+            apptainer build gpu-noble-cuda-12.9.sif apptainer.def
+          fi
 
       - name: Test container
         working-directory: ./cuda-exercise
