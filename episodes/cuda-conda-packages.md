@@ -383,7 +383,7 @@ cat .pixi/envs/default/conda-meta/pytorch-gpu-*.json
 
 :::
 
-and **if on a `linux-64` machine with a valid `__cuda` virtual package (so that it supports the `linux-64-cuda` platform)** check that it can see and find GPUs
+and **if on a machine that supports the `linux-64-cuda` platform** check that it can see and find GPUs
 
 ```python
 # torch_detect_GPU.py
