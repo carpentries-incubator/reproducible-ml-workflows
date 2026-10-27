@@ -111,7 +111,7 @@ Let's add a dependency to our project to change that
 pixi add python
 ```
 ```output
-✔ Added python >=3.13.5,<3.14
+✔ Added python >=3.15.2,<3.16
 ```
 
 which now gives us an updated Pixi manifest
@@ -126,7 +126,7 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-python = ">=3.13.5,<3.14"
+python = ">=3.15.2,<3.16"
 ```
 
 and the start of a directory tree with the `.pixi/` directory
@@ -177,15 +177,16 @@ tree -L 3 .pixi/
 └── envs
     └── default
         ├── bin
+        ├── CACHEDIR.TAG
         ├── conda-meta
+        ├── etc
         ├── include
         ├── lib
-        ├── man
         ├── share
         ├── ssl
         └── x86_64-conda-linux-gnu
 
-11 directories, 0 files
+11 directories, 1 file
 ```
 
 ### macOS
@@ -261,29 +262,29 @@ It is a result of all the files that were in the conda packages we downloaded an
 pixi list
 ```
 ```output
-Package           Version   Build               Size       Kind   Source
-_libgcc_mutex     0.1       conda_forge         2.5 KiB    conda  https://conda.anaconda.org/conda-forge/
-_openmp_mutex     4.5       2_gnu               23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-bzip2             1.0.8     h4bc722e_7          246.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-ca-certificates   2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
-ld_impl_linux-64  2.44      h1423503_1          660.2 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat          2.7.1     hecca717_0          73.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi            3.4.6     h2dba641_1          56.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgcc            15.1.0    h767d61c_4          804.8 KiB  conda  https://conda.anaconda.org/conda-forge/
-libgcc-ng         15.1.0    h69a702a_4          28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgomp           15.1.0    h767d61c_4          436.8 KiB  conda  https://conda.anaconda.org/conda-forge/
-liblzma           5.8.1     hb9d3cd8_2          110.2 KiB  conda  https://conda.anaconda.org/conda-forge/
-libmpdec          4.0.0     hb9d3cd8_0          89 KiB     conda  https://conda.anaconda.org/conda-forge/
-libsqlite         3.50.4    h0c1763c_0          910.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-libuuid           2.38.1    h0b41bf4_0          32.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-libzlib           1.3.1     hb9d3cd8_2          59.5 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses           6.5       h2d0b736_3          870.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl           3.5.2     h26f9b46_0          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-python            3.13.5    hec9711d_102_cp313  31.7 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi        3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline          8.2       h8c095d6_2          275.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk                8.6.13    noxft_hd72426e_102  3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
-tzdata            2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
+Installed for: linux-64
+Name              Version       Build                       Size  Kind   Source
+_openmp_mutex     4.5           20_gnu                 28.27 KiB  conda  https://conda.anaconda.org/conda-forge
+bzip2             1.0.8         hda65f42_10           251.77 KiB  conda  https://conda.anaconda.org/conda-forge
+ca-certificates   2026.10.23    hbd8a1cb_0            127.01 KiB  conda  https://conda.anaconda.org/conda-forge
+ld_impl_linux-64  2.46.1        default_hbd61a6d_103  724.72 KiB  conda  https://conda.anaconda.org/conda-forge
+libedit           3.1.20260512  pl5321h373387f_0      132.69 KiB  conda  https://conda.anaconda.org/conda-forge
+libexpat          2.9.0         hd2095e1_0             77.04 KiB  conda  https://conda.anaconda.org/conda-forge
+libffi            3.7.0         h81df57d_1             66.41 KiB  conda  https://conda.anaconda.org/conda-forge
+libgcc            16.2.0        ha9f2e26_7              1.01 MiB  conda  https://conda.anaconda.org/conda-forge
+libgomp           16.2.0        he0feb66_7            625.55 KiB  conda  https://conda.anaconda.org/conda-forge
+liblzma           5.8.3         hb03c661_1            110.35 KiB  conda  https://conda.anaconda.org/conda-forge
+libmpdec          4.0.0         hb03c661_2             90.58 KiB  conda  https://conda.anaconda.org/conda-forge
+libsqlite         3.54.1        h0737f62_101          957.51 KiB  conda  https://conda.anaconda.org/conda-forge
+libuuid           2.42.4        hcfc3c73_0             33.63 KiB  conda  https://conda.anaconda.org/conda-forge
+libzlib           1.3.2         h25fd6f3_3             62.22 KiB  conda  https://conda.anaconda.org/conda-forge
+ncurses           6.6           hdb14827_1            889.84 KiB  conda  https://conda.anaconda.org/conda-forge
+openssl           3.6.5         h781a0a9_0              3.05 MiB  conda  https://conda.anaconda.org/conda-forge
+python            3.15.2        h6e52b48_100_cp315     27.97 MiB  conda  https://conda.anaconda.org/conda-forge
+python_abi        3.15          9_cp315                 6.64 KiB  conda  https://conda.anaconda.org/conda-forge
+tk                8.6.13        noxft_h1df4ec4_4        3.40 MiB  conda  https://conda.anaconda.org/conda-forge
+tzdata            2026e         h5d301ff_0            116.41 KiB  conda  https://conda.anaconda.org/conda-forge
+zstd              1.5.7         hb78ec9c_7            587.21 KiB  conda  https://conda.anaconda.org/conda-forge
 ```
 
 ### macOS
@@ -292,23 +293,24 @@ tzdata            2025b     h78e105d_0          120.1 KiB  conda  https://conda.
 pixi list
 ```
 ```output
-Package          Version   Build               Size       Kind   Source
-bzip2            1.0.8     h99b78c6_7          120 KiB    conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
-icu              75.1      hfee45f7_0          11.3 MiB   conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.1     hec049ff_0          64.4 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi           3.4.6     h1da3d7d_1          38.9 KiB   conda  https://conda.anaconda.org/conda-forge/
-liblzma          5.8.1     h39f12f2_2          90.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libmpdec         4.0.0     h5505292_0          70.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.4    h4237e3c_0          881.5 KiB  conda  https://conda.anaconda.org/conda-forge/
-libzlib          1.3.1     h8359307_2          45.3 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses          6.5       h5e97a16_3          778.3 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.2     he92f556_0          2.9 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5    hf3f3da0_102_cp313  12.3 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline         8.2       h1d1bf99_2          246.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk               8.6.13    h892fb3f_2          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-tzdata           2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
+Installed for: osx-arm64
+Name             Version       Build                     Size  Kind   Source
+bzip2            1.0.8         h4e30115_10         122.04 KiB  conda  https://conda.anaconda.org/conda-forge
+ca-certificates  2026.10.23    hbd8a1cb_0          127.01 KiB  conda  https://conda.anaconda.org/conda-forge
+libedit          3.1.20260512  pl5321h26f1114_0    105.97 KiB  conda  https://conda.anaconda.org/conda-forge
+libexpat         2.9.0         h6111c0a_0           68.05 KiB  conda  https://conda.anaconda.org/conda-forge
+libffi           3.7.0         h47dc5ef_1           42.61 KiB  conda  https://conda.anaconda.org/conda-forge
+liblzma          5.8.3         h8088a28_1           89.57 KiB  conda  https://conda.anaconda.org/conda-forge
+libmpdec         4.0.0         h84a0fba_2           71.57 KiB  conda  https://conda.anaconda.org/conda-forge
+libsqlite        3.54.1        h34a968b_101        927.20 KiB  conda  https://conda.anaconda.org/conda-forge
+libzlib          1.3.2         h8088a28_3           46.70 KiB  conda  https://conda.anaconda.org/conda-forge
+ncurses          6.6           he64c551_1          785.45 KiB  conda  https://conda.anaconda.org/conda-forge
+openssl          3.6.5         h55eecbc_0            2.97 MiB  conda  https://conda.anaconda.org/conda-forge
+python           3.15.2        h2e4dbab_100_cp315   12.80 MiB  conda  https://conda.anaconda.org/conda-forge
+python_abi       3.15          9_cp315               6.64 KiB  conda  https://conda.anaconda.org/conda-forge
+tk               8.6.13        hbeba79b_4            3.19 MiB  conda  https://conda.anaconda.org/conda-forge
+tzdata           2026e         h5d301ff_0          116.41 KiB  conda  https://conda.anaconda.org/conda-forge
+zstd             1.5.7         hf451053_7          423.52 KiB  conda  https://conda.anaconda.org/conda-forge
 ```
 
 ### Windows
@@ -317,24 +319,26 @@ tzdata           2025b     h78e105d_0          120.1 KiB  conda  https://conda.a
 pixi list
 ```
 ```output
-Package          Version       Build               Size       Kind   Source
-bzip2            1.0.8         h2466b09_7          53.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.8.3      h4c7d964_0          150.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.1         hac47afa_0          138 KiB    conda  https://conda.anaconda.org/conda-forge/
-libffi           3.4.6         h537db12_1          43.9 KiB   conda  https://conda.anaconda.org/conda-forge/
-liblzma          5.8.1         h2466b09_2          102.5 KiB  conda  https://conda.anaconda.org/conda-forge/
-libmpdec         4.0.0         h2466b09_0          86.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.4        hf5d6505_0          1.2 MiB    conda  https://conda.anaconda.org/conda-forge/
-libzlib          1.3.1         h2466b09_2          54.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.2         h725018a_0          8.8 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5        h7de537c_102_cp313  16 MiB     conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13          8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-tk               8.6.13        h2c6b04d_2          3.3 MiB    conda  https://conda.anaconda.org/conda-forge/
-tzdata           2025b         h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
-ucrt             10.0.22621.0  h57928b3_1          546.6 KiB  conda  https://conda.anaconda.org/conda-forge/
-vc               14.3          h41ae7f8_31         17.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-vc14_runtime     14.44.35208   h818238b_31         666.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-vcomp14          14.44.35208   h818238b_31         111.3 KiB  conda  https://conda.anaconda.org/conda-forge/
+Installed for: win-64
+Name             Version       Build                     Size  Kind   Source
+bzip2            1.0.8         h0ad9c76_10          54.61 KiB  conda  https://conda.anaconda.org/conda-forge
+ca-certificates  2026.10.23    h4c7d964_0          127.37 KiB  conda  https://conda.anaconda.org/conda-forge
+libexpat         2.9.0         hac47afa_0           71.27 KiB  conda  https://conda.anaconda.org/conda-forge
+libffi           3.7.0         h3d046cb_1           48.82 KiB  conda  https://conda.anaconda.org/conda-forge
+liblzma          5.8.3         hfd05255_1          103.33 KiB  conda  https://conda.anaconda.org/conda-forge
+libmpdec         4.0.0         hfd05255_2           87.02 KiB  conda  https://conda.anaconda.org/conda-forge
+libsqlite        3.54.1        hf5d6505_101          1.27 MiB  conda  https://conda.anaconda.org/conda-forge
+libzlib          1.3.2         hfd05255_3           57.16 KiB  conda  https://conda.anaconda.org/conda-forge
+openssl          3.6.5         hf411b9b_0            8.97 MiB  conda  https://conda.anaconda.org/conda-forge
+python           3.15.2        h53f6dd8_100_cp315   17.72 MiB  conda  https://conda.anaconda.org/conda-forge
+python_abi       3.15          9_cp315               6.64 KiB  conda  https://conda.anaconda.org/conda-forge
+tk               8.6.13        h967ab96_4            3.61 MiB  conda  https://conda.anaconda.org/conda-forge
+tzdata           2026e         h5d301ff_0          116.41 KiB  conda  https://conda.anaconda.org/conda-forge
+ucrt             10.0.26100.0  h57928b3_0          678.41 KiB  conda  https://conda.anaconda.org/conda-forge
+vc               14.5          ha367084_41          20.88 KiB  conda  https://conda.anaconda.org/conda-forge
+vc14_runtime     14.51.36247   habf1de7_41         749.96 KiB  conda  https://conda.anaconda.org/conda-forge
+vcomp14          14.51.36247   habf1de7_41         152.26 KiB  conda  https://conda.anaconda.org/conda-forge
+zstd             1.5.7         h534d264_7          378.45 KiB  conda  https://conda.anaconda.org/conda-forge
 ```
 :::
 
@@ -346,31 +350,31 @@ Let's download the particular [`python` conda package](https://anaconda.org/cond
 ### Linux
 
 ```bash
-curl -sLO https://anaconda.org/conda-forge/python/3.13.5/download/linux-64/python-3.13.5-hec9711d_102_cp313.conda
+curl -sLO https://anaconda.org/conda-forge/python/3.15.2/download/linux-64/python-3.15.2-h6e52b48_100_cp315.conda
 ls *.conda
 ```
 ```output
-python-3.13.5-hec9711d_102_cp313.conda
+python-3.15.2-h6e52b48_100_cp315.conda
 ```
 
 ### macOS
 
 ```bash
-curl -sLO https://anaconda.org/conda-forge/python/3.13.5/download/osx-arm64/python-3.13.5-hf3f3da0_102_cp313.conda
+curl -sLO https://anaconda.org/conda-forge/python/3.15.2/download/osx-arm64/python-3.15.2-h2e4dbab_100_cp315.conda
 ls *.conda
 ```
 ```output
-python-3.13.5-hf3f3da0_102_cp313.conda
+python-3.15.2-h2e4dbab_100_cp315.conda
 ```
 
 ### Windows
 
 ```powershell
-iwr -Uri "https://anaconda.org/conda-forge/python/3.13.5/download/win-64/python-3.13.5-h7de537c_102_cp313.conda" -OutFile "python-3.13.5-h7de537c_102_cp313.conda"
+iwr -Uri "https://anaconda.org/conda-forge/python/3.15.2/download/win-64/python-3.15.2-h53f6dd8_100_cp315.conda" -OutFile "python-3.15.2-h53f6dd8_100_cp315.conda"
 ls *.conda
 ```
 ```output
-python-3.13.5-h7de537c_102_cp313.conda
+python-3.15.2-h53f6dd8_100_cp315.conda
 ```
 :::
 
@@ -382,40 +386,40 @@ python-3.13.5-h7de537c_102_cp313.conda
 ### Linux
 
 ```bash
-unzip python-3.13.5-hec9711d_102_cp313.conda -d output
+unzip python-3.15.2-h6e52b48_100_cp315.conda -d output
 ```
 ```output
-Archive:  python-3.13.5-hec9711d_102_cp313.conda
+Archive:  python-3.15.2-h6e52b48_100_cp315.conda
  extracting: output/metadata.json
- extracting: output/pkg-python-3.13.5-hec9711d_102_cp313.tar.zst
- extracting: output/info-python-3.13.5-hec9711d_102_cp313.tar.zst
+ extracting: output/pkg-python-3.15.2-h6e52b48_100_cp315.tar.zst
+ extracting: output/info-python-3.15.2-h6e52b48_100_cp315.tar.zst
 ```
 
 ### macOS
 
 ```bash
-unzip python-3.13.5-hf3f3da0_102_cp313.conda -d output
+unzip python-3.15.2-h2e4dbab_100_cp315.conda -d output
 ```
 ```output
-Archive:  python-3.13.5-hf3f3da0_102_cp313.conda
+Archive:  python-3.15.2-h2e4dbab_100_cp315.conda
  extracting: output/metadata.json
- extracting: output/pkg-python-3.13.5-hf3f3da0_102_cp313.tar.zst
- extracting: output/info-python-3.13.5-hf3f3da0_102_cp313.tar.zst
+ extracting: output/pkg-python-3.15.2-h2e4dbab_100_cp315.tar.zst
+ extracting: output/info-python-3.15.2-h2e4dbab_100_cp315.tar.zst
 ```
 
 ### Windows
 
 ```powershell
-Expand-Archive "python-3.13.5-h7de537c_102_cp313.conda" "output"
+Expand-Archive "python-3.15.2-h53f6dd8_100_cp315.conda" "output"
 ```
 ```output
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 d----           8/11/2025  2:11 AM                pkg
 d----           8/11/2025  2:11 AM                pkg
--a---            1/1/1980 12:00 AM         133451 info-python-3.13.5-h7de537c_102_cp313.tar.zst
--a---           6/16/2025  8:25 AM             31 metadata.json
--a---            1/1/1980 12:00 AM       16691645 pkg-python-3.13.5-h7de537c_102_cp313.tar.zst
+-a---            1/1/1980 12:00 AM         150244 info-python-3.15.2-h53f6dd8_100_cp315.tar.zst
+-a---          10/26/2026 11:44 AM             31 metadata.json
+-a---            1/1/1980 12:00 AM       18428393 pkg-python-3.15.2-h53f6dd8_100_cp315.tar.zst
 ```
 :::
 
@@ -440,32 +444,26 @@ tree -L 2 pkg
 ```output
 pkg
 ├── bin
-│   ├── idle3 -> idle3.13
-│   ├── idle3.13
-│   ├── pydoc -> pydoc3.13
-│   ├── pydoc3 -> pydoc3.13
-│   ├── pydoc3.13
-│   ├── python -> python3.13
-│   ├── python3 -> python3.13
-│   ├── python3.1 -> python3.13
-│   ├── python3.13
-│   ├── python3.13-config
-│   └── python3-config -> python3.13-config
+│   ├── idle3 -> idle3.15
+│   ├── idle3.15
+│   ├── pydoc -> pydoc3.15
+│   ├── pydoc3 -> pydoc3.15
+│   ├── pydoc3.15
+│   ├── python -> python3.15
+│   ├── python3 -> python3.15
+│   ├── python3.15
+│   ├── python3.15-config
+│   └── python3-config -> python3.15-config
 ├── include
-│   └── python3.13
-├── info
-│   └── licenses
+│   └── python3.15
 ├── lib
-│   ├── libpython3.13.so -> libpython3.13.so.1.0
-│   ├── libpython3.13.so.1.0
-│   ├── libpython3.so
 │   ├── pkgconfig
-│   └── python3.13
+│   └── python3.15
 └── share
     ├── man
     └── python_compiler_compat
 
-12 directories, 14 files
+10 directories, 10 files
 ```
 
 ### macOS
@@ -476,29 +474,25 @@ tree -L 2 pkg
 ```output
 pkg
 ├── bin
-│   ├── idle3 -> idle3.13
-│   ├── idle3.13
-│   ├── pydoc -> pydoc3.13
-│   ├── pydoc3 -> pydoc3.13
-│   ├── pydoc3.13
-│   ├── python -> python3.13
-│   ├── python3 -> python3.13
-│   ├── python3.1 -> python3.13
-│   ├── python3.13
-│   ├── python3.13-config
-│   └── python3-config -> python3.13-config
+│   ├── idle3 -> idle3.15
+│   ├── idle3.15
+│   ├── pydoc -> pydoc3.15
+│   ├── pydoc3 -> pydoc3.15
+│   ├── pydoc3.15
+│   ├── python -> python3.15
+│   ├── python3 -> python3.15
+│   ├── python3.15
+│   ├── python3.15-config
+│   └── python3-config -> python3.15-config
 ├── include
-│   └── python3.13
-├── info
-│   └── licenses
+│   └── python3.15
 ├── lib
-│   ├── libpython3.13.dylib
 │   ├── pkgconfig
-│   └── python3.13
+│   └── python3.15
 └── share
     └── man
 
-11 directories, 12 files
+9 directories, 10 files
 ```
 
 ### Windows
@@ -516,25 +510,37 @@ So we can see that the directory structure of the conda package
 ### Linux
 
 ```bash
-ls -1p pkg/lib/
+ls -1p pkg/bin/
 ```
 ```output
-libpython3.13.so
-libpython3.13.so.1.0
-libpython3.so
-pkgconfig/
-python3.13/
+idle3
+idle3.15
+pydoc
+pydoc3
+pydoc3.15
+python
+python3
+python3-config
+python3.15
+python3.15-config
 ```
 
 ### macOS
 
 ```bash
-ls -1p pkg/lib/
+ls -1p pkg/bin/
 ```
 ```output
-libpython3.13.dylib
-pkgconfig/
-python3.13/
+idle3
+idle3.15
+pydoc
+pydoc3
+pydoc3.15
+python
+python3
+python3-config
+python3.15
+python3.15-config
 ```
 
 ### Windows
@@ -543,19 +549,16 @@ python3.13/
 ls pkg | fw -col 1
 ```
 ```output
-DLLs
 include
-info
-Lib
+lib
 libs
 Scripts
-Tools
-LICENSE_PYTHON.txt
 python.exe
 python.pdb
 python3.dll
-python313.dll
-python313.pdb
+python315.dll
+python315.pdb
+python3t.dll
 pythonw.exe
 pythonw.pdb
 ```
@@ -570,22 +573,28 @@ is reflected in the directory tree of the Pixi environment with the package inst
 
 ```bash
 cd ..
-ls -1a .pixi/envs/default/lib/libpython*
+ls -1 .pixi/envs/default/bin/python*
 ```
 ```output
-.pixi/envs/default/lib/libpython3.13.so
-.pixi/envs/default/lib/libpython3.13.so.1.0
-.pixi/envs/default/lib/libpython3.so
+.pixi/envs/default/bin/python
+.pixi/envs/default/bin/python3
+.pixi/envs/default/bin/python3-config
+.pixi/envs/default/bin/python3.15
+.pixi/envs/default/bin/python3.15-config
 ```
 
 ### macOS
 
 ```bash
 cd ..
-ls -1a .pixi/envs/default/lib/libpython*
+ls -1 .pixi/envs/default/bin/python*
 ```
 ```output
-.pixi/envs/default/lib/libpython3.13.dylib
+.pixi/envs/default/bin/python
+.pixi/envs/default/bin/python3
+.pixi/envs/default/bin/python3-config
+.pixi/envs/default/bin/python3.15
+.pixi/envs/default/bin/python3.15-config
 ```
 
 ### Windows
@@ -596,7 +605,8 @@ ls .pixi\envs\default\python*.dll | fw -col 1
 ```
 ```output
 python3.dll
-python313.dll
+python315.dll
+python3t.dll
 ```
 
 :::
