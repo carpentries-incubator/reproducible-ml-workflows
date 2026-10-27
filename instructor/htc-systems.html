@@ -362,7 +362,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Using Pixi environments on HTC systems</h1>
-        <p>Last updated on 2026-10-22 |
+        <p>Last updated on 2026-10-27 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/htc-systems.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -494,7 +494,7 @@ and <code>win-64</code>.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>This is just expanding the exercises from the CUDA conda packages
 episode.</p>
@@ -701,7 +701,7 @@ Test set: Average loss: 0.0351, Accuracy: 9874/10000 (99%)</code></pre>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>You can enter a shell environment first</p>
 <div class="codewrapper sourceCode" id="cb21">
@@ -807,7 +807,7 @@ into the container image.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -874,7 +874,7 @@ and Dockerfile files and deploy them to GitHub Container Registry
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>Create the GitHub Actions workflow directory tree</p>
 <div class="codewrapper sourceCode" id="cb24">
@@ -989,48 +989,77 @@ following:</p>
 <span id="cb25-99"><a href="#cb25-99" tabindex="-1" aria-label="code-block-25-99"></a><span class="at">      </span><span class="fu">packages</span><span class="kw">:</span><span class="at"> write</span></span>
 <span id="cb25-100"><a href="#cb25-100" tabindex="-1" aria-label="code-block-25-100"></a></span>
 <span id="cb25-101"><a href="#cb25-101" tabindex="-1" aria-label="code-block-25-101"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb25-102"><a href="#cb25-102" tabindex="-1" aria-label="code-block-25-102"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Free disk space</span></span>
-<span id="cb25-103"><a href="#cb25-103" tabindex="-1" aria-label="code-block-25-103"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> AdityaGarg8/remove-unwanted-software@v5</span></span>
-<span id="cb25-104"><a href="#cb25-104" tabindex="-1" aria-label="code-block-25-104"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb25-105"><a href="#cb25-105" tabindex="-1" aria-label="code-block-25-105"></a><span class="at">          </span><span class="fu">remove-android</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
-<span id="cb25-106"><a href="#cb25-106" tabindex="-1" aria-label="code-block-25-106"></a><span class="at">          </span><span class="fu">remove-dotnet</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
-<span id="cb25-107"><a href="#cb25-107" tabindex="-1" aria-label="code-block-25-107"></a><span class="at">          </span><span class="fu">remove-haskell</span><span class="kw">:</span><span class="at"> </span><span class="st">'true'</span></span>
-<span id="cb25-108"><a href="#cb25-108" tabindex="-1" aria-label="code-block-25-108"></a></span>
-<span id="cb25-109"><a href="#cb25-109" tabindex="-1" aria-label="code-block-25-109"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Checkout</span></span>
-<span id="cb25-110"><a href="#cb25-110" tabindex="-1" aria-label="code-block-25-110"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
-<span id="cb25-111"><a href="#cb25-111" tabindex="-1" aria-label="code-block-25-111"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb25-112"><a href="#cb25-112" tabindex="-1" aria-label="code-block-25-112"></a><span class="at">          </span><span class="fu">fetch-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
-<span id="cb25-113"><a href="#cb25-113" tabindex="-1" aria-label="code-block-25-113"></a></span>
-<span id="cb25-114"><a href="#cb25-114" tabindex="-1" aria-label="code-block-25-114"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Get commit SHA</span></span>
-<span id="cb25-115"><a href="#cb25-115" tabindex="-1" aria-label="code-block-25-115"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> meta</span></span>
-<span id="cb25-116"><a href="#cb25-116" tabindex="-1" aria-label="code-block-25-116"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb25-117"><a href="#cb25-117" tabindex="-1" aria-label="code-block-25-117"></a>            # Get the short commit SHA (first 7 characters)</span>
-<span id="cb25-118"><a href="#cb25-118" tabindex="-1" aria-label="code-block-25-118"></a>            SHA=$(git rev-parse --short HEAD)</span>
-<span id="cb25-119"><a href="#cb25-119" tabindex="-1" aria-label="code-block-25-119"></a>            echo "sha=sha-$SHA" &gt;&gt; $GITHUB_OUTPUT</span>
-<span id="cb25-120"><a href="#cb25-120" tabindex="-1" aria-label="code-block-25-120"></a></span>
-<span id="cb25-121"><a href="#cb25-121" tabindex="-1" aria-label="code-block-25-121"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install Apptainer</span></span>
-<span id="cb25-122"><a href="#cb25-122" tabindex="-1" aria-label="code-block-25-122"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> eWaterCycle/setup-apptainer@v2</span></span>
-<span id="cb25-123"><a href="#cb25-123" tabindex="-1" aria-label="code-block-25-123"></a></span>
-<span id="cb25-124"><a href="#cb25-124" tabindex="-1" aria-label="code-block-25-124"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build container from definition file</span></span>
-<span id="cb25-125"><a href="#cb25-125" tabindex="-1" aria-label="code-block-25-125"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./htcondor</span></span>
-<span id="cb25-126"><a href="#cb25-126" tabindex="-1" aria-label="code-block-25-126"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer build gpu-noble-cuda-12.9.sif apptainer.def</span></span>
+<span id="cb25-102"><a href="#cb25-102" tabindex="-1" aria-label="code-block-25-102"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Check available disk space</span></span>
+<span id="cb25-103"><a href="#cb25-103" tabindex="-1" aria-label="code-block-25-103"></a><span class="at">        </span><span class="fu">id</span><span class="kw">:</span><span class="at"> disk</span></span>
+<span id="cb25-104"><a href="#cb25-104" tabindex="-1" aria-label="code-block-25-104"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb25-105"><a href="#cb25-105" tabindex="-1" aria-label="code-block-25-105"></a>          df -h /</span>
+<span id="cb25-106"><a href="#cb25-106" tabindex="-1" aria-label="code-block-25-106"></a>          echo "available_kib=$(df -k --output=avail / | awk 'NR == 2 {print $1}')" &gt;&gt; "$GITHUB_OUTPUT"</span>
+<span id="cb25-107"><a href="#cb25-107" tabindex="-1" aria-label="code-block-25-107"></a></span>
+<span id="cb25-108"><a href="#cb25-108" tabindex="-1" aria-label="code-block-25-108"></a><span class="co">      # GitHub only guarantees 14 GB of storage on standard runners, which is not enough</span></span>
+<span id="cb25-109"><a href="#cb25-109" tabindex="-1" aria-label="code-block-25-109"></a><span class="co">      # to build the CUDA Apptainer image. If space is low, remove large preinstalled</span></span>
+<span id="cb25-110"><a href="#cb25-110" tabindex="-1" aria-label="code-block-25-110"></a><span class="co">      # toolchains that this job does not use (Android SDK, .NET, and Haskell).</span></span>
+<span id="cb25-111"><a href="#cb25-111" tabindex="-1" aria-label="code-block-25-111"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Free disk space</span></span>
+<span id="cb25-112"><a href="#cb25-112" tabindex="-1" aria-label="code-block-25-112"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> ${{ fromJSON(steps.disk.outputs.available_kib) &lt; 31457280 }}</span><span class="co">  # 30 GiB</span></span>
+<span id="cb25-113"><a href="#cb25-113" tabindex="-1" aria-label="code-block-25-113"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb25-114"><a href="#cb25-114" tabindex="-1" aria-label="code-block-25-114"></a>          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup</span>
+<span id="cb25-115"><a href="#cb25-115" tabindex="-1" aria-label="code-block-25-115"></a>          df -h /</span>
+<span id="cb25-116"><a href="#cb25-116" tabindex="-1" aria-label="code-block-25-116"></a></span>
+<span id="cb25-117"><a href="#cb25-117" tabindex="-1" aria-label="code-block-25-117"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Checkout</span></span>
+<span id="cb25-118"><a href="#cb25-118" tabindex="-1" aria-label="code-block-25-118"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb25-119"><a href="#cb25-119" tabindex="-1" aria-label="code-block-25-119"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb25-120"><a href="#cb25-120" tabindex="-1" aria-label="code-block-25-120"></a><span class="at">          </span><span class="fu">fetch-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
+<span id="cb25-121"><a href="#cb25-121" tabindex="-1" aria-label="code-block-25-121"></a></span>
+<span id="cb25-122"><a href="#cb25-122" tabindex="-1" aria-label="code-block-25-122"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install Apptainer</span></span>
+<span id="cb25-123"><a href="#cb25-123" tabindex="-1" aria-label="code-block-25-123"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> prefix-dev/setup-pixi@v0.11.2</span></span>
+<span id="cb25-124"><a href="#cb25-124" tabindex="-1" aria-label="code-block-25-124"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb25-125"><a href="#cb25-125" tabindex="-1" aria-label="code-block-25-125"></a><span class="at">          </span><span class="fu">run-install</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb25-126"><a href="#cb25-126" tabindex="-1" aria-label="code-block-25-126"></a><span class="at">          </span><span class="fu">global-environments</span><span class="kw">:</span><span class="at"> apptainer</span></span>
 <span id="cb25-127"><a href="#cb25-127" tabindex="-1" aria-label="code-block-25-127"></a></span>
-<span id="cb25-128"><a href="#cb25-128" tabindex="-1" aria-label="code-block-25-128"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test container</span></span>
-<span id="cb25-129"><a href="#cb25-129" tabindex="-1" aria-label="code-block-25-129"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./htcondor</span></span>
-<span id="cb25-130"><a href="#cb25-130" tabindex="-1" aria-label="code-block-25-130"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer test gpu-noble-cuda-12.9.sif</span></span>
-<span id="cb25-131"><a href="#cb25-131" tabindex="-1" aria-label="code-block-25-131"></a></span>
-<span id="cb25-132"><a href="#cb25-132" tabindex="-1" aria-label="code-block-25-132"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Login to GitHub Container Registry</span></span>
-<span id="cb25-133"><a href="#cb25-133" tabindex="-1" aria-label="code-block-25-133"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
-<span id="cb25-134"><a href="#cb25-134" tabindex="-1" aria-label="code-block-25-134"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3</span></span>
-<span id="cb25-135"><a href="#cb25-135" tabindex="-1" aria-label="code-block-25-135"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb25-136"><a href="#cb25-136" tabindex="-1" aria-label="code-block-25-136"></a><span class="at">          </span><span class="fu">registry</span><span class="kw">:</span><span class="at"> ghcr.io</span></span>
-<span id="cb25-137"><a href="#cb25-137" tabindex="-1" aria-label="code-block-25-137"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ github.repository_owner }}</span></span>
-<span id="cb25-138"><a href="#cb25-138" tabindex="-1" aria-label="code-block-25-138"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
-<span id="cb25-139"><a href="#cb25-139" tabindex="-1" aria-label="code-block-25-139"></a></span>
-<span id="cb25-140"><a href="#cb25-140" tabindex="-1" aria-label="code-block-25-140"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy built container</span></span>
-<span id="cb25-141"><a href="#cb25-141" tabindex="-1" aria-label="code-block-25-141"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
-<span id="cb25-142"><a href="#cb25-142" tabindex="-1" aria-label="code-block-25-142"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./htcondor</span></span>
-<span id="cb25-143"><a href="#cb25-143" tabindex="-1" aria-label="code-block-25-143"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-mnist-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}</span></span></code></pre>
+<span id="cb25-128"><a href="#cb25-128" tabindex="-1" aria-label="code-block-25-128"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Allow unprivileged user namespaces</span></span>
+<span id="cb25-129"><a href="#cb25-129" tabindex="-1" aria-label="code-block-25-129"></a><span class="co">        # The conda-forge Apptainer is an unprivileged (non-setuid) install, and</span></span>
+<span id="cb25-130"><a href="#cb25-130" tabindex="-1" aria-label="code-block-25-130"></a><span class="co">        # Ubuntu 24.04+ restricts unprivileged user namespaces with AppArmor</span></span>
+<span id="cb25-131"><a href="#cb25-131" tabindex="-1" aria-label="code-block-25-131"></a><span class="co">        # See https://apptainer.org/docs/admin/main/user_namespace.html</span></span>
+<span id="cb25-132"><a href="#cb25-132" tabindex="-1" aria-label="code-block-25-132"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0</span></span>
+<span id="cb25-133"><a href="#cb25-133" tabindex="-1" aria-label="code-block-25-133"></a></span>
+<span id="cb25-134"><a href="#cb25-134" tabindex="-1" aria-label="code-block-25-134"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build container from definition file</span></span>
+<span id="cb25-135"><a href="#cb25-135" tabindex="-1" aria-label="code-block-25-135"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./htcondor</span></span>
+<span id="cb25-136"><a href="#cb25-136" tabindex="-1" aria-label="code-block-25-136"></a><span class="at">        </span><span class="fu">env</span><span class="kw">:</span></span>
+<span id="cb25-137"><a href="#cb25-137" tabindex="-1" aria-label="code-block-25-137"></a><span class="co">          # /tmp on ubuntu-26.04 runners is a ~8 GB tmpfs, too small for the CUDA</span></span>
+<span id="cb25-138"><a href="#cb25-138" tabindex="-1" aria-label="code-block-25-138"></a><span class="co">          # environment, so build on the runner's disk instead</span></span>
+<span id="cb25-139"><a href="#cb25-139" tabindex="-1" aria-label="code-block-25-139"></a><span class="at">          </span><span class="fu">APPTAINER_TMPDIR</span><span class="kw">:</span><span class="at"> ${{ runner.temp }}</span></span>
+<span id="cb25-140"><a href="#cb25-140" tabindex="-1" aria-label="code-block-25-140"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb25-141"><a href="#cb25-141" tabindex="-1" aria-label="code-block-25-141"></a>          # gzip is the most widely supported SIF compression, so keep it for published</span>
+<span id="cb25-142"><a href="#cb25-142" tabindex="-1" aria-label="code-block-25-142"></a>          # images. Pull request builds are never pushed, so use the much faster zstd.</span>
+<span id="cb25-143"><a href="#cb25-143" tabindex="-1" aria-label="code-block-25-143"></a>          # See https://apptainer.org/docs/user/main/build_a_container.html</span>
+<span id="cb25-144"><a href="#cb25-144" tabindex="-1" aria-label="code-block-25-144"></a>          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then</span>
+<span id="cb25-145"><a href="#cb25-145" tabindex="-1" aria-label="code-block-25-145"></a>            apptainer build --mksquashfs-args "-comp zstd -Xcompression-level 3" gpu-noble-cuda-12.9.sif apptainer.def</span>
+<span id="cb25-146"><a href="#cb25-146" tabindex="-1" aria-label="code-block-25-146"></a>          else</span>
+<span id="cb25-147"><a href="#cb25-147" tabindex="-1" aria-label="code-block-25-147"></a>            apptainer build gpu-noble-cuda-12.9.sif apptainer.def</span>
+<span id="cb25-148"><a href="#cb25-148" tabindex="-1" aria-label="code-block-25-148"></a>          fi</span>
+<span id="cb25-149"><a href="#cb25-149" tabindex="-1" aria-label="code-block-25-149"></a></span>
+<span id="cb25-150"><a href="#cb25-150" tabindex="-1" aria-label="code-block-25-150"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Test container</span></span>
+<span id="cb25-151"><a href="#cb25-151" tabindex="-1" aria-label="code-block-25-151"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./htcondor</span></span>
+<span id="cb25-152"><a href="#cb25-152" tabindex="-1" aria-label="code-block-25-152"></a><span class="at">        </span><span class="fu">env</span><span class="kw">:</span></span>
+<span id="cb25-153"><a href="#cb25-153" tabindex="-1" aria-label="code-block-25-153"></a><span class="co">          # The runner has no GPU, so declare CUDA for pixi to satisfy the workspace's CUDA requirement</span></span>
+<span id="cb25-154"><a href="#cb25-154" tabindex="-1" aria-label="code-block-25-154"></a><span class="at">          </span><span class="fu">CONDA_OVERRIDE_CUDA</span><span class="kw">:</span><span class="at"> </span><span class="st">"12"</span></span>
+<span id="cb25-155"><a href="#cb25-155" tabindex="-1" aria-label="code-block-25-155"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> apptainer test gpu-noble-cuda-12.9.sif</span></span>
+<span id="cb25-156"><a href="#cb25-156" tabindex="-1" aria-label="code-block-25-156"></a></span>
+<span id="cb25-157"><a href="#cb25-157" tabindex="-1" aria-label="code-block-25-157"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Login to GitHub Container Registry</span></span>
+<span id="cb25-158"><a href="#cb25-158" tabindex="-1" aria-label="code-block-25-158"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
+<span id="cb25-159"><a href="#cb25-159" tabindex="-1" aria-label="code-block-25-159"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3</span></span>
+<span id="cb25-160"><a href="#cb25-160" tabindex="-1" aria-label="code-block-25-160"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb25-161"><a href="#cb25-161" tabindex="-1" aria-label="code-block-25-161"></a><span class="at">          </span><span class="fu">registry</span><span class="kw">:</span><span class="at"> ghcr.io</span></span>
+<span id="cb25-162"><a href="#cb25-162" tabindex="-1" aria-label="code-block-25-162"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ github.repository_owner }}</span></span>
+<span id="cb25-163"><a href="#cb25-163" tabindex="-1" aria-label="code-block-25-163"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span>
+<span id="cb25-164"><a href="#cb25-164" tabindex="-1" aria-label="code-block-25-164"></a></span>
+<span id="cb25-165"><a href="#cb25-165" tabindex="-1" aria-label="code-block-25-165"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy built container</span></span>
+<span id="cb25-166"><a href="#cb25-166" tabindex="-1" aria-label="code-block-25-166"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> github.event_name != 'pull_request'</span></span>
+<span id="cb25-167"><a href="#cb25-167" tabindex="-1" aria-label="code-block-25-167"></a><span class="at">        </span><span class="fu">working-directory</span><span class="kw">:</span><span class="at"> ./htcondor</span></span>
+<span id="cb25-168"><a href="#cb25-168" tabindex="-1" aria-label="code-block-25-168"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb25-169"><a href="#cb25-169" tabindex="-1" aria-label="code-block-25-169"></a>          short_sha="${GITHUB_SHA::7}"</span>
+<span id="cb25-170"><a href="#cb25-170" tabindex="-1" aria-label="code-block-25-170"></a>          # OCI registry paths must be lowercase, but GITHUB_REPOSITORY preserves the owner's case</span>
+<span id="cb25-171"><a href="#cb25-171" tabindex="-1" aria-label="code-block-25-171"></a>          registry="oras://ghcr.io/${GITHUB_REPOSITORY,,}"</span>
+<span id="cb25-172"><a href="#cb25-172" tabindex="-1" aria-label="code-block-25-172"></a>          apptainer push gpu-noble-cuda-12.9.sif "${registry}:apptainer-mnist-gpu-noble-cuda-12.9-sha-${short_sha}"</span></code></pre>
 </div>
 </div>
 </div>
@@ -1541,7 +1570,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/htc-systems.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/htc-systems.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2026-10-22",
+  "dateModified": "2026-10-27",
   "datePublished": "2026-10-27"
 }
 
