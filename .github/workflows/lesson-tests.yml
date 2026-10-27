@@ -1,0 +1,296 @@
+# Run the Pixi commands from the episodes to check that they still work.
+#
+# This file uses the .yml extension as The Carpentries Workbench workflow
+# update (update-workflows.yaml) removes all .yaml files from
+# .github/workflows/ before adding its own workflows.
+name: Lesson tests
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  episode-example:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "macos-latest", "windows-latest"]
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Set up Pixi
+      uses: prefix-dev/setup-pixi@v0.11.2
+      with:
+        run-install: false
+
+    - name: Run Pixi intro episode
+      if: ${{ matrix.os != 'windows-latest' }}
+      shell: bash -ex {0}
+      run: |
+        pixi init example
+        cd example
+        ls -1ap
+        cat pixi.toml
+        pixi add python
+        cat pixi.toml
+        ls -1ap
+        ls -1p .pixi/envs/
+        pixi clean
+        pixi install
+        pixi list
+        pixi add numpy notebook jupyterlab
+        pixi task add lab "jupyter lab" --description "Launch JupyterLab"
+        pixi task add --depends-on lab --description "Start exploring the Pixi project" start ''
+        pixi task list
+        pixi run python -c 'import numpy as np; print(np.__version__)'
+        pixi workspace platform add linux-64 osx-arm64 win-64
+        pixi add --feature dev pre-commit
+        pixi workspace environment add --feature dev dev
+        pixi upgrade --feature dev pre-commit
+        pixi run --environment dev pre-commit --help
+        cat pixi.toml
+        pixi workspace export conda-environment environment.yaml
+        cat environment.yaml
+        pixi workspace export conda-explicit-spec --platform linux-64 --platform osx-arm64 .
+        head -n 20 default_linux-64_conda_spec.txt
+        head -n 20 default_osx-arm64_conda_spec.txt
+
+    - name: Run Pixi intro episode (Windows PowerShell)
+      if: ${{ matrix.os == 'windows-latest' }}
+      shell: pwsh
+      run: |
+        pixi init example
+        cd example
+        ls | fw -col 1
+        cat pixi.toml
+        pixi add python
+        cat pixi.toml
+        ls | fw -col 1
+        ls .pixi\envs | fw -col 1
+        pixi clean
+        pixi install
+        pixi list
+        pixi add numpy notebook jupyterlab
+        pixi task add lab "jupyter lab" --description "Launch JupyterLab"
+        pixi task add --depends-on lab --description "Start exploring the Pixi project" start ''
+        pixi task list
+        pixi run python -c 'import numpy as np; print(np.__version__)'
+        pixi workspace platform add linux-64 osx-arm64 win-64
+        pixi add --feature dev pre-commit
+        pixi workspace environment add --feature dev dev
+        pixi upgrade --feature dev pre-commit
+        pixi run --environment dev pre-commit --help
+        cat pixi.toml
+
+  episode-dir-structure:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "macos-latest", "windows-latest"]
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Set up Pixi
+      uses: prefix-dev/setup-pixi@v0.11.2
+      with:
+        run-install: false
+
+    - name: Run Pixi dir-structure episode ubuntu-latest
+      if: ${{ matrix.os == 'ubuntu-latest' }}
+      shell: bash -ex {0}
+      run: |
+        pixi init dir-structure
+        pixi global install tree
+        cd dir-structure
+        ls -1ap
+        pixi add python
+        ls -1ap
+        tree -L 3 .pixi/
+        pixi list
+        pixi global install curl
+        curl -sLO https://anaconda.org/conda-forge/python/3.15.2/download/linux-64/python-3.15.2-h6e52b48_100_cp315.conda
+        ls *.conda
+        pixi global install unzip
+        unzip python-*.conda -d output
+        cd output
+        mkdir -p pkg
+        pixi global install tar --with zstd
+        tar --zstd -xvf pkg-python-*.tar.zst --directory pkg
+        tree -L 2 pkg
+        ls -1p pkg/bin/
+        cd ..
+        ls -1 .pixi/envs/default/bin/python*
+
+    - name: Run Pixi dir-structure episode macos-latest
+      if: ${{ matrix.os == 'macos-latest' }}
+      shell: bash -ex {0}
+      run: |
+        pixi init dir-structure
+        pixi global install tree
+        cd dir-structure
+        ls -1ap
+        pixi add python
+        ls -1ap
+        tree -L 3 .pixi/
+        pixi list
+        pixi global install curl
+        curl -sLO https://anaconda.org/conda-forge/python/3.15.2/download/osx-arm64/python-3.15.2-h2e4dbab_100_cp315.conda
+        ls *.conda
+        # The conda-forge unzip is missing the zstd libraries needed, but macOS provides unzip
+        unzip python-*.conda -d output
+        cd output
+        mkdir -p pkg
+        pixi global install tar --with zstd
+        tar --zstd -xvf pkg-python-*.tar.zst --directory pkg
+        tree -L 2 pkg
+        ls -1p pkg/bin/
+        cd ..
+        ls -1 .pixi/envs/default/bin/python*
+
+    - name: Run Pixi dir-structure episode windows-latest
+      if: ${{ matrix.os == 'windows-latest' }}
+      shell: pwsh
+      run: |
+        pixi init dir-structure
+        cd dir-structure
+        ls | fw -col 1
+        pixi add python
+        ls | fw -col 1
+        ls -d 3 .pixi\
+        pixi list
+        iwr -Uri "https://anaconda.org/conda-forge/python/3.15.2/download/win-64/python-3.15.2-h53f6dd8_100_cp315.conda" -OutFile "python-3.15.2-h53f6dd8_100_cp315.conda"
+        Expand-Archive "python-3.15.2-h53f6dd8_100_cp315.conda" "output"
+        cd output
+        mkdir pkg
+        ls
+        tar --zstd -xvf pkg-python-3.15.2-h53f6dd8_100_cp315.tar.zst --directory pkg
+        ls -d 2 pkg\
+        ls pkg | fw -col 1
+        cd ..
+        ls .pixi\envs\default\python*.dll | fw -col 1
+
+  episode-cuda-example:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "macos-latest", "windows-latest"]
+
+    # The runners have no GPU, so override the __cuda virtual package to install
+    # environments for the CUDA platforms
+    env:
+      CONDA_OVERRIDE_CUDA: "12"
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Set up Pixi
+      uses: prefix-dev/setup-pixi@v0.11.2
+      with:
+        run-install: false
+
+    - name: Run Pixi cuda-example episode
+      shell: bash -ex {0}
+      run: |
+        pixi init cuda-example
+        cd cuda-example
+        pixi workspace platform add --cuda 12 linux-64-cuda=linux-64
+        # The episode is run on linux-64, where 'pixi init' adds the linux-64 platform
+        if [[ "${RUNNER_OS}" == "Linux" ]]; then
+          pixi workspace platform remove linux-64
+        fi
+        cat pixi.toml
+        pixi add "cuda-version 12.9.*"
+        cat pixi.toml
+        cat .pixi/envs/default/conda-meta/cuda-version-*.json
+        pixi workspace platform add osx-arm64 win-64
+        pixi add --platform linux-64-cuda cuda
+        pixi list --platform linux-64-cuda cuda
+        pixi add --platform linux-64-cuda pytorch-gpu
+        pixi list --platform linux-64-cuda torch
+        cat pixi.toml
+
+  episode-cuda-exercise:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "macos-latest", "windows-latest"]
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Set up Pixi
+      uses: prefix-dev/setup-pixi@v0.11.2
+      with:
+        run-install: false
+
+    - name: Run Pixi cuda-exercise
+      shell: bash -ex {0}
+      run: |
+        pixi init cuda-exercise
+        cd cuda-exercise
+        pixi workspace platform add linux-64 osx-arm64 win-64
+        pixi add --feature cpu pytorch-cpu
+        pixi workspace environment add --feature cpu cpu
+        pixi upgrade --feature cpu pytorch-cpu
+        pixi workspace platform add --cuda 12 --feature gpu linux-64-cuda=linux-64
+        pixi workspace platform add --cuda 12 --feature gpu win-64-cuda=win-64
+        pixi workspace environment add --feature gpu gpu
+        pixi add --feature gpu pytorch-gpu
+        cat pixi.toml
+        pixi list --environment cpu
+        # The gpu environment is only solved for the CUDA platforms
+        pixi list --environment gpu --platform linux-64-cuda
+        pixi list --environment gpu --platform win-64-cuda
+
+  episode-mnist-example:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "macos-latest", "windows-latest"]
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Set up Pixi
+      uses: prefix-dev/setup-pixi@v0.11.2
+      with:
+        run-install: false
+
+    - name: Run Pixi mnist-example episode
+      shell: bash -ex {0}
+      run: |
+        pixi init mnist-example
+        cd mnist-example
+        pixi workspace platform add linux-64 osx-arm64 win-64
+        pixi add --feature cpu pytorch-cpu torchvision
+        pixi workspace environment add --feature cpu cpu
+        pixi upgrade --feature cpu
+        pixi workspace platform add --cuda 12 --feature gpu linux-64-cuda=linux-64
+        pixi workspace platform add --cuda 12 --feature gpu win-64-cuda=win-64
+        pixi workspace environment add --feature gpu gpu
+        pixi add --feature gpu pytorch-gpu torchvision
+        cat pixi.toml
+        pixi list --environment cpu
+        # The gpu environment is only solved for the CUDA platforms
+        pixi list --environment gpu --platform linux-64-cuda
+        pixi list --environment gpu --platform win-64-cuda
