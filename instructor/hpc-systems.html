@@ -362,7 +362,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Using Pixi environments on HPC systems</h1>
-        <p>Last updated on 2026-10-22 |
+        <p>Last updated on 2026-10-27 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/hpc-systems.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -437,7 +437,7 @@ example. Let’s first create a new project in our Git repository</p>
 <pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="kw">[workspace]</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"slurm"</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">]</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">,</span> <span class="op">{ </span><span class="dt">name</span><span class="op"> =</span> <span class="st">"linux-64-cuda"</span><span class="op">, </span><span class="dt">platform</span><span class="op"> =</span> <span class="st">"linux-64"</span><span class="op">, </span><span class="dt">cuda</span><span class="op"> =</span> <span class="st">"12"</span><span class="op"> }]</span></span>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a></span>
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a><span class="kw">[tasks]</span></span>
@@ -445,15 +445,15 @@ example. Let’s first create a new project in our Git repository</p>
 <span id="cb4-9"><a href="#cb4-9" tabindex="-1" aria-label="code-block-4-9"></a><span class="kw">[dependencies]</span></span>
 <span id="cb4-10"><a href="#cb4-10" tabindex="-1" aria-label="code-block-4-10"></a></span>
 <span id="cb4-11"><a href="#cb4-11" tabindex="-1" aria-label="code-block-4-11"></a><span class="kw">[feature.cpu.dependencies]</span></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1" aria-label="code-block-4-12"></a><span class="dt">pytorch-cpu</span> <span class="op">=</span> <span class="st">"&gt;=2.7.1,&lt;3"</span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1" aria-label="code-block-4-13"></a><span class="dt">torchvision</span> <span class="op">=</span> <span class="st">"&gt;=0.24.0,&lt;0.25"</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1" aria-label="code-block-4-12"></a><span class="dt">pytorch-cpu</span> <span class="op">=</span> <span class="st">"&gt;=2.14.1,&lt;3"</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1" aria-label="code-block-4-13"></a><span class="dt">torchvision</span> <span class="op">=</span> <span class="st">"&gt;=0.29.1,&lt;0.30"</span></span>
 <span id="cb4-14"><a href="#cb4-14" tabindex="-1" aria-label="code-block-4-14"></a></span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1" aria-label="code-block-4-15"></a><span class="kw">[feature.gpu.system-requirements]</span></span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1" aria-label="code-block-4-16"></a><span class="dt">cuda</span> <span class="op">=</span> <span class="st">"12"</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1" aria-label="code-block-4-15"></a><span class="kw">[feature.gpu]</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1" aria-label="code-block-4-16"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64-cuda"</span><span class="op">]</span></span>
 <span id="cb4-17"><a href="#cb4-17" tabindex="-1" aria-label="code-block-4-17"></a></span>
-<span id="cb4-18"><a href="#cb4-18" tabindex="-1" aria-label="code-block-4-18"></a><span class="kw">[feature.gpu.target.linux-64.dependencies]</span></span>
-<span id="cb4-19"><a href="#cb4-19" tabindex="-1" aria-label="code-block-4-19"></a><span class="dt">pytorch-gpu</span> <span class="op">=</span> <span class="st">"&gt;=2.7.1,&lt;3"</span></span>
-<span id="cb4-20"><a href="#cb4-20" tabindex="-1" aria-label="code-block-4-20"></a><span class="dt">torchvision</span> <span class="op">=</span> <span class="st">"&gt;=0.24.0,&lt;0.25"</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1" aria-label="code-block-4-18"></a><span class="kw">[feature.gpu.dependencies]</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1" aria-label="code-block-4-19"></a><span class="dt">pytorch-gpu</span> <span class="op">=</span> <span class="st">"&gt;=2.13.0,&lt;3"</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1" aria-label="code-block-4-20"></a><span class="dt">torchvision</span> <span class="op">=</span> <span class="st">"&gt;=0.28.0,&lt;0.29"</span></span>
 <span id="cb4-21"><a href="#cb4-21" tabindex="-1" aria-label="code-block-4-21"></a></span>
 <span id="cb4-22"><a href="#cb4-22" tabindex="-1" aria-label="code-block-4-22"></a><span class="kw">[environments]</span></span>
 <span id="cb4-23"><a href="#cb4-23" tabindex="-1" aria-label="code-block-4-23"></a><span class="dt">cpu</span> <span class="op">=</span> <span class="op">[</span><span class="st">"cpu"</span><span class="op">]</span></span>
@@ -768,7 +768,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/hpc-systems.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/hpc-systems.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2026-10-22",
+  "dateModified": "2026-10-27",
   "datePublished": "2026-10-27"
 }
 
