@@ -51,7 +51,7 @@ and the same Pixi workspace
 [workspace]
 channels = ["conda-forge"]
 name = "slurm"
-platforms = ["linux-64", "osx-arm64", "win-64"]
+platforms = ["linux-64", "osx-arm64", "win-64", { name = "linux-64-cuda", platform = "linux-64", cuda = "12" }]
 version = "0.1.0"
 
 [tasks]
@@ -62,10 +62,10 @@ version = "0.1.0"
 pytorch-cpu = ">=2.7.1,<3"
 torchvision = ">=0.24.0,<0.25"
 
-[feature.gpu.system-requirements]
-cuda = "12"
+[feature.gpu]
+platforms = ["linux-64-cuda"]
 
-[feature.gpu.target.linux-64.dependencies]
+[feature.gpu.dependencies]
 pytorch-gpu = ">=2.7.1,<3"
 torchvision = ">=0.24.0,<0.25"
 

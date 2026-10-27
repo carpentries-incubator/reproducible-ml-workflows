@@ -140,11 +140,18 @@ cpu = ["cpu"]
 ```
 
 Now let's add the GPU environment and dependencies.
-Let's start with the CUDA system requirements
+Let's start by adding platforms for `linux-64` and `win-64` that require CUDA 12 to a feature named `gpu`
 
 ```bash
-pixi workspace system-requirements add --feature gpu cuda 12
+pixi workspace platform add --cuda 12 --feature gpu linux-64-cuda=linux-64
+pixi workspace platform add --cuda 12 --feature gpu win-64-cuda=win-64
 ```
+```output
+✔ Added linux-64-cuda to feature 'gpu'
+✔ Added win-64-cuda to feature 'gpu'
+```
+
+(Pixi will also warn that the `gpu` feature isn't used in any environment yet, which we will fix next.)
 
 and create an environment from the feature
 
@@ -155,15 +162,14 @@ pixi workspace environment add --feature gpu gpu
 ✔ Added environment gpu
 ```
 
-and then add the GPU dependencies for the target platform of `linux-64` (where we'll run in production).
+and then add the GPU dependencies to the `gpu` feature, which is restricted to the `linux-64-cuda` (where we'll run in production) and `win-64-cuda` platforms.
 
 ```bash
-pixi add --platform linux-64 --platform win-64 --feature gpu pytorch-gpu torchvision
+pixi add --feature gpu pytorch-gpu torchvision
 ```
 ```output
 ✔ Added pytorch-gpu >=2.7.1,<3
 ✔ Added torchvision >=0.24.0,<0.25
-Added these only for platform(s): linux-64, win-64
 Added these only for feature: gpu
 ```
 
@@ -171,7 +177,7 @@ Added these only for feature: gpu
 [workspace]
 channels = ["conda-forge"]
 name = "htcondor"
-platforms = ["linux-64", "osx-arm64", "win-64"]
+platforms = ["linux-64", "osx-arm64", "win-64", { name = "linux-64-cuda", platform = "linux-64", cuda = "12" }, { name = "win-64-cuda", platform = "win-64", cuda = "12" }]
 version = "0.1.0"
 
 [tasks]
@@ -182,14 +188,10 @@ version = "0.1.0"
 pytorch-cpu = ">=2.7.1,<3"
 torchvision = ">=0.24.0,<0.25"
 
-[feature.gpu.system-requirements]
-cuda = "12"
+[feature.gpu]
+platforms = ["linux-64-cuda", "win-64-cuda"]
 
-[feature.gpu.target.linux-64.dependencies]
-pytorch-gpu = ">=2.7.1,<3"
-torchvision = ">=0.24.0,<0.25"
-
-[feature.gpu.target.win-64.dependencies]
+[feature.gpu.dependencies]
 pytorch-gpu = ">=2.7.1,<3"
 torchvision = ">=0.24.0,<0.25"
 
@@ -206,7 +208,7 @@ gpu = ["gpu"]
 
 ## Override the `__cuda` virtual package
 
-Remember that if you're on a platform that doesn't support the `system-requirement` you'll need to override the checks to **install** the environment.
+Remember that if your machine doesn't provide the virtual packages that a platform requires (e.g. a `linux-64` machine without an NVIDIA GPU that supports CUDA 12 for the `linux-64-cuda` platform) you'll need to override the checks to **install** the environment.
 
 ```bash
 export CONDA_OVERRIDE_CUDA=12
