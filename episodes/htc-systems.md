@@ -132,8 +132,8 @@ version = "0.1.0"
 [dependencies]
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.7.1,<3"
-torchvision = ">=0.24.0,<0.25"
+pytorch-cpu = ">=2.14.1,<3"
+torchvision = ">=0.29.1,<0.30"
 
 [environments]
 cpu = ["cpu"]
@@ -168,8 +168,8 @@ and then add the GPU dependencies to the `gpu` feature, which is restricted to t
 pixi add --feature gpu pytorch-gpu torchvision
 ```
 ```output
-✔ Added pytorch-gpu >=2.7.1,<3
-✔ Added torchvision >=0.24.0,<0.25
+✔ Added pytorch-gpu >=2.13.0,<3
+✔ Added torchvision >=0.28.0,<0.29
 Added these only for feature: gpu
 ```
 
@@ -185,15 +185,15 @@ version = "0.1.0"
 [dependencies]
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.7.1,<3"
-torchvision = ">=0.24.0,<0.25"
+pytorch-cpu = ">=2.14.1,<3"
+torchvision = ">=0.29.1,<0.30"
 
 [feature.gpu]
 platforms = ["linux-64-cuda", "win-64-cuda"]
 
 [feature.gpu.dependencies]
-pytorch-gpu = ">=2.7.1,<3"
-torchvision = ">=0.24.0,<0.25"
+pytorch-gpu = ">=2.13.0,<3"
+torchvision = ">=0.28.0,<0.29"
 
 [environments]
 cpu = ["cpu"]
