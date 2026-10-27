@@ -64,7 +64,16 @@ jobs:
             echo "sha=sha-$SHA" >> $GITHUB_OUTPUT
 
       - name: Install Apptainer
-        uses: eWaterCycle/setup-apptainer@v2
+        uses: prefix-dev/setup-pixi@v0.11.2
+        with:
+          run-install: false
+          global-environments: apptainer
+
+      - name: Allow unprivileged user namespaces
+        # The conda-forge Apptainer is an unprivileged (non-setuid) install, and
+        # Ubuntu 24.04+ restricts unprivileged user namespaces with AppArmor
+        # See https://apptainer.org/docs/admin/main/user_namespace.html
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 
       - name: Build container from definition file
         working-directory: ./cuda-exercise
