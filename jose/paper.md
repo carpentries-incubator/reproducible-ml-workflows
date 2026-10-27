@@ -59,7 +59,7 @@ By the end of the second day of instruction, participants will be able to:
 
 * Describe the structure of a conda package in both its `.conda` archive format and its installed form on disk.
 * Describe the purpose of a conda virtual package.
-* Describe how Pixi `system-requirements` enable resolution of CUDA enabled conda packages.
+* Describe how Pixi platforms that declare a minimum CUDA version enable resolution of CUDA enabled conda packages.
 * Create Pixi software environments that use CUDA enabled conda packages of machine learning libraries for CUDA compatible computing platforms.
 * Use CUDA enabled Pixi software environments to train machine learning models on NVIDIA GPUs.
 
