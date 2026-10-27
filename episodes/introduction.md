@@ -72,7 +72,9 @@ There are many! Here are some you might have thought of:
 "Reproducible" research can mean many things and is a multipronged problem.
 This lesson will focus primarily on computational reproducibility.
 Like all forms of reproducibility, there are multiple "levels" of computational reproducibility.
-For this lesson we will focus on "full" reproducibility, meaning that reproducible software environments will:
+Some definitions of computational reproducibility, such as those from the [Framework for Open and Reproducible Research Training (FORRT)](https://forrt.org/glossary/english/computational_reproducibility/) and [The Turing Way](https://book.the-turing-way.org/reproducible-research/overview/overview-definitions/), focus on achieving the same scientific results given the same data and general methods and software.
+These definitions emphasize the _reproducibility of results_ rather than exact replication of particular experimental methods or tooling.
+For this lesson we will take a more narrow focus on "full" reproducibility of _scientific software environments_, meaning that reproducible software environments will:
 
 * Be defined through user readable and writable configuration files.
 * Have machine produced "lock files" with a full definition of all software in the environment.
@@ -165,6 +167,7 @@ This lesson aims to teach you tools that will make creating reproducible and reu
 
 * Modern scientific research is complex and requires software environments.
 * Computational reproducibility helps to enable reproducible science.
+* Reproducible software environments are one part of computational reproducibility, alongside the availability of data and code and documentation.
 * Reproducible computational software environments that use hardware acceleration require additional information.
 * New technologies make all of these processes easier.
 * Reproducible computational software environments are a first step toward fully reusable scientific workflows.
