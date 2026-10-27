@@ -177,15 +177,16 @@ tree -L 3 .pixi/
 └── envs
     └── default
         ├── bin
+        ├── CACHEDIR.TAG
         ├── conda-meta
+        ├── etc
         ├── include
         ├── lib
-        ├── man
         ├── share
         ├── ssl
         └── x86_64-conda-linux-gnu
 
-11 directories, 0 files
+11 directories, 1 file
 ```
 
 ### macOS
@@ -349,31 +350,31 @@ Let's download the particular [`python` conda package](https://anaconda.org/cond
 ### Linux
 
 ```bash
-curl -sLO https://anaconda.org/conda-forge/python/3.13.5/download/linux-64/python-3.13.5-hec9711d_102_cp313.conda
+curl -sLO https://anaconda.org/conda-forge/python/3.15.2/download/linux-64/python-3.15.2-h6e52b48_100_cp315.conda
 ls *.conda
 ```
 ```output
-python-3.13.5-hec9711d_102_cp313.conda
+python-3.15.2-h6e52b48_100_cp315.conda
 ```
 
 ### macOS
 
 ```bash
-curl -sLO https://anaconda.org/conda-forge/python/3.13.5/download/osx-arm64/python-3.13.5-hf3f3da0_102_cp313.conda
+curl -sLO https://anaconda.org/conda-forge/python/3.15.2/download/osx-arm64/python-3.15.2-h2e4dbab_100_cp315.conda
 ls *.conda
 ```
 ```output
-python-3.13.5-hf3f3da0_102_cp313.conda
+python-3.15.2-h2e4dbab_100_cp315.conda
 ```
 
 ### Windows
 
 ```powershell
-iwr -Uri "https://anaconda.org/conda-forge/python/3.13.5/download/win-64/python-3.13.5-h7de537c_102_cp313.conda" -OutFile "python-3.13.5-h7de537c_102_cp313.conda"
+iwr -Uri "https://anaconda.org/conda-forge/python/3.15.2/download/win-64/python-3.15.2-h53f6dd8_100_cp315.conda" -OutFile "python-3.15.2-h53f6dd8_100_cp315.conda"
 ls *.conda
 ```
 ```output
-python-3.13.5-h7de537c_102_cp313.conda
+python-3.15.2-h53f6dd8_100_cp315.conda
 ```
 :::
 
@@ -385,40 +386,40 @@ python-3.13.5-h7de537c_102_cp313.conda
 ### Linux
 
 ```bash
-unzip python-3.13.5-hec9711d_102_cp313.conda -d output
+unzip python-3.15.2-h6e52b48_100_cp315.conda -d output
 ```
 ```output
-Archive:  python-3.13.5-hec9711d_102_cp313.conda
+Archive:  python-3.15.2-h6e52b48_100_cp315.conda
  extracting: output/metadata.json
- extracting: output/pkg-python-3.13.5-hec9711d_102_cp313.tar.zst
- extracting: output/info-python-3.13.5-hec9711d_102_cp313.tar.zst
+ extracting: output/pkg-python-3.15.2-h6e52b48_100_cp315.tar.zst
+ extracting: output/info-python-3.15.2-h6e52b48_100_cp315.tar.zst
 ```
 
 ### macOS
 
 ```bash
-unzip python-3.13.5-hf3f3da0_102_cp313.conda -d output
+unzip python-3.15.2-h2e4dbab_100_cp315.conda -d output
 ```
 ```output
-Archive:  python-3.13.5-hf3f3da0_102_cp313.conda
+Archive:  python-3.15.2-h2e4dbab_100_cp315.conda
  extracting: output/metadata.json
- extracting: output/pkg-python-3.13.5-hf3f3da0_102_cp313.tar.zst
- extracting: output/info-python-3.13.5-hf3f3da0_102_cp313.tar.zst
+ extracting: output/pkg-python-3.15.2-h2e4dbab_100_cp315.tar.zst
+ extracting: output/info-python-3.15.2-h2e4dbab_100_cp315.tar.zst
 ```
 
 ### Windows
 
 ```powershell
-Expand-Archive "python-3.13.5-h7de537c_102_cp313.conda" "output"
+Expand-Archive "python-3.15.2-h53f6dd8_100_cp315.conda" "output"
 ```
 ```output
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 d----           8/11/2025  2:11 AM                pkg
 d----           8/11/2025  2:11 AM                pkg
--a---            1/1/1980 12:00 AM         133451 info-python-3.13.5-h7de537c_102_cp313.tar.zst
--a---           6/16/2025  8:25 AM             31 metadata.json
--a---            1/1/1980 12:00 AM       16691645 pkg-python-3.13.5-h7de537c_102_cp313.tar.zst
+-a---            1/1/1980 12:00 AM         150244 info-python-3.15.2-h53f6dd8_100_cp315.tar.zst
+-a---          10/26/2026 11:44 AM             31 metadata.json
+-a---            1/1/1980 12:00 AM       18428393 pkg-python-3.15.2-h53f6dd8_100_cp315.tar.zst
 ```
 :::
 
@@ -443,32 +444,26 @@ tree -L 2 pkg
 ```output
 pkg
 ├── bin
-│   ├── idle3 -> idle3.13
-│   ├── idle3.13
-│   ├── pydoc -> pydoc3.13
-│   ├── pydoc3 -> pydoc3.13
-│   ├── pydoc3.13
-│   ├── python -> python3.13
-│   ├── python3 -> python3.13
-│   ├── python3.1 -> python3.13
-│   ├── python3.13
-│   ├── python3.13-config
-│   └── python3-config -> python3.13-config
+│   ├── idle3 -> idle3.15
+│   ├── idle3.15
+│   ├── pydoc -> pydoc3.15
+│   ├── pydoc3 -> pydoc3.15
+│   ├── pydoc3.15
+│   ├── python -> python3.15
+│   ├── python3 -> python3.15
+│   ├── python3.15
+│   ├── python3.15-config
+│   └── python3-config -> python3.15-config
 ├── include
-│   └── python3.13
-├── info
-│   └── licenses
+│   └── python3.15
 ├── lib
-│   ├── libpython3.13.so -> libpython3.13.so.1.0
-│   ├── libpython3.13.so.1.0
-│   ├── libpython3.so
 │   ├── pkgconfig
-│   └── python3.13
+│   └── python3.15
 └── share
     ├── man
     └── python_compiler_compat
 
-12 directories, 14 files
+10 directories, 10 files
 ```
 
 ### macOS
@@ -479,29 +474,25 @@ tree -L 2 pkg
 ```output
 pkg
 ├── bin
-│   ├── idle3 -> idle3.13
-│   ├── idle3.13
-│   ├── pydoc -> pydoc3.13
-│   ├── pydoc3 -> pydoc3.13
-│   ├── pydoc3.13
-│   ├── python -> python3.13
-│   ├── python3 -> python3.13
-│   ├── python3.1 -> python3.13
-│   ├── python3.13
-│   ├── python3.13-config
-│   └── python3-config -> python3.13-config
+│   ├── idle3 -> idle3.15
+│   ├── idle3.15
+│   ├── pydoc -> pydoc3.15
+│   ├── pydoc3 -> pydoc3.15
+│   ├── pydoc3.15
+│   ├── python -> python3.15
+│   ├── python3 -> python3.15
+│   ├── python3.15
+│   ├── python3.15-config
+│   └── python3-config -> python3.15-config
 ├── include
-│   └── python3.13
-├── info
-│   └── licenses
+│   └── python3.15
 ├── lib
-│   ├── libpython3.13.dylib
 │   ├── pkgconfig
-│   └── python3.13
+│   └── python3.15
 └── share
     └── man
 
-11 directories, 12 files
+9 directories, 10 files
 ```
 
 ### Windows
@@ -519,25 +510,37 @@ So we can see that the directory structure of the conda package
 ### Linux
 
 ```bash
-ls -1p pkg/lib/
+ls -1p pkg/bin/
 ```
 ```output
-libpython3.13.so
-libpython3.13.so.1.0
-libpython3.so
-pkgconfig/
-python3.13/
+idle3
+idle3.15
+pydoc
+pydoc3
+pydoc3.15
+python
+python3
+python3-config
+python3.15
+python3.15-config
 ```
 
 ### macOS
 
 ```bash
-ls -1p pkg/lib/
+ls -1p pkg/bin/
 ```
 ```output
-libpython3.13.dylib
-pkgconfig/
-python3.13/
+idle3
+idle3.15
+pydoc
+pydoc3
+pydoc3.15
+python
+python3
+python3-config
+python3.15
+python3.15-config
 ```
 
 ### Windows
@@ -546,19 +549,16 @@ python3.13/
 ls pkg | fw -col 1
 ```
 ```output
-DLLs
 include
-info
-Lib
+lib
 libs
 Scripts
-Tools
-LICENSE_PYTHON.txt
 python.exe
 python.pdb
 python3.dll
-python313.dll
-python313.pdb
+python315.dll
+python315.pdb
+python3t.dll
 pythonw.exe
 pythonw.pdb
 ```
@@ -573,22 +573,28 @@ is reflected in the directory tree of the Pixi environment with the package inst
 
 ```bash
 cd ..
-ls -1a .pixi/envs/default/lib/libpython*
+ls -1 .pixi/envs/default/bin/python*
 ```
 ```output
-.pixi/envs/default/lib/libpython3.13.so
-.pixi/envs/default/lib/libpython3.13.so.1.0
-.pixi/envs/default/lib/libpython3.so
+.pixi/envs/default/bin/python
+.pixi/envs/default/bin/python3
+.pixi/envs/default/bin/python3-config
+.pixi/envs/default/bin/python3.15
+.pixi/envs/default/bin/python3.15-config
 ```
 
 ### macOS
 
 ```bash
 cd ..
-ls -1a .pixi/envs/default/lib/libpython*
+ls -1 .pixi/envs/default/bin/python*
 ```
 ```output
-.pixi/envs/default/lib/libpython3.13.dylib
+.pixi/envs/default/bin/python
+.pixi/envs/default/bin/python3
+.pixi/envs/default/bin/python3-config
+.pixi/envs/default/bin/python3.15
+.pixi/envs/default/bin/python3.15-config
 ```
 
 ### Windows
@@ -599,7 +605,8 @@ ls .pixi\envs\default\python*.dll | fw -col 1
 ```
 ```output
 python3.dll
-python313.dll
+python315.dll
+python3t.dll
 ```
 
 :::
