@@ -228,6 +228,7 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
+cuda-version = "12.9.*"
 ```
 
 We can then use Pixi's [platform specific `target` tables](https://pixi.sh/latest/reference/pixi_manifest/#the-target-table) to add dependencies for an environment to only a specific platform.
@@ -245,7 +246,7 @@ This now means that if we ask for any CUDA enabled packages, we will get ones th
 pixi add --platform linux-64-cuda cuda
 ```
 ```output
-✔ Added cuda >=12.9.1,<13
+✔ Added cuda >=12.9.2,<13
 Added these only for platform(s): linux-64-cuda
 ```
 
@@ -503,7 +504,7 @@ version = "0.1.0"
 [dependencies]
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.8.0,<3"
+pytorch-cpu = ">=2.14.1,<3"
 
 [environments]
 cpu = ["cpu"]
@@ -535,7 +536,7 @@ version = "0.1.0"
 [dependencies]
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.8.0,<3"
+pytorch-cpu = ">=2.14.1,<3"
 
 [feature.gpu]
 platforms = ["linux-64-cuda", "win-64-cuda"]
@@ -565,7 +566,7 @@ version = "0.1.0"
 [dependencies]
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.8.0,<3"
+pytorch-cpu = ">=2.14.1,<3"
 
 [feature.gpu]
 platforms = ["linux-64-cuda", "win-64-cuda"]
@@ -582,7 +583,7 @@ As the `gpu` feature is restricted to the `linux-64-cuda` and `win-64-cuda` plat
 pixi add --feature gpu pytorch-gpu
 ```
 ```output
-✔ Added pytorch-gpu >=2.8.0,<3
+✔ Added pytorch-gpu >=2.13.0,<3
 Added these only for feature: gpu
 ```
 
@@ -598,13 +599,13 @@ version = "0.1.0"
 [dependencies]
 
 [feature.cpu.dependencies]
-pytorch-cpu = ">=2.8.0,<3"
+pytorch-cpu = ">=2.14.1,<3"
 
 [feature.gpu]
 platforms = ["linux-64-cuda", "win-64-cuda"]
 
 [feature.gpu.dependencies]
-pytorch-gpu = ">=2.8.0,<3"
+pytorch-gpu = ">=2.13.0,<3"
 
 [environments]
 cpu = ["cpu"]

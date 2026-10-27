@@ -10,5 +10,5 @@ version = "0.1.0"
 cuda-version = "12.9.*"
 
 [target.linux-64-cuda.dependencies]
-cuda = ">=12.9.1,<13"
-pytorch-gpu = ">=2.7.0,<3"
+cuda = ">=12.9.2,<13"
+pytorch-gpu = ">=2.14.1,<3"
