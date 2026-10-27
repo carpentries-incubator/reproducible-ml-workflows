@@ -661,7 +661,7 @@ command</a>.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>✔ Added python &gt;=3.13.5,&lt;3.14</code></pre>
+<pre class="output" tabindex="0"><code>✔ Added python &gt;=3.15.2,&lt;3.16</code></pre>
 </div>
 <p>What happened? We saw that <code>python</code> got added, and we can
 see that the <code>pixi.toml</code> manifest now contains
@@ -684,7 +684,7 @@ see that the <code>pixi.toml</code> manifest now contains
 <span id="cb13-8"><a href="#cb13-8" tabindex="-1" aria-label="code-block-13-8"></a><span class="kw">[tasks]</span></span>
 <span id="cb13-9"><a href="#cb13-9" tabindex="-1" aria-label="code-block-13-9"></a></span>
 <span id="cb13-10"><a href="#cb13-10" tabindex="-1" aria-label="code-block-13-10"></a><span class="kw">[dependencies]</span></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1" aria-label="code-block-13-11"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span></code></pre>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1" aria-label="code-block-13-11"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.15.2,&lt;3.16"</span></span></code></pre>
 </div>
 <p>Further, we also now see that a <code>pixi.lock</code> lock file has
 been created in the project directory as well as a <code>.pixi/</code>
@@ -785,18 +785,30 @@ environment named <code>default</code></p>
 <p>Inside the <code>.pixi/envs/default/</code> directory are all the
 libraries, header files, and executables that are needed by the
 environment.</p>
-<p>The <code>pixi.lock</code> lock file is a YAML file that contains two
-definition groups: <code>environments</code> and <code>packages</code>.
-The <code>environments</code> group lists every environment in the
-workspace for every platform with a complete listing of all packages in
-the environment. The <code>packages</code> group lists a full definition
-of every package that appears in the <code>environments</code> lists,
-including the package’s URL on the conda package index and digests
-(e.g. sha256, md5).</p>
-<p>Here’s an example of what the <code>environments</code> and
-<code>packages</code> groups look like in the <code>pixi.lock</code>
-file we created for a <code>linux-64</code> platform machine.</p>
-<pre><code>version: 6
+<p>The <code>pixi.lock</code> lock file is a YAML file that contains
+three definition groups: <code>platforms</code>,
+<code>environments</code>, and <code>packages</code>. The
+<code>platforms</code> group lists every platform the workspace is
+solved for, along with the virtual packages (e.g. the minimum
+<code>glibc</code> version) that the solve assumes the platform
+provides. The <code>environments</code> group lists every environment in
+the workspace for every platform with a complete listing of all packages
+in the environment. The <code>packages</code> group lists a full
+definition of every package that appears in the
+<code>environments</code> lists, including the package’s URL on the
+conda package index and digests (e.g. sha256, md5).</p>
+<p>Here’s an example of what the <code>platforms</code>,
+<code>environments</code>, and <code>packages</code> groups look like in
+the <code>pixi.lock</code> file we created for a <code>linux-64</code>
+platform machine.</p>
+<pre><code>version: 7
+platforms:
+- name: linux-64
+  virtual-packages:
+  - __unix=0=0
+  - __linux=4.18
+  - __glibc=2.28
+  - __archspec=0=x86_64
 environments:
   default:
     channels:
@@ -806,43 +818,50 @@ environments:
 
 ...
 
-      - conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.13.5-hec9711d_102_cp313.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/python_abi-3.13-8_cp313.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-64/readline-8.2-h8c095d6_2.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.13-noxft_hd72426e_102.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2025b-h78e105d_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.15.2-h6e52b48_100_cp315.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/tk-8.6.13-noxft_h1df4ec4_4.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/zstd-1.5.7-hb78ec9c_7.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2026.10.23-hbd8a1cb_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/python_abi-3.15-9_cp315.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2026e-h5d301ff_0.conda
 ...
 
 packages:
 
 ...
 
-- conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.13.5-hec9711d_102_cp313.conda
-  build_number: 102
-  sha256: c2cdcc98ea3cbf78240624e4077e164dc9d5588eefb044b4097c3df54d24d504
-  md5: 89e07d92cf50743886f41638d58c4328
+- conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.15.2-h6e52b48_100_cp315.conda
+  build_number: 100
+  sha256: dd6fdef748df5636029673a834ca3632ce44c86d71e4986d70bcdb2ae5607a25
+  md5: 38c3edc23439db3ca383be02ae2b702e
   depends:
   - __glibc &gt;=2.17,&lt;3.0.a0
   - bzip2 &gt;=1.0.8,&lt;2.0a0
   - ld_impl_linux-64 &gt;=2.36.1
-  - libexpat &gt;=2.7.0,&lt;3.0a0
-  - libffi &gt;=3.4.6,&lt;3.5.0a0
-  - libgcc &gt;=13
-  - liblzma &gt;=5.8.1,&lt;6.0a0
+  - libedit &gt;=3.1.20260512,&lt;3.2.0a0
+  - libexpat &gt;=2.8.5,&lt;3.0a0
+  - libffi &gt;=3.7.0,&lt;3.8.0a0
+  - libgcc &gt;=15
+  - liblzma &gt;=5.8.3,&lt;6.0a0
   - libmpdec &gt;=4.0.0,&lt;5.0a0
-  - libsqlite &gt;=3.50.1,&lt;4.0a0
-  - libuuid &gt;=2.38.1,&lt;3.0a0
-  - libzlib &gt;=1.3.1,&lt;2.0a0
-  - ncurses &gt;=6.5,&lt;7.0a0
-  - openssl &gt;=3.5.0,&lt;4.0a0
-  - python_abi 3.13.* *_cp313
-  - readline &gt;=8.2,&lt;9.0a0
+  - libsqlite &gt;=3.54.1,&lt;4.0a0
+  - libuuid &gt;=2.42.4,&lt;3.0a0
+  - libzlib &gt;=1.3.2,&lt;2.0a0
+  - ncurses &gt;=6.6,&lt;7.0a0
+  - openssl &gt;=3.5.9,&lt;4.0a0
+  - python_abi 3.15.* *_cp315
   - tk &gt;=8.6.13,&lt;8.7.0a0
   - tzdata
+  - zstd &gt;=1.5.7,&lt;1.6.0a0
   license: Python-2.0
-  size: 33273132
-  timestamp: 1750064035176
-  python_site_packages_path: lib/python3.13/site-packages
+  run_exports:
+    weak:
+    - python_abi 3.15.* *_cp315
+    noarch:
+    - python
+  size: 29327137
+  timestamp: 1793015518763
+  python_site_packages_path: lib/python3.15/site-packages
 
 ...</code></pre>
 <p>These groups provide a full description of every package described in
@@ -934,29 +953,29 @@ available for us to use with <a href="https://pixi.sh/latest/reference/cli/pixi/
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Package           Version    Build               Size       Kind   Source
-_libgcc_mutex     0.1       conda_forge         2.5 KiB    conda  https://conda.anaconda.org/conda-forge/
-_openmp_mutex     4.5       2_gnu               23.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-bzip2             1.0.8     h4bc722e_7          246.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-ca-certificates   2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
-ld_impl_linux-64  2.44      h1423503_1          660.2 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat          2.7.1     hecca717_0          73.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi            3.4.6     h2dba641_1          56.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgcc            15.1.0    h767d61c_4          804.8 KiB  conda  https://conda.anaconda.org/conda-forge/
-libgcc-ng         15.1.0    h69a702a_4          28.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-libgomp           15.1.0    h767d61c_4          436.8 KiB  conda  https://conda.anaconda.org/conda-forge/
-liblzma           5.8.1     hb9d3cd8_2          110.2 KiB  conda  https://conda.anaconda.org/conda-forge/
-libmpdec          4.0.0     hb9d3cd8_0          89 KiB     conda  https://conda.anaconda.org/conda-forge/
-libsqlite         3.50.4    h0c1763c_0          910.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-libuuid           2.38.1    h0b41bf4_0          32.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-libzlib           1.3.1     hb9d3cd8_2          59.5 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses           6.5       h2d0b736_3          870.7 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl           3.5.2     h26f9b46_0          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-python            3.13.5    hec9711d_102_cp313  31.7 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi        3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline          8.2       h8c095d6_2          275.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk                8.6.13    noxft_hd72426e_102  3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
-tzdata            2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
+<pre class="output" tabindex="0"><code>Installed for: linux-64
+Name              Version       Build                       Size  Kind   Source
+_openmp_mutex     4.5           20_gnu                 28.27 KiB  conda  https://conda.anaconda.org/conda-forge
+bzip2             1.0.8         hda65f42_10           251.77 KiB  conda  https://conda.anaconda.org/conda-forge
+ca-certificates   2026.10.23    hbd8a1cb_0            127.01 KiB  conda  https://conda.anaconda.org/conda-forge
+ld_impl_linux-64  2.46.1        default_hbd61a6d_103  724.72 KiB  conda  https://conda.anaconda.org/conda-forge
+libedit           3.1.20260512  pl5321h373387f_0      132.69 KiB  conda  https://conda.anaconda.org/conda-forge
+libexpat          2.9.0         hd2095e1_0             77.04 KiB  conda  https://conda.anaconda.org/conda-forge
+libffi            3.7.0         h81df57d_1             66.41 KiB  conda  https://conda.anaconda.org/conda-forge
+libgcc            16.2.0        ha9f2e26_7              1.01 MiB  conda  https://conda.anaconda.org/conda-forge
+libgomp           16.2.0        he0feb66_7            625.55 KiB  conda  https://conda.anaconda.org/conda-forge
+liblzma           5.8.3         hb03c661_1            110.35 KiB  conda  https://conda.anaconda.org/conda-forge
+libmpdec          4.0.0         hb03c661_2             90.58 KiB  conda  https://conda.anaconda.org/conda-forge
+libsqlite         3.54.1        h0737f62_101          957.51 KiB  conda  https://conda.anaconda.org/conda-forge
+libuuid           2.42.4        hcfc3c73_0             33.63 KiB  conda  https://conda.anaconda.org/conda-forge
+libzlib           1.3.2         h25fd6f3_3             62.22 KiB  conda  https://conda.anaconda.org/conda-forge
+ncurses           6.6           hdb14827_1            889.84 KiB  conda  https://conda.anaconda.org/conda-forge
+openssl           3.6.5         h781a0a9_0              3.05 MiB  conda  https://conda.anaconda.org/conda-forge
+python            3.15.2        h6e52b48_100_cp315     27.97 MiB  conda  https://conda.anaconda.org/conda-forge
+python_abi        3.15          9_cp315                 6.64 KiB  conda  https://conda.anaconda.org/conda-forge
+tk                8.6.13        noxft_h1df4ec4_4        3.40 MiB  conda  https://conda.anaconda.org/conda-forge
+tzdata            2026e         h5d301ff_0            116.41 KiB  conda  https://conda.anaconda.org/conda-forge
+zstd              1.5.7         hb78ec9c_7            587.21 KiB  conda  https://conda.anaconda.org/conda-forge</code></pre>
 </div>
 </div>
 <div id="nav-tabpanel-1-2" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-2">
@@ -968,23 +987,24 @@ tzdata            2025b     h78e105d_0          120.1 KiB  conda  https://conda.
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Package          Version   Build               Size       Kind   Source
-bzip2            1.0.8     h99b78c6_7          120 KiB    conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.8.3  hbd8a1cb_0          150.8 KiB  conda  https://conda.anaconda.org/conda-forge/
-icu              75.1      hfee45f7_0          11.3 MiB   conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.1     hec049ff_0          64.4 KiB   conda  https://conda.anaconda.org/conda-forge/
-libffi           3.4.6     h1da3d7d_1          38.9 KiB   conda  https://conda.anaconda.org/conda-forge/
-liblzma          5.8.1     h39f12f2_2          90.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libmpdec         4.0.0     h5505292_0          70.1 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.4    h4237e3c_0          881.5 KiB  conda  https://conda.anaconda.org/conda-forge/
-libzlib          1.3.1     h8359307_2          45.3 KiB   conda  https://conda.anaconda.org/conda-forge/
-ncurses          6.5       h5e97a16_3          778.3 KiB  conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.2     he92f556_0          2.9 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5    hf3f3da0_102_cp313  12.3 MiB   conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13      8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-readline         8.2       h1d1bf99_2          246.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-tk               8.6.13    h892fb3f_2          3 MiB      conda  https://conda.anaconda.org/conda-forge/
-tzdata           2025b     h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
+<pre class="output" tabindex="0"><code>Installed for: osx-arm64
+Name             Version       Build                     Size  Kind   Source
+bzip2            1.0.8         h4e30115_10         122.04 KiB  conda  https://conda.anaconda.org/conda-forge
+ca-certificates  2026.10.23    hbd8a1cb_0          127.01 KiB  conda  https://conda.anaconda.org/conda-forge
+libedit          3.1.20260512  pl5321h26f1114_0    105.97 KiB  conda  https://conda.anaconda.org/conda-forge
+libexpat         2.9.0         h6111c0a_0           68.05 KiB  conda  https://conda.anaconda.org/conda-forge
+libffi           3.7.0         h47dc5ef_1           42.61 KiB  conda  https://conda.anaconda.org/conda-forge
+liblzma          5.8.3         h8088a28_1           89.57 KiB  conda  https://conda.anaconda.org/conda-forge
+libmpdec         4.0.0         h84a0fba_2           71.57 KiB  conda  https://conda.anaconda.org/conda-forge
+libsqlite        3.54.1        h34a968b_101        927.20 KiB  conda  https://conda.anaconda.org/conda-forge
+libzlib          1.3.2         h8088a28_3           46.70 KiB  conda  https://conda.anaconda.org/conda-forge
+ncurses          6.6           he64c551_1          785.45 KiB  conda  https://conda.anaconda.org/conda-forge
+openssl          3.6.5         h55eecbc_0            2.97 MiB  conda  https://conda.anaconda.org/conda-forge
+python           3.15.2        h2e4dbab_100_cp315   12.80 MiB  conda  https://conda.anaconda.org/conda-forge
+python_abi       3.15          9_cp315               6.64 KiB  conda  https://conda.anaconda.org/conda-forge
+tk               8.6.13        hbeba79b_4            3.19 MiB  conda  https://conda.anaconda.org/conda-forge
+tzdata           2026e         h5d301ff_0          116.41 KiB  conda  https://conda.anaconda.org/conda-forge
+zstd             1.5.7         hf451053_7          423.52 KiB  conda  https://conda.anaconda.org/conda-forge</code></pre>
 </div>
 </div>
 <div id="nav-tabpanel-1-3" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-3">
@@ -996,24 +1016,26 @@ tzdata           2025b     h78e105d_0          120.1 KiB  conda  https://conda.a
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>Package          Version       Build               Size       Kind   Source
-bzip2            1.0.8         h2466b09_7          53.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-ca-certificates  2025.8.3      h4c7d964_0          150.9 KiB  conda  https://conda.anaconda.org/conda-forge/
-libexpat         2.7.1         hac47afa_0          138 KiB    conda  https://conda.anaconda.org/conda-forge/
-libffi           3.4.6         h537db12_1          43.9 KiB   conda  https://conda.anaconda.org/conda-forge/
-liblzma          5.8.1         h2466b09_2          102.5 KiB  conda  https://conda.anaconda.org/conda-forge/
-libmpdec         4.0.0         h2466b09_0          86.6 KiB   conda  https://conda.anaconda.org/conda-forge/
-libsqlite        3.50.4        hf5d6505_0          1.2 MiB    conda  https://conda.anaconda.org/conda-forge/
-libzlib          1.3.1         h2466b09_2          54.2 KiB   conda  https://conda.anaconda.org/conda-forge/
-openssl          3.5.2         h725018a_0          8.8 MiB    conda  https://conda.anaconda.org/conda-forge/
-python           3.13.5        h7de537c_102_cp313  16 MiB     conda  https://conda.anaconda.org/conda-forge/
-python_abi       3.13          8_cp313             6.8 KiB    conda  https://conda.anaconda.org/conda-forge/
-tk               8.6.13        h2c6b04d_2          3.3 MiB    conda  https://conda.anaconda.org/conda-forge/
-tzdata           2025b         h78e105d_0          120.1 KiB  conda  https://conda.anaconda.org/conda-forge/
-ucrt             10.0.22621.0  h57928b3_1          546.6 KiB  conda  https://conda.anaconda.org/conda-forge/
-vc               14.3          h41ae7f8_31         17.8 KiB   conda  https://conda.anaconda.org/conda-forge/
-vc14_runtime     14.44.35208   h818238b_31         666.4 KiB  conda  https://conda.anaconda.org/conda-forge/
-vcomp14          14.44.35208   h818238b_31         111.3 KiB  conda  https://conda.anaconda.org/conda-forge/</code></pre>
+<pre class="output" tabindex="0"><code>Installed for: win-64
+Name             Version       Build                     Size  Kind   Source
+bzip2            1.0.8         h0ad9c76_10          54.61 KiB  conda  https://conda.anaconda.org/conda-forge
+ca-certificates  2026.10.23    h4c7d964_0          127.37 KiB  conda  https://conda.anaconda.org/conda-forge
+libexpat         2.9.0         hac47afa_0           71.27 KiB  conda  https://conda.anaconda.org/conda-forge
+libffi           3.7.0         h3d046cb_1           48.82 KiB  conda  https://conda.anaconda.org/conda-forge
+liblzma          5.8.3         hfd05255_1          103.33 KiB  conda  https://conda.anaconda.org/conda-forge
+libmpdec         4.0.0         hfd05255_2           87.02 KiB  conda  https://conda.anaconda.org/conda-forge
+libsqlite        3.54.1        hf5d6505_101          1.27 MiB  conda  https://conda.anaconda.org/conda-forge
+libzlib          1.3.2         hfd05255_3           57.16 KiB  conda  https://conda.anaconda.org/conda-forge
+openssl          3.6.5         hf411b9b_0            8.97 MiB  conda  https://conda.anaconda.org/conda-forge
+python           3.15.2        h53f6dd8_100_cp315   17.72 MiB  conda  https://conda.anaconda.org/conda-forge
+python_abi       3.15          9_cp315               6.64 KiB  conda  https://conda.anaconda.org/conda-forge
+tk               8.6.13        h967ab96_4            3.61 MiB  conda  https://conda.anaconda.org/conda-forge
+tzdata           2026e         h5d301ff_0          116.41 KiB  conda  https://conda.anaconda.org/conda-forge
+ucrt             10.0.26100.0  h57928b3_0          678.41 KiB  conda  https://conda.anaconda.org/conda-forge
+vc               14.5          ha367084_41          20.88 KiB  conda  https://conda.anaconda.org/conda-forge
+vc14_runtime     14.51.36247   habf1de7_41         749.96 KiB  conda  https://conda.anaconda.org/conda-forge
+vcomp14          14.51.36247   habf1de7_41         152.26 KiB  conda  https://conda.anaconda.org/conda-forge
+zstd             1.5.7         h534d264_7          378.45 KiB  conda  https://conda.anaconda.org/conda-forge</code></pre>
 </div>
 </div>
 </div>
@@ -1041,7 +1063,7 @@ directory.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Let’s start at the command line and add the additional dependencies
 with <code>pixi add</code></p>
@@ -1094,10 +1116,10 @@ we can also use the <code>pixi</code> CLI.</p>
 <span id="cb36-9"><a href="#cb36-9" tabindex="-1" aria-label="code-block-36-9"></a><span class="dt">cmd</span> <span class="op">=</span> <span class="st">"jupyter lab"</span></span>
 <span id="cb36-10"><a href="#cb36-10" tabindex="-1" aria-label="code-block-36-10"></a></span>
 <span id="cb36-11"><a href="#cb36-11" tabindex="-1" aria-label="code-block-36-11"></a><span class="kw">[dependencies]</span></span>
-<span id="cb36-12"><a href="#cb36-12" tabindex="-1" aria-label="code-block-36-12"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb36-13"><a href="#cb36-13" tabindex="-1" aria-label="code-block-36-13"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
-<span id="cb36-14"><a href="#cb36-14" tabindex="-1" aria-label="code-block-36-14"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
-<span id="cb36-15"><a href="#cb36-15" tabindex="-1" aria-label="code-block-36-15"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span></code></pre>
+<span id="cb36-12"><a href="#cb36-12" tabindex="-1" aria-label="code-block-36-12"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.15.2,&lt;3.16"</span></span>
+<span id="cb36-13"><a href="#cb36-13" tabindex="-1" aria-label="code-block-36-13"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.5.4,&lt;3"</span></span>
+<span id="cb36-14"><a href="#cb36-14" tabindex="-1" aria-label="code-block-36-14"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.6.3,&lt;8"</span></span>
+<span id="cb36-15"><a href="#cb36-15" tabindex="-1" aria-label="code-block-36-15"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.6.4,&lt;5"</span></span></code></pre>
 </div>
 </div>
 <div id="nav-tabpanel-4-pixitaskCLI" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-4-pixitaskCLI">
@@ -1114,10 +1136,10 @@ we can also use the <code>pixi</code> CLI.</p>
 <span id="cb37-8"><a href="#cb37-8" tabindex="-1" aria-label="code-block-37-8"></a><span class="dt">lab</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"jupyter lab"</span><span class="op">, </span><span class="dt">description</span><span class="op"> =</span> <span class="st">"Launch JupyterLab"</span><span class="op"> }</span></span>
 <span id="cb37-9"><a href="#cb37-9" tabindex="-1" aria-label="code-block-37-9"></a></span>
 <span id="cb37-10"><a href="#cb37-10" tabindex="-1" aria-label="code-block-37-10"></a><span class="kw">[dependencies]</span></span>
-<span id="cb37-11"><a href="#cb37-11" tabindex="-1" aria-label="code-block-37-11"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb37-12"><a href="#cb37-12" tabindex="-1" aria-label="code-block-37-12"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
-<span id="cb37-13"><a href="#cb37-13" tabindex="-1" aria-label="code-block-37-13"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
-<span id="cb37-14"><a href="#cb37-14" tabindex="-1" aria-label="code-block-37-14"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span></code></pre>
+<span id="cb37-11"><a href="#cb37-11" tabindex="-1" aria-label="code-block-37-11"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.15.2,&lt;3.16"</span></span>
+<span id="cb37-12"><a href="#cb37-12" tabindex="-1" aria-label="code-block-37-12"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.5.4,&lt;3"</span></span>
+<span id="cb37-13"><a href="#cb37-13" tabindex="-1" aria-label="code-block-37-13"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.6.3,&lt;8"</span></span>
+<span id="cb37-14"><a href="#cb37-14" tabindex="-1" aria-label="code-block-37-14"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.6.4,&lt;5"</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1163,7 +1185,7 @@ the <code>lab</code> task.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Using the command line, we use the same <code>pixi task</code> syntax
 as before, but now with the <code>--depends-on</code> option</p>
@@ -1210,10 +1232,10 @@ as before, but now with the <code>--depends-on</code> option</p>
 <span id="cb42-13"><a href="#cb42-13" tabindex="-1" aria-label="code-block-42-13"></a><span class="dt">depends-on</span> <span class="op">=</span> <span class="op">[</span><span class="st">"lab"</span><span class="op">]</span></span>
 <span id="cb42-14"><a href="#cb42-14" tabindex="-1" aria-label="code-block-42-14"></a></span>
 <span id="cb42-15"><a href="#cb42-15" tabindex="-1" aria-label="code-block-42-15"></a><span class="kw">[dependencies]</span></span>
-<span id="cb42-16"><a href="#cb42-16" tabindex="-1" aria-label="code-block-42-16"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb42-17"><a href="#cb42-17" tabindex="-1" aria-label="code-block-42-17"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
-<span id="cb42-18"><a href="#cb42-18" tabindex="-1" aria-label="code-block-42-18"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
-<span id="cb42-19"><a href="#cb42-19" tabindex="-1" aria-label="code-block-42-19"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span></code></pre>
+<span id="cb42-16"><a href="#cb42-16" tabindex="-1" aria-label="code-block-42-16"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.15.2,&lt;3.16"</span></span>
+<span id="cb42-17"><a href="#cb42-17" tabindex="-1" aria-label="code-block-42-17"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.5.4,&lt;3"</span></span>
+<span id="cb42-18"><a href="#cb42-18" tabindex="-1" aria-label="code-block-42-18"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.6.3,&lt;8"</span></span>
+<span id="cb42-19"><a href="#cb42-19" tabindex="-1" aria-label="code-block-42-19"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.6.4,&lt;5"</span></span></code></pre>
 </div>
 </div>
 <div id="nav-tabpanel-5-pixitaskCLI" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-5-pixitaskCLI">
@@ -1231,10 +1253,10 @@ as before, but now with the <code>--depends-on</code> option</p>
 <span id="cb43-9"><a href="#cb43-9" tabindex="-1" aria-label="code-block-43-9"></a><span class="dt">start</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">depends-on</span><span class="op"> =</span> <span class="op">[{ </span><span class="dt">task</span><span class="op"> =</span> <span class="st">"lab"</span><span class="op"> }], </span><span class="dt">description</span><span class="op"> =</span> <span class="st">"Start exploring the Pixi project"</span><span class="op"> }</span></span>
 <span id="cb43-10"><a href="#cb43-10" tabindex="-1" aria-label="code-block-43-10"></a></span>
 <span id="cb43-11"><a href="#cb43-11" tabindex="-1" aria-label="code-block-43-11"></a><span class="kw">[dependencies]</span></span>
-<span id="cb43-12"><a href="#cb43-12" tabindex="-1" aria-label="code-block-43-12"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb43-13"><a href="#cb43-13" tabindex="-1" aria-label="code-block-43-13"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
-<span id="cb43-14"><a href="#cb43-14" tabindex="-1" aria-label="code-block-43-14"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
-<span id="cb43-15"><a href="#cb43-15" tabindex="-1" aria-label="code-block-43-15"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span></code></pre>
+<span id="cb43-12"><a href="#cb43-12" tabindex="-1" aria-label="code-block-43-12"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.15.2,&lt;3.16"</span></span>
+<span id="cb43-13"><a href="#cb43-13" tabindex="-1" aria-label="code-block-43-13"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.5.4,&lt;3"</span></span>
+<span id="cb43-14"><a href="#cb43-14" tabindex="-1" aria-label="code-block-43-14"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.6.3,&lt;8"</span></span>
+<span id="cb43-15"><a href="#cb43-15" tabindex="-1" aria-label="code-block-43-15"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.6.4,&lt;5"</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1326,7 +1348,7 @@ platforms.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Using the <a href="https://pixi.sh/latest/reference/cli/pixi/workspace/" class="external-link"><code>pixi workspace</code>
 command</a>, one can add the platforms with</p>
@@ -1367,10 +1389,10 @@ list.</p>
 <span id="cb52-13"><a href="#cb52-13" tabindex="-1" aria-label="code-block-52-13"></a><span class="dt">depends-on</span> <span class="op">=</span> <span class="op">[</span><span class="st">"lab"</span><span class="op">]</span></span>
 <span id="cb52-14"><a href="#cb52-14" tabindex="-1" aria-label="code-block-52-14"></a></span>
 <span id="cb52-15"><a href="#cb52-15" tabindex="-1" aria-label="code-block-52-15"></a><span class="kw">[dependencies]</span></span>
-<span id="cb52-16"><a href="#cb52-16" tabindex="-1" aria-label="code-block-52-16"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb52-17"><a href="#cb52-17" tabindex="-1" aria-label="code-block-52-17"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
-<span id="cb52-18"><a href="#cb52-18" tabindex="-1" aria-label="code-block-52-18"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
-<span id="cb52-19"><a href="#cb52-19" tabindex="-1" aria-label="code-block-52-19"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span></code></pre>
+<span id="cb52-16"><a href="#cb52-16" tabindex="-1" aria-label="code-block-52-16"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.15.2,&lt;3.16"</span></span>
+<span id="cb52-17"><a href="#cb52-17" tabindex="-1" aria-label="code-block-52-17"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.5.4,&lt;3"</span></span>
+<span id="cb52-18"><a href="#cb52-18" tabindex="-1" aria-label="code-block-52-18"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.6.3,&lt;8"</span></span>
+<span id="cb52-19"><a href="#cb52-19" tabindex="-1" aria-label="code-block-52-19"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.6.4,&lt;5"</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1446,10 +1468,10 @@ an <code>environment</code> also named <code>dev</code> which uses the
 <span id="cb54-13"><a href="#cb54-13" tabindex="-1" aria-label="code-block-54-13"></a><span class="dt">depends-on</span> <span class="op">=</span> <span class="op">[</span><span class="st">"lab"</span><span class="op">]</span></span>
 <span id="cb54-14"><a href="#cb54-14" tabindex="-1" aria-label="code-block-54-14"></a></span>
 <span id="cb54-15"><a href="#cb54-15" tabindex="-1" aria-label="code-block-54-15"></a><span class="kw">[dependencies]</span></span>
-<span id="cb54-16"><a href="#cb54-16" tabindex="-1" aria-label="code-block-54-16"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb54-17"><a href="#cb54-17" tabindex="-1" aria-label="code-block-54-17"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.0,&lt;3"</span></span>
-<span id="cb54-18"><a href="#cb54-18" tabindex="-1" aria-label="code-block-54-18"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.3,&lt;8"</span></span>
-<span id="cb54-19"><a href="#cb54-19" tabindex="-1" aria-label="code-block-54-19"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.3,&lt;5"</span></span>
+<span id="cb54-16"><a href="#cb54-16" tabindex="-1" aria-label="code-block-54-16"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.15.2,&lt;3.16"</span></span>
+<span id="cb54-17"><a href="#cb54-17" tabindex="-1" aria-label="code-block-54-17"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.5.4,&lt;3"</span></span>
+<span id="cb54-18"><a href="#cb54-18" tabindex="-1" aria-label="code-block-54-18"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.6.3,&lt;8"</span></span>
+<span id="cb54-19"><a href="#cb54-19" tabindex="-1" aria-label="code-block-54-19"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.6.4,&lt;5"</span></span>
 <span id="cb54-20"><a href="#cb54-20" tabindex="-1" aria-label="code-block-54-20"></a></span>
 <span id="cb54-21"><a href="#cb54-21" tabindex="-1" aria-label="code-block-54-21"></a><span class="kw">[feature.dev.dependencies]</span></span>
 <span id="cb54-22"><a href="#cb54-22" tabindex="-1" aria-label="code-block-54-22"></a></span>
@@ -1467,7 +1489,7 @@ feature’s <code>dependencies</code> and have it be accessible in the
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>✔ Added pre-commit &gt;=4.2.0,&lt;5
+<pre class="output" tabindex="0"><code>✔ Added pre-commit &gt;=4.7.0,&lt;5
 Added these only for feature: dev</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb57">
@@ -1488,13 +1510,13 @@ Added these only for feature: dev</code></pre>
 <span id="cb57-13"><a href="#cb57-13" tabindex="-1" aria-label="code-block-57-13"></a><span class="dt">depends-on</span> <span class="op">=</span> <span class="op">[</span><span class="st">"lab"</span><span class="op">]</span></span>
 <span id="cb57-14"><a href="#cb57-14" tabindex="-1" aria-label="code-block-57-14"></a></span>
 <span id="cb57-15"><a href="#cb57-15" tabindex="-1" aria-label="code-block-57-15"></a><span class="kw">[dependencies]</span></span>
-<span id="cb57-16"><a href="#cb57-16" tabindex="-1" aria-label="code-block-57-16"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.13.5,&lt;3.14"</span></span>
-<span id="cb57-17"><a href="#cb57-17" tabindex="-1" aria-label="code-block-57-17"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.3.2,&lt;3"</span></span>
-<span id="cb57-18"><a href="#cb57-18" tabindex="-1" aria-label="code-block-57-18"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.4.5,&lt;8"</span></span>
-<span id="cb57-19"><a href="#cb57-19" tabindex="-1" aria-label="code-block-57-19"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.4.5,&lt;5"</span></span>
+<span id="cb57-16"><a href="#cb57-16" tabindex="-1" aria-label="code-block-57-16"></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"&gt;=3.15.2,&lt;3.16"</span></span>
+<span id="cb57-17"><a href="#cb57-17" tabindex="-1" aria-label="code-block-57-17"></a><span class="dt">numpy</span> <span class="op">=</span> <span class="st">"&gt;=2.5.4,&lt;3"</span></span>
+<span id="cb57-18"><a href="#cb57-18" tabindex="-1" aria-label="code-block-57-18"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="st">"&gt;=7.6.3,&lt;8"</span></span>
+<span id="cb57-19"><a href="#cb57-19" tabindex="-1" aria-label="code-block-57-19"></a><span class="dt">jupyterlab</span> <span class="op">=</span> <span class="st">"&gt;=4.6.4,&lt;5"</span></span>
 <span id="cb57-20"><a href="#cb57-20" tabindex="-1" aria-label="code-block-57-20"></a></span>
 <span id="cb57-21"><a href="#cb57-21" tabindex="-1" aria-label="code-block-57-21"></a><span class="kw">[feature.dev.dependencies]</span></span>
-<span id="cb57-22"><a href="#cb57-22" tabindex="-1" aria-label="code-block-57-22"></a><span class="dt">pre-commit</span> <span class="op">=</span> <span class="st">"&gt;=4.3.0,&lt;5"</span></span>
+<span id="cb57-22"><a href="#cb57-22" tabindex="-1" aria-label="code-block-57-22"></a><span class="dt">pre-commit</span> <span class="op">=</span> <span class="st">"&gt;=4.7.0,&lt;5"</span></span>
 <span id="cb57-23"><a href="#cb57-23" tabindex="-1" aria-label="code-block-57-23"></a></span>
 <span id="cb57-24"><a href="#cb57-24" tabindex="-1" aria-label="code-block-57-24"></a><span class="kw">[environments]</span></span>
 <span id="cb57-25"><a href="#cb57-25" tabindex="-1" aria-label="code-block-57-25"></a><span class="dt">dev</span> <span class="op">=</span> <span class="op">[</span><span class="st">"dev"</span><span class="op">]</span></span></code></pre>
