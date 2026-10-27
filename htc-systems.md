@@ -497,34 +497,59 @@ jobs:
       packages: write
 
     steps:
+      - name: Check available disk space
+        id: disk
+        run: |
+          df -h /
+          echo "available_kib=$(df -k --output=avail / | awk 'NR == 2 {print $1}')" >> "$GITHUB_OUTPUT"
+
+      # GitHub only guarantees 14 GB of storage on standard runners, which is not enough
+      # to build the CUDA Apptainer image. If space is low, remove large preinstalled
+      # toolchains that this job does not use (Android SDK, .NET, and Haskell).
       - name: Free disk space
-        uses: AdityaGarg8/remove-unwanted-software@v5
-        with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
+        if: ${{ fromJSON(steps.disk.outputs.available_kib) < 31457280 }}  # 30 GiB
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup
+          df -h /
 
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Get commit SHA
-        id: meta
-        run: |
-            # Get the short commit SHA (first 7 characters)
-            SHA=$(git rev-parse --short HEAD)
-            echo "sha=sha-$SHA" >> $GITHUB_OUTPUT
-
       - name: Install Apptainer
-        uses: eWaterCycle/setup-apptainer@v2
+        uses: prefix-dev/setup-pixi@v0.11.2
+        with:
+          run-install: false
+          global-environments: apptainer
+
+      - name: Allow unprivileged user namespaces
+        # The conda-forge Apptainer is an unprivileged (non-setuid) install, and
+        # Ubuntu 24.04+ restricts unprivileged user namespaces with AppArmor
+        # See https://apptainer.org/docs/admin/main/user_namespace.html
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 
       - name: Build container from definition file
         working-directory: ./htcondor
-        run: apptainer build gpu-noble-cuda-12.9.sif apptainer.def
+        env:
+          # /tmp on ubuntu-26.04 runners is a ~8 GB tmpfs, too small for the CUDA
+          # environment, so build on the runner's disk instead
+          APPTAINER_TMPDIR: ${{ runner.temp }}
+        run: |
+          # gzip is the most widely supported SIF compression, so keep it for published
+          # images. Pull request builds are never pushed, so use the much faster zstd.
+          # See https://apptainer.org/docs/user/main/build_a_container.html
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            apptainer build --mksquashfs-args "-comp zstd -Xcompression-level 3" gpu-noble-cuda-12.9.sif apptainer.def
+          else
+            apptainer build gpu-noble-cuda-12.9.sif apptainer.def
+          fi
 
       - name: Test container
         working-directory: ./htcondor
+        env:
+          # The runner has no GPU, so declare CUDA for pixi to satisfy the workspace's CUDA requirement
+          CONDA_OVERRIDE_CUDA: "12"
         run: apptainer test gpu-noble-cuda-12.9.sif
 
       - name: Login to GitHub Container Registry
@@ -538,7 +563,11 @@ jobs:
       - name: Deploy built container
         if: github.event_name != 'pull_request'
         working-directory: ./htcondor
-        run: apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-mnist-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}
+        run: |
+          short_sha="${GITHUB_SHA::7}"
+          # OCI registry paths must be lowercase, but GITHUB_REPOSITORY preserves the owner's case
+          registry="oras://ghcr.io/${GITHUB_REPOSITORY,,}"
+          apptainer push gpu-noble-cuda-12.9.sif "${registry}:apptainer-mnist-gpu-noble-cuda-12.9-sha-${short_sha}"
 ```
 
 :::
