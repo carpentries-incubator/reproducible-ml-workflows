@@ -31,8 +31,6 @@ jobs:
         os: ["ubuntu-latest", "macos-latest", "windows-latest"]
 
     steps:
-    - uses: actions/checkout@v7
-
     - name: Set up Pixi
       uses: prefix-dev/setup-pixi@v0.11.2
       with:
@@ -96,6 +94,11 @@ jobs:
         pixi upgrade --feature dev pre-commit
         pixi run --environment dev pre-commit --help
         cat pixi.toml
+        pixi workspace export conda-environment environment.yaml
+        cat environment.yaml
+        pixi workspace export conda-explicit-spec --platform linux-64 --platform osx-arm64 .
+        Get-Content default_linux-64_conda_spec.txt -Head 20
+        Get-Content default_osx-arm64_conda_spec.txt -Head 20
 
   episode-dir-structure:
 
@@ -105,8 +108,6 @@ jobs:
         os: ["ubuntu-latest", "macos-latest", "windows-latest"]
 
     steps:
-    - uses: actions/checkout@v7
-
     - name: Set up Pixi
       uses: prefix-dev/setup-pixi@v0.11.2
       with:
@@ -199,8 +200,6 @@ jobs:
       CONDA_OVERRIDE_CUDA: "12"
 
     steps:
-    - uses: actions/checkout@v7
-
     - name: Set up Pixi
       uses: prefix-dev/setup-pixi@v0.11.2
       with:
@@ -221,10 +220,10 @@ jobs:
         cat pixi.toml
         cat .pixi/envs/default/conda-meta/cuda-version-*.json
         pixi workspace platform add osx-arm64 win-64
-        pixi add --platform linux-64-cuda cuda
-        pixi list --platform linux-64-cuda cuda
-        pixi add --platform linux-64-cuda pytorch-gpu
-        pixi list --platform linux-64-cuda torch
+        pixi add --no-install --platform linux-64-cuda cuda
+        pixi list --no-install --platform linux-64-cuda cuda
+        pixi add --no-install --platform linux-64-cuda pytorch-gpu
+        pixi list --no-install --platform linux-64-cuda torch
         cat pixi.toml
 
   episode-cuda-exercise:
@@ -235,8 +234,6 @@ jobs:
         os: ["ubuntu-latest", "macos-latest", "windows-latest"]
 
     steps:
-    - uses: actions/checkout@v7
-
     - name: Set up Pixi
       uses: prefix-dev/setup-pixi@v0.11.2
       with:
@@ -248,18 +245,18 @@ jobs:
         pixi init cuda-exercise
         cd cuda-exercise
         pixi workspace platform add linux-64 osx-arm64 win-64
-        pixi add --feature cpu pytorch-cpu
+        pixi add --no-install --feature cpu pytorch-cpu
         pixi workspace environment add --feature cpu cpu
-        pixi upgrade --feature cpu pytorch-cpu
+        pixi upgrade --no-install --feature cpu pytorch-cpu
         pixi workspace platform add --cuda 12 --feature gpu linux-64-cuda=linux-64
         pixi workspace platform add --cuda 12 --feature gpu win-64-cuda=win-64
         pixi workspace environment add --feature gpu gpu
-        pixi add --feature gpu pytorch-gpu
+        pixi add --no-install --feature gpu pytorch-gpu
         cat pixi.toml
-        pixi list --environment cpu
+        pixi list --no-install --environment cpu
         # The gpu environment is only solved for the CUDA platforms
-        pixi list --environment gpu --platform linux-64-cuda
-        pixi list --environment gpu --platform win-64-cuda
+        pixi list --no-install --environment gpu --platform linux-64-cuda
+        pixi list --no-install --environment gpu --platform win-64-cuda
 
   episode-mnist-example:
 
@@ -269,8 +266,6 @@ jobs:
         os: ["ubuntu-latest", "macos-latest", "windows-latest"]
 
     steps:
-    - uses: actions/checkout@v7
-
     - name: Set up Pixi
       uses: prefix-dev/setup-pixi@v0.11.2
       with:
@@ -282,15 +277,15 @@ jobs:
         pixi init mnist-example
         cd mnist-example
         pixi workspace platform add linux-64 osx-arm64 win-64
-        pixi add --feature cpu pytorch-cpu torchvision
+        pixi add --no-install --feature cpu pytorch-cpu torchvision
         pixi workspace environment add --feature cpu cpu
-        pixi upgrade --feature cpu
+        pixi upgrade --no-install --feature cpu
         pixi workspace platform add --cuda 12 --feature gpu linux-64-cuda=linux-64
         pixi workspace platform add --cuda 12 --feature gpu win-64-cuda=win-64
         pixi workspace environment add --feature gpu gpu
-        pixi add --feature gpu pytorch-gpu torchvision
+        pixi add --no-install --feature gpu pytorch-gpu torchvision
         cat pixi.toml
-        pixi list --environment cpu
+        pixi list --no-install --environment cpu
         # The gpu environment is only solved for the CUDA platforms
-        pixi list --environment gpu --platform linux-64-cuda
-        pixi list --environment gpu --platform win-64-cuda
+        pixi list --no-install --environment gpu --platform linux-64-cuda
+        pixi list --no-install --environment gpu --platform win-64-cuda
