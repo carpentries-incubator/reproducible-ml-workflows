@@ -660,6 +660,10 @@ jobs:
 
       - name: Build container from definition file
         working-directory: ./cuda-exercise
+        env:
+          # /tmp on ubuntu-26.04 runners is a ~8 GB tmpfs, too small for the CUDA
+          # environment, so build on the runner's disk instead
+          APPTAINER_TMPDIR: ${{ runner.temp }}
         run: apptainer build gpu-noble-cuda-12.9.sif apptainer.def
 
       - name: Test container
