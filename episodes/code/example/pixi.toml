@@ -10,13 +10,13 @@ description = "Launch JupyterLab"
 cmd = "jupyter lab"
 
 [dependencies]
-python = ">=3.13.3,<3.14"
-numpy = ">=2.2.6,<3"
-notebook = ">=7.4.3,<8"
-jupyterlab = ">=4.4.3,<5"
+python = ">=3.15.2,<3.16"
+numpy = ">=2.5.4,<3"
+notebook = ">=7.6.3,<8"
+jupyterlab = ">=4.6.4,<5"
 
 [feature.dev.dependencies]
-pre-commit = ">=4.2.0,<5"
+pre-commit = ">=4.7.0,<5"
 
 [environments]
 dev = ["dev"]

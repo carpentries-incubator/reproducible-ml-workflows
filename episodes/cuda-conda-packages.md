@@ -254,6 +254,7 @@ Added these only for platform(s): linux-64-cuda
 pixi list --platform linux-64-cuda cuda
 ```
 ```output
+Installed for: linux-64
 Name                         Version  Build             Size  Kind   Source
 cuda                         12.9.2   ha804496_0   27.18 KiB  conda  https://conda.anaconda.org/conda-forge
 cuda-cccl_linux-64           12.9.27  ha770c72_0    1.10 MiB  conda  https://conda.anaconda.org/conda-forge
@@ -317,6 +318,7 @@ Added these only for platform(s): linux-64-cuda
 pixi list --platform linux-64-cuda torch
 ```
 ```output
+Installed for: linux-64
 Name         Version  Build                                 Size  Kind   Source
 libtorch     2.14.1   cuda129_mkl_h546cc0b_300        795.16 MiB  conda  https://conda.anaconda.org/conda-forge
 pytorch      2.14.1   cuda129_mkl_py312_h0509a7e_300   27.71 MiB  conda  https://conda.anaconda.org/conda-forge

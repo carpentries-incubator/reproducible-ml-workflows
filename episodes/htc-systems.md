@@ -829,7 +829,7 @@ command -v python
 python --version
 ```
 ```output
-Python 3.13.9
+Python 3.14.10
 ```
 
 ```bash
@@ -837,12 +837,12 @@ pixi list torch
 ```
 ```output
 Environment: gpu
-Package                     Version  Build                           Size       Kind   Source
-libtorch                    2.7.1    cuda129_mkl_h9562ed8_304        836.3 MiB  conda  https://conda.anaconda.org/conda-forge/
-pytorch                     2.7.1    cuda129_mkl_py313_h1e53aa0_304  28.1 MiB   conda  https://conda.anaconda.org/conda-forge/
-pytorch-gpu                 2.7.1    cuda129_mkl_h43a4b0b_304        46.9 KiB   conda  https://conda.anaconda.org/conda-forge/
-torchvision                 0.24.0   cuda129_py313_h6be0d2c_0        3.1 MiB    conda  https://conda.anaconda.org/conda-forge/
-torchvision-extra-decoders  0.0.2    py313hf1e760e_3                 62.9 KiB   conda  https://conda.anaconda.org/conda-forge/
+Installed for: linux-64
+Name         Version  Build                                 Size  Kind   Source
+libtorch     2.13.0   cuda129_mkl_h546cc0b_305        779.65 MiB  conda  https://conda.anaconda.org/conda-forge
+pytorch      2.13.0   cuda129_mkl_py314_h0b5d900_305   27.35 MiB  conda  https://conda.anaconda.org/conda-forge
+pytorch-gpu  2.13.0   cuda129_mkl_h0d04637_305         56.41 KiB  conda  https://conda.anaconda.org/conda-forge
+torchvision  0.28.0   cuda129_py314_hfc3dc12_2          3.21 MiB  conda  https://conda.anaconda.org/conda-forge
 ```
 
 ```bash
@@ -850,18 +850,19 @@ pixi list cuda
 ```
 ```output
 Environment: gpu
-Package               Version  Build       Size       Kind   Source
-cuda-crt-tools        12.9.86  ha770c72_2  28.5 KiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-cudart           12.9.79  h5888daf_0  22.7 KiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-cudart_linux-64  12.9.79  h3f2d84a_0  192.6 KiB  conda  https://conda.anaconda.org/conda-forge/
-cuda-cuobjdump        12.9.82  hffce074_1  239.3 KiB  conda  https://conda.anaconda.org/conda-forge/
-cuda-cupti            12.9.79  h676940d_1  1.8 MiB    conda  https://conda.anaconda.org/conda-forge/
-cuda-nvcc-tools       12.9.86  he02047a_2  26.1 MiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvdisasm         12.9.88  hffce074_1  5.3 MiB    conda  https://conda.anaconda.org/conda-forge/
-cuda-nvrtc            12.9.86  hecca717_1  64.1 MiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvtx             12.9.79  hecca717_1  28.7 KiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-nvvm-tools       12.9.86  h4bc722e_2  23.1 MiB   conda  https://conda.anaconda.org/conda-forge/
-cuda-version          12.9     h4f385c5_3  21.1 KiB   conda  https://conda.anaconda.org/conda-forge/
+Installed for: linux-64
+Name                  Version  Build             Size  Kind   Source
+cuda-crt-tools        12.9.86  ha770c72_2   28.46 KiB  conda  https://conda.anaconda.org/conda-forge
+cuda-cudart           12.9.79  h5888daf_0   22.70 KiB  conda  https://conda.anaconda.org/conda-forge
+cuda-cudart_linux-64  12.9.79  h3f2d84a_0  192.63 KiB  conda  https://conda.anaconda.org/conda-forge
+cuda-cuobjdump        12.9.82  hffce074_1  239.33 KiB  conda  https://conda.anaconda.org/conda-forge
+cuda-cupti            12.9.79  h676940d_2    1.77 MiB  conda  https://conda.anaconda.org/conda-forge
+cuda-nvcc-tools       12.9.86  he02047a_2   26.11 MiB  conda  https://conda.anaconda.org/conda-forge
+cuda-nvdisasm         12.9.88  hffce074_1    5.26 MiB  conda  https://conda.anaconda.org/conda-forge
+cuda-nvrtc            12.9.86  hecca717_1   64.06 MiB  conda  https://conda.anaconda.org/conda-forge
+cuda-nvtx             12.9.79  hecca717_1   28.75 KiB  conda  https://conda.anaconda.org/conda-forge
+cuda-nvvm-tools       12.9.86  h4bc722e_2   23.12 MiB  conda  https://conda.anaconda.org/conda-forge
+cuda-version          12.9     h4f385c5_3   21.07 KiB  conda  https://conda.anaconda.org/conda-forge
 ```
 
 ```bash
