@@ -517,13 +517,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get commit SHA
-        id: meta
-        run: |
-            # Get the short commit SHA (first 7 characters)
-            SHA=$(git rev-parse --short HEAD)
-            echo "sha=sha-$SHA" >> $GITHUB_OUTPUT
-
       - name: Install Apptainer
         uses: prefix-dev/setup-pixi@v0.11.2
         with:
@@ -562,7 +555,11 @@ jobs:
       - name: Deploy built container
         if: github.event_name != 'pull_request'
         working-directory: ./htcondor
-        run: apptainer push gpu-noble-cuda-12.9.sif oras://ghcr.io/${{ github.repository }}:apptainer-mnist-gpu-noble-cuda-12.9-${{ steps.meta.outputs.sha }}
+        run: |
+          short_sha="${GITHUB_SHA::7}"
+          # OCI registry paths must be lowercase, but GITHUB_REPOSITORY preserves the owner's case
+          registry="oras://ghcr.io/${GITHUB_REPOSITORY,,}"
+          apptainer push gpu-noble-cuda-12.9.sif "${registry}:apptainer-mnist-gpu-noble-cuda-12.9-sha-${short_sha}"
 ```
 
 :::
