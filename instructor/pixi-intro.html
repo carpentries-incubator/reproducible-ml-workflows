@@ -363,7 +363,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Pixi</h1>
-        <p>Last updated on 2026-10-24 |
+        <p>Last updated on 2026-10-27 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/pixi-intro.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -852,6 +852,37 @@ the Pixi workspace and its dependencies and constraints on other
 packages. This means that for each package specified, that version, and
 <strong>only</strong> that version, will be downloaded and installed in
 the future.</p>
+<div id="lock-files-and-security" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="lock-files-and-security" class="callout-inner">
+<h3 class="callout-title">Lock files and security</h3>
+<div class="callout-content">
+<p>Locking every package in an environment to an exact version and
+digest has consequences for the security of the environment.</p>
+<p><strong>Pros</strong></p>
+<ul><li>Packages are installed at the exact versions and digests recorded in
+the lock file, so new releases do not enter the environment until the
+lock file is explicitly updated. This protects a locked environment from
+installing malicious releases of a package published after it was
+locked. For example, a lock file that contained
+<code>pytorch-lightning</code> before the malicious
+<code>pytorch-lightning</code> 2.6.2 and 2.6.3 releases on PyPI that
+contained credential harvesting code (<a href="https://github.com/advisories/GHSA-w37p-236h-pfx3" class="external-link">CVE-2026-44484</a>)
+was safe from the attack.</li>
+</ul><p><strong>Cons</strong></p>
+<ul><li>A locked environment also does not receive security fixes until you
+update the lock file. For example, after the <a href="https://discuss.python.org/t/information-for-python-users-regarding-emudhra-emsign-ca-certificate-security-incident/109576" class="external-link">2026
+eMudhra certificate authority incident</a>, users needed new versions of
+<code>certifi</code>, <code>ca-certificates</code>, and potentially
+<code>pip</code>, to stop trusting the compromised certificates, and a
+locked environment keeps the old versions until its lock file is
+updated.</li>
+</ul></div>
+</div>
+</div>
 <p>We can even test that now by deleting the installed environment fully
 with <a href="https://pixi.sh/latest/reference/cli/pixi/clean/" class="external-link"><code>pixi clean</code></a>
 and then getting it back (bit for bit) in a few seconds with <a href="https://pixi.sh/latest/reference/cli/pixi/install/" class="external-link"><code>pixi install</code></a>.</p>
@@ -1482,7 +1513,7 @@ with the <code>--environment</code> flag</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" tabindex="-1" aria-label="code-block-59-1"></a><span class="ex">pixi</span> shell <span class="at">--environment</span> dev</span></code></pre>
 </div>
-<div id="callout5" class="callout">
+<div id="callout6" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -1658,7 +1689,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-intro.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/pixi-intro.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2026-10-24",
+  "dateModified": "2026-10-27",
   "datePublished": "2026-10-27"
 }
 
