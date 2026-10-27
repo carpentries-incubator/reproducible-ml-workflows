@@ -412,7 +412,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Reproducible research</a></p>
 <hr>
-<p>Last updated on 2026-10-22 |
+<p>Last updated on 2026-10-27 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -530,9 +530,21 @@ distributed on public package indexes</li>
 <p>“Reproducible” research can mean many things and is a multipronged
 problem. This lesson will focus primarily on computational
 reproducibility. Like all forms of reproducibility, there are multiple
-“levels” of computational reproducibility. For this lesson we will focus
-on “full” reproducibility, meaning that reproducible software
-environments will:</p>
+“levels” of computational reproducibility. Some definitions of
+computational reproducibility, such as those from the <a href="https://forrt.org/glossary/english/computational_reproducibility/" class="external-link">Framework
+for Open and Reproducible Research Training (FORRT)</a> and <a href="https://book.the-turing-way.org/reproducible-research/overview/overview-definitions/" class="external-link"><em>The
+Turing Way</em></a>, are concerned with achieving the same scientific
+results given the same data and methods and software. These definitions
+emphasize the <em>reproducibility of results</em>, rather than the
+recreation of the exact software environment that produced them. Closer
+to the scope of this lesson, <a href="https://www.edge.org/response-detail/25340" class="external-link">Victoria Stodden uses
+the term computational reproducibility</a> for publishing computational
+findings along with access to the code, data, and implementation
+details, and further advocates for distribution of computational
+software environments. For this lesson we will take a narrower scope
+still: “full” reproducibility of <em>scientific software
+environments</em>, meaning that reproducible software environments
+will:</p>
 <ul>
 <li>Be defined through user readable and writable configuration
 files.</li>
@@ -699,6 +711,9 @@ will make creating reproducible and reusable workflows easier.</p>
 environments.</li>
 <li>Computational reproducibility helps to enable reproducible
 science.</li>
+<li>This lesson covers the reproducibility of software environments, a
+narrower scope than definitions of computational reproducibility that
+emphasize the reproducibility of results.</li>
 <li>Reproducible computational software environments that use hardware
 acceleration require additional information.</li>
 <li>New technologies make all of these processes easier.</li>
@@ -4428,7 +4443,7 @@ code from the end of the CUDA conda packages episode at
   Dockerfile walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>Let’s step through this to understand what’s happening.
 <code>Dockerfile</code>s (intentionally) look very shell script like,
@@ -4810,7 +4825,7 @@ pixi list</code></pre>
   Apptainer walkthrough
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
 <div class="accordion-body">
 <ul>
 <li><p>The Apptainer definition file is broken out into specific <a href="https://apptainer.org/docs/user/main/definition_files.html#sections" class="external-link">operation
@@ -5291,7 +5306,7 @@ and <code>win-64</code>.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>This is just expanding the exercises from the CUDA conda packages
 episode.</p>
@@ -5498,7 +5513,7 @@ Test set: Average loss: 0.0351, Accuracy: 9874/10000 (99%)</code></pre>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can enter a shell environment first</p>
 <div class="codewrapper sourceCode" id="cb21">
@@ -5607,7 +5622,7 @@ into the container image.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">DOCKERFILE<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5675,7 +5690,7 @@ and Dockerfile files and deploy them to GitHub Container Registry
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>Create the GitHub Actions workflow directory tree</p>
 <div class="codewrapper sourceCode" id="cb24">
