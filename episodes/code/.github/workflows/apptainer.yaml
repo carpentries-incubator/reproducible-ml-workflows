@@ -85,6 +85,9 @@ jobs:
 
       - name: Test container
         working-directory: ./cuda-exercise
+        env:
+          # The runner has no GPU, so declare CUDA for pixi to satisfy the workspace's CUDA requirement
+          CONDA_OVERRIDE_CUDA: "12"
         run: apptainer test gpu-noble-cuda-12.9.sif
 
       - name: Login to GitHub Container Registry
