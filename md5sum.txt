@@ -17,4 +17,4 @@
 "jose/paper.md" "77b406a8008d9bc1fa9f518ba4b9c9aa" "site/built/paper.md" "2026-10-27"
 "learners/reference.md" "0402f697eb91156c4139e6167163f25f" "site/built/reference.md" "2025-12-05"
 "learners/setup.md" "1efebcdaec8a50c67fdbaff9d72c61bd" "site/built/setup.md" "2026-10-22"
-"profiles/learner-profiles.md" "60b93493cf1da06dfd63255d73854461" "site/built/learner-profiles.md" "2025-12-05"
+"profiles/learner-profiles.md" "292d0abaeaaead1a08445582c9bae334" "site/built/learner-profiles.md" "2026-10-29"
