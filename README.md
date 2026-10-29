@@ -9,7 +9,30 @@ The content of the lesson is aimed at a target audience of professional research
 
 ## Using the lesson
 
-To step through the lesson, please follow it on its website at https://carpentries-incubator.github.io/reproducible-ml-workflows/
+### Learning from the lesson
+
+To step through the lesson, please follow it on its website at https://carpentries-incubator.github.io/reproducible-ml-workflows/.
+Before starting, follow the [Setup](https://carpentries-incubator.github.io/reproducible-ml-workflows/#setup) instructions to install Pixi and create the GitHub repository used throughout the lesson.
+
+### Teaching the lesson
+
+The lesson website has an instructor view, which you can switch to with the "Instructor View" button at the top of any page.
+The [Instructor Notes](https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor/instructor-notes.html) describe the workshop format, a schedule, what learners and instructors need to prepare, and advice on running the lesson.
+
+The lesson has been taught at the following workshops, whose event pages can be used as examples:
+
+* [Reproducible Machine Learning Workflows for Scientists Workshop 2025](https://indico.global/event/14982/) (three days, August 2025)
+* [Reproducible Machine Learning Workflows for Scientists Workshop Pilot 2025](https://indico.global/event/14745/) (one and a half days, June 2025)
+
+### Adapting the lesson
+
+To teach a modified version of the lesson (e.g. to remove episodes or to change examples for your own computing systems), fork this repository.
+As the lesson website is built and deployed by GitHub Actions, a fork needs additional setup to deploy its own website: copy all branches when forking, then enable GitHub Actions and GitHub Pages (from the `gh-pages` branch) on the fork.
+See the [Teaching section of The Carpentries Workbench FAQ](https://carpentries.github.io/workbench/faq.html#teaching) for details, and the [Developing the lesson](#developing-the-lesson) section below for building the website locally.
+
+### Citing the lesson
+
+If you use or adapt the lesson, please cite it using the information in [`CITATION.cff`](https://github.com/carpentries-incubator/reproducible-ml-workflows/blob/main/CITATION.cff) or the [Zenodo DOI](https://doi.org/10.5281/zenodo.17537698).
 
 ## Getting help
 
