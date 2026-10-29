@@ -411,14 +411,159 @@
         <h1>Instructor Notes</h1>
         
 
-<p>This is a placeholder file. Please add content here.</p>
+<section><h2 class="section-heading" id="workshop-format">Workshop format<a class="anchor" aria-label="anchor" href="#workshop-format"></a>
+</h2>
+<hr class="half-width">
+<p>The lesson is designed to be taught as a three-day workshop. Each day
+has a morning instruction session that covers episodes of the lesson,
+followed by an afternoon work session in which participants apply what
+they learned to real applications. Strongly encourage participants to
+bring a research project or idea of their own to the work sessions, and
+plan for the instruction team to be available to help participants
+individually during them.</p>
+<p>Each episode contains challenges that ask participants to put the
+concepts and tools they have just learned into practice. After each
+challenge, discuss possible solutions with the participants and live
+code a solution.</p>
+</section><section><h2 class="section-heading" id="before-teaching-the-lesson">Before teaching the lesson<a class="anchor" aria-label="anchor" href="#before-teaching-the-lesson"></a>
+</h2>
+<hr class="half-width">
+<p>The lesson covers many technologies in three days: Pixi, conda
+packages, CUDA, Linux containers, CI/CD with GitHub Actions, and HTC and
+HPC systems. To get through all of them, participants need a solid
+understanding of software development before the workshop, including the
+Unix shell, Git and GitHub, and programming in Python or a similar
+language (see the <a href="index.html">prerequisites</a>). Make these
+expectations clear when advertising the workshop, and consider pointing
+participants to The Carpentries lessons on <a href="https://swcarpentry.github.io/shell-novice/" class="external-link">The Unix Shell</a>,
+<a href="https://swcarpentry.github.io/git-novice/" class="external-link">Version Control with
+Git</a>, and <a href="https://swcarpentry.github.io/python-novice-inflammation/" class="external-link">Programming
+with Python</a> beforehand.</p>
+<p>If you are teaching the lesson for the first time, teaching a subset
+of the episodes, such as a single day of the schedule below, is more
+reasonable than the full three-day workshop.</p>
+</section><section><h2 class="section-heading" id="schedule">Schedule<a class="anchor" aria-label="anchor" href="#schedule"></a>
+</h2>
+<hr class="half-width">
+<p>The schedule below follows the <a href="https://indico.global/event/14982/" class="external-link">Reproducible Machine Learning
+Workflows for Scientists Workshop 2025</a>, where each day’s instruction
+session (09:00 to 12:30, including a 20-minute break) was run as a
+half-day tutorial. The time estimates are the sum of the teaching and
+exercise times of the episodes, and do not include breaks or time to
+help participants who fall behind. The workshop scheduled more time for
+each day than these estimates, and you should too.</p>
+<table class="table">
+<colgroup>
+<col width="13%">
+<col width="26%">
+<col width="60%">
+</colgroup>
+<thead><tr>
+<th>Day</th>
+<th>Episodes</th>
+<th>Episode time estimate</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>
+<a href="introduction.html">Reproducible research</a>, <a href="pixi-intro.html">Introduction to Pixi</a>, <a href="backwards-compatibility.html">Backwards compatibility with
+conda</a>, <a href="conda-packages.html">Conda packages</a>
+</td>
+<td>2 hours 3 minutes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>
+<a href="cuda-conda-packages.html">CUDA conda packages</a>, <a href="pixi-deployment.html">Deploying Pixi environments with Linux
+containers</a>
+</td>
+<td>1 hour 30 minutes</td>
+</tr>
+<tr>
+<td>3</td>
+<td>
+<a href="htc-systems.html">Using Pixi environments on HTC
+systems</a>, <a href="hpc-systems.html">Using Pixi environments on HPC
+systems</a>
+</td>
+<td>2 hours 10 minutes</td>
+</tr>
+</tbody>
+</table>
+<p>The HPC episode was added to the lesson after the August 2025
+workshop, which used the second part of the third day’s instruction
+session for material on commercial cloud systems that is not part of the
+lesson.</p>
+</section><section><h2 class="section-heading" id="preparation">Preparation<a class="anchor" aria-label="anchor" href="#preparation"></a>
+</h2>
+<hr class="half-width">
+<p>Ask participants to complete the <a href="index.html#setup">Setup</a>
+instructions before the workshop, and offer time before the first
+instruction session to help those who could not. Participants who have
+trouble with their setup early in the workshop can fall behind for the
+rest of it.</p>
+<p>Each part of the lesson needs different resources, which can take
+time to arrange:</p>
+<ul>
+<li>
+<strong>All episodes:</strong> A laptop with a terminal emulator, a
+text editor, some free disk space, and Pixi installed. Windows users are
+strongly encouraged to use WSL 2 and Windows Terminal.</li>
+<li>
+<strong><a href="cuda-conda-packages.html">CUDA conda
+packages</a>:</strong> An NVIDIA GPU is needed to run the CUDA examples.
+Participants without one can still create and lock the CUDA
+environments, but can not run the examples on them.</li>
+<li>
+<strong><a href="pixi-deployment.html">Deploying Pixi environments
+with Linux containers</a>:</strong> A personal GitHub account, as the
+episode builds Linux container images with GitHub Actions and publishes
+them to the GitHub Container Registry. Docker or Apptainer is
+optional.</li>
+<li>
+<strong><a href="htc-systems.html">Using Pixi environments on HTC
+systems</a>:</strong> The same GitHub account, and an account on an HTC
+system with GPUs. The lesson uses the <a href="https://osg-htc.org/services/ospool/" class="external-link">OSPool</a>, where account
+requests are reviewed by a Research Computing Facilitator, so ask
+participants to apply well before the workshop.</li>
+<li>
+<strong><a href="hpc-systems.html">Using Pixi environments on HPC
+systems</a>:</strong> An account and allocation on an HPC system with
+GPUs that uses Slurm.</li>
+</ul>
+<p>Access to GPUs at academic institutions often requires several steps
+and permissions, and few participants are likely to already have
+projects that use GPUs. Arranging access to GPUs for the participants
+before the workshop, for example through the OSPool or your
+institution’s research computing center, lets every participant run the
+GPU examples.</p>
+</section><section><h2 class="section-heading" id="adapting-the-lesson">Adapting the lesson<a class="anchor" aria-label="anchor" href="#adapting-the-lesson"></a>
+</h2>
+<hr class="half-width">
+<p>The lesson can be split into three parts that can be taught on their
+own, and that correspond to the days of the schedule above: Pixi and
+conda packages, deploying environments with Linux containers, and
+running machine learning workflows on HTC and HPC systems. Later parts
+depend on the earlier ones: the container deployment episode builds on
+the CUDA environments and code from the CUDA conda packages episode, the
+HTC episode builds container images for CUDA environments with the
+GitHub Actions workflows introduced in the container deployment episode,
+and the HPC episode runs CUDA environments with Slurm. If you teach a
+later part on its own, make sure participants already know the material
+it depends on.</p>
+<p>The HTC and HPC episodes are specific to the OSPool and to Slurm, and
+are the episodes most likely to need changes for your own computing
+systems.</p>
+<p>To teach a modified version of the lesson, fork the <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows" class="external-link">lesson
+repository</a> and follow the <a href="https://carpentries.github.io/workbench/faq.html#teaching" class="external-link">Teaching
+section of The Carpentries Workbench FAQ</a> to deploy your fork’s
+lesson website.</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-
-
-      <section id="aggregate-instructor-notes"></section>
+</section><section id="aggregate-instructor-notes"></section>
 </div>
     </main>
 </div>
@@ -468,8 +613,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor-notes.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/instructor-notes.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2026-10-27",
-  "datePublished": "2026-10-27"
+  "dateModified": "2026-10-29",
+  "datePublished": "2026-10-29"
 }
 
   </script><script>
