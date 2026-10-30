@@ -8,6 +8,7 @@ exercises: 10
 
 * How can you run workflows that use GPUs with Pixi CUDA environments using Slurm?
 * What solutions exist for the resources you have?
+* Let's make some changes for a PR
 
 :::
 
