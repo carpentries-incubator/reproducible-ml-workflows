@@ -26,7 +26,7 @@ Combined with the arrival of the full CUDA [@CUDA_paper] stack on conda-forge [@
 
 This work contains educational resources on applying these aspects of software reproducibility to hardware accelerated machine learning workflows.
 The resources are presented as a short course, or "lesson", in The Carpentries [@the_carpentries_org] format designed to be taught to scientific researchers over the course of a three-day workshop.
-The open source materials are hosted on GitHub by The Carpentries Incubator GitHub organization [@feickert_2025_17537699].
+The open source materials are hosted on GitHub by The Carpentries Incubator GitHub organization [@feickert_2026_17537698].
 The course website is publicly accessible at [carpentries-incubator.github.io/reproducible-ml-workflows/](https://carpentries-incubator.github.io/reproducible-ml-workflows/).
 
 # Statement of Need
