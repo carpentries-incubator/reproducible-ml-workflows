@@ -341,7 +341,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Reproducible Machine Learning Workflows for Scientists: A short course in best practices</h1>
-        <p>Last updated on 2026-10-27 |
+        <p>Last updated on 2026-11-10 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/jose/paper.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -367,16 +367,16 @@ tools, e.g. Pixi <span class="citation">[@pixi;
 @fischer_pixi:2025]</span>, provide automatic multi-platform
 digest-level lock file support for all dependencies — down to the
 compiler level — of software on public package indexes while still
-providing a high level interface well suited for researchers. Combined
+providing a high-level interface well suited for researchers. Combined
 with the arrival of the full CUDA <span class="citation">[@CUDA_paper]</span> stack on conda-forge <span class="citation">[@conda-forge_community]</span>, it is now possible to
-declaratively specify a full CUDA accelerated software environment.</p>
+declaratively specify a full CUDA-accelerated software environment.</p>
 <p>This work contains educational resources on applying these aspects of
-software reproducibility to hardware accelerated machine learning
+software reproducibility to hardware-accelerated machine learning
 workflows. The resources are presented as a short course, or “lesson”,
 in The Carpentries <span class="citation">[@the_carpentries_org]</span>
 format designed to be taught to scientific researchers over the course
 of a three-day workshop. The open source materials are hosted on GitHub
-by The Carpentries Incubator GitHub organization <span class="citation">[@feickert_2025_17537699]</span>. The course website is
+by The Carpentries Incubator GitHub organization <span class="citation">[@feickert_2026_17537698]</span>. The course website is
 publicly accessible at <a href="https://carpentries-incubator.github.io/reproducible-ml-workflows/" class="external-link">carpentries-incubator.github.io/reproducible-ml-workflows/</a>.</p>
 </div>
 <div class="section level1">
@@ -384,9 +384,9 @@ publicly accessible at <a href="https://carpentries-incubator.github.io/reproduc
 <p>Education and training for the broader scientific software community
 around robust best practices and standards for reproducibility in
 scientific software is rare, and is practically non-existent for
-reproducible hardware accelerated software. This educational material
+reproducible hardware-accelerated software. This educational material
 provides tested and validated best practices for creating digest-level
-reproducible CUDA accelerated software environments and provides
+reproducible CUDA-accelerated software environments and provides
 actionable recommendations for adopting computational reproducibility
 tools. Given the recent advances in enabling technologies, the methods
 and techniques to support the described best practices and workflows
@@ -398,14 +398,14 @@ of the first open source resources available on the topic.</p>
 <p>The course has been designed to be taught over a three-day workshop,
 with each day divided into a half-day of instruction from the course
 material, and then a second half-day focusing on applying the course
-content to real world research applications to participants’ research
-projects through interactive work sessions with the instruction team.
+content to real-world research applications to participants’ research
+projects through interactive work sessions with the instructor team.
 Each “episode” of the workshop course contains interactive “challenge”
 questions that require participants to put into practice concepts and
 tools they have just learned, and synthesize information from previous
 episodes to accomplish tasks. After each challenge question, the
-instructor team will discuss possible solutions with the participants
-and “live code” a demonstration of a solution.</p>
+instructor team discusses possible solutions with the participants and
+“live codes” a demonstration of a solution.</p>
 </div>
 <div class="section level1">
 <h1 id="learning-objectives">Learning Objectives<a class="anchor" aria-label="anchor" href="#learning-objectives"></a></h1>
@@ -430,11 +430,11 @@ able to:</p>
 <code>.conda</code> archive format and its installed form on disk.</li>
 <li>Describe the purpose of a conda virtual package.</li>
 <li>Describe how Pixi platforms that declare a minimum CUDA version
-enable resolution of CUDA enabled conda packages.</li>
-<li>Create Pixi software environments that use CUDA enabled conda
-packages of machine learning libraries for CUDA compatible computing
+enable resolution of CUDA-enabled conda packages.</li>
+<li>Create Pixi software environments that use CUDA-enabled conda
+packages of machine learning libraries for CUDA-compatible computing
 platforms.</li>
-<li>Use CUDA enabled Pixi software environments to train machine
+<li>Use CUDA-enabled Pixi software environments to train machine
 learning models on NVIDIA GPUs.</li>
 </ul><p>By the end of the third day of instruction, participants will be able
 to:</p>
@@ -444,45 +444,45 @@ environments to remote machines.</li>
 environments.</li>
 <li>Write a templated Apptainer container image definition that uses
 Pixi software environments.</li>
-<li>Build a Docker container image that contains a CUDA accelerated Pixi
+<li>Build a Docker container image that contains a CUDA-accelerated Pixi
 software environment.</li>
-<li>Build an Apptainer container image that contains a CUDA accelerated
+<li>Build an Apptainer container image that contains a CUDA-accelerated
 Pixi software environment.</li>
 <li>Write a continuous integration and continuous delivery (CI/CD)
 configuration file to build and deploy container images to container
 registries.</li>
 <li>Describe the benefits to the research process of using fully
-reproducible hardware accelerated software environments.</li>
+reproducible hardware-accelerated software environments.</li>
 </ul><p>If participants are working with access to a high-throughput
 computing (HTC) facility, they will additionally be able to:</p>
 <ul><li>Write simple HTCondor execution scripts and submit description files
 that request Linux container and GPU resources.</li>
 <li>Submit distributed machine learning training workflows to HTCondor
-that run in Linux containers with CUDA accelerated Pixi software
+that run in Linux containers with CUDA-accelerated Pixi software
 environments.</li>
-</ul><p>and if participants are working with access to a high-performance
-computing (HPC) facility, they will additionally be able to:</p>
+</ul><p>Similarly, if participants are working with access to a
+high-performance computing (HPC) facility, they will additionally be
+able to:</p>
 <ul><li>Write simple Slurm execution scripts and batch scripts that request
 GPU resources.</li>
 <li>Submit distributed machine learning training workflows to Slurm that
-run in CUDA accelerated Pixi software environments.</li>
+run in CUDA-accelerated Pixi software environments.</li>
 </ul></div>
 <div class="section level1">
 <h1 id="content">Content<a class="anchor" aria-label="anchor" href="#content"></a></h1>
-<p>The content of the course is aimed at a target audience of
-professional researchers who already have experience with scientific
-software development, including file system structures, such as the
-Filesystem Hierarchy Standard of Unix-like systems, version control
-software, such as Git, and programming languages, such as Python or C++,
-and a working understanding of the goals of machine learning. Experience
-with Linux containers and CI/CD systems is strongly beneficial to
-participation in the course, and while not strictly required, should be
-considered as non-optional to gain the most benefit from participation
-in the course. The focus of the course is on applications using CUDA
-enabled Python machine learning libraries, as well as deploying these
-software environments to production settings on HTC and HPC systems.
-This course does not teach machine learning concepts, but will focus on
-the methodologies and tools to make existing machine learning workflows
+<p>The course is aimed at professional researchers who already have
+experience with scientific software development and a working
+understanding of the goals of machine learning. Participants should be
+familiar with file system structures (e.g. the Filesystem Hierarchy
+Standard of Unix-like systems), version control software (e.g. Git), and
+at least one programming language (e.g. Python or C++). Experience with
+Linux containers and CI/CD systems is not strictly required, but is
+strongly recommended to gain the most benefit from participation in the
+course. The focus of the course is on applications using CUDA-enabled
+Python machine learning libraries, as well as deploying these software
+environments to production settings on HTC and HPC systems. This course
+does not teach machine learning concepts, but instead focuses on the
+methodologies and tools to make existing machine learning workflows
 reproducible.</p>
 </div>
 <div class="section level1">
@@ -507,32 +507,33 @@ participants.</p>
 <div class="section level1">
 <h1 id="how-the-project-came-to-be">How the Project Came to Be<a class="anchor" aria-label="anchor" href="#how-the-project-came-to-be"></a></h1>
 <p>This course was motivated by experience and difficulty in creating
-CUDA accelerated software environments for machine learning research
+CUDA-accelerated software environments for machine learning research
 studies in experimental physics. The challenge was to create
 environments that could resolve quickly enough to allow for rapid
 experimentation on local compute resources and then be deployed to
 remote resources, while also being robust to temporal drift of software
-versions and compute platform hardware-level system requirements. This
-multi-year challenge was disrupted in September, 2023 <span class="citation">[@feickert_odsl:2023]</span> with first experiments in
-using Pixi and CUDA enabled PyTorch builds from conda-forge, which led
-to questions of distributed computing applications for real world
-research problems. Further motivation came from conversations with Pixi
-developers Ruben Arts and Wolf Vollprecht at the 2024 SciPy conference
-in July, 2024. The course content was able to be researched, created,
-and taught at multiple workshops through support from an Early-Career
-Fellowship from the US Research Software Sustainability Institute.</p>
+versions and compute platform hardware-level system requirements. Work
+on this multi-year challenge took a new direction in September 2023
+<span class="citation">[@feickert_odsl:2023]</span> with first
+experiments in using Pixi and CUDA-enabled PyTorch builds from
+conda-forge, which led to questions of distributed computing
+applications for real-world research problems. Further motivation came
+from conversations with Pixi developers Ruben Arts and Wolf Vollprecht
+at the 2024 SciPy conference in July 2024. The course content was able
+to be researched, created, and taught at multiple workshops through
+support from an Early-Career Fellowship from the US Research Software
+Sustainability Institute.</p>
 </div>
 <div class="section level1">
 <h1 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a></h1>
 <p>This work was supported by the US Research Software Sustainability
-Institute (URSSI) via grant G-2022-19347 from the Sloan Foundation. This
-work benefitted from resources and services provided by the University
-of Wisconsin–Madison <a href="https://chtc.cs.wisc.edu/" class="external-link">Center for High
-Throughput Computing</a> <span class="citation">[@CHTC]</span>, as well
-as services provided by the <a href="https://osg-htc.org/" class="external-link">OSG
-Consortium</a> <span class="citation">[@osg07; @osg09; @OSPool;
-@OSDF]</span>, which is supported by the National Science Foundation
-awards #2030508 and #2323298.</p>
+Institute (URSSI) via grant G-2022-19347 from the Alfred P. Sloan
+Foundation. This work benefited from resources and services provided by
+the University of Wisconsin–Madison <a href="https://chtc.cs.wisc.edu/" class="external-link">Center for High Throughput
+Computing</a> <span class="citation">[@CHTC]</span>, as well as services
+provided by the <a href="https://osg-htc.org/" class="external-link">OSG Consortium</a> <span class="citation">[@osg07; @osg09; @OSPool; @OSDF]</span>, which is
+supported by the National Science Foundation awards #2030508 and
+#2323298.</p>
 </div>
 <div class="section level1">
 <h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h1>
@@ -599,7 +600,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/paper.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/paper.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2026-10-27",
+  "dateModified": "2026-11-10",
   "datePublished": "2026-11-10"
 }
 
