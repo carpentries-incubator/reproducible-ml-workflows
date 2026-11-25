@@ -51,7 +51,7 @@ and the same Pixi workspace
 [workspace]
 channels = ["conda-forge"]
 name = "slurm"
-platforms = ["linux-64", "osx-arm64", "win-64", { name = "linux-64-cuda", platform = "linux-64", cuda = "12" }]
+platforms = ["linux-64", "osx-arm64", "win-64", { name = "linux-64-cuda", subdir = "linux-64", cuda = "12" }]
 version = "0.1.0"
 
 [tasks]
