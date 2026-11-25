@@ -80,7 +80,7 @@ Example:
 
 ```toml
 [workspace]
-platforms = [{ name = "linux-64-cuda", platform = "linux-64", cuda = "12" }]  # Replace "12" with the specific CUDA version you intend to use
+platforms = [{ name = "linux-64-cuda", subdir = "linux-64", cuda = "12" }]  # Replace "12" with the specific CUDA version you intend to use
 ```
 
 This ensures that packages depending on `__cuda >= {version}` are resolved correctly for the `linux-64-cuda` platform.
@@ -118,7 +118,7 @@ pixi workspace platform remove linux-64
 [workspace]
 channels = ["conda-forge"]
 name = "cuda-example"
-platforms = [{ name = "linux-64-cuda", platform = "linux-64", cuda = "12" }]
+platforms = [{ name = "linux-64-cuda", subdir = "linux-64", cuda = "12" }]
 version = "0.1.0"
 
 [tasks]
@@ -139,7 +139,7 @@ pixi add "cuda-version 12.9.*"
 [workspace]
 channels = ["conda-forge"]
 name = "cuda-example"
-platforms = [{ name = "linux-64-cuda", platform = "linux-64", cuda = "12" }]
+platforms = [{ name = "linux-64-cuda", subdir = "linux-64", cuda = "12" }]
 version = "0.1.0"
 
 [tasks]
@@ -222,7 +222,7 @@ pixi workspace platform add osx-arm64 win-64
 [workspace]
 channels = ["conda-forge"]
 name = "cuda-example"
-platforms = [{ name = "linux-64-cuda", platform = "linux-64", cuda = "12" }, "osx-arm64", "win-64"]
+platforms = [{ name = "linux-64-cuda", subdir = "linux-64", cuda = "12" }, "osx-arm64", "win-64"]
 version = "0.1.0"
 
 [tasks]
@@ -329,7 +329,7 @@ pytorch-gpu  2.14.1   cuda129_mkl_h0d04637_300         54.62 KiB  conda  https:/
 [workspace]
 channels = ["conda-forge"]
 name = "cuda-example"
-platforms = [{ name = "linux-64-cuda", platform = "linux-64", cuda = "12" }, "osx-arm64", "win-64"]
+platforms = [{ name = "linux-64-cuda", subdir = "linux-64", cuda = "12" }, "osx-arm64", "win-64"]
 version = "0.1.0"
 
 [tasks]
@@ -530,7 +530,7 @@ This adds the new platforms to the workspace `platforms` list, and restricts the
 [workspace]
 channels = ["conda-forge"]
 name = "cuda-exercise"
-platforms = ["linux-64", "osx-arm64", "win-64", { name = "linux-64-cuda", platform = "linux-64", cuda = "12" }, { name = "win-64-cuda", platform = "win-64", cuda = "12" }]
+platforms = ["linux-64", "osx-arm64", "win-64", { name = "linux-64-cuda", subdir = "linux-64", cuda = "12" }, { name = "win-64-cuda", subdir = "win-64", cuda = "12" }]
 version = "0.1.0"
 
 [tasks]
@@ -560,7 +560,7 @@ pixi workspace environment add --feature gpu gpu
 [workspace]
 channels = ["conda-forge"]
 name = "cuda-exercise"
-platforms = ["linux-64", "osx-arm64", "win-64", { name = "linux-64-cuda", platform = "linux-64", cuda = "12" }, { name = "win-64-cuda", platform = "win-64", cuda = "12" }]
+platforms = ["linux-64", "osx-arm64", "win-64", { name = "linux-64-cuda", subdir = "linux-64", cuda = "12" }, { name = "win-64-cuda", subdir = "win-64", cuda = "12" }]
 version = "0.1.0"
 
 [tasks]
@@ -593,7 +593,7 @@ Added these only for feature: gpu
 [workspace]
 channels = ["conda-forge"]
 name = "cuda-exercise"
-platforms = ["linux-64", "osx-arm64", "win-64", { name = "linux-64-cuda", platform = "linux-64", cuda = "12" }, { name = "win-64-cuda", platform = "win-64", cuda = "12" }]
+platforms = ["linux-64", "osx-arm64", "win-64", { name = "linux-64-cuda", subdir = "linux-64", cuda = "12" }, { name = "win-64-cuda", subdir = "win-64", cuda = "12" }]
 version = "0.1.0"
 
 [tasks]
