@@ -362,7 +362,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Using Pixi environments on HPC systems</h1>
-        <p>Last updated on 2026-10-27 |
+        <p>Last updated on 2026-11-25 |
 
         <a href="https://github.com/carpentries-incubator/reproducible-ml-workflows/edit/main/episodes/hpc-systems.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -435,7 +435,7 @@ example. Let’s first create a new project in our Git repository</p>
 <pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="kw">[workspace]</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="dt">channels</span> <span class="op">=</span> <span class="op">[</span><span class="st">"conda-forge"</span><span class="op">]</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"slurm"</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">,</span> <span class="op">{ </span><span class="dt">name</span><span class="op"> =</span> <span class="st">"linux-64-cuda"</span><span class="op">, </span><span class="dt">platform</span><span class="op"> =</span> <span class="st">"linux-64"</span><span class="op">, </span><span class="dt">cuda</span><span class="op"> =</span> <span class="st">"12"</span><span class="op"> }]</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a><span class="dt">platforms</span> <span class="op">=</span> <span class="op">[</span><span class="st">"linux-64"</span><span class="op">,</span> <span class="st">"osx-arm64"</span><span class="op">,</span> <span class="st">"win-64"</span><span class="op">,</span> <span class="op">{ </span><span class="dt">name</span><span class="op"> =</span> <span class="st">"linux-64-cuda"</span><span class="op">, </span><span class="dt">subdir</span><span class="op"> =</span> <span class="st">"linux-64"</span><span class="op">, </span><span class="dt">cuda</span><span class="op"> =</span> <span class="st">"12"</span><span class="op"> }]</span></span>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a></span>
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a><span class="kw">[tasks]</span></span>
@@ -600,7 +600,7 @@ system.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p><strong><code>partition</code></strong></p>
 <p>Using <a href="https://slurm.schedmd.com/sinfo.html" class="external-link"><code>sinfo -o "%R"</code></a>
@@ -766,7 +766,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/reproducible-ml-workflows/hpc-systems.html",
   "identifier": "https://carpentries-incubator.github.io/reproducible-ml-workflows/hpc-systems.html",
   "dateCreated": "2025-03-16",
-  "dateModified": "2026-10-27",
+  "dateModified": "2026-11-25",
   "datePublished": "2026-11-25"
 }
 
